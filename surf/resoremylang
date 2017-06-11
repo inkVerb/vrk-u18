@@ -1,0 +1,68 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This restores home folders to the originally installed language
+
+# How to use:
+## resoremylang
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Nothing to do. Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Include the configs
+~/.vrk/configs/lang/stationuser-dirs_INITIAL
+~/.vrk/configs/stationinfo
+~/.vrk/configs/lang/stationuser-dirs_EN
+
+# Rename the folders
+if [ -d ~/${VRK_DESKTOP_DIR} ]; then
+	mv ~/${VRK_DESKTOP_DIR} ~/${XDG_DESKTOP_DIR}
+fi
+if [ -d ~/${VRK_DOWNLOAD_DIR} ]; then
+	mv ~/${VRK_DOWNLOAD_DIR} ~/${XDG_DOWNLOAD_DIR}
+fi
+if [ -d ~/${VRK_TEMPLATES_DIR} ]; then
+	mv ~/${VRK_TEMPLATES_DIR} ~/${XDG_TEMPLATES_DIR}
+fi
+if [ -d ~/${VRK_PUBLICSHARE_DIR} ]; then
+	mv ~/${VRK_PUBLICSHARE_DIR} ~/${XDG_PUBLICSHARE_DIR}
+fi
+if [ -d ~/${VRK_DOCUMENTS_DIR} ]; then
+	mv ~/${VRK_DOCUMENTS_DIR} ~/${XDG_DOCUMENTS_DIR}
+fi
+if [ -d ~/${VRK_MUSIC_DIR} ]; then
+	mv ~/${VRK_MUSIC_DIR} ~/${XDG_MUSIC_DIR}
+fi
+if [ -d ~/${VRK_PICTURES_DIR} ]; then
+	mv ~/${VRK_PICTURES_DIR} ~/${XDG_PICTURES_DIR}
+fi
+if [ -d ~/${VRK_VIDEOS_DIR} ]; then
+	mv ~/${VRK_VIDEOS_DIR} ~/${XDG_VIDEOS_DIR}
+fi
+
+# Restore the system language folder config file
+cp ~/.config/user-dirs.dirs.ink-bak ~/.config/user-dirs.dirs
+rm ~/.config/user-dirs.dirs.ink-bak
+
+# Update the site config
+echo "
+#!/bin/sh
+# inkVerb Station-wide config file, verb.ink
+## This is created by setupvrk for the current folder language
+" >  ~/.vrk/configs/lang/stationuser-dirs_CURRENT
+cat ~/.config/user-dirs.dirs >> ~/.vrk/configs/lang/stationuser-dirs_CURRENT
+sed -i "s/\$HOME\///g" ~/.vrk/configs/lang/stationuser-dirs_CURRENT
+
+# Finish
+echo "
+\"${VRK_WORK_DIR}\"/myLang may still contain broken links to the old home folders, but is retained for your records.
+
+Your original Ubuntu install language  has been restored to your home folders. But, things will act up if you don't re-login now.
+
+Highly recommended: Log out and log back in again!
+"

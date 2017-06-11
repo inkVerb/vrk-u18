@@ -1,0 +1,31 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This sets VLC to be the default player for many normal audio files when accessed to directly play individually
+## This is the default setting from set-vrk-desktop, used to restore defaults if set-audio-rhythmbox was used
+
+# How to use:
+## set-audio-vlc
+
+
+# Check to make sure this not run as sudo or root
+if [ "$(id -u)" = "0" ]; then
+echo "Dude. Don't change this folder as root. None of that sudo stuff here."; exit 22
+fi
+
+# Check if Vrk installed on machine
+if [ ! -d /var/local/vrk ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Check if Vrk installed to user
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Do it
+cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/mimeapps.list
+
+# Finish
+echo "Done. VLC will open most desktop audio files when clicked on, as originally."
+

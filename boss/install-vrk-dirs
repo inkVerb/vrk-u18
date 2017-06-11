@@ -1,0 +1,167 @@
+#!/bin/sh
+#inkVerbMaker! verb.ink
+set -e
+
+# This installs Vrk™ directory structure for a user (Work, myWall)
+## This needs some root permissions
+## This is not necessaary to run on a Verber/Inker server
+## Prerequesite: vrk installed for the user
+
+# How to use on your local computer:
+## sudo ./install-vrk-dirs
+
+# How to use on your local computer for another, non-sudo user:
+## sudo ./install-vrk-dirs [user - if not current sudoer]
+
+
+# Set user
+if [ -z $1 ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./setupvrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./setupvrk
+"
+exit 0
+fi
+
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check if user exists
+if [ ! -e /home/${VRK_USER} ]; then
+echo "User does not exist! Try again."
+exit 22
+fi
+## User settings, has logged in and has necessary folders
+if [ ! -e /home/${VRK_USER}/.config/user-dirs.dirs ]; then
+echo "User has not logged in yet or lacks vital configs! Log in with the user one time, then try again."
+exit 22
+fi
+if [ ! -e /home/${VRK_USER}/"${XDG_DOCUMENTS_DIR}" ]; then
+echo "User does not have the ${XDG_DOCUMENTS_DIR} folder! Create that folder, then try again."
+exit 22
+fi
+if [ ! -e /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" ]; then
+echo "User does not have the ${XDG_TEMPLATES_DIR} folder! Create that folder, then try again."
+exit 22
+fi
+
+# Check if Vrk Staion is installed for this user
+if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+ if [ "${VRK_DIRS_SET}" = "YES" ]; then
+echo "Vrk folders already installed for this user.
+
+If you would like to continue to refresh the Vrk Station folder configuration, or change your cloud or Work folder, type \"yes\" and <Enter>...
+"
+read CONTINUEYES
+  if [ ${CONTINUEYES} != "yes" ]; then
+echo "Bye.
+"
+exit 0
+  else
+## Run a refresh script here
+###Currently no script to run
+
+# Include the config
+. /var/local/vrk/machineinfo
+
+# Work folder
+echo "
+What \"Work folder\" name do you want your working stuff in?
+
+This is a folder where you can put extra stuff you use all the time and want synced.
+
+On all your devices, it can be the same name or different.
+It can already exist on one or many devices. If it doesn't exist, it will be created.
+Your Work folder will be synced in your main cloud folder, which you will choose next.
+If you want it synced on all your devices, give it the same name on all devices that you have the same cloud choice.
+
+You can always change its name on this device by running this again.
+
+You may want to distinguish or sync your different machines by making this Work folder different or the same on each machine, your preference.
+
+Work folder - Exact name of Work folder, case-sensitive. Type, then press <Enter>. Leave empty to call it \"Work\":"
+read WORK_FOLDER_NAME
+## If not entered
+if [ -z ${WORK_FOLDER_NAME} ]; then
+echo "Your Work folder will automatically be called \"Work\" unless you choose a name. You may try one more time. Leave empty to call it \"Work\":"
+read WORK_FOLDER_NAME
+fi
+if [ -z ${WORK_FOLDER_NAME} ]; then
+WORK_FOLDER_NAME="Work"
+fi
+## Remove any pre-existing link (it creates an impossible cp and mv loop that breaks this installer)
+if [ -L /home/${VRK_USER}/"${WORK_FOLDER_NAME}" ]; then
+	rm -f /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
+fi
+## Make the Work folder
+if [ ! -e /home/${VRK_USER}/"${WORK_FOLDER_NAME}" ]; then
+mkdir /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
+fi
+
+# myWall Custom Wallpapers
+## NOTE: Create configs for all desktop environments so that they sync via Vrk Cloud even if desktops envs are different on different machins
+## myWall folder
+if [ ! -e /home/${VRK_USER}/.vrk/myWall ]; then
+mkdir /home/${VRK_USER}/.vrk/myWall
+fi
+### Xfce
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ]; then
+touch /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml
+fi
+### GNOME/MATE/Budgie
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/my-wall.xml ]; then
+echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE wallpapers SYSTEM \"gnome-wp-list.dtd\">
+<wallpapers>
+</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/my-wall.xml
+fi
+### Cinnamon
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml ]; then
+echo "<?xml version=\"1.0\"?>
+<!DOCTYPE wallpapers SYSTEM \"cinnamon-wp-list.dtd\">
+<wallpapers>
+</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml
+fi
+
+# Work folder name in config
+sudo -u ${VRK_USER} sed -i "s/VRK_WORK_DIR=.*/VRK_WORK_DIR=\"${WORK_FOLDER_NAME}\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+
+## Own
+chown -R ${VRK_USER} /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
+
+
+# Set config
+sudo -u ${VRK_USER} sed -i "s/VRK_DIRS_SET=.*/VRK_DIRS_SET=\"YES\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+
+# Own everything
+chown -R ${VRK_USER} /home/${VRK_USER}
+
+# Finish
+echo "Work folder is set to \"${WORK_FOLDER_NAME}\".
+myWall is setup.
+"
+
+

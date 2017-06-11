@@ -1,0 +1,76 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This creates a new GitHub repo locally
+
+# How to use:
+## vgitrepo [username - option] [repo - optional]
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/vgitinstdone ]; then
+echo "Run vgitinst first."
+exit 22
+fi
+
+# Username
+if [ -z "$1" ]; then
+ echo "Enter the GitHub repo's username:
+"
+ read GITRUNAME
+
+## Check if entered
+ if [ -z "${GITRUNAME}" ]; then
+ echo "You must enter the GitHub repo's username. It doesn't exist on GitHub already, but it can locally in ~/git/, or not. That's kinda' the idea...
+Enter the GitHub repo's username:
+"
+ read GITRUNAME
+ fi
+ if [ -z "${GITRUNAME}" ]; then
+ echo "You didn't enter a GitHub repo's username. No changes made. I quit."
+ exit 22
+ fi
+else
+GITRUNAME=$1
+fi
+
+# Repo name
+if [ -z "$2" ]; then
+ echo "Enter the GitHub repo:
+"
+ read GITREPONAME
+
+## Check if entered
+ if [ -z "${GITREPONAME}" ]; then
+ echo "You must enter the GitHub repo. It doesn't exist on GitHub already, but it can locally in ~/git/${GITRUNAME}/, or not. That's kinda' the idea...
+Enter your GitHub email address:
+"
+ read GITREPONAME
+ fi
+ if [ -z "${GITREPONAME}" ]; then
+ echo "You didn't enter a GitHub repo. No changes made. I quit."
+ exit 22
+ fi
+else
+GITREPONAME=$2
+fi
+
+# Do it
+## If not done already
+if [ ! -e "~/git/${GITRUNAME}/${GITREPONAME}" ]
+mkdir -p ~/git/${GITRUNAME}/${GITREPONAME}
+cd ~/git/${GITRUNAME}/${GITREPONAME}
+echo "# ${GITREPONAME}" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+fi
+## Push it
+git remote add origin https://github.com/${GITRUNAME}/${GITREPONAME}.git
+git push -u origin master
+
+# Finish
+echo "GitHub repo is set up ${GITRUNAME}/${GITREPONAME} your ~/git/ folder.
+"
+

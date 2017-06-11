@@ -1,0 +1,30 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This sets Rhythmbox to be the default player for all audio (VLC is the default for many normal audio files when accessed to directly play individually)
+
+# How to use:
+## set-audio-rhythmbox
+
+
+# Check to make sure this not run as sudo or root
+if [ "$(id -u)" = "0" ]; then
+echo "Dude. Don't change this folder as root. None of that sudo stuff here."; exit 22
+fi
+
+# Check if Vrk installed on machine
+if [ ! -d /var/local/vrk ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Check if Vrk installed to user
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Do it
+cp ~/.vrk/donjon/global/config/rhythmbox-mimeapps.list ~/.config/mimeapps.list
+
+# Finish
+echo "Done. Rhythmbox is the default for most audio files clicked."
+

@@ -1,0 +1,47 @@
+#!/bin/bash
+#inkVerbSurfer! verb.ink
+set -e
+
+# This runs sed with simple mass find-replace
+
+# How to use:
+## sedbot [ "find this" ] [ "replace with this" ] [ path/to/file - omit for all]
+
+# Eg:
+## sedbot foo bar
+## sedbot "I like apples." "How about these?" /home/elvis/is/alive/bunker.sec
+
+
+FIND=$1
+REPL=$2
+LOCN=$3
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check variables
+if [ -z $2 ]; then
+echo "You need to specify stuff, like this:
+sedbot [ \"find this\" ] [ \"replace with this\" ] [ path/to/file ]
+"
+exit 22
+fi
+
+# If destination is unspecified, sed-replace every file in current working directory
+if [ -z $3 ]; then
+## Can't use * variable the same in BASH, must do a for EACH loop
+ for FILETOSED in ${PWD}/*; do
+ sed -i "s/${FIND}/${REPL}/g" ${FILETOSED}
+ done
+## Finish
+echo "${FIND} --> ${REPL} @ everything in this location: finished la."
+# If destination is specified
+else
+sed -i "s/${FIND}/${REPL}/g" ${LOCN}
+## Finish
+echo "${FIND} --> ${REPL} @ ${LOCN}: finished la."
+fi
+

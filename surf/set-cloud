@@ -1,0 +1,176 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+set -e
+
+# This sets a new cloud backup folder to be used by Vrk
+
+# NOTE: This may be depreciated. It has problems working with wallpaper integration and is redundant from install-vubuntu-vrkstation.
+
+# How to use:
+## set-cloud [new cloud]
+
+
+VRK_USER=${USER}
+
+# Check to make sure this not run as sudo or root
+if [ "$(id -u)" = "0" ]; then
+echo "Do not run as root or sudo."; exit 22
+fi
+
+# Check if Vrk installed on machine
+if [ ! -d /var/local/vrk ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Check if Vrk installed to user
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Check if Vubuntu Desktop installed on the machine
+if [ ! -f /var/local/vrk/.vubuntu-desktop-installed ]; then
+echo "Vubuntu Desktop hasn't been installed by any user on this machine.
+A Superuser needs to run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+CLOUD_CHOICE=$1
+
+# Check variables
+if [ -z $1 ]; then
+echo "You need to specify the new Cloud folder with one-word, case-sensitive, such as this:
+set-cloud Dropbox
+set-cloud Nextcloud
+set-cloud Pydio
+"
+exit 22
+fi
+if [ -n $2 ]; then
+echo "You need to specify the new Cloud folder with one-word, case-sensitive, such as this:
+set-cloud Dropbox
+set-cloud Nextcloud
+set-cloud Pydio
+"
+exit 22
+fi
+
+# Include the configs
+. ~/.vrk/configs/stationinfo
+. ~/.vrk/configs/lang/stationuser-dirs_EN
+
+# Just check
+if [ -z ${VRK_CLOUD_DIR} ]; then
+echo "Vrk may have been installed, but is broken. Backup your stuff and re-install it."
+exit 22
+fi
+
+# Create Vrk and cloud folders if they don't exist
+## If cloud was set at install
+if [ "${VRK_CLOUD_DIR}" = "NOT_SET_AT_INST" ]; then
+echo "You never set a cloud before. Setting up a temporary cloud that will disappear when finished..."
+VRK_CLOUD_DIR="vCloud_TEMpFoLdR"
+### Misfit check
+ if [ -d ~/"${VRK_CLOUD_DIR}" ]; then
+echo "Nice. You created my temp folder already. Delete or rename ${VRK_CLOUD_DIR}, then run this again."
+exit 22
+ fi
+else
+## If old cloud seems to be deleted
+ if [ ! -d ~/"${VRK_CLOUD_DIR}" ]; then
+echo "The old cloud, ${VRK_CLOUD_DIR}, doesn't exist. Dunno if that's a prob. For now, making empty folders..."
+	mkdir ~/"${VRK_CLOUD_DIR}"
+ fi
+fi
+## Vrk
+if [ ! -d ~/"${VRK_CLOUD_DIR}"/Vrk ]; then
+echo "Making empty cloud folder Vrk..."
+	mkdir ~/"${VRK_CLOUD_DIR}"/Vrk
+fi
+## Work folder
+if [ ! -d ~/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_WORK_DIR}" ]; then
+echo "Making empty cloud folder ${VRK_WORK_DIR}..."
+	mkdir ~/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_WORK_DIR}"
+else
+ if [ -d ~/"${VRK_WORK_DIR}" ]; then
+echo "Moving old contents of ${VRK_WORK_DIR} to the new cloud..."
+	cp -R ~/"${VRK_WORK_DIR}" ~/"${VRK_CLOUD_DIR}"/Vrk/
+	rm -R ~/"${VRK_WORK_DIR}"
+ fi
+fi
+
+## myWall
+if [ -d /home/${VRK_USER}/.vrk/myWall ]; then
+ if [ ! -d ~/"${VRK_CLOUD_DIR}"/Vrk/myWall-${VRK_USER} ]; then
+	mv /home/${VRK_USER}/.vrk/myWall ~/"${VRK_CLOUD_DIR}"/Vrk/myWall-${VRK_USER}
+ fi
+else
+ if [ ! -d ~/"${VRK_CLOUD_DIR}"/Vrk/myWall-${VRK_USER} ]; then
+	mkdir ~/"${VRK_CLOUD_DIR}"/Vrk/myWall-${VRK_USER}
+ fi
+fi
+
+## Documents
+if [ ! -d ~/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_DOCUMENTS_DIR}" ]; then
+echo "Making empty cloud folder ${VRK_DOCUMENTS_DIR}..."
+	mkdir ~/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_DOCUMENTS_DIR}"
+else
+ if [ -d ~/"${VRK_DOCUMENTS_DIR}" ]; then
+echo "Moving old contents of ${VRK_DOCUMENTS_DIR} to the new cloud..."
+	cp -R ~/"${VRK_DOCUMENTS_DIR}" ~/"${VRK_CLOUD_DIR}"/Vrk/
+	rm -rf ~/"${VRK_DOCUMENTS_DIR}"
+ fi
+fi
+## Templates
+if [ ! -d ~/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_TEMPLATES_DIR}" ]; then
+echo "Making empty cloud folder ${VRK_TEMPLATES_DIR}..."
+	mkdir ~/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_TEMPLATES_DIR}"
+else
+ if [ -d ~/"${VRK_TEMPLATES_DIR}" ]; then
+echo "Moving old contents of ${VRK_TEMPLATES_DIR} to the new cloud..."
+	cp -R ~/"${VRK_TEMPLATES_DIR}" ~/"${VRK_CLOUD_DIR}"/Vrk/
+	rm -rf ~/"${VRK_TEMPLATES_DIR}"
+ fi
+fi
+## If new cloud doesn't exist
+if [ ! -d ~/"${CLOUD_CHOICE}" ]; then
+echo "${CLOUD_CHOICE} doesn't exist. No problem, creating it..."
+	mkdir ~/"${CLOUD_CHOICE}"
+else
+echo "${CLOUD_CHOICE} already exists, integrating it..."
+fi
+
+# Now, move it!
+mv ~/"${VRK_CLOUD_DIR}"/Vrk ~/"${CLOUD_CHOICE}"/
+
+# Set the links from the cloud
+ln -sfn ~/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}" ~/
+ln -sfn ~/"${CLOUD_CHOICE}"/Vrk/"${VRK_DOCUMENTS_DIR}" ~/
+ln -sfn ~/"${CLOUD_CHOICE}"/Vrk/"${VRK_WORK_DIR}" ~/
+ln -sfn ~/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER} ~/
+
+# Xfce
+if [ "${UBUNT_DISTRO}" = "Xfwm4" ]; then
+ if [ ! -f /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ]; then
+touch /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml
+ fi
+fi
+if [ "${UBUNT_DISTRO}" = "Xfwm4" ]; then
+ if [ -d ~/.config/xfce4 ]; then
+  if [ ! -d ~/.config/xfce4/mcs_settings ]; then
+mkdir ~/.config/xfce4/mcs_settings
+  fi
+ln -sfn /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
+ fi
+fi
+
+# Change station settings
+sed -i "s/VRK_CLOUD_DIR.*/VRK_CLOUD_DIR=${CLOUD_CHOICE}/g" ~/.vrk/configs/stationinfo
+
+# Finish
+echo "
+Righteous!
+
+Your new cloud for ${VRK_WORK_DIR}, ${VRK_DOCUMENTS_DIR}, and ${VRK_TEMPLATES_DIR} backup is ${CLOUD_CHOICE}.
+
+Whatever you had before is there now, in the Vrk folder.
+"
+

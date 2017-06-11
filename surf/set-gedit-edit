@@ -1,0 +1,40 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This changes the default text editor defaults from Kate to Gedit.
+
+# How to use:
+## set-gedit-edit
+
+
+# Check to make sure this not run as sudo or root
+if [ "$(id -u)" = "0" ]; then
+echo "Do not run as root or sudo."; exit 22
+fi
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Nothing to do. Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check if Vubuntu Desktop installed on the machine
+if [ ! -f /var/local/vrk/.vubuntu-desktop-installed ]; then
+echo "Vubuntu Desktop hasn't been installed by any user on this machine.
+A Superuser/Sudoer needs to run install-vubuntu-desktop for this machine. See READ.ME"; exit 22
+fi
+
+# Run the sed replacements
+## Most distros
+if [ -f ~/.config/mimeapps.list ]; then
+sed -i "s/org\.kde\.kate\.desktop/org\.gnome\.gedit\.desktop/g" ~/.config/mimeapps.list
+fi
+## KDE
+if [ -f ~/.local/share/applications/defaults.list ]; then
+sed -i "s/org\.kde\.kate\.desktop/org\.gnome\.gedit\.desktop/g" ~/.local/share/applications/defaults.list
+fi
+
+# Finish
+echo "Done."
+

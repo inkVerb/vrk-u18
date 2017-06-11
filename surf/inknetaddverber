@@ -1,0 +1,52 @@
+#!/bin/sh
+# inkVerb Surfer, verb.ink
+set -e
+
+# This adds a Verber Client for this inkNet CA Verber to host
+## This can be run to update an existing Verber's IP
+
+# How to use:
+## inknetaddverber [Verber URI] [Verber inkNet machine name] [Verber IP]
+
+# Eg:
+## inknetaddverber john john ink 999.999.99.999 (for john namespace)
+## inknetaddverber john john email 999.999.99.999 (for john namespace, if he has a separate server for the NAME.verb.email address)
+## inknetaddverber john2 john ink 999.999.99.999 (for john namespace, if he has a separate server for the NAME.verb.email address, and if john2 is the special chosen hostname)
+## inknetaddverber ink2 ink.inkisaverb.com ink2_ink_inkisaverb_com 999.999.99.999 (for Domain Verber mod, and if ink2 is the special chosen hostname)
+
+ADDVERBERHOST="$1"
+ADDVERBERURI="$2.verb.$3"
+ADDVERBERNAME="$1_$2_verb_$3"
+ADDIP="$4"
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check variables
+if [ -z $4 ]; then
+echo "You need to specify stuff, like this:
+inknetaddverber [verber host - usually same as namespace] [verber namespace] [verber tld] [verber ip]
+"
+exit 22
+fi
+
+# Set the config profile
+echo "#!/bin/sh
+# inkNet config, verb.ink
+## This contains information about a Verber Client's credentials used in signing SSH keys for inkNet on this CA Verber
+
+VERBERHOST=\"${ADDVERBERHOST}\"
+VERBERURI=\"${ADDVERBERURI}\"
+VERBERNAME=\"${ADDVERBERNAME}\"
+VERBERIP=\"${ADDIP}\"
+" ~/.vrk/configs/inknet/verbers/verber.${ADDVERBERNAME}.cnf
+
+# Finish
+echo "
+All set. You just added the Verber ${ADDVERBERHOST}.${ADDVERBERURI}.
+(Seeing \"${ADDVERBERHOST}\" twice at the front of the Verber hostname is normal here.)
+"
+

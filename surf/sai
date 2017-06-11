@@ -1,0 +1,45 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+
+# This adds an existing surfer's profile to Guake Indicator as a root menu item
+
+# How to use:
+## ./sai
+
+
+# Tell all
+echo "How to install Paint Tool SAI on Linux:
+
+In playonlinux, look for \"Tools > Manage Wine versions\" in one of the menus or configuration options.
+
+On the x86 versions tab, look down the long list for 1.5.5-SAI and click the right arrow to install it.
+
+Then steps 6-11 will become more relevant...
+
+1) install wine or playonlinux from the ubuntu software center (i guess youve done this already)
+
+2) download and run the sai installer with wine. i don't think the sai 2 beta works, only the current stable 1.2 version. the default install settings and location of [wine c drive]/PaintToolSAI are fine (leave create desktop and start menu shortcuts checked, i dont know how to create shortcuts after installing).
+
+3) run the \"configure wine\" program from the ubuntu dash or wherever
+
+4) on the applications tab, click add application at the bottom. go to where you installed sai and select the sai.exe file
+
+5) make sure sai.exe is selected (not Default Settings) and change the windows version to windows 98. click ok.
+
+6) in ubuntu, navigate to the PaintToolSAI folder where you installed sai (you can get to your wine C drive by searching \"c drive\" in the ubuntu dash) and open the misc.ini file in gedit or another text editor
+
+7) find the TabletMouseSimulation = 0 line and change it to TabletMouseSimulation = 1
+
+8) find the AvoidOldWacomBug = 0 line and change to AvoidOldWacomBug = 1
+
+9) find the TitleBarMode = 1 line and change to TitleBarMode = 0
+
+10) save the file
+
+11) run sai from the desktop or dash shortcuts that the sai installer created and check that everything works.
+
+
+Thanks Redditors!
+https://www.reddit.com/r/linux4noobs/comments/3vqjjj/any_way_to_get_sai_paint_tool_to_run_in_ubuntu/
+"
+

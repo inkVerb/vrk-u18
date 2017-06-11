@@ -1,0 +1,263 @@
+#!/bin/sh
+#inkVerbMaker! verb.ink
+set -e
+
+# This installs the Vrk™ Cloud folder system for a user
+## This needs some root permissions
+## This is not necessaary to run on a Verber/Inker server
+## Prerequesite: put vrk in the base of your home folder
+
+# How to use on your local computer:
+## sudo ./install-vrk-cloud
+
+# How to use on your local computer for another, non-sudo user:
+## sudo ./install-vrk-cloud [user - if not current sudoer]
+
+# NOTE: If you run this for yourself without a [user] declaration, then your .vrk folder will have a "boss" folder link.
+
+
+# Set user
+if [ -z $1 ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./setupvrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./setupvrk
+"
+exit 0
+fi
+
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check if user exists
+if [ ! -e /home/${VRK_USER} ]; then
+echo "User does not exist! Try again."
+exit 22
+fi
+## User settings, has logged in and has necessary folders
+if [ ! -e /home/${VRK_USER}/.config/user-dirs.dirs ]; then
+echo "User has not logged in yet or lacks vital configs! Log in with the user one time, then try again."
+exit 22
+fi
+if [ ! -e /home/${VRK_USER}/"${XDG_DOCUMENTS_DIR}" ]; then
+echo "User does not have the ${XDG_DOCUMENTS_DIR} folder! Create that folder, then try again."
+exit 22
+fi
+if [ ! -e /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" ]; then
+echo "User does not have the ${XDG_TEMPLATES_DIR} folder! Create that folder, then try again."
+exit 22
+fi
+
+# Check if Vrk Staion is installed for this user
+if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+ if [ "${VRK_INSTALLED}" != "YES" ]; then
+echo "Vrk is not installed for this user. Do that first. Bye."
+exit 22
+ else
+ fi
+else
+echo "Vrk is not installed for this user. Do that first. Bye."
+exit 22
+fi
+
+# Check if cloud folders installed for this user
+if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+ if [ "${VRK_CLOUD_DIR}" != "NOT_YET" ]; then
+echo "Vrk cloud folders already installed for this user.
+
+If you would like to continue to refresh the Vrk Station folder configuration, or change your cloud or Work folder, type \"yes\" and <Enter>...
+"
+read CONTINUEYES
+  if [ ${CONTINUEYES} != "yes" ]; then
+echo "Bye.
+"
+exit 0
+  else
+## Remove any previously-installed links (you don't want link loops)
+. /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_EN
+   if [ -L /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ]; then
+	rm -f /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
+   fi
+   if [ -L /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ]; then
+	rm -f /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
+   fi
+   if [ -L /home/${VRK_USER}/"${VRK_WORK_DIR}" ]; then
+	rm -f /home/${VRK_USER}/"${VRK_WORK_DIR}"
+   fi
+  fi
+ fi
+fi
+
+# Include the configs
+. /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
+. /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_EN
+. /var/local/vrk/machineinfo
+
+# Setup the cloud
+echo "
+Your choice of cloud: Nextcloud, Dropbox, or some other thing in the strato-orbit-box-osphere...
+
+Read carefully...
+
+This will sync: ${VRK_TEMPLATES_DIR}, ${VRK_DOCUMENTS_DIR}, & ${WORK_FOLDER_NAME} to YOUR-CLOUD/Vrk/
+These folders will then be the same across all Vrk Station devices with the same primary cloud choice.
+You can use many clouds services on this machine of course, but this will choose the \"primary\" cloud to sync these folders.
+If this cloud folder doesn't already exist, it will be created. You can copy contents of an old copy of your cloud folder later,
+BUT DO NOT DELETE THE \"Vrk\" FOLDER IN YOUR CLOUD!! ${VRK_TEMPLATES_DIR}, ${VRK_DOCUMENTS_DIR}, & ${WORK_FOLDER_NAME} actually reside in this cloud folder. Those folders in your home folder will be links to this cloud.
+
+You can always change or set this later by running this again.
+Enter nothing to not choose your main cloud now.
+
+Cloud folder - Exact name of cloud folder, case-sensitive. Type, then press <Enter>: (Leave empty to skip cloud integration for now.)"
+read CLOUD_CHOICE
+
+## Check if the cloud folder exists
+if [ ! -e "/home/${VRK_USER}/${CLOUD_CHOICE}" ]; then
+echo "That cloud service does not seem to be installed. It is often best to install and sync that folder on this machine first, if you want to avoid duplicates, over-writes, and conflicts.
+
+If you want to continue anyway, no big deal, just type \"yes\" and <Enter>...
+"
+read CONTINUEYES
+ if [ ${CONTINUEYES} != "yes" ]; then
+echo "Bye.
+"
+exit 0
+ fi
+fi
+
+## Check if cloud entered
+if [ -n ${CLOUD_CHOICE} ]; then
+sudo -u ${VRK_USER} sed -i "s/VRK_CLOUD_DIR=.*/VRK_CLOUD_DIR=\"${CLOUD_CHOICE}\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+## Remove any pre-existing links (they create an impossible cp and mv loop that breaks this installer)
+if [ -L /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ]; then
+	rm -f /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
+fi
+if [ -L /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ]; then
+	rm -f /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
+fi
+######## NOTE: The Work folder got this same check after it was declared above
+## Create Vrk and cloud folders if they don't exist, merge if they do, remove old Documents/Work/Templates links if they exist
+ if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}" ]; then
+	mkdir /home/${VRK_USER}/"${CLOUD_CHOICE}"
+ fi
+ if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk ]; then
+	mkdir /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk
+ fi
+### Templates
+ if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}" ]; then
+  if [ -d /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ]; then
+	mv /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
+  fi
+ else
+  if [ -d /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ]; then
+#### NOTE: Once Vrk Templates are in a Vrk Cloud folder, they replace all local Templates, even from Vrk.
+####       If a user wants to update to current Vrk Templates, run update-vrk-templates [ user ]
+	rm -rf /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
+  fi
+ fi
+### Documents
+ if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/${VRK_DOCUMENTS_DIR} ]; then
+  if [ -d /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ]; then
+	mv /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
+  fi
+ else
+  if [ -d /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ]; then
+	cp -R /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
+	rm -rf /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
+  fi
+ fi
+### Work folder
+ if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${WORK_FOLDER_NAME}" ]; then
+  if [ -d /home/${VRK_USER}/"${WORK_FOLDER_NAME}" ]; then
+	mv /home/${VRK_USER}/"${WORK_FOLDER_NAME}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
+  fi
+ else
+  if [ -d /home/${VRK_USER}/"${WORK_FOLDER_NAME}" ]; then
+	cp -R /home/${VRK_USER}/"${WORK_FOLDER_NAME}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
+	rm -rf /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
+  fi
+ fi
+### myWall
+ if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER} ]; then
+  if [ -d /home/${VRK_USER}/.vrk/myWall ]; then
+	mv /home/${VRK_USER}/.vrk/myWall /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER}
+  fi
+ else
+  if [ -d /home/${VRK_USER}/.vrk/myWall ]; then
+	cp -R /home/${VRK_USER}/.vrk/myWall/* /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER}
+	rm -rf /home/${VRK_USER}/.vrk/myWall
+  fi
+ fi
+### myLanguage
+ if [ -d /home/${VRK_USER}/myLang ]; then
+	ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/myLang/"${XDG_TEMPLATES_DIR}"
+	ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/myLang/"${XDG_DOCUMENTS_DIR}"
+ fi
+
+# Own the cloud
+chown -R ${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"
+
+# Set the links from the cloud
+ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/
+ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/
+ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${WORK_FOLDER_NAME}" /home/${VRK_USER}/
+ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER} /home/${VRK_USER}/.vrk/myWall
+### Xfce (Does't like Templates in a linked folder)
+ if [ "${UBUNT_DISTRO}" = "Xfwm4" ]; then
+rm -f /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
+cp -R /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/
+  if [ -d /home/${VRK_USER}/myLang ]; then
+ln -sfn /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/myLang/"${XDG_TEMPLATES_DIR}"
+  fi
+ fi
+
+# End cloud entered interaction
+else
+echo "VRK_CLOUD_DIR=\"NOT_SET\"" >> /home/${VRK_USER}/.vrk/configs/stationinfo
+echo "Cloud not entered. Skipping cloud integration. To install later use: install-vrk-cloud"
+fi
+
+# Own everything
+chown -R ${VRK_USER} /home/${VRK_USER}
+
+# Finish
+if [ -n ${CLOUD_CHOICE} ]; then
+echo "Alright, Sparky! Vrk station is now syncing with ${CLOUD_CHOICE}.
+
+${WORK_FOLDER_NAME}, Documents, Templates, and myWall folders on this Vrk Station (computer) will be backed up to the \"${CLOUD_CHOICE}/Vrk\" folder, whenever ${CLOUD_CHOICE} is installed if it isn't already.
+Anything you put in ${XDG_TEMPLATES_DIR} will be in your \"New Document\" context menu, and synced across all stations.
+"
+## Xfce notice
+ if [ "${UBUNT_DISTRO}" = "Xfwm4" ]; then
+echo "FYI: Because you are using Xfce, your Templates will NOT be synced across machines automatically.
+
+You still have a folder in CLOUD/Vrk/Templates which is synced, but on this machine you must keep CLOUD/Vrk/Templates and Templates synced yourself.
+
+Of course, this is only a small inconvenience, and it is not even a problem if you don't change files in your Templates directory.
+"
+ fi
+fi
+

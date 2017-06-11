@@ -1,0 +1,77 @@
+#!/bin/sh
+# inkVerb Surfer, verb.ink
+set -e
+
+# This adds a CA Verber's public signing key to the known_hosts of this Vrk Client
+## Prerequisite: The inknetaddverber surfer must have already added the Verber referred to here
+
+# Client Config - to have the CA public cert on the Client, so the Client can recognize the known remote host via CA cert
+## With this, theoretically, the CA Verber can change its own host certificate and Clients will still recognize it
+
+# Note:
+## For a Vrk Station, add the both CA Verber and other individual controlled Verbers via inknetaddverber
+
+# How to use:
+## inknetaddcaverberpubkey [ca verber name]
+
+# Eg: (Use this format exactly!)
+## inknetaddcaverberpubkey myvname_verb_ink
+
+
+VERBERNAME=$1
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check variables
+if [ -z $1 ]; then
+echo "You need to specify stuff, like this:
+inknetaddcaverberpubkey myvname_verb_ink
+"
+exit 22
+fi
+
+# Check and include the config
+if [ ! -f ~/.vrk/configs/inknet/verbers/verber.${VERBERNAME}.cnf ]; then
+echo "Out of order. You didn't add that Verber yet.
+
+First, run inknetaddverber
+"
+. ~/.vrk/configs/inknet/verbers/verber.${VERBERNAME}.cnf
+
+# Check if already added
+if [ -f ~/.ssh/inknet_ca_${VERBERNAME}_key.pub ]; then
+echo "This Inker CA key is already installed. To update it, use inknetupdatecaverberkey"
+exit 22
+fi
+
+# Download the CA Server pub key to the Client
+cd ~/.ssh/
+wget -q https://${VERBERURI}/inknet/inknet_ca_${VERBERNAME}_key.pub --no-check-certificate
+
+# Check if done correctly 
+if [ ! -f ~/.ssh/inknet_ca_${CAVERBERNAME}_key.pub ]; then
+echo "This Verber CA key could not be downloaded. Either it has been entered wrong or the Inker is offline.
+Try again with inknetinstall, or try inknetaddverber, then inknetmakevrkclient, then panic."
+exit 22
+fi
+
+# Add the CA Verber key to the Client's global known_hosts
+## Make sure it exists
+~/.ssh/known_hosts
+## Remove any previous keys for this CA (sed delete the line with the pattern)
+sed -i "/@cert-authority \*\.${VERBERURI}.*.${VERBERURI}/d" ~/.ssh/known_hosts
+## Include this new CA key
+echo "@cert-authority *.${VERBERURI} $(cat /etc/ssh/inknet/inknet_ca_${VERBERNAME}_key.pub).${VERBERURI}"  >> ~/.ssh/known_hosts
+#######OR THIS: (add URI to the end, but as of 2017 makes no difference)
+### Remove any previous keys for this CA (sed delete the line with the pattern)
+#sed -i "/@cert-authority \*\.${VERBERURI}.*.${VERBERURI}/d" ~/.ssh/known_hosts
+### Include this new CA key
+#echo "@cert-authority *.${VERBERURI} $(cat /etc/ssh/inknet/inknet_ca_${VERBERNAME}_key.pub)"  >> ~/.ssh/known_hosts
+
+# Finish
+echo "Verber CA key from ${VERBERURI} has been added."
+

@@ -1,0 +1,31 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This shows an SSH key by name
+
+# How to use:
+## show-ssh [keyname - leave blank to get list]
+
+
+KEYNAME=$1
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check variables
+if [ -z $1 ]; then
+echo "You need to specify the key you want to see, such as this:
+show-ssh My_Key_name
+
+Here are availablekeys:"
+cd ~/.ssh
+ls *.pub -1 | sed -e 's/\.pub$//'
+exit 0; fi
+
+# Show the SSH key
+cat ~/.ssh/${KEYNAME}.pub
+

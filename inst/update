@@ -1,0 +1,151 @@
+#!/bin/sh
+# inkVerb updater for Vrk™ Station, verb.ink
+
+# This updates the Vrk™ Station
+## This contains many version updaters to update a Vrk™ Station sequentially, one version at a time.
+## This is run at the path: /var/local/vrk/vrk-update/update
+
+# DEV NOTE: Larger versions must be at the bottom, smaller versions at the top, so "descending"
+
+# Normally this is run automatically by the Boss updatevrk
+## Run this if you have downloaded and copied vrk and put it into the home folder
+## You must run this per user to update Bosses and Surfers
+
+# How to use:
+## cd ~/vrk/inst
+## chmod +x update
+## sudo ./update [user - if not current sudoer]
+
+
+# Set user
+if [ -z $1 ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./setupvrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./setupvrk
+"
+exit 0
+fi
+
+
+## Sample version updater:
+#UPDATE_PATCH_KVERNO=
+#if [ $(echo "$MIN_KVERNO>$KVERNO"|bc) = 1 ]; then
+#
+## Run the update scripts for this patch
+#
+###### SCRIPTS GO HERE #####
+#
+#
+## Set and refresh the current version into inklists
+#sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+#. /var/local/vrk/vrkverno
+#fi
+###############END#UPDATE#PATCH#
+
+
+MIN_KVERNO=0.300
+
+
+# Include the configs
+. /var/local/vrk/vrkverno
+
+
+# Check minimal system-wide updateable version
+if [ $(echo "$MIN_KVERNO>$KVERNO"|bc) = 1 ]; then
+echo "Current Verber™ version is ${KVERNO}, minimum ${MIN_KVERNO} to use this updater.
+Run updateverberlegacy for older versions."
+exit 0
+fi
+
+
+# Vrk user update
+## Check if Vrk Staion is installed for this user
+if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+## Check minimal user updateable version
+ if [ "${VRK_INSTALLED}" = "YES" ]; then
+  if [ $(echo "$UPDATE_PATCH_KVERNO>$USER_KVERNO"|bc) = 1 ]; then
+## Update/refresh Bosses, Surfers, and Donjon
+   if [ $(echo "$UPDATE_PATCH_KVERNO>$KVERNO"|bc) = 1 ]; then
+rm /var/local/vrk/boss/*
+rm /var/local/vrk/surf/*
+rm -r /var/local/vrk/donjon/vrktemplates
+cp -r /home/${SUDO_USER}/vrk /var/local/
+chmod +x /var/local/vrk/boss/*
+chmod +x /var/local/vrk/surf/*
+chmod +x /var/local/vrk/donjon/*
+chmod +x /var/local/vrk/donjon/vrktemplates/7_BASH
+   fi
+## Create the link to the user directory
+### For any user
+if [ ! -e /home/${VRK_USER}/.vrk ]; then
+mkdir /home/${VRK_USER}/.vrk
+fi
+if [ ! -e /home/${VRK_USER}/.vrk/boards ]; then
+mkdir /home/${VRK_USER}/.vrk/boards
+fi
+cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
+if [ -L /home/${VRK_USER}/.vrk/donjon ]; then
+rm -f /home/${VRK_USER}/.vrk/donjon
+fi
+ln -sfn /var/local/vrk/donjon /home/${VRK_USER}/.vrk/
+cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
+if [ ! -e /home/${VRK_USER}/.vrk/go ]; then
+mkdir /home/${VRK_USER}/.vrk/go
+fi
+#### Copy configs
+if [ ! -d /home/${VRK_USER}/.vrk/configs ]; then
+cp -R /var/local/vrk/donjon/configs-inst /home/${VRK_USER}/.vrk/configs
+fi
+### For a sudoer
+if [ -z $1 ]; then
+ln -sfn /var/local/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
+fi
+### Own
+chown -R ${VRK_USER} /home/${VRK_USER}/.vrk
+
+  fi
+ fi
+fi
+
+
+# Run version-by-version updates
+
+UPDATE_PATCH_KVERNO=0.301
+if [ $(echo "$UPDATE_PATCH_KVERNO>$KVERNO"|bc) = 1 ]; then
+# Run the update scripts for this patch
+
+##### SCRIPTS GO HERE #####
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+
+
+# Finish
+echo "Vrk Station and user \"${VRK_USER}\" are Vrking at v${KVERNO}"
+

@@ -1,0 +1,69 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This updates Vrk from GitHub
+## This can run over the git or locally, git is the default
+
+# NOTE: If updating locally, the vrk-update folder must be copied and exist at /var/local/vrk/vrk-update
+
+# How to use:
+## sudo ./updatevrk [update method]
+
+# Eg:
+## sudo ./updatevrk git (for web update via git)
+## sudo ./updatevrk local (for web update via git)
+
+
+UTYPE=$1
+
+# Set empty variables
+if [ -z $1 ]; then
+UTYPE="git"
+fi
+
+# Check if installed
+if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./updatevrk
+"
+exit 22
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./updatevrk
+"
+exit 22
+fi
+
+# Local or web update
+## GitHub
+if [ "${UTYPE}" = "git" ]; then
+cd /var/local/vrk
+git clone https://github.com/inkVerb/vrk-update.git
+cd vrk-update
+chmod +x update
+./update
+exit 0
+fi
+## Local copy
+if [ "${UTYPE}" = "local" ]; then
+cd /var/local/vrk/vrk-update
+chmod +x update
+./update
+exit 0
+fi
+

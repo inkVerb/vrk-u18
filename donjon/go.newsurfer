@@ -1,0 +1,10 @@
+#!/bin/sh
+#inkVerbGosurfer! verb.ink
+
+
+# Include the config
+. ~/.vrk/boards/go.${SURFERNAME}.malibu
+
+# Connect
+ssh \${GOUSER}@\${GOIP} -p \${GOPORT}
+

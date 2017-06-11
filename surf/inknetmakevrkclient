@@ -1,0 +1,53 @@
+#!/bin/sh
+# inkVerb Surfer, verb.ink
+set -e
+
+# This sets the settings for this Vrk Station to be an inkNet Client to CA Verber
+## This can be run to update an existing config
+
+# How to use:
+## inknetmakevrkclient [Vrk IP - if known] [Vrk URI - if known] (must add IP first, if unknown, use 'NOT_SET')
+
+# Eg:
+## inknetmakevrkclient
+## inknetmakevrkclient 999.999.99.999
+## inknetmakevrkclient 999.999.99.999 inkoffice.ink.verb.ink
+## inknetmakevrkclient NOT_SET inkoffice.ink.verb.ink (if URI is known, but IP is not)	
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+if [ -z "$1" ]; then
+ADDIP="NOT_SET"
+fi
+if [ -z "$2" ]; then
+ADDURI="NOT_SET"
+fi
+ADDTHISHOST="$(hostname -f)"
+ADDUSER="${USER}"
+FULLUSERNAME="${ADDUSER}_${ADDTHISHOST}"
+## Truncate the new username to the 32 character limit
+ADDCLIENTNAME=$(echo ${FULLUSERNAME} | cut -c1-18)
+
+echo "#!/bin/sh
+# inkNet config, verb.ink
+## This contains information about this Client Vrk Station's credentials used in signing SSH keys for inkNet on a CA Verber
+## Note that a local Vrk Station only uses the local username as the URI for SSH key and cert purposes
+
+CLIENTURI=\"${ADDURI}\"
+CLIENTNAME=\"${ADDCLIENTNAME}\"
+CLIENTIP=\"${ADDIP}\"
+CLIENTUSER=\"${ADDUSER}\"
+CLIENTMACHINE=\"${ADDTHISHOST}\"
+" > ~/.vrk/configs/inknet/client.vrk.cnf
+
+# Finish
+echo "This user account is now ready to become a Client to Verbers.
+
+Verbers will know this machine's user account as: ${ADDCLIENTNAME}
+"
+

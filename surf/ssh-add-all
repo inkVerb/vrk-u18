@@ -1,0 +1,45 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This adds an SSH key to a remote server, enables root no-password login, adds it to Guake Indicator, and creates a Surfer for it
+
+# How to use:
+## ./ssh-add-all [SSH key] [surfer] [remote user] [remote IP] [remote user password] [port - optional]
+
+
+KEYNAME=$1
+SURFERNAME=$2
+USER=$3
+IP=$4
+PASSWORD=$5
+PORT=$6
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check variables
+if [ -z $5 ]; then
+echo "You need to specify stuff, like this:
+ssh-add-all [SSH key] [surfer] [remote user] [remote IP] [remote user password] [port - optional]
+"
+exit 22
+fi
+
+# Assign 22 if [port] option is left empty
+if [ -z "${PORT}" ]; then
+PORT=22
+fi
+
+# Run the surfers
+if [ ! -f ~/.ssh/${KEYNAME} ]; then
+~/.vrk/boards/ssh-craft-key ${KEYNAME}
+fi
+~/.vrk/boards/ssh-add-goguake ${SURFERNAME} ${USER} ${IP} ${PORT}
+~/.vrk/boards/ssh-add-key ${SURFERNAME} ${KEYNAME} ${PASSWORD}
+~/.vrk/boards/ssh-filezilla-addkey ${SURFERNAME} ${KEYNAME}
+~/.vrk/boards/ssh-guake-indicator-on
+

@@ -1,0 +1,9 @@
+#!/bin/sh
+#inkVerbDragon! verb.ink
+
+# This sets the Libre Office icons to be light so they work with a dark theme
+## Can be: breeze oxygen etc
+
+
+sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>breeze</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+

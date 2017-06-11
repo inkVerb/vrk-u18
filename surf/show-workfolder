@@ -1,0 +1,36 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This shows the Work folder
+
+# How to use:
+## show-workfolder
+
+
+# Check to make sure this not run as sudo or root
+if [ "$(id -u)" = "0" ]; then
+echo "Do not run as root or sudo."; exit 22
+fi
+
+# Check if Vrk installed on machine
+if [ ! -d /var/local/vrk ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Check if Vrk installed to user
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+. ~/.vrk/configs/stationinfo
+
+# Display info
+if [ -d ~/"${VRK_WORK_DIR}" ]; then
+echo "Your \"Work\" folder is ${VRK_WORK_DIR} and everything be eiry."
+else
+echo "Your \"Work\" folder should be ${VRK_WORK_DIR}, but it doesn't exist.
+
+If you have changed it, just change the name back, then the surf should pick back up."
+fi
+

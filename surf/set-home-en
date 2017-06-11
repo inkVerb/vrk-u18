@@ -1,0 +1,100 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This sets the home folder to English and places linked backups of whatever different language to myLang in the Work Folder
+
+# How to use:
+## set-home-en
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Nothing to do. Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Include the configs
+~/.vrk/configs/lang/stationuser-dirs_INITIAL
+~/.vrk/configs/stationinfo
+~/.vrk/configs/lang/stationuser-dirs_EN
+
+# Change and link each based on proper conditionals
+if [ ! -d ~/${VRK_DESKTOP_DIR} ] && [ -d ~/${XDG_DESKTOP_DIR} ]; then
+	mv ~/${XDG_DESKTOP_DIR} ~/${VRK_DESKTOP_DIR}
+	if [ ! -d ~/myLang ]; then
+	mkdir ~/myLang
+	fi
+	ln -s ~/${VRK_DESKTOP_DIR} ~/myLang/~/${XDG_DESKTOP_DIR}
+fi
+if [ ! -d ~/${VRK_DOWNLOAD_DIR} ] && [ -d ~/${XDG_DOWNLOAD_DIR} ]; then
+	mv ~/${XDG_DOWNLOAD_DIR} ~/${VRK_DOWNLOAD_DIR}
+	if [ ! -d ~/myLang ]; then
+	mkdir ~/myLang
+	fi
+	ln -s ~/${VRK_DOWNLOAD_DIR} ~/myLang/~/${XDG_DOWNLOAD_DIR}
+fi
+if [ ! -d ~/${VRK_TEMPLATES_DIR} ] && [ -d ~/${XDG_TEMPLATES_DIR} ]; then
+	mv ~/${XDG_TEMPLATES_DIR} ~/${VRK_TEMPLATES_DIR}
+	if [ ! -d ~/myLang ]; then
+	mkdir ~/myLang
+	fi
+	ln -s ~/${VRK_TEMPLATES_DIR} ~/myLang/~/${XDG_TEMPLATES_DIR}
+fi
+if [ ! -d ~/${VRK_PUBLICSHARE_DIR} ] && [ -d ~/${XDG_PUBLICSHARE_DIR} ]; then
+	mv ~/${XDG_PUBLICSHARE_DIR} ~/${VRK_PUBLICSHARE_DIR}
+	if [ ! -d ~/myLang ]; then
+	mkdir ~/myLang
+	fi
+	ln -s ~/${VRK_PUBLICSHARE_DIR} ~/myLang/~/${XDG_PUBLICSHARE_DIR}
+fi
+if [ ! -d ~/${VRK_DOCUMENTS_DIR} ] && [ -d ~/${XDG_DOCUMENTS_DIR} ]; then
+	mv ~/${XDG_DOCUMENTS_DIR} ~/${VRK_DOCUMENTS_DIR}
+	if [ ! -d ~/myLang ]; then
+	mkdir ~/myLang
+	fi
+	ln -s ~/${VRK_DOCUMENTS_DIR} ~/myLang/~/${XDG_DOCUMENTS_DIR}
+fi
+if [ ! -d ~/${VRK_MUSIC_DIR} ] && [ -d ~/${XDG_MUSIC_DIR} ]; then
+	mv ~/${XDG_MUSIC_DIR} ~/${VRK_MUSIC_DIR}
+	if [ ! -d ~/myLang ]; then
+	mkdir ~/myLang
+	fi
+	ln -s ~/${VRK_MUSIC_DIR} ~/myLang/~/${XDG_MUSIC_DIR}
+fi
+if [ ! -d ~/${VRK_PICTURES_DIR} ] && [ -d ~/${XDG_PICTURES_DIR} ]; then
+	mv ~/${XDG_PICTURES_DIR} ~/${VRK_PICTURES_DIR}
+	if [ ! -d ~/myLang ]; then
+	mkdir ~/myLang
+	fi
+	ln -s ~/${VRK_PICTURES_DIR} ~/myLang/~/${XDG_PICTURES_DIR}
+fi
+if [ ! -d ~/${VRK_VIDEOS_DIR} ] && [ -d ~/${XDG_VIDEOS_DIR} ]; then
+	mv ~/${XDG_VIDEOS_DIR} ~/${VRK_VIDEOS_DIR}
+	if [ ! -d ~/myLang ]; then
+	mkdir ~/myLang
+	fi
+	ln -s ~/${VRK_VIDEOS_DIR} ~/myLang/~/${XDG_VIDEOS_DIR}
+fi
+
+# Set the home directories langauge system config to English
+cp ~/.config/user-dirs.dirs ~/.config/user-dirs.dirs.ink-bak
+cp ~/.vrk/configs/lang/user-dirs_EN.dirs ~/.config/user-dirs.dirs
+
+# Update the site config
+echo "
+#!/bin/sh
+# inkVerb Station-wide config file, verb.ink
+## This is created by setupvrk for the current folder language
+" >  ~/.vrk/configs/lang/stationuser-dirs_CURRENT
+cat ~/.config/user-dirs.dirs >> ~/.vrk/configs/lang/stationuser-dirs_CURRENT
+sed -i "s/\$HOME\///g" ~/.vrk/configs/lang/stationuser-dirs_CURRENT
+
+echo "
+If your Ubuntu installed language was not English, you home folder links for your original language are in \"${VRK_WORK_DIR}\"/myLang
+
+Your home folders have been changed to English. Things will act up if you don't re-login now.
+
+Highly recommended: Log out and log back in again!
+"
+

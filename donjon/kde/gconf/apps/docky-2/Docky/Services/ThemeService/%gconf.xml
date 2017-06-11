@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="UrgentHue" mtime="1479868048" type="int" value="150"/>
+	<entry name="Theme" mtime="1480077081" type="string">
+		<stringvalue>Matte</stringvalue>
+	</entry>
+</gconf>

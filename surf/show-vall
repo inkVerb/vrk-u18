@@ -1,0 +1,45 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+
+# This lists available backgrounds to set as the wallpaper
+## Use alone to get a list of Show Rooms
+
+# How to use:
+## show-vall [ROOM - optional}
+
+# Eg:
+## show-vall
+## show-vall vubuntu
+
+
+# If no Show Room is set, get list of showrooms
+if [ -z "$1" ]; then
+cd /usr/share/images/vall
+echo "
+Available Vall Show Rooms...
+"
+ls
+echo "
+set with something like:
+show-vall showroomname
+"
+fi
+
+# If Show Room is set
+if [ ! -z "$1" ]; then
+SHOWROOM=$1
+cd /usr/share/images/vall/${SHOWROOM}
+echo "
+Available Vallpapers in ${SHOWROOM}...
+"
+## .png files
+ls *.png 2>/dev/null
+
+## .jpg files
+ls *.jpg 2>/dev/null
+echo "
+set with something like:
+set-vall ${SHOWROOM}/Picture-Name.png
+"
+fi
+

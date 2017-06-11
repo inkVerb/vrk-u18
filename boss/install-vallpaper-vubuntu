@@ -1,0 +1,95 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This installs and/or updates Vubuntu native wallpapers
+
+# How to use:
+## sudo ./install-vallpaper-vubuntu
+
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./install-vubuntu-desktop
+"
+exit 22
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./install-vubuntu-desktop
+"
+exit 22
+fi
+
+# Installed?
+## Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk on this machine first. See READ.ME"
+exit 22
+fi
+## Check if installed for this user
+if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
+echo "Vrk is installed on this machine, but has yet to be installed for this user. See READ.ME"
+exit 22
+fi
+
+# Install/Update Vallpaper
+if [ ! -d "/var/local/vall" ]; then
+mkdir /var/local/vall
+fi
+if [ ! -d "/var/local/vall/rooms" ]; then
+mkdir /var/local/vall/rooms
+fi
+if [ ! -d "/usr/share/images" ]; then
+mkdir /usr/share/images
+fi
+ln -sfn /var/local/vall/rooms /usr/share/images/vall
+
+# Install/Reset the Vubuntu Vallpaper Room
+if [ -d "/var/local/vall/rooms/vubuntu" ]; then
+rm -rf /var/local/vall/rooms/vubuntu
+fi
+cp -r /var/local/vrk/donjon/vallpaper/vubuntu /var/local/vall/rooms/
+
+# Install Vubuntu native wallpapers
+## Global (GNOME, KDE, Budgie)
+### If "backgrounds" doesn't exist (KDE, cough cough)
+if [ ! -d /usr/share/backgrounds ]; then
+mkdir /usr/share/backgrounds
+fi
+if [ ! -d /usr/share/gnome-background-properties ]; then
+mkdir /usr/share/gnome-background-properties
+fi
+ln -sfn /var/local/vall/rooms/vubuntu /usr/share/backgrounds/
+ln -sfn /var/local/vall/rooms/vubuntu/vubuntu-wallpapers.xml /usr/share/gnome-background-properties/
+## Xfce
+if [ -d /usr/share/xfce4/backdrops ]; then
+ln -sfn /var/local/vall/rooms/vubuntu/*.png /usr/share/xfce4/backdrops/
+ln -sfn /var/local/vall/rooms/vubuntu/*.jpg /usr/share/xfce4/backdrops/
+### If Ubuntu Studio is already installed
+ln -sfn /usr/share/backgrounds/ubuntustudio/* /usr/share/xfce4/backdrops/
+### Remove any broken symlinks
+cd /usr/share/xfce4/backdrops/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
+fi
+## MATE
+if [ -d /usr/share/mate-background-properties ]; then
+ln -sfn /var/local/vall/rooms/vubuntu/vubuntu-wallpapers.xml /usr/share/mate-background-properties/
+fi
+## Cinnamon
+if [ -d /usr/share/cinnamon-background-properties ]; then
+ln -sfn /var/local/vall/rooms/vubuntu/linuxmint-vubuntu.xml /usr/share/cinnamon-background-properties/
+fi
+
+# Finish
+echo "
+Vubuntu native wallpapers are installed and up to date.
+"
+

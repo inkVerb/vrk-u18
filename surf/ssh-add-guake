@@ -1,0 +1,46 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This adds an existing surfer's profile to Guake Indicator as a root menu item
+
+# How to use:
+## ./ssh-add-guake [surfer]
+
+
+GOSURFER=$1
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check variables
+if [ -z $1 ]; then
+echo "You need to specify stuff, like this:
+ssh-add-guake [surfer]
+"
+exit 22
+fi
+
+# Include the config
+. ~/.vrk/boards/${GOSURFER}.malibu
+
+# Assign 22 if [port] option is left empty
+if [ -z "${PORT}" ]; then
+PORT=22
+fi
+
+# Issue the statement at the top of the menu
+sed -i "s/<HostGroup>/<HostGroup>\n    <Host>\n      <menu_name>${GOSURFER}<\/menu_name>\n      <tab_name\/>\n      <command_after_login>ssh -l ${GOUSER} -p ${GOPORT} ${GOIP}<\/command_after_login>\n      <dont_show_guake>no<\/dont_show_guake>\n      <lfcr>no<\/lfcr>\n      <guakeindicatorscript>no<\/guakeindicatorscript>\n    <\/Host>/g" ~/.guake-indicator/guake-indicator.xml
+
+# Finish
+echo "Success! The surfer ${GOSURFER} has become a beloved menu item in Guake Indicator.
+
+Now, click \"Reload\" from the guake-indicator menu to see it.
+
+You can edit this entry under \"Edit Menu > Root node\"
+
+Happy SSHing =]
+"

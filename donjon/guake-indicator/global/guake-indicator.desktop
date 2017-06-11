@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=guake-indicator
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Guake Indicator
+Name=Guake Indicator
+Comment[en_US]=Indicator
+Comment=Indicator

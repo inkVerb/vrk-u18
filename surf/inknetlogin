@@ -1,0 +1,30 @@
+#!/bin/sh
+# inkVerb Surfer, verb.ink
+set -e
+
+# This logs into a CA Verber
+## Don't use any options if logging into the primary CA Verbe, such as the Inker
+
+# How to use:
+## ./inknetlogin [verber_name]
+
+# Eg:
+## ./inknetlogin joe3red_joesbigasphalttrucking_verb_red
+
+
+FULLVERBERNAME=$1
+VERBERNAME=$(echo $FULLVERBERNAME | cut -c1-18)
+
+# Check & include the config
+if [ ! -f ~/.vrk/configs/inknet/client.vrk.cnf ]; then
+echo "This is not yet connected to a CA Verber via inkNet."
+exit 22
+fi
+
+# Include the configs
+. ~/.vrk/configs/inknet/client.vrk.cnf
+. ~/.vrk/configs/inknet/verbers/client.login.${VERBERNAME}.cnf
+
+# Login
+ssh -o HostName=${CAVERBERHOST}.${CAVERBERURI} -p ${CLIENTPORT} ${CLIENTUSERNAME}@${CAVERBERIP}
+

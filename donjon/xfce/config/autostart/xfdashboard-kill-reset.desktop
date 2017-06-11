@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=xfdashboard-kill-reset
+Comment=Stop Xf Dash so the workspaces show (a bug in xfdashboard that needs fixing, this is a duct tape workaround in the meanwhile, and it needs to wait a few seconds, 10 is safe)
+Exec=sh -c "sleep 10 && killall xfdashboard &"
+OnlyShowIn=XFCE;
+StartupNotify=false
+Terminal=false
+Hidden=false

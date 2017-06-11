@@ -1,0 +1,5 @@
+#!/bin/sh
+# Color scheme for Guake terminal
+
+cp -R ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
+

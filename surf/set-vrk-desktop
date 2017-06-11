@@ -1,0 +1,415 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+
+# This installs Vubuntu Desktop settings & wallpapers
+
+# How to use:
+## set-vrk-desktop
+
+
+# Check to make sure this not run as sudo or root
+if [ "$(id -u)" = "0" ]; then
+echo "Do not run as root or sudo."; exit 22
+fi
+
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check if Vrk installed to user
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Check if Vubuntu Desktop installed on the machine
+if [ ! -f /var/local/vrk/.vubuntu-desktop-installed ]; then
+echo "Vubuntu Desktop hasn't been installed by any user on this machine.
+A Superuser/Sudoer needs to run install-vubuntu-desktop for this machine. See READ.ME"; exit 22
+fi
+
+# Check if Vubuntu Desktop is already set for this user
+. ~/.vrk/configs/stationinfo
+if [ "${VUBUNTU_DESKTOP_SET}" = "YES" ]; then
+echo "Vubuntu Desktop already set for this user.
+
+Type \"yes\" to run it again and reset, anything else to quit...
+"
+read YESRESET
+ if [ "${YESRESET}" != "yes" ]; then
+exit 0
+ fi
+fi
+
+# Kill conflicting apps
+killall -q dolphin
+killall -q docky
+
+# Global exceptions tests
+if [ "$DESKTOP_SESSION" != "/usr/share/xsessions/plasma" ]; then
+DESKTOP_GLOBE="EXCEPTION"; fi
+if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
+DESKTOP_GLOBE="EXCEPTION"; fi
+#if [ "$DESKTOP_SESSION" = "gnome" ]; then
+#DESKTOP_GLOBE="EXCEPTION"; fi
+if [ "$DESKTOP_SESSION" = "ubuntu" ]; then
+DESKTOP_GLOBE="EXCEPTION"; fi
+if [ "$DESKTOP_SESSION" = "xubuntu" ]; then
+DESKTOP_GLOBE="EXCEPTION"; fi
+if [ "$DESKTOP_SESSION" = "mate" ]; then
+DESKTOP_GLOBE="EXCEPTION"; fi
+if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+DESKTOP_GLOBE="EXCEPTION"; fi
+
+# Global
+## Gedit always opens a new window, not tab-clustering (possible solutions)
+#gsettings set org.gnome.gedit.preferences.ui show-tabs-mode 'never'
+#echo "alias gedit=\"gedit --new-window\"" >> ~/.bashrc
+
+## Window Snapping
+#notyet
+
+## Compose Key: CapsLock
+dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:caps']"
+
+## Alt + Secondary click = resize
+gconftool-2 -s -t bool /apps/metacity/general/resize_with_right_button true
+gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier '<Alt>'
+
+## Minimize in GNOME Windows
+gsettings set org.gnome.desktop.wm.preferences action-middle-click-titlebar 'minimize'
+### Other options to minimize:  maximize toggle-maximize-vertically toggle-maximize-horizontally menu
+gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
+### Alternative re-order:
+#gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
+
+### Set Background Wallpaper
+~/.vrk/boards/set-vall vubuntu/Not-A-Mac.png
+
+## Flatabulous terminal "profile" (color scheme)
+~/.vrk/donjon/xt-gnome
+
+## Gedit
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+
+## AppDefaults
+if [ "$DESKTOP_GLOBE" != "EXCEPTION" ]; then
+cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+fi
+
+## Disable screen lock (which requires password every time after the screen blanks, or double-login on changing user)
+gsettings set org.gnome.desktop.screensaver lock-enabled false
+
+## App configs
+### Check prerequesite directories
+if [ ! -d ~/.config/autostart ]; then
+mkdir ~/.config/autostart
+fi
+#### Just in case, we never know when some update will break the known order
+if [ ! -d ~/.gconf ]; then
+mkdir ~/.gconf/
+fi
+### Autostart, Docky, Guake, Dolphin, Kate
+#### Budgie needs its own autostart configs
+if [ "$DESKTOP_SESSION" != "budgie-desktop" ]; then
+cp ~/.vrk/donjon/global/config/autostart/* ~/.config/autostart/
+fi
+cp ~/.vrk/donjon/global/config/katepartrc ~/.config/
+if [ ! -d ~/.gconf/apps ]; then
+mkdir ~/.gconf/apps
+fi
+if [ ! -d ~/.gconf/apps/docky-2 ]; then
+ if [ "$DESKTOP_GLOBE" != "EXCEPTION" ]; then
+cp -R ~/.vrk/donjon/global/gconf/apps/docky-2 ~/.gconf/apps/
+ fi
+fi
+if [ ! -d ~/.gconf/apps/guake ]; then
+cp -R ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
+fi
+if [ ! -f ~/.gconf/apps/%gconf.xml ]; then
+cp ~/.vrk/donjon/global/gconf/apps/%gconf.xml ~/.gconf/apps/
+fi
+
+## LibreOffice
+### Can be: breeze oxygen tango voffice etc
+sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+
+## App Theming
+### Future: (still doesn't work all the time)
+#http://askubuntu.com/questions/78088/can-i-apply-a-different-gtk3-theme-from-the-main-one-to-an-individual-applicatio
+# This directory has .css files with app names
+#/usr/share/themes/*Theme Name*/gtk-3.0/apps/
+# Individual apps
+#http://worldofgnome.org/running-gtk-applications-different-themes-per-app/
+### LibreOffice (doesn't work in Xfce or GNOME, but works in Unity)
+cp /usr/share/applications/libreoffice-writer.desktop ~/.local/share/applications/libreoffice.writer.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --writer %U/g" ~/.local/share/applications/libreoffice.writer.desktop
+cp /usr/share/applications/libreoffice-calc.desktop ~/.local/share/applications/libreoffice.calc.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --calc %U/g" ~/.local/share/applications/libreoffice.calc.desktop
+cp /usr/share/applications/libreoffice-math.desktop ~/.local/share/applications/libreoffice.math.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --math %U/g" ~/.local/share/applications/libreoffice.math.desktop
+cp /usr/share/applications/libreoffice-base.desktop ~/.local/share/applications/libreoffice.base.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --base %U/g" ~/.local/share/applications/libreoffice.base.desktop
+cp /usr/share/applications/libreoffice-draw.desktop ~/.local/share/applications/libreoffice.draw.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --draw %U/g" ~/.local/share/applications/libreoffice.draw.desktop
+cp /usr/share/applications/libreoffice-impress.desktop ~/.local/share/applications/libreoffice.impress.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --impress %U/g" ~/.local/share/applications/libreoffice.impress.desktop
+cp /usr/share/applications/libreoffice-startcenter.desktop ~/.local/share/applications/libreoffice.startcenter.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice %U/g" ~/.local/share/applications/libreoffice.startcenter.desktop
+
+# Global #
+
+# Budgie
+if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
+
+## Set theme
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+
+## Make icons work in menues
+gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
+
+## AppDefaults
+cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Docky
+if [ ! -d ~/.gconf/apps/docky-2 ]; then
+cp -R ~/.vrk/donjon/budgie/gconf/apps/docky-2 ~/.gconf/apps/
+fi
+
+## Autostart
+cp ~/.vrk/donjon/budgie/config/autostart/* ~/.config/autostart/
+
+fi
+# Budgie #
+
+# Unity
+if [ "$DESKTOP_SESSION" = "ubuntu" ]; then
+
+## App Defaults
+cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Docky
+if [ ! -d ~/.gconf/apps/docky-2 ]; then
+cp -R ~/.vrk/donjon/unity/gconf/apps/docky-2 ~/.gconf/apps/
+fi
+
+## Workspaces
+dconf write /org/compiz/profiles/unity/plugins/core/hsize 2
+dconf write /org/compiz/profiles/unity/plugins/core/vsize 2
+
+## Hot corners
+### There is no gsettings schema for this. Use this Python script, read its big thanks for his 2-day coding class!
+~/.vrk/donjon/vubuntu-unity-hotcorners.py
+### Twice to be sure ;-)
+~/.vrk/donjon/vubuntu-unity-hotcorners.py
+
+## Launcher autohide, sensitivity, size, etc.
+gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ launcher-hide-mode 1
+gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ edge-responsiveness 7.
+gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 28
+### To find your launcher shourtcuts for the next command:$ gsettings get com.canonical.Unity.Launcher favorites
+gsettings set com.canonical.Unity.Launcher favorites "['application://org.gnome.Nautilus.desktop', 'application://chromium-browser.desktop', 'application://firefox.desktop', 'application://midori.desktop', 'application://gedit.desktop', 'application://libreoffice-writer.desktop', 'application://thunderbird.desktop', 'application://rhythmbox.desktop', 'application://gnome-calculator.desktop', 'application://unity-tweak-tool.desktop', 'application://unity-control-center.desktop', 'unity://running-apps', 'unity://devices']"
+#### Multiple monitors, only one Unity launcher
+gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ num-launchers 1
+
+## Theme & Icons
+#Depreciated?
+#gsettings set org.gnome.desktop.wm.preferences theme 'Adapta-Nokto'
+gsettings set org.gnome.desktop.interface gtk-theme "Adapta-Nokto"
+gsettings set org.gnome.desktop.interface icon-theme "Ultra-Flat-Green"
+
+### Conky IN DEV
+#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
+#chmod +x .start-conky
+#cd && wget -O gotham-noobslab-ugs.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-ugs.zip
+#unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
+
+fi
+# Unity #
+
+
+# GNOME
+if [ "$DESKTOP_SESSION" = "gnome" ]; then
+
+## Launcher
+gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'epiphany.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'thunderbird.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
+
+## Set theme & icons
+#Depreciated?
+#gsettings set org.gnome.desktop.wm.preferences theme 'Arc-Dark'
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface icon-theme "Flat Remix"
+
+## Make icons work in menues
+gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
+
+## Extensions
+gnome-shell-extension-tool -e launch-new-instance
+
+## Conky IN DEV
+#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
+#chmod +x .start-conky
+#cd && wget -O gotham-noobslab-ugs.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-ugs.zip
+#unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
+
+fi
+# GNOME #
+
+
+# Xfce
+## Help:
+#http://docs.xfce.org/xfce/xfconf/xfconf-query
+
+if [ "$DESKTOP_SESSION" = "xubuntu" ]; then
+
+## App Defaults
+cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Docky
+if [ ! -d ~/.gconf/apps/docky-2 ]; then
+cp -R ~/.vrk/donjon/xfce/gconf/apps/docky-2 ~/.gconf/apps/
+fi
+
+## Xfce Startup Apps
+cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
+
+## Compose Key: CapsLock
+xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
+
+## Dashboard hot keys
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>Super_L" -t string -s 'xfdashboard'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt>Super_R" -t string -s 'xfdashboard'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
+
+## Set theme & icons
+xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta-Nokto-Eta"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Flat Remix"
+
+## Terminal color scheme
+~/.vrk/donjon/xt-xfce
+
+## Workspaces & windows
+xfconf-query -c xfwm4 -p /general/workspace_count -s 3
+xfconf-query -c xfwm4 -p /general/scroll_workspaces -s true
+xfconf-query -c xfwm4 -p /general/mousewheel_rollup -s true
+xfconf-query -c xfwm4 -p /general/tile_on_move -s true
+
+## Wallpaper
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/inkPage.png
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/Pen-Black.png
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
+
+## Xfdashboard
+xfconf-query -c xfdashboard -p /always-launch-new-instance -s false
+xfconf-query -n -c xfdashboard -p /components/applications-view/show-all-apps -s true
+xfconf-query -n -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
+xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
+xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-duration -s 100
+xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
+xfconf-query -c xfdashboard -p /theme -s xfdashboard-dark
+
+## Whisker menu
+### Icon
+sed -i "s/button-icon=.*/button-icon=\/var\/local\/vrk\/vubuntu\/images\/inkVerb-disk-green\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+sed -i "s/show-button-icon=.*/show-button-icon=true/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+### Favorites
+sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,chromium-browser\.desktop,firefox\.desktop,midori\.desktop,gedit\.desktop,libreoffice-writer\.desktop,thunderbird\.desktop,rhythmbox\.desktop,org\.gnome\.Software\.desktop,gnome-calculator\.desktop/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+
+## App Theming (specifically for Xfce since some GTK themes ignore some apps)
+### Rhythmbox
+cp /usr/share/applications/rhythmbox.desktop ~/.local/share/applications/rhythmbox.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Vertex-Dark rhythmbox %U/g" ~/.local/share/applications/rhythmbox.desktop
+### LibreOffice
+#### Set bright icons for the dark theme
+#### Can be: breeze oxygen etc
+sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>oxygen</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+
+### Conky IN DEV
+#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
+#chmod +x .start-conky
+#cd && wget -O gotham-noobslab-gmo.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-gmo.zip
+#unzip gotham-noobslab-gmo.zip && rm gotham-noobslab-gmo.zip
+
+## Message
+echo "
+Ctrl + Win (left side only) shows your dashboard.
+
+Scroll on the desktop to switch workspaces.
+"
+
+fi
+# Xfce #
+
+
+# KDE
+if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
+
+## App Defaults
+cp -R ~/.vrk/donjon/local/share/applications ~/.local/share/
+
+## Docky
+if [ ! -d ~/.gconf/apps/docky-2 ]; then
+cp -R ~/.vrk/donjon/kde/gconf/apps/docky-2 ~/.gconf/apps/
+fi
+
+## Settings for Konsole, Dolphin, hotkeys, 4 virtual desktops
+cp -R ~/.vrk/donjon/kde/local/share ~/.local/
+cp -R ~/.vrk/donjon/kde/config/* ~/.config/
+sed -i "s/ToolButtonStyle=.*/ToolButtonStyle=IconOnly/g" ~/.config/dolphinrc
+
+## LibreOffice
+### Set bright icons for the dark theme
+~/.vrk/donjon/libre-theme-dark
+
+fi
+# KDE #
+
+
+# Cinnamon
+if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+
+if [ ! -d ~/.gconf/apps/docky-2 ]; then
+cp -R ~/.vrk/donjon/cinnamon/gconf/apps/docky-2 ~/.gconf/apps/
+fi
+
+### Conky IN DEV
+#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
+#chmod +x .start-conky
+#cd && wget -O gotham-noobslab-ugs.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-ugs.zip
+#unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
+
+fi
+# Cinnamon #
+
+
+# MATE
+if [ "$DESKTOP_SESSION" = "mate" ]; then
+
+if [ ! -d ~/.gconf/apps/docky-2 ]; then
+cp -R ~/.vrk/donjon/mate/gconf/apps/docky-2 ~/.gconf/apps/
+fi
+
+
+### Conky IN DEV
+#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
+#chmod +x .start-conky
+#cd && wget -O gotham-noobslab-ugs.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-ugs.zip
+#unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
+
+fi
+# MATE #
+
+
+# Configs
+sed -i "s/VUBUNTU_DESKTOP_SET=.*/VUBUNTU_DESKTOP_SET=\"YES\"/g" ~/.vrk/configs/stationinfo
+
+# Finish
+echo "Enjoy Vubuntu Desktop settings. :-)
+"
+sleep 2
+

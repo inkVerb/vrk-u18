@@ -1,0 +1,268 @@
+#!/bin/sh
+#inkVerbMaker! verb.ink
+set -e
+
+# This installs Vrk™ core directories and configs for a user
+## This needs some root permissions
+## This is not necessaary to run on a Verber/Inker server
+## Prerequesite: put vrk in the base of your home folder
+
+# How to use on your local computer:
+## sudo ./install-vrk
+
+# How to use on your local computer for another, non-sudo user:
+## sudo ./install-vrk [user - if not current sudoer]
+
+# NOTE: If you run this for yourself without a [user] declaration, then your .vrk folder will have a "boss" folder link.
+
+
+# Set user
+if [ -z $1 ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./setupvrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./setupvrk
+"
+exit 0
+fi
+
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check if user exists
+if [ ! -e /home/${VRK_USER} ]; then
+echo "User does not exist! Try again."
+exit 22
+fi
+## User settings, has logged in and has necessary folders
+if [ ! -e /home/${VRK_USER}/.config/user-dirs.dirs ]; then
+echo "User has not logged in yet or lacks vital configs! Log in with the user one time, then try again."
+exit 22
+fi
+if [ ! -e /home/${VRK_USER}/"${XDG_DOCUMENTS_DIR}" ]; then
+echo "User does not have the ${XDG_DOCUMENTS_DIR} folder! Create that folder, then try again."
+exit 22
+fi
+if [ ! -e /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" ]; then
+echo "User does not have the ${XDG_TEMPLATES_DIR} folder! Create that folder, then try again."
+exit 22
+fi
+
+# Check if Vrk Staion is installed for this user
+if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+ if [ "${VRK_INSTALLED}" = "YES" ]; then
+echo "Vrk is already installed for this user.
+To uninstall and re-install, type:
+rm -R /home/${VRK_USER}/.vrk
+
+If you would like to continue to refresh the Vrk Station folder configuration, or change your cloud or Work folder, type \"yes\" and <Enter>...
+"
+read CONTINUEYES
+  if [ ${CONTINUEYES} != "yes" ]; then
+echo "Bye.
+"
+exit 0
+  else
+## Run a refresh script here
+###Currently no script to run
+
+  fi
+ fi
+fi
+
+# Reboot warning
+if [ -z $1 ]; then
+echo "
+!! IMPORTANT !!
+
+When this finishes, you will be logged out and the computer will reboot. Close all apps and get ready...
+
+Are you ready to continue, then logout and reboot? To continue, type \"yes\" and <Enter>..."
+read LOGOUTYES
+ if [ ${LOGOUTYES} != "yes" ]; then
+echo "Exiting, not finished. You can run this again anytime via:
+cd /var/local/vrk/boss
+sudo ./install-vrk
+"
+exit 0
+ fi
+fi
+
+# Include the config
+. /var/local/vrk/machineinfo
+
+# Verify SSH Directory
+cd ~
+if [ ! -d /home/${VRK_USER}/.ssh ]; then
+mkdir /home/${VRK_USER}/.ssh
+chown -R ${VRK_USER} /home/${VRK_USER}/.ssh
+fi
+
+# Create the links to the user directory
+## For any user
+if [ ! -e /home/${VRK_USER}/.vrk ]; then
+mkdir /home/${VRK_USER}/.vrk
+fi
+if [ ! -e /home/${VRK_USER}/.vrk/boards ]; then
+mkdir /home/${VRK_USER}/.vrk/boards
+fi
+cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
+if [ -L /home/${VRK_USER}/.vrk/donjon ]; then
+rm -f /home/${VRK_USER}/.vrk/donjon
+fi
+ln -sfn /var/local/vrk/donjon /home/${VRK_USER}/.vrk/
+cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
+if [ ! -e /home/${VRK_USER}/.vrk/go ]; then
+mkdir /home/${VRK_USER}/.vrk/go
+fi
+### Copy configs
+if [ ! -d /home/${VRK_USER}/.vrk/configs ]; then
+cp -R /var/local/vrk/donjon/configs-inst /home/${VRK_USER}/.vrk/configs
+fi
+## For a sudoer
+if [ -z $1 ]; then
+ln -sfn /var/local/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
+ln -sfn /var/local/vrk/droids/* /home/${VRK_USER}/.vrk/boards/
+fi
+## Templates
+. /home/${VRK_USER}/.config/user-dirs.dirs
+cp -R /var/local/vrk/donjon/vrktemplates/* ${XDG_TEMPLATES_DIR}/
+## Own
+chown -R ${VRK_USER} /home/${VRK_USER}/.vrk
+
+# Set the global user bin for surfers 
+echo "export PATH=\$PATH:/home/${VRK_USER}/.vrk/boards:/home/${VRK_USER}/.vrk/go" >> /home/${VRK_USER}/.bashrc
+
+# Folder & file structure
+## KDE & Global
+if [ ! -d /home/${VRK_USER}/.local/share/backgrounds ]; then
+mkdir /home/${VRK_USER}/.local/share/backgrounds
+fi
+if [ ! -d /home/${VRK_USER}/.local/share/gnome-background-properties ]; then
+mkdir /home/${VRK_USER}/.local/share/gnome-background-properties
+fi
+ln -sfn /home/${VRK_USER}/myWall /home/${VRK_USER}/.local/share/backgrounds/${VRK_USER}Wall
+## GNOME/Budgie
+if [ -d /usr/share/gnome-background-properties ]; then
+ln -sfn /home/${VRK_USER}/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/gnome-background-properties/
+fi
+## MATE
+if [ -d /usr/share/mate-background-properties ]; then
+ln -sfn /home/${VRK_USER}/myWall/linuxmint-my-mate-wallpapers.xml /home/${VRK_USER}/.local/share/mate-background-properties/
+fi
+## Cinnamon
+if [ -d /usr/share/cinnamon-background-properties ]; then
+ln -sfn /home/${VRK_USER}/myWall/linuxmint-my-cinn-wallpapers.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
+fi
+## Xfce
+if [ ! -d /home/${VRK_USER}/.config/xfce4 ]; then
+mkdir /home/${VRK_USER}/.config/xfce4
+fi
+if [ ! -d ~/.config/xfce4/mcs_settings ]; then
+mkdir /home/${VRK_USER}/.config/xfce4/mcs_settings
+fi
+ln -sfn /home/${VRK_USER}/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
+## Own
+chown -R ${VRK_USER} /home/${VRK_USER}/.local
+chown -R ${VRK_USER} /home/${VRK_USER}/.config
+
+# Work folder name in config
+sudo -u ${VRK_USER} sed -i "s/VRK_WORK_DIR=.*/VRK_WORK_DIR=\"${WORK_FOLDER_NAME}\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+
+## Own
+chown -R ${VRK_USER} /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
+
+# Set config
+sudo -u ${VRK_USER} sed -i "s/VRK_INSTALLED=.*/VRK_INSTALLED=\"YES\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+. /var/local/vrk/vrkverno
+sudo -u ${VRK_USER} sed -i "s/USER_KVERNO=.*/USER_KVERNO=${KVERNO}/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+
+# Own everything
+chown -R ${VRK_USER} /home/${VRK_USER}
+
+# Other Jobs
+
+## Vrk dirs (Work, myWall)
+/home/${VRK_USER}/.vrk/boards/install-vrk-dirs
+
+## English home/ dirs
+/home/${VRK_USER}/.vrk/boards/install-vrk-langdirs
+
+## Vrk Cloud
+/home/${VRK_USER}/.vrk/boards/install-vrk-cloud
+
+# Get the config
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+
+# Finish
+echo "Alright, Sparky! Vrk station is now setup for ${VRK_USER}.
+
+.jpg and .png files in myWall can be added to your list of Wallpaper options with this:
+add-wallpaper [ filename.png/jpg ] [ \"My Picture Name\" ]
+
+Don't delete .xml files in myWall/ or you'll have to add your pictures again.
+"
+if [ "${VRK_WORK_DIR}" != "NOT_YET" ]; then
+echo "Your work folder is \"${WORK_FOLDER_NAME}\"."
+
+if [ "${VRK_CLOUD_DIR}" != "NOT_YET" ]; then
+echo "Your work folder is \"${VRK_CLOUD_DIR}\". Documents, Templates, will be synced in the Vrk folder.
+Your ${WORK_FOLDER_NAME} will also be synced there, but will only sync to other Vrk Stations that you also name your Work folder as \"${WORK_FOLDER_NAME}\".
+"
+## Cloud message
+if [ "${VRK_CLOUD_DIR}" = "Dropbox" ]; then
+ if [ -f "/home/${SUDO_USER}/.vrk/configs/dropboxstatus" ]; then
+. /home/${SUDO_USER}/.vrk/configs/dropboxstatus
+  if [ "${DROPBOXSTATUS}" != "INSTALLED" ]; then
+echo "Install Dropbox with sudo ./install-dropbox"
+  fi
+ else
+echo "Install Dropbox with sudo ./install-dropbox"
+ fi
+fi
+if [ "${VRK_CLOUD_DIR}" = "Nextcloud" ]; then
+ if [ -f "/home/${SUDO_USER}/.vrk/configs/nextcloudstatus" ]; then
+. /home/${SUDO_USER}/.vrk/configs/nextcloudstatus
+  if [ "${NCSTATUS}" != "INSTALLED" ]; then
+echo "Install Nextcloud with sudo ./install-nextcloud"
+  fi
+ else
+echo "Install Nextcloud with sudo ./install-nextcloud"
+ fi
+fi
+
+## myWall message
+/home/${VRK_USER}/.vrk/boards/mywall -h
+
+# Reboot
+if [ -z $1 ]; then
+echo "Setup is finished.
+
+Rebooting...
+"
+sleep 3
+reboot
+fi
+

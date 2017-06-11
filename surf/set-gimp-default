@@ -1,0 +1,59 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This sets GIMP to use its default hotkeys and layout
+## This is intended to revert GIMP settings after set-gimp-pscc was used to make GIMP more familiar to people who know Photoshop
+
+# DISCLAIMER: This is NOT Photoshop and has no intention of copying or pretending to be Photoshop or Adobe!
+
+# Thanks: Michael & doctormo
+## Love you Michael Bender, DO MORE VIDEOS!
+#https://www.youtube.com/watch?v=zhfs5QyMv5c
+## Smart idea, a real need, Photoshop is somewhat of a standard "mo". Thanks, doctormo!
+#http://doctormo.deviantart.com/art/Gimp-2-8-Photoshop-Tweaks-432736644
+#https://github.com/doctormo/GimpPs
+
+# How to use:
+## set-gimp-default
+
+
+# Check to make sure this not run as sudo or root
+if [ "$(id -u)" = "0" ]; then
+echo "Dude. Don't change this folder as root. None of that sudo stuff here."; exit 22
+fi
+
+# Check if Vrk installed on machine
+if [ ! -d /var/local/vrk ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Check if Vrk installed to user
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Disclaimer
+echo "I understand that:
+- This is not Photoshop and never was.
+- Pretending to be Photoshop or Adobe would be wrong and bad and no one here is doing that.
+- \"Photoshop\" or \"CC\" or \"Ps\" or \"CreativeCloud\" here, when referred to, mean the awesome, familiar layout and hotkeys used by the great people at Adobe, not any actual product itself.
+- I'm not a pirate and if I ever see pirating, I'll let everyone know, including inkVerb at http://vubuntu.info
+
+- This will change my layout back to the way GIMP originally designed.
+
+Type \"yes\" if you agree and want to set Ps/CC -like styles in GIMP for this user.
+"
+read CONTINUEYES
+if [ "${CONTINUEYES}" != "yes" ]; then
+echo "Bye.
+"
+exit 0
+fi
+
+# Set it back
+rm -rf .gimp-2.8
+mv .gimp-2.8-vBAK .gimp-2.8
+
+# Finish
+echo "Done. GIMP will be normal again."
+

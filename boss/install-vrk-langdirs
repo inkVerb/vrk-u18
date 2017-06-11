@@ -1,0 +1,228 @@
+#!/bin/sh
+#inkVerbMaker! verb.ink
+set -e
+
+# This changes non-English home directory names to English for a user
+## This needs some root permissions
+## This is not necessaary to run on a Verber/Inker server
+## Prerequesite: vrk installed for the user
+
+# How to use on your local computer:
+## sudo ./install-vrk-langdirs
+
+# How to use on your local computer for another, non-sudo user:
+## sudo ./install-vrk-langdirs [user - if not current sudoer]
+
+
+# Set user
+if [ -z "$1" ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./setupvrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./setupvrk
+"
+exit 0
+fi
+
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check if user exists
+if [ ! -e /home/${VRK_USER} ]; then
+echo "User does not exist! Try again."
+exit 22
+fi
+## User settings, has logged in and has necessary folders
+if [ ! -e /home/${VRK_USER}/.config/user-dirs.dirs ]; then
+echo "User has not logged in yet or lacks vital configs! Log in with the user one time, then try again."
+exit 22
+fi
+if [ ! -e /home/${VRK_USER}/"${XDG_DOCUMENTS_DIR}" ]; then
+echo "User does not have the ${XDG_DOCUMENTS_DIR} folder! Create that folder, then try again."
+exit 22
+fi
+if [ ! -e /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" ]; then
+echo "User does not have the ${XDG_TEMPLATES_DIR} folder! Create that folder, then try again."
+exit 22
+fi
+
+# Check if Vrk Staion is installed for this user
+if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+ if [ "${VRK_LANG_DIRS}" = "YES" ]; then
+echo "Vrk EN language folders already set for this user.
+
+If you would like to continue to refresh the Vrk Station folder configuration, or change your cloud or Work folder, type \"yes\" and <Enter>...
+"
+read CONTINUEYES
+  if [ ${CONTINUEYES} != "yes" ]; then
+echo "Bye.
+"
+exit 0
+  else
+## Run a refresh script here
+###Currently no script to run
+
+   fi
+  fi
+ fi
+fi
+
+# Logout warning
+if [ -z $1 ]; then
+echo "
+!! IMPORTANT !!
+
+When this finishes, you will be logged out and the computer will reboot. Close all apps and get ready...
+
+Are you ready to continue, then logout and reboot? To continue, type \"yes\" and <Enter>..."
+read LOGOUTYES
+ if [ ${LOGOUTYES} != "yes" ]; then
+echo "Exiting, not finished. You can run this again anytime via:
+cd /var/local/vrk/boss
+sudo ./install-vrk
+"
+exit 0
+ fi
+fi
+
+# Include the config
+. /var/local/vrk/machineinfo
+
+# Folder names language
+## Set the site configs based on initial language
+echo "
+#!/bin/sh
+# inkVerb Station-wide config file, verb.ink
+## This is created by setupvrk to implement the inital folder language, then retained for records
+" >  /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
+cat /home/${VRK_USER}/.config/user-dirs.dirs >> /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
+sudo -u ${VRK_USER} sed -i "s/\$HOME\///g" /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
+. /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
+. /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_EN
+## Rename the directories to English from whatever they are, backup original names in myLang if different
+if [ ! -d /home/${VRK_USER}/"${VRK_DESKTOP_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_DESKTOP_DIR}" ]; then
+	mv /home/${VRK_USER}/"${XDG_DESKTOP_DIR}" /home/${VRK_USER}/"${VRK_DESKTOP_DIR}"
+	if [ ! -d /home/${VRK_USER}/myLang ]; then
+	mkdir /home/${VRK_USER}/myLang
+	fi
+	ln -sfn /home/${VRK_USER}/"${VRK_DESKTOP_DIR}" /home/${VRK_USER}/myLang/"${XDG_DESKTOP_DIR}"
+fi
+if [ ! -d /home/${VRK_USER}/"${VRK_DOWNLOAD_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_DOWNLOAD_DIR}" ]; then
+	mv /home/${VRK_USER}/"${XDG_DOWNLOAD_DIR}" /home/${VRK_USER}/"${VRK_DOWNLOAD_DIR}"
+	if [ ! -d /home/${VRK_USER}/myLang ]; then
+	mkdir /home/${VRK_USER}/myLang
+	fi
+	ln -sfn /home/${VRK_USER}/${VRK_DOWNLOAD_DIR} /home/${VRK_USER}/myLang/"${XDG_DOWNLOAD_DIR}"
+fi
+if [ ! -d /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" ]; then
+	mv /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" /home/${VRK_USER}/${VRK_TEMPLATES_DIR}
+	if [ ! -d /home/${VRK_USER}/myLang ]; then
+	mkdir /home/${VRK_USER}/myLang
+	fi
+	ln -sfn /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/myLang/"${XDG_TEMPLATES_DIR}"
+fi
+if [ ! -d /home/${VRK_USER}/${VRK_PUBLICSHARE_DIR} ] && [ -d /home/${VRK_USER}/${XDG_PUBLICSHARE_DIR} ]; then
+	mv /home/${VRK_USER}/${XDG_PUBLICSHARE_DIR} /home/${VRK_USER}/${VRK_PUBLICSHARE_DIR}
+	if [ ! -d /home/${VRK_USER}/myLang ]; then
+	mkdir /home/${VRK_USER}/myLang
+	fi
+	ln -sfn /home/${VRK_USER}/"${VRK_PUBLICSHARE_DIR}" /home/${VRK_USER}/myLang/"${XDG_PUBLICSHARE_DIR}"
+fi
+if [ ! -d /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_DOCUMENTS_DIR}" ]; then
+	mv /home/${VRK_USER}/"${XDG_DOCUMENTS_DIR}" /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
+	if [ ! -d /home/${VRK_USER}/myLang ]; then
+	mkdir /home/${VRK_USER}/myLang
+	fi
+	ln -sfn /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/myLang/"${XDG_DOCUMENTS_DIR}"
+fi
+if [ ! -d /home/${VRK_USER}/"${VRK_MUSIC_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_MUSIC_DIR}" ]; then
+	mv /home/${VRK_USER}/"${XDG_MUSIC_DIR}" /home/${VRK_USER}/"${VRK_MUSIC_DIR}"
+	if [ ! -d /home/${VRK_USER}/myLang ]; then
+	mkdir /home/${VRK_USER}/myLang
+	fi
+	ln -sfn /home/${VRK_USER}/"${VRK_MUSIC_DIR}" /home/${VRK_USER}/myLang/"${XDG_MUSIC_DIR}"
+fi
+if [ ! -d /home/${VRK_USER}/"${VRK_PICTURES_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_PICTURES_DIR}" ]; then
+	mv /home/${VRK_USER}/"${XDG_PICTURES_DIR}" /home/${VRK_USER}/"${VRK_PICTURES_DIR}"
+	if [ ! -d /home/${VRK_USER}/myLang ]; then
+	mkdir /home/${VRK_USER}/myLang
+	fi
+	ln -sfn /home/${VRK_USER}/"${VRK_PICTURES_DIR}" /home/${VRK_USER}/myLang/"${XDG_PICTURES_DIR}"
+fi
+if [ ! -d /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_VIDEOS_DIR}" ]; then
+	mv /home/${VRK_USER}/"${XDG_VIDEOS_DIR}" /home/${VRK_USER}/"${VRK_VIDEOS_DIR}"
+	if [ ! -d /home/${VRK_USER}/myLang ]; then
+	mkdir /home/${VRK_USER}/myLang
+	fi
+	ln -sfn /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" /home/${VRK_USER}/myLang/"${XDG_VIDEOS_DIR}"
+fi
+
+## Set the home directories langauge system config to English
+cp /home/${VRK_USER}/.config/user-dirs.dirs /home/${VRK_USER}/.config/user-dirs.dirs.ink-bak
+cp /home/${VRK_USER}/.config/user-dirs.dirs /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL.dirs
+cp /home/${VRK_USER}/.vrk/configs/lang/user-dirs_EN.dirs /home/${VRK_USER}/.config/user-dirs.dirs
+## Update the site config
+echo "
+#!/bin/sh
+# inkVerb Station-wide config file, verb.ink
+## This is created by setupvrk for the current folder language
+" >  /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
+cat /home/${VRK_USER}/.config/user-dirs.dirs >> /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
+sudo -u ${VRK_USER} sed -i "s/\$HOME\///g" /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
+
+# Set config
+sudo -u ${VRK_USER} sed -i "s/VRK_LANG_DIRS=.*/VRK_LANG_DIRS=\"YES\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+. /var/local/vrk/vrkverno
+
+# Own everything
+chown -R ${VRK_USER} /home/${VRK_USER}
+
+# Finish
+echo "Alright, Sparky! Vrk station is now setup for ${VRK_USER}.
+
+Your work folder is "${WORK_FOLDER_NAME}".
+
+.jpg and .png files in myWall can be added to your list of Wallpaper options with this:
+add-wallpaper [ filename.png/jpg ] [ \"My Picture Name\" ]
+
+Don't delete .xml files in myWall/ or you'll have to add your pictures again.
+"
+
+## Other language?
+if [ -d /home/${VRK_USER}/myLang ]; then
+echo "Home folder links for your original language are in \"myLang\" :-)
+"
+fi
+
+## Logout
+if [ -z $1 ]; then
+echo "Setup is finished.
+
+Logging out for reboot...
+"
+sleep 3
+reboot
+fi
+

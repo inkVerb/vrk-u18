@@ -1,0 +1,51 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This retrieves and installs an existing surfer's remote server's rsa key for FileZilla's no-password login
+## The surfer must already be setup via ssh-add-gosurfer
+## The ssh key must already be created
+
+# How to use:
+## ./ssh-filezilla-addkey [surfer] [SSH keyname]
+
+
+GOSURFER=$1
+KEYNAME=$2
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check variables
+if [ -z $2 ]; then
+echo "You need to specify stuff, like this:
+addfilezillsurfer [surfer] [SSH keyname]
+"
+exit 22
+fi
+
+# Include the config
+. ~/.vrk/boards/${GOSURFER}.malibu
+
+# Copy the key to .ppk
+cp ~/.ssh/${KEYNAME} ~/.ssh/${KEYNAME}.ppk
+
+# Add the FileZilla profile
+sed -i "s/<Servers>\n\t\t<Server>/<Servers>\n\t\t<Server>\n\t\t\t<Host>${GOIP}</Host>\n\t\t\t<Port>${GOPORT}</Port>\n\t\t\t<Protocol>1</Protocol>\n\t\t\t<Type>0</Type>\n\t\t\t<User>${GOUSER}</User>\n\t\t\t<Keyfile>/home/$USER/\.ssh/${KEYNAME}\.ppk</Keyfile>\n\t\t\t<Logontype>5</Logontype>\n\t\t\t<TimezoneOffset>0</TimezoneOffset>\n\t\t\t<PasvMode>MODE_DEFAULT</PasvMode>\n\t\t\t<MaximumMultipleConnections>0</MaximumMultipleConnections>\n\t\t\t<EncodingType>Auto</EncodingType>\n\t\t\t<BypassProxy>0</BypassProxy>\n\t\t\t<Name>${GOSURFER}</Name>\n\t\t\t<Comments>Created by inkVerb Vrk</Comments>\n\t\t\t<LocalDir>/home/$USER/Downloads/fzVrk/</LocalDir>\n\t\t\t<RemoteDir>~/</RemoteDir>\n\t\t\t<SyncBrowsing>0</SyncBrowsing>\n\t\t\t<DirectoryComparison>0</DirectoryComparison>jesse</Server>/g" ~/.config/filezilla/filezilla.xml
+
+# Verify the FileZilla folder
+if [ ! -d ~/Downloads/fzVrk ]; then
+mkdir ~/Downloads/fzVrk
+
+# Finish
+echo "FileZilla keys be in ye old lock, Cap'n. Nore more hassles fer ye passage.
+
+NOTE:
+ - Your new FileZilla profile is: ${GOSURFER}
+ - Your local FileZilla directory is: Downloads/fzVrk
+ - Feel free to make any chanes in FileZilla
+"
+

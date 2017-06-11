@@ -1,0 +1,37 @@
+#!/bin/sh
+# inkVerb Surfer, verb.ink
+set -e
+
+# This creates an Vrk Client key to be signed by a CA Verber
+## Prerequisite: inknetmakevrkclient
+
+# How to use:
+## inknetnewclientkey
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check & include the config
+if [ ! -f ~/.vrk/configs/inknet/client.verber.cnf }; then
+echo "This is not yet ready to connect to a Verber via inkNet.
+
+First run inknetmakevrkclient
+"
+exit 22
+fi
+. ~/.vrk/configs/inknet/client.verber.cnf
+
+# Generate signing keys
+cd ~/.ssh
+ssh-keygen -f -N "" inknet_client_${CLIENTNAME}_key
+
+### Copy-paste method
+# Finish
+echo "Ready for the next step...
+"
+~/.vrk/boards/showinknetkey
+

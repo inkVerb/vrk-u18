@@ -1,0 +1,22 @@
+# This explains the flow of and hierarchies of included and dependent SSH tools in Vrk
+
+# A "gosurfer" is a bash script with SSH login credentials
+## A gosurfer can login via SSH directly from the command line, or be added to other apps, like Guake-Indicator and FileZilla
+
+# The surfer scripts below can be run independently, but some are included in others. This is structured like a filesystem tree:
+
+
+ssh-add-all                  # takes all SSH credentials and adds them everywhere, even creating an SSH key if it doesn't already exist
+
+  ?ssh-craft-key             # creates an SSH key that can be uploaded to a server for no-password login; included in addsshall IF the key doesn't already exist
+
+      ssh-add-goguake        # creates gosurfer and adds him to Guake-Indicator
+
+         ssh-add-gosurfer    # creates a gosurfer
+
+         ssh-add-guake       # adds gosurfer to Guake-Indicator menu
+
+      ssh-add-filezilla      # adds gosurfer and SSH key to FileZilla
+
+      ssh-add-key            # uses password to login and upload an SSH key to a server for future no-password login
+

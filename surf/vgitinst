@@ -1,0 +1,80 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This is a GitHub wizard that installs and sets up GitHub for command line cloning
+
+# How to use:
+## vgitinst [username - optional] [email - optional]
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check if Vubuntu StudioLite installed
+. /var/local/vrk/machineinfo
+if [ "${VUBUNTU_STUDIOLITE_INSTALLED}" != "YES" ]; then
+echo "Vubuntu StudioLite must be installed first."
+exit 22
+fi
+
+# Username
+if [ -z "$1" ]; then
+ echo "Enter your GitHub username:
+"
+ read GITUNAME
+
+## Check if entered
+ if [ -z "${GITUNAME}" ]; then
+ echo "You must enter your GitHub username. If you don't have one, create one first, then continue...
+Enter your GitHub username:
+"
+ read GITUNAME
+ fi
+ if [ -z "${GITUNAME}" ]; then
+ echo "You didn't enter a GitHub username. No changes made. I quit."
+ exit 22
+ fi
+else
+GITUNAME=$2
+fi
+
+# email address
+if [ -z "$2" ]; then
+ echo "Enter your GitHub email address:
+"
+ read GITUEMAIL
+
+## Check if entered
+ if [ -z "${GITUEMAIL}" ]; then
+ echo "You must enter your GitHub email address. If you don't have a GitHub account, create one first, then continue...
+Enter your GitHub email address:
+"
+ read GITUEMAIL
+ fi
+ if [ -z "${GITUEMAIL}" ]; then
+ echo "You didn't enter a GitHub email address. No changes made. I quit."
+ exit 22
+ fi
+else
+GITUEMAIL=$2
+fi
+
+# Enter the information in the config
+git config --global user.name "${GITUNAME}"
+git config --global user.email "${GITUEMAIL}"
+
+# Create the git directory in the home folder
+mkdir -p git
+
+# Config
+touch ~/.vrk/configs/vgitinstdone
+
+# Finish
+echo "GitHub settings for ${USER} are username: ${GITUEMAIL} and email: ${GITUNAME}
+You can use vgitnrepo to add new repos to your ~/git/ folder.
+"
+

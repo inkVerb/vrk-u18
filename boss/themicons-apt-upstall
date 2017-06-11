@@ -1,0 +1,133 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This installs several themes and icons via download and install through various, best means for the most reliable and up-to-date packages
+## This is fully alternative, consumes a lot of time, does much the same thing multiple times multipe ways, and is mostly redundant and somewhat legacy-versioned from included themes and icons.
+## Ultimately, running this, will automatically update many themes and icons, not all, directly, without depending on a Vubuntu update
+## This is not suggested to be run by any normal Vubuntu user unless wishing to expiriment or update. This may also be used by Vubuntu dev teams to build the latest releases via Git.
+## Some of these PPA apt install scripts will not work in x.10 Ubuntu versions, dunno what the obsession with non-LTS x.04 versions, but oh well.
+## The advantage is, once installed, apt update keeps it up to date.
+## This is expirimental and may be depreciated.
+
+# How to use:
+## sudo ./themicons-apt-upstall
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./updatethemes-downloaded
+"
+exit 22
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./updatethemes-downloaded
+"
+exit 22
+fi
+
+# Themes
+## Noobslab Themes
+## (apt installer may not work in x.10)
+### Repo
+add-apt-repository -y ppa:noobslab/themes
+apt update
+### Flatabulous theme
+#https://github.com/anmoljagetia/Flatabulous
+apt install -y flatabulous-theme
+### manual dpkg
+sudo -u ${SUDO_USER} cd && wget wget https://github.com/anmoljagetia/Flatabulous/releases/download/16.04.1/Flatabulous-Theme.deb
+dpkg -i Flatabulous-Theme.deb;rm Flatabulous-Theme.deb
+
+## Arc Themes
+## (apt installer may not work in x.10)
+#https://github.com/horst3180/arc-theme
+sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list"
+apt update
+sudo -u ${SUDO_USER} rm Release.key
+sudo -u ${SUDO_USER} wget http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key
+apt-key add - < Release.key
+sudo -u ${SUDO_USER} rm Release.key
+apt install -y arc-theme
+#### manual dpkg
+#http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/all/
+## Arc
+sudo -u ${SUDO_USER} cd && wget wget http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/all/arc-theme-solid_1475699688.5acba94_all.deb
+dpkg -i arc-theme-solid_1475699688.5acba94_all.deb;rm arc-theme-solid_1475699688.5acba94_all.deb
+## Ceti-2
+#https://github.com/horst3180/ceti-2-theme
+sudo -u ${SUDO_USER} cd && wget wget http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/all/ceti-2-theme_1442961272.9fe3d9f_all.deb
+dpkg -i ceti-2-theme_1442961272.9fe3d9f_all.deb;rm ceti-2-theme_1442961272.9fe3d9f_all.deb
+## Vertex
+#https://github.com/horst3180/vertex-theme
+sudo -u ${SUDO_USER} cd && wget wget http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/all/vertex-theme_1459280359.d828032_all.deb
+dpkg -i vertex-theme_1459280359.d828032_all.deb;rm vertex-theme_1459280359.d828032_all.deb
+#### All Arc Themes manual dpkg #####
+apt update
+
+## Adapta
+# Note, this is the heaviest of all themes and takes a LONGggggggg time to download, build, zip, unzip, or even think about. But it's quite awesome also.
+## (UNTESTED in x.10)!!!!!!!!!!!!!!!!!!!!
+#https://launchpad.net/%7Etista/+archive/ubuntu/adapta
+add-apt-repository -y ppa:tista/adapta
+apt update
+apt install -y adapta-backgrounds adapta-gtk-theme
+
+## Numix Daily
+#http://www.ubuntufree.com/download-numix-theme/
+add-apt-repository -y ppa:numix/ppa
+apt update
+apt install -y numix-gtk-theme numix-icon-theme-circle
+
+## Ubuntu Touch theme (Maybe in the future)
+#https://www.gnome-look.org/content/show.php/Ubuntu-Touch+(Unity)?content=168490
+
+
+# Icons
+## Numix Circle
+#https://github.com/numixproject/numix-icon-theme-circle
+add-apt-repository -y ppa:numix/ppa
+apt update
+apt install -y numix-icon-theme-circle
+
+## Ultra Flat Icons
+## (apt installer may not work in x.10)
+## Icons: Blue, Orange, and Green will be available, Orange gets set
+add-apt-repository -y ppa:noobslab/icons
+apt update
+apt install -y ultra-flat-icons ultra-flat-icons-orange ultra-flat-icons-green
+#### manual dpkg
+### Blue
+sudo -u ${SUDO_USER} cd && wget -O Ultra-Flat.deb https://launchpad.net/~noobslab/+archive/ubuntu/icons/+files/ultra-flat-icons_1.3.2~trusty~Noobslab.com_all.deb
+dpkg -i Ultra-Flat.deb;rm Ultra-Flat.deb
+#sudo -u ${SUDO_USER} gsettings set org.gnome.desktop.interface icon-theme "Ultra-Flat"
+### Orange
+sudo -u ${SUDO_USER} cd && wget -O Ultra-Flat-Orange.deb https://launchpad.net/~noobslab/+archive/ubuntu/icons/+files/ultra-flat-icons-orange_1.3.2~trusty~Noobslab.com_all.deb
+dpkg -i Ultra-Flat-Orange.deb;rm Ultra-Flat-Orange.deb
+#sudo -u ${SUDO_USER} gsettings set org.gnome.desktop.interface icon-theme "Ultra-Flat-Orange-Bright"
+sudo -u ${SUDO_USER} gsettings set org.gnome.desktop.interface icon-theme "Ultra-Flat-Orange"
+### Green
+sudo -u ${SUDO_USER} cd && wget -O Ultra-Flat-Green.deb https://launchpad.net/~noobslab/+archive/ubuntu/icons/+files/ultra-flat-icons-green_1.3.2~trusty~Noobslab.com_all.deb
+dpkg -i Ultra-Flat-Green.deb;rm Ultra-Flat-Green.deb
+#sudo -u ${SUDO_USER} gsettings set org.gnome.desktop.interface icon-theme "Ultra-Flat-Green"
+#### manual dpkg ####
+apt update
+
+# Finish
+apt autoremove -y
+echo "All themes and icons installed."
+

@@ -1,0 +1,67 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+set -e
+
+# This sets a new Work folder to be used by Vrk
+
+# NOTE: This may be depreciated. It is redundant from install-vubuntu-vrkstation.
+
+# How to use:
+## set-workfolder [new name]
+
+
+# Check to make sure this not run as sudo or root
+if [ "$(id -u)" = "0" ]; then
+echo "Dude. Don't change this folder as root. None of that sudo stuff here."; exit 22
+fi
+
+# Check if Vrk installed on machine
+if [ ! -d /var/local/vrk ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+# Check if Vrk installed to user
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+fi
+
+NEW_WORK_FOLDER=$1
+
+# Check variables
+if [ -z $1 ]; then
+echo "You need to specify the new Work folder with one-word, case-sensitive, such as this:
+setcoolfolder myFolder"
+exit 22
+fi
+if [ -n $2 ]; then
+echo "You need to specify the new Work folder with one-word, case-sensitive, such as this:
+setcoolfolder myFolder"
+exit 22
+fi
+
+# Include the config
+. ~/.vrk/configs/stationinfo
+
+# Change the name based on the Cloud configuration
+if [ "${VRK_CLOUD_DIR}" = "NOT_SET_AT_INST" ]; then
+ if [ -d ~/${VRK_WORK_DIR} ]; then
+mv ~/${VRK_WORK_DIR} ~/${NEW_WORK_FOLDER}
+ else
+echo "Things are messed up. You may need to re-install install-vubuntu-vrkstation."
+exit 22
+ fi
+else
+mv ~/${VRK_CLOUD_DIR}/${VRK_WORK_DIR} ~/${VRK_CLOUD_DIR}/${NEW_WORK_FOLDER}
+ln -sfn ~/${VRK_CLOUD_DIR}/${NEW_WORK_FOLDER} ~/
+fi
+
+# Change station settings
+sed -i "s/VRK_WORK_DIR.*/VRK_WORK_DIR=${NEW_WORK_FOLDER}/g" >> ~/.vrk/configs/stationinfo
+
+# Finish
+echo "
+Kowabunga!
+
+Your new Work folder is ${NEW_WORK_FOLDER}.
+"
+

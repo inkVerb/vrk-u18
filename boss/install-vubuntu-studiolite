@@ -1,0 +1,250 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This installs a "lite" version of Ubuntu Studio
+
+# How to use:
+## sudo ./install-vubuntu-apps
+
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./install-vubuntu-desktop
+"
+exit 22
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./install-vubuntu-desktop
+"
+exit 22
+fi
+
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check if Vubuntu StudioLite installed
+. /var/local/vrk/machineinfo
+if [ "${VUBUNTU_STUDIOLITE_INSTALLED}" = "YES" ]; then
+echo "Vubuntu StudioLite already installed."
+exit 0
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./install-vubuntu-apps
+"
+exit 22
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./install-vubuntu-apps
+"
+exit 22
+fi
+
+# Include the configs
+. /home/${SUDO_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
+. /var/local/vrk/machineinfo
+
+# Check CPU version
+PROCVNO=$(dpkg --print-architecture)
+
+# Update & Upgrade
+apt update && apt -y upgrade
+
+# Install the packages
+echo "
+First, updates and fonts. Get ready to agree to EULA...
+"
+## Add some extra repositories
+### Check at each stage to prevent duplication
+if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-partner" ]; then
+add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+touch /var/local/vrk/.vubuntu-studiolite-repo-partner
+fi
+if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-multiverse" ]; then
+add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
+touch /var/local/vrk/.vubuntu-studiolite-repo-multiverse
+fi
+if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-universe" ]; then
+add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
+touch /var/local/vrk/.vubuntu-studiolite-repo-universe
+fi
+if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner" ]; then
+add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
+touch /var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner
+if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
+apt update && apt -y upgrade
+touch /var/local/vrk/.vubuntu-studiolite-repo
+fi
+## Dialogue installs first, and the rest of the fonts
+apt install -y ttf-mscorefonts-installer jackd2
+apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts
+echo "
+Fonts are now installed. Now doing some basic tools...
+"
+apt install -y zip p7zip-full gzip guake phatch docky gedit kate nautilus grabc gparted shutter kazam
+# Redundant from install-vubuntu-desktop
+apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
+echo "
+Tools done. Now doing browsers...
+"
+apt install -y midori thunderbird firefox
+apt install -y chromium-browser djview-plugin
+if [ "$UBUNT_DISTRO" = "Compiz" ]; then
+apt install -y unity-chromium-extension
+fi
+if [ "$UBUNT_DISTRO" = "GNOME" ]; then
+apt install -y epiphany-browser gconf-editor
+fi
+if [ "${PROCVNO}" = "amd64" ]; then
+ if [ ! -f "/var/local/vrk/.vubuntu-studiolite-chrome" ]; then
+echo "You are running a 64 bit processor, so you get Google Chrome! XD..."
+rm -f linux_signing_key.pub
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
+sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+rm -f linux_signing_key.pub
+touch /var/local/vrk/.vubuntu-studiolite-chrome
+apt update 
+apt install -y google-chrome-stable
+ fi
+fi
+echo "
+Tools done. Now doing Google Earth...
+"
+if [ "${PROCVNO}" = "amd64" ]; then
+ if [ ! -f "/var/local/vrk/.vubuntu-studiolite-earth64" ]; then
+rm -f google-earth-stable_current_amd64.deb*
+wget https://dl.google.com/dl/earth/client/current/google-earth-stable_current_amd64.deb
+dpkg -i google-earth-stable*.deb
+apt -yf install
+rm -f google-earth-stable_current_amd64.deb*
+touch /var/local/vrk/.vubuntu-studiolite-earth64
+ fi
+fi
+if [ "${PROCVNO}" = "i386" ]; then
+ if [ ! -f "/var/local/vrk/.vubuntu-studiolite-earth386" ]; then
+rm -f google-earth-stable_current_i386.deb*
+wget https://dl.google.com/dl/earth/client/current/google-earth-stable_current_i386.deb
+dpkg -i google-earth-stable*.deb
+apt -yf install
+rm -f google-earth-stable_current_i386.deb*
+touch /var/local/vrk/.vubuntu-studiolite-earth386
+ fi
+fi
+echo "
+Google Earth done. Flash and some more office stuff...
+"
+apt install -y adobe-flashplugin libreoffice scribus
+echo "
+Flash and office stuff done. Doing web dev favorites...
+"
+apt install -y git vim guake-indicator filezilla meld
+echo "
+Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable...
+"
+## The beta GIMP 2.9
+#add-apt-repository -y ppa:otto-kesselgulasch/gimp-edge
+#apt update && sudo apt install -y gimp gimp-gmic
+
+apt install -y inkscape blender gimp gimp-plugin-registry darktable krita
+apt install -y kolourpaint4 pencil2d pinta tupi karbon
+
+### BIMP for batch jobs in GIMP
+apt install -y libgimp2.0-dev libpcre3-dev
+cd /var/local/vrk/donjon
+git clone https://github.com/alessandrofrancesconi/gimp-plugin-bimp.git
+cd gimp-plugin-bimp
+make && make install-admin
+cd /var/local/vrk/donjon
+rm -R gimp-plugin-bimp
+
+## MyPaint
+if [ "${PROCVNO}" = "amd64" ]; then
+echo "64 bit system, not installing MyPaint. Install it anytime with:
+sudo apt install mypaint mypaint-data-extras"
+fi
+if [ "${PROCVNO}" = "i386" ]; then
+apt install -y mypaint mypaint-data-extras
+fi
+
+echo "
+Graphic design done. Media stuff, VLC, audio players, Kdenlive...
+"
+apt install -y vlc vlc-data browser-plugin-vlc mplayer2 clementine amarok kdenlive rhythmbox
+echo "
+Media done. Audiophile tools, Audacity, LMMS, Audio Tag Tool...
+"
+apt install -y audacity lmms easytag tagtool
+echo "Sound's great. (hehe) Getting desktop goodies...
+"
+apt install -y ubuntu-restricted-extras alsa-oss libasound2 libasound2-plugins
+apt install -y gnome-music gnome-photos dia-gnome planner gromit gnome-chess
+echo "
+Got the goodies. Sky time... Stellarium...
+"
+apt install -y stellarium
+echo "
+Dropbox may want to start, go ahead. Now doing Skype...
+"
+apt install -y skype
+echo "
+You got Skype. Now to final settings...
+"
+
+## Hot Corners in Xfce ?
+#http://ubuntuhandbook.org/index.php/2015/07/hot-corners-plugin-xfce4/
+#add-apt-repository -y ppa:xubuntu-dev/extras
+#apt update
+#apt install -y xfce4-hotcorner-plugin
+
+# Logout warning
+echo "When this finishes, you will be logged out and the computer will reboot. Close all apps and get ready...
+
+Are you ready to continue, then logout and reboot? Type \"yes\" to continue."
+read LOGOUTYES
+if [ "${LOGOUTYES}" != "yes" ]; then
+echo "Exiting, not finished. You can run this again anytime."
+exit 22
+fi
+
+# Set config
+echo "VUBUNTU_STUDIOLITE_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+echo "#!/bin/sh
+# Pydio repo status
+
+STUDIOLITE=\"INSTALLED\"
+" > /home/${SUDO_USER}/.vrk/configs/studiolitestatus
+## Remove repo temp progress files
+rm /var/local/vrk/.vubuntu-studiolite-*
+
+# Finish
+apt autoremove -y
+echo "
+Vubuntu Studio Lite is all set.
+
+Logging out for reboot...
+"
+sleep 3
+reboot
+

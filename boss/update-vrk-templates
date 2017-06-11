@@ -1,0 +1,91 @@
+#!/bin/sh
+#inkVerbMaker! verb.ink
+set -e
+
+# This updates the current user's Templates with Vrk™ Templates
+## Normally, once you have installed Vrk on one machine, then synced it across machines with install-vrk-cloud, Vrk Templates will no longer be installed or updated in the event that you have made modifications.
+## When you install Vrk, your machine gets the current Vrk Templates, but any Vrk Templates in your cloud replace your Templates folder when you run install-vrk-cloud.
+## This is useful if you want recent versions of the Vrk Templates or you have lost them.
+## This needs some root permissions
+## This is not necessaary to run on a Verber/Inker server
+
+# How to use on your local computer:
+## sudo ./update-vrk-templates
+
+# How to use on your local computer for another, non-sudo user:
+## sudo ./update-vrk-templates [user - if not current sudoer]
+
+# NOTE: If you run this for yourself without a [user] declaration, then your .vrk folder will have a "boss" folder link.
+
+
+# Set user
+if [ -z $1 ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./setupvrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./setupvrk
+"
+exit 0
+fi
+
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check if user exists
+if [ ! -e /home/${VRK_USER} ]; then
+echo "User does not exist! Try again."
+exit 22
+fi
+## User settings, has logged in and has necessary folders
+if [ ! -e /home/${VRK_USER}/.config/user-dirs.dirs ]; then
+echo "User has not logged in yet or lacks vital configs! Log in with the user one time, then try again."
+exit 22
+fi
+if [ ! -e /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" ]; then
+echo "User does not have the ${XDG_TEMPLATES_DIR} folder! Create that folder, then try again."
+exit 22
+fi
+
+# Check if Vrk Staion is installed for this user
+if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+ if [ "${VRK_INSTALLED}" != "YES" ]; then
+echo "Vrk is not installed for this user. Do that first. Bye."
+exit 22
+ else
+ fi
+else
+echo "Vrk is not installed for this user. Do that first. Bye."
+exit 22
+fi
+
+# Update the templates
+cp -R /var/local/vrk/donjon/vrktemplates/* /home/${VRK_USER}/${VRK_TEMPLATES_DIR}/
+
+# Finish
+echo "Current Vrk™ Templates have been added to the Templates folder for ${VRK_USER}.
+
+Any other files in Templates have not been removed.
+"
+

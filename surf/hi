@@ -1,0 +1,20 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This says Hi.
+
+# How to use
+## hi "What you want to say."
+
+
+HISAY=$1
+
+echo "
+Hi.
+"
+if [ -n "${HISAY}" ]; then
+echo "${HISAY}
+"
+fi
+

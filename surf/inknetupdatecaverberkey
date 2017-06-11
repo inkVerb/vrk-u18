@@ -1,0 +1,47 @@
+#!/bin/sh
+# inkVerb Surfer, verb.ink
+set -e
+
+# This updates a CA Verber's public signing key after the normal inknet install
+## Prerequisite: inknetaddcaverberpubkey
+
+# How to use:
+## inknetupdatecaverberkey [ca verber name]
+
+# Eg: (Use this format exactly!)
+## inknetupdatecaverberkey myvname_verb_ink
+
+
+VERBERNAME=$1
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check and include the config
+if [ ! -f ~/.vrk/configs/inknet/verbers/verber.${VERBERNAME}.cnf ]; then
+echo "Out of order. You didn't add that Verber yet. This updates after it has already been added.
+
+First, run inknetaddverber, then inknetaddcaverberpubkey
+"
+. ~/.vrk/configs/inknet/verbers/verber.${VERBERNAME}.cnf
+
+# Download the CA Server pub key to this Client
+if [ -f ~/.ssh/inknet_ca_${VERBERNAME}_key.pub ]; then
+rm ~/.ssh/inknet_ca_${VERBERNAME}_key.pub
+echo "Key installed, now updating..."
+cd ~/.ssh/
+wget https://${VERBERURI}/inknet/inknet_ca_${VERBERNAME}_key.pub
+
+# Check if done correctly 
+if [ ! -f ~/.ssh/inknet_ca_${CAVERBERNAME}_key.pub ]; then
+echo "This Verber CA key could not be downloaded. Either it has been entered wrong or the Inker is offline.
+Try again with inknetinstall, or try inknetaddverber, then inknetmakevrkclient, then panic."
+exit 22
+fi
+
+# Finish
+echo "CA key updated."
+

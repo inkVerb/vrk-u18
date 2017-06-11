@@ -1,0 +1,111 @@
+#!/bin/sh
+#inkVerbMaker! verb.ink
+set -e
+
+# This installs Vrk™ on your local system
+## This needs some root permissions
+## This is not necessaary to run on a Verber/Inker server
+## Prerequesite: put vrk in the base of your home folder
+
+# How to use on your local computer:
+## sudo ./govrk
+
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./setupvrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./setupvrk
+"
+exit 0
+fi
+
+# Disclaimer
+echo "
+\"Disclaimer\"...
+Vrk™ and Vubuntu™ are described at vubuntu.info, verb.ink, and github.com/inkVerb/vrk and are open and you can look at everything they do anytime. So, you've been told.
+Vrk™ automatically rearranges home folders, files, desktop settings, installs software, and does other things too boring or interesting to list here.
+Vrk™ sets the auto-lock screen to NOT ask for a password (separately from after you have already logged in.) You can still lock the screen manually, which will require your password, or change this option back. It's very important and safe to require your password to login and that you do NOT use a no-password login.
+You are NOT expected to use the \"TM\" after Vrk™ and Vubuntu™ as inkVerb does. (We just like it because it looks cool and makes everyone's lawyers complain less.)
+
+Normally, this is intended to be used on Ubuntu and possibly other Ubuntu-based distros such as Xubuntu, GNOME, or others, maybe.
+Ideally, this is intended to be used right after installing Ubuntu and no changes have been made to settings. (a 'clean' or 'fresh' install)
+Typically, used properly, everything is fine, though we never know for sure.
+
+But, if you have made \"normal\" changes to some settings, it should be okay, maybe.
+Vrk™ will override many of your settings or defaults with its own EVERYTIME it wants to. (Most people who use Vrk™ want this, which is why they use it.)
+
+1. Back up your important stuff first.
+2. Run this on as \"clean\" of an install of Ubuntu as possible and remember it could ruin everything or cause the Apocalypse. (Though, we probably aren't so lucky.)
+3. Vrk™ could make you into a very happy person and make the world such a better place that Jesus wants to return faster, just to see what's going on. But, we aren't sure.
+4. This comes with NO warranty or guarantee. Use at your own risk!
+
+I understand the above \"Disclaimer\" and am ready to proceed into the wild unknown dangerous-treacherous glee of having an inkVerb Vrk™ Station!
+Type \"yes\" if and only if you agree, accept, and want to continue...
+"
+read CONTINUEYES
+if [ "${CONTINUEYES}" != "yes" ]; then
+echo "Bye.
+"
+exit 0
+fi
+
+# Basic installs
+apt update && apt -yf upgrade && apt install -yf bc wmctrl
+
+# Check CPU version
+PROCVNO=$(dpkg --print-architecture)
+SESSDISTRO=$(wmctrl -m | grep "Name:" | awk '{print $2}')
+
+# Set the directory to var/local, but a hidden link in the user's
+## Check if it is already in var/local from a previous install
+if [ ! -d /var/local/vrk ]; then
+cp -r /home/${SUDO_USER}/vrk /var/local/
+fi
+
+# Executable check
+chmod +x /var/local/vrk/boss/*
+chmod +x /var/local/vrk/droids/*
+chmod +x /var/local/vrk/surf/*
+chmod +x /var/local/vrk/donjon/*
+chmod +x /var/local/vrk/donjon/vrktemplates/7_BASH
+
+# Background image directories
+## If "backgrounds" doesn't exist (KDE, cough cough)
+if [ ! -d /usr/share/backgrounds ]; then
+mkdir /usr/share/backgrounds
+ if [ -d /usr/share/wallpapers ]; then
+ln -sfn /usr/share/backgrounds /usr/share/wallpapers/
+ fi
+fi
+if [ ! -d /usr/share/gnome-background-properties ]; then
+mkdir /usr/share/gnome-background-properties
+fi
+
+# Machine Config
+echo "#!/bin/sh
+# inkVerb Machine-wide config file, verb.ink
+
+VRK_INST_BY=\"${SUDO_USER}\"
+CPUPKGVER=\"${PROCVNO}\"
+UBUNT_DISTRO=\"${SESSDISTRO}\"
+" > /var/local/vrk/machineinfo
+
+# Finish
+echo "Vrk is setup on this machine. Now installing it for this user...
+"
+
+/var/local/vrk/boss/install-vrk
+

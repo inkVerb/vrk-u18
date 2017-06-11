@@ -1,0 +1,24 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This turns off the "can't catch me" notification bubbles in Unity
+## Join the anti-amib army:
+#http://news.softpedia.com/news/Canonical-Intends-to-Keep-Its-Notifications-without-User-Interaction-on-Unity-8-467206.shtml
+#http://www.omgubuntu.co.uk/2016/06/disable-ubuntu-notifications-indicator-applet
+
+# How to use:
+## sudo ./vubuntu-unity-notifications-on
+
+
+# Check if installed
+if [ ! -f /var/local/vrk/.vubuntu-unity-notifications-off ]; then
+echo "Notifications already turned on."
+exit 0
+fi
+
+## Turn it off
+mv /usr/share/dbus-1/services/org.freedesktop.Notifications.service{.disabled,}
+
+## Set config
+rm -f /var/local/vrk/.vubuntu-unity-notifications-off
+

@@ -1,0 +1,54 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+set -e
+
+# This backs up basic network configurations and passwords to .vrk/configs
+## This is intended to be run before usbbackup
+
+# How to use:
+## sudo ./netbackup
+
+
+THEMENAME=$1
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo sudotheme [Theme-Name]
+"
+exit 22
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo sudotheme [Theme-Name]
+"
+exit 22
+fi
+
+# WiFi profiles, VPN, and such
+if [ -d /etc/NetworkManager ]; then
+mkdir /home/${SUDO_USER}/.vrk/configs/net
+cp -R /etc/NetworkManager /home/${SUDO_USER}/.vrk/configs/net
+else
+echo "Network settings folder doesn't exist. You may need to get those manually, if you want them.
+Check:
+/etc/network/interfaces
+/etc/wpa_supplicant.conf
+.gconf/system/networking/
+or use Google to figure out what's going on."
+fi
+
+

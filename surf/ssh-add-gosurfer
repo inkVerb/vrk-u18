@@ -1,0 +1,61 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This creates a simple "surfer" SSH login script for a remote server
+
+# How to use:
+## ./ssh-add-gosurfer [surfer name] [remote user] [remote IP] [port - optional]
+
+
+SURFERNAME=$1
+USER=$2
+IP=$3
+PORT=$4
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check variables
+if [ -z $4 ]; then
+echo "You need to specify stuff, like this:
+ssh-add-gosurfer [surfer name] [remote user] [remote IP] [port - optional]
+"
+exit 22
+fi
+
+# Assign 22 if [port] option is left empty
+if [ -z "${PORT}" ]; then
+PORT=22
+fi
+
+# Create the surfer
+cp ~/.vrk/donjon/go.newsurfer ~/.vrk/go/go.${SURFERNAME}
+
+echo "#!/bin/sh
+#inkVerbGosurfer! verb.ink
+
+# Include the config
+. ~/.vrk/go/go.${SURFERNAME}.malibu
+
+# Connect
+ssh \${GOUSER}@\${GOIP} -p \${GOPORT}
+" > ~/.vrk/go/go.${SURFERNAME}.boards
+
+# Create a config
+echo "#!/bin/sh
+# This is a Vrk config file with the credentials of a surfer
+GOUSER=${USER}
+GOIP=${IP}
+GOPORT=${PORT}
+" > ~/.vrk/go/go.${SURFERNAME}.malibu
+
+# Finish
+echo "Kowabunga!
+
+Now \"go.${SURFERNAME}\" will log you into that remote server in the vast ocean!
+"
+

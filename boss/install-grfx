@@ -1,0 +1,66 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+set -e
+
+# This adds the graphix driver repo and allows PPA installation of special graphix drivers
+
+# DEV VERSION!! PydioSync currently doesn't work on Linux, at least not this way. Contribute or stay tuned.
+echo "Actually, this is only in development because Pydio isn't ready for Linux yet. Feel free to help out with git pull requests."
+exit 0
+
+# How to use:
+## sudo ./install-grfx
+
+
+# Check if installed
+if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./install-pydio
+"
+exit 22
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./install-pydio
+"
+exit 22
+fi
+
+# Check status and add missing
+## If older
+if [ -f /home/${SUDO_USER}/.vrk/configs/grfxstatus ]; then
+echo "Nvidia driver already installed
+"
+exit 0; fi
+
+# Install
+add-apt-repository ppa:graphics-drivers/ppa -y
+sudo apt update
+
+# Config
+echo "#!/bin/sh
+# Pydio repo status
+
+GRFXSTATUS=INSTALLED
+" > /home/${SUDO_USER}/.vrk/configs/grfxstatus
+
+# Finish
+apt autoremove -y
+echo "Graphix driver repo added. Manage in:
+
+Software & Updates > System Settings > Additional Drivers: Apply Changes
+"
+

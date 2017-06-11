@@ -1,0 +1,45 @@
+#!/bin/sh
+#inkVerbMaker! verb.ink
+set -e
+
+# This installs Vrk™ on your local system
+## This needs some root permissions
+## This is not necessaary to run on a Verber/Inker server
+## Prerequesite: put vrk in the base of your home folder
+
+# How to use on your local computer:
+## sudo ./uninstallvrk
+
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./setupvrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./setupvrk
+"
+exit 0
+fi
+
+# Remove linked directories
+rm -rf /usr/share/backgrounds/vubuntu
+rm -f /usr/share/gnome-background-properties/vubuntu-wallpapers.xml
+
+# Remove vrk
+rm -rf /var/local/vrk
+
+# Finish
+echo "Vrk is gone. A few broken links may remain in /usr/share/themes/ and /usr/share/icons/
+"
+

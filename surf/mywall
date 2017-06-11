@@ -1,0 +1,149 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This adds a wallpaper
+
+# How to use:
+## mywall [filename] ["Nice Name" in quotes]
+
+
+# Check to make sure this not run as sudo or root
+if [ "$(id -u)" = "0" ]; then
+echo "Do not run as root or sudo."; exit 22
+fi
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Nothing to do. Install Vrk first. See READ.ME"
+exit 22
+fi
+
+# Check if Vubuntu Desktop installed on the machine
+if [ ! -f /var/local/vrk/.vubuntu-desktop-installed ]; then
+echo "Vubuntu Desktop hasn't been installed by any user on this machine.
+A Superuser/Sudoer needs to run install-vubuntu-desktop for this machine. See READ.ME"; exit 22
+fi
+
+# Check if Vubuntu Desktop installed on the machine
+if [ ! -f /var/local/vrk/.vubuntu-desktop-installed ]; then
+echo "Vubuntu Desktop hasn't been installed by any user on this machine.
+A Superuser/Sudoer needs to run install-vubuntu-desktop for this machine. See READ.ME"; exit 22
+fi
+
+# For instructions
+## Help
+if [ "$1" = "-h" ]; then
+echo "Whatever you add with mywall will be synced through your to any other Vrk Station using ${VRK_CLOUD_DIR} with the username \"${VRK_USER}\"."
+exit 0
+fi
+## Misuse
+if [ -z "$1" ] || [ -z "$2" ]; then
+echo "How to use:
+mywall [filename] [\"Nice Name\" in quotes]
+* The file must be the full or relative path to the file, if including spaces it needs \"quotes\".
+* The Nice Name must be in \"quotes\" if more than one word and is used to decribe the wallpaper.
+"
+## Vrk cloud
+ if ["${VRK_CLOUD_DIR}" != "NOT_YET"]; then
+echo "Whatever you add with mywall will be synced through your to any other Vrk Station using ${VRK_CLOUD_DIR} with the username \"${VRK_USER}\"."
+ fi
+exit 0
+fi
+
+FILENAME=$1
+NICE_NAME=$2
+VRK_USER=$USER
+
+# Include the configs
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+. /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_EN
+. /var/local/vrk/machineinfo
+
+# Check-n-fix folder dependencies
+## See that the myWall folder exists properly, whether in Vrk Cloud or home
+if [ ! -d /home/${VRK_USER}/.vrk/myWall ]; then
+ if [ -d /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/myWall ]; then
+echo "The myWall directory doesn't exist. Creating it. Don't delete it this time... ><"
+ln -sfn /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/myWall /home/${VRK_USER}/
+ else
+echo "The myWall directory doesn't exist, neither in your home nor a Vrk Cloud folder. Something's wrong. You probably need to run install-vrk for this user. Follow instructions in README.md and don't mess!"
+exit 22
+ fi
+fi
+
+# Check-n-fix XML list dependencies
+## Xfce
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ]; then
+touch /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml
+fi
+## GNOME/Budgie
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/my-wall.xml ]; then
+echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE wallpapers SYSTEM \"gnome-wp-list.dtd\">
+<wallpapers>
+</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/my-wall.xml
+fi
+## MATE
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/linuxmint-my-mate-wall.xml ]; then
+echo "<?xml version=\"1.0\"?>
+<!DOCTYPE wallpapers SYSTEM \"mate-wp-list.dtd\">
+<wallpapers>
+</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/linuxmint-my-mate-wall.xml
+fi
+## Cinnamon
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml ]; then
+echo "<?xml version=\"1.0\"?>
+<!DOCTYPE wallpapers SYSTEM \"cinnamon-wp-list.dtd\">
+<wallpapers>
+</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml
+fi
+
+# Check-n-fix folder & file structure
+## KDE, Budgie & Global
+if [ ! -d /home/${VRK_USER}/.local/share/backgrounds ]; then
+mkdir /home/${VRK_USER}/.local/share/backgrounds
+fi
+ln -sfn /home/${VRK_USER}/.vrk/myWall /home/${VRK_USER}/.local/share/backgrounds/${VRK_USER}Wall
+## GNOME
+if [ ! -d /home/${VRK_USER}/.local/share/gnome-background-properties ]; then
+mkdir /home/${VRK_USER}/.local/share/gnome-background-properties
+fi
+if [ -d /usr/share/gnome-background-properties ]; then
+ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/gnome-background-properties/
+fi
+## MATE
+if [ -d /usr/share/mate-background-properties ]; then
+ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/mate-background-properties/
+fi
+## Cinnamon
+if [ -d /usr/share/cinnamon-background-properties ]; then
+ln -sfn /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wallpapers.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
+fi
+## Xfce
+if [ -d /home/${VRK_USER}/.config/xfce4 ]; then
+mkdir /home/${VRK_USER}/.config/xfce4
+fi
+if [ ! -d ~/.config/xfce4/mcs_settings ]; then
+mkdir /home/${VRK_USER}/.config/xfce4/mcs_settings
+fi
+ln -sfn /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
+## Own
+chown -R ${VRK_USER} /home/${VRK_USER}/.local
+chown -R ${VRK_USER} /home/${VRK_USER}/.config
+
+# Copy the file
+cp ${FILENAME} /home/${VRK_USER}/.vrk/myWall/
+
+# Add the file to the list
+## GNOME/MATE/Budgie
+sed -i "s/</wallpapers>/  <wallpaper>\n    <name>${NICE_NAME}<\/name>\n    <filename>\/home\/${VRK_USER}\/.local\/share\/backgrounds\/${VRK_USER}Wall\/${FILENAME}<\/filename>\n    <options>zoom<\/options>\n    <pcolor>#ececec<\/pcolor>\n    <scolor>#ececec<\/scolor>\n    <shade_type>solid<\/shade_type>\n  <\/wallpaper>\n<\/wallpapers>/g" /home/${VRK_USER}/.vrk/myWall/my-wall.xml
+## Cinnamon
+sed -i "s/</wallpapers>/  <wallpaper>\n    <name>${NICE_NAME}<\/name>\n    <filename>\/home\/${VRK_USER}\/.local\/share\/backgrounds\/${VRK_USER}Wall\/${FILENAME}<\/filename>\n    <options>zoom<\/options>\n    <pcolor>#ececec<\/pcolor>\n    <scolor>#ececec<\/scolor>\n    <shade_type>solid<\/shade_type>\n  <\/wallpaper>\n<\/wallpapers>/g" /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml
+## Xfce
+echo "<option name=\"imagepath_0_0\" type=\"string\" value=\"/home/${VRK_USER}/.local/share/backgrounds/${VRK_USER}Wall/${FILENAME}\"/>" >> /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/myWall/xfce-desktop.xml
+
+# Finish
+echo "Everything's fly! ${FILENAME} has been added to your available wallpapers. Don't delete it. If you want to remove it, remove its <wallpaper> XML entry from "${VRK_CLOUD_DIR}"/myWall/my-wall.xml or just delete everything in "${VRK_CLOUD_DIR}"/myWall and start over with no problem.
+If you have your Cloud set up, this is set to be synced across all your machines. So, they will have it too!"
+

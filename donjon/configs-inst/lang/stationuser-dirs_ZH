@@ -1,0 +1,12 @@
+#!/bin/sh
+# inkVerb Station-wide config file, verb.ink
+## This is used for language folder variables in surfer scripts
+
+VRK_DESKTOP_DIR="桌面"
+VRK_DOWNLOAD_DIR="下載"
+VRK_TEMPLATES_DIR="模板"
+VRK_PUBLICSHARE_DIR="公共"
+VRK_DOCUMENTS_DIR="文件"
+VRK_MUSIC_DIR="音樂"
+VRK_PICTURES_DIR="圖片"
+VRK_VIDEOS_DIR="影片"
