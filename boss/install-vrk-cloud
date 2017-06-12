@@ -240,9 +240,6 @@ echo "VRK_CLOUD_DIR=\"NOT_SET\"" >> /home/${VRK_USER}/.vrk/configs/stationinfo
 echo "Cloud not entered. Skipping cloud integration. To install later use: install-vrk-cloud"
 fi
 
-# Own everything
-chown -R ${VRK_USER} /home/${VRK_USER}
-
 # Finish
 if [ -n ${CLOUD_CHOICE} ]; then
 echo "Alright, Sparky! Vrk station is now syncing with ${CLOUD_CHOICE}.

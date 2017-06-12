@@ -195,9 +195,6 @@ sudo -u ${VRK_USER} sed -i "s/\$HOME\///g" /home/${VRK_USER}/.vrk/configs/lang/s
 sudo -u ${VRK_USER} sed -i "s/VRK_LANG_DIRS=.*/VRK_LANG_DIRS=\"YES\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
 . /var/local/vrk/vrkverno
 
-# Own everything
-chown -R ${VRK_USER} /home/${VRK_USER}
-
 # Finish
 echo "Alright, Sparky! Vrk station is now setup for ${VRK_USER}.
 
