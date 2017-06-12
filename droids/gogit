@@ -1,0 +1,17 @@
+#!/bin/bash
+# This git-updates the current directory, if owned by the user.
+
+# How to use:
+## gogit [Commit message - optional]
+
+
+if [ -n "$1" ]; then
+COMMSG=$1
+else
+COMMSG="Normal vrk station updates"
+fi
+
+git add .
+git commit -m "${COMMSG}"
+git push -u origin master
+

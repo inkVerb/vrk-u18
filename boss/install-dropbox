@@ -10,7 +10,7 @@ set -e
 
 # Check if installed
 if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
-echo "Install Vrk first. See READ.ME"
+echo "Install Vrk first. See README.md"
 exit 22
 fi
 

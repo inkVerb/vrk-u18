@@ -44,7 +44,7 @@ fi
 
 # Check if Vrk installed on this machine
 if [ ! -f /var/local/vrk/machineinfo ]; then
-echo "Install Vrk first. See READ.ME"
+echo "Install Vrk first. See README.md"
 exit 22
 fi
 
@@ -158,9 +158,6 @@ chown -R ${VRK_USER} /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
 
 # Set config
 sudo -u ${VRK_USER} sed -i "s/VRK_DIRS_SET=.*/VRK_DIRS_SET=\"YES\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
-
-# Own everything
-chown -R ${VRK_USER} /home/${VRK_USER}
 
 # Finish
 echo "Work folder is set to \"${WORK_FOLDER_NAME}\".

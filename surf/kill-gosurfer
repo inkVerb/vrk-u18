@@ -12,7 +12,7 @@ SURFERNAME=$1
 
 # Check if installed
 if [ ! -f ~/.vrk/configs/stationinfo ]; then
-echo "Install Vrk first. See READ.ME"
+echo "Install Vrk first. See README.md"
 exit 22
 fi
 

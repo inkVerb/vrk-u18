@@ -31,12 +31,12 @@ fi
 # Installed?
 ## Check if Vrk installed on this machine
 if [ ! -f /var/local/vrk/machineinfo ]; then
-echo "Install Vrk on this machine first. See READ.ME"
+echo "Install Vrk on this machine first. See README.md"
 exit 22
 fi
 ## Check if installed for this user
 if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
-echo "Vrk is installed on this machine, but has yet to be installed for this user. See READ.ME"
+echo "Vrk is installed on this machine, but has yet to be installed for this user. See README.md"
 exit 22
 fi
 

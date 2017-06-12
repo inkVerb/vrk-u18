@@ -14,7 +14,7 @@
 inkVerb's Vrk app is a collection of simple scripts that sets up a useful configuration for main Ubuntu distros
 
 ## How to Install
-- Breeze through this READ.ME first!!
+- Breeze through this README.md first!!
 - Put "vrk" in your home folder
 - Open the terminal (Ctrl + Alt + T)
 cd /vrk/inst

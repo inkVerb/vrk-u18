@@ -24,12 +24,12 @@ fi
 
 # Check if Vrk installed on machine
 if [ ! -d /var/local/vrk ]; then
-echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+echo "First, run install-vubuntu-vrkstation for this user. See README.md"; exit 22
 fi
 
 # Check if Vrk installed to user
 if [ ! -f ~/.vrk/configs/stationinfo ]; then
-echo "First, run install-vubuntu-vrkstation for this user. See READ.ME"; exit 22
+echo "First, run install-vubuntu-vrkstation for this user. See README.md"; exit 22
 fi
 
 # Disclaimer

@@ -30,7 +30,7 @@ fi
 
 # Check if Vrk installed on this machine
 if [ ! -f /var/local/vrk/machineinfo ]; then
-echo "Install Vrk first. See READ.ME"
+echo "Install Vrk first. See README.md"
 exit 22
 fi
 
@@ -93,6 +93,7 @@ fi
 if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner" ]; then
 add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
 touch /var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner
+fi
 if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
 apt update && apt -y upgrade
 touch /var/local/vrk/.vubuntu-studiolite-repo
@@ -170,14 +171,15 @@ Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable...
 apt install -y inkscape blender gimp gimp-plugin-registry darktable krita
 apt install -y kolourpaint4 pencil2d pinta tupi karbon
 
-### BIMP for batch jobs in GIMP
-apt install -y libgimp2.0-dev libpcre3-dev
-cd /var/local/vrk/donjon
-git clone https://github.com/alessandrofrancesconi/gimp-plugin-bimp.git
-cd gimp-plugin-bimp
-make && make install-admin
-cd /var/local/vrk/donjon
-rm -R gimp-plugin-bimp
+########### It has depreciation problems
+#### BIMP for batch jobs in GIMP
+#apt install -y libgimp2.0-dev libpcre3-dev
+#cd /var/local/vrk/donjon
+#git clone https://github.com/alessandrofrancesconi/gimp-plugin-bimp.git
+#cd gimp-plugin-bimp
+#ake && make install-admin
+#cd /var/local/vrk/donjon
+#rm -R gimp-plugin-bimp
 
 ## MyPaint
 if [ "${PROCVNO}" = "amd64" ]; then
@@ -218,16 +220,6 @@ You got Skype. Now to final settings...
 #apt update
 #apt install -y xfce4-hotcorner-plugin
 
-# Logout warning
-echo "When this finishes, you will be logged out and the computer will reboot. Close all apps and get ready...
-
-Are you ready to continue, then logout and reboot? Type \"yes\" to continue."
-read LOGOUTYES
-if [ "${LOGOUTYES}" != "yes" ]; then
-echo "Exiting, not finished. You can run this again anytime."
-exit 22
-fi
-
 # Set config
 echo "VUBUNTU_STUDIOLITE_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
 echo "#!/bin/sh
@@ -242,9 +234,5 @@ rm /var/local/vrk/.vubuntu-studiolite-*
 apt autoremove -y
 echo "
 Vubuntu Studio Lite is all set.
-
-Logging out for reboot...
 "
-sleep 3
-reboot
 

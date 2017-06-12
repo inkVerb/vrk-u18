@@ -92,29 +92,11 @@ echo "Alright, refreshing..."
  fi
 fi
 
-# Reboot warning
-if [ -z $1 ]; then
-echo "
-!! IMPORTANT !!
-
-When this finishes, you will be logged out and the computer will reboot. Close all apps and get ready...
-
-Are you ready to continue, then logout and reboot? To continue, type \"yes\" and <Enter>..."
-read LOGOUTYES
- if [ ${LOGOUTYES} != "yes" ]; then
-echo "Exiting, not finished. You can run this again anytime via:
-cd /var/local/vrk/boss
-sudo ./install-vrk
-"
-exit 0
- fi
-fi
-
 # Include the config
 . /var/local/vrk/machineinfo
 
 # Verify SSH Directory
-cd ~
+cd /home/${VRK_USER}
 if [ ! -d /home/${VRK_USER}/.ssh ]; then
 mkdir /home/${VRK_USER}/.ssh
 chown -R ${VRK_USER} /home/${VRK_USER}/.ssh
@@ -185,22 +167,14 @@ mkdir /home/${VRK_USER}/.config/xfce4/mcs_settings
 fi
 ln -sfn /home/${VRK_USER}/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
 ## Own
+echo "Verifying \"chown\" ownership. Don't freak out if this takes a while..."
 chown -R ${VRK_USER} /home/${VRK_USER}/.local
 chown -R ${VRK_USER} /home/${VRK_USER}/.config
-
-# Work folder name in config
-sudo -u ${VRK_USER} sed -i "s/VRK_WORK_DIR=.*/VRK_WORK_DIR=\"${WORK_FOLDER_NAME}\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
-
-## Own
-chown -R ${VRK_USER} /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
 
 # Set config
 sudo -u ${VRK_USER} sed -i "s/VRK_INSTALLED=.*/VRK_INSTALLED=\"YES\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
 . /var/local/vrk/vrkverno
 sudo -u ${VRK_USER} sed -i "s/USER_KVERNO=.*/USER_KVERNO=${KVERNO}/g" /home/${VRK_USER}/.vrk/configs/stationinfo
-
-# Own everything
-chown -R ${VRK_USER} /home/${VRK_USER}
 
 # Other Jobs
 
@@ -226,11 +200,13 @@ Don't delete .xml files in myWall/ or you'll have to add your pictures again.
 "
 if [ "${VRK_WORK_DIR}" != "NOT_YET" ]; then
 echo "Your work folder is \"${WORK_FOLDER_NAME}\"."
+fi
 
 if [ "${VRK_CLOUD_DIR}" != "NOT_YET" ]; then
 echo "Your work folder is \"${VRK_CLOUD_DIR}\". Documents, Templates, will be synced in the Vrk folder.
 Your ${WORK_FOLDER_NAME} will also be synced there, but will only sync to other Vrk Stations that you also name your Work folder as \"${WORK_FOLDER_NAME}\".
 "
+fi
 ## Cloud message
 if [ "${VRK_CLOUD_DIR}" = "Dropbox" ]; then
  if [ -f "/home/${SUDO_USER}/.vrk/configs/dropboxstatus" ]; then
