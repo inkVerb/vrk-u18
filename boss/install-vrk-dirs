@@ -15,7 +15,7 @@ set -e
 
 
 # Set user
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 VRK_USER=${SUDO_USER}
 else
 VRK_USER=$1
@@ -83,7 +83,10 @@ exit 0
   else
 ## Run a refresh script here
 ###Currently no script to run
-
+echo "Alright, refreshing..."
+  fi
+ fi
+fi
 # Include the config
 . /var/local/vrk/machineinfo
 

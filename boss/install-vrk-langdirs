@@ -83,8 +83,7 @@ exit 0
   else
 ## Run a refresh script here
 ###Currently no script to run
-
-   fi
+echo "Alright, refreshing..."
   fi
  fi
 fi

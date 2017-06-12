@@ -17,7 +17,7 @@ set -e
 
 
 # Set user
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 VRK_USER=${SUDO_USER}
 else
 VRK_USER=$1
@@ -46,7 +46,7 @@ fi
 
 # Check if Vrk installed on this machine
 if [ ! -f /var/local/vrk/machineinfo ]; then
-echo "Install Vrk first. See READ.ME"
+echo "Install Vrk first. See README.md"
 exit 22
 fi
 
@@ -70,7 +70,7 @@ exit 22
 fi
 
 # Check if Vrk Staion is installed for this user
-if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+if [ -f "/home/${VRK_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${VRK_USER}/.vrk/configs/stationinfo
  if [ "${VRK_INSTALLED}" = "YES" ]; then
 echo "Vrk is already installed for this user.
@@ -80,13 +80,13 @@ rm -R /home/${VRK_USER}/.vrk
 If you would like to continue to refresh the Vrk Station folder configuration, or change your cloud or Work folder, type \"yes\" and <Enter>...
 "
 read CONTINUEYES
-  if [ ${CONTINUEYES} != "yes" ]; then
+  if [ "${CONTINUEYES}" != "yes" ]; then
 echo "Bye.
 "
 exit 0
   else
 ## Run a refresh script here
-###Currently no script to run
+echo "Alright, refreshing..."
 
   fi
  fi

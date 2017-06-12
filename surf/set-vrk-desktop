@@ -70,8 +70,9 @@ DESKTOP_GLOBE="EXCEPTION"; fi
 ## Window Snapping
 #notyet
 
-## Compose Key: CapsLock
-dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:caps']"
+## Compose Key: Menu key
+#dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:caps']"
+dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:menu']"
 
 ## Alt + Secondary click = resize
 gconftool-2 -s -t bool /apps/metacity/general/resize_with_right_button true
@@ -276,8 +277,9 @@ fi
 ## Xfce Startup Apps
 cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
 
-## Compose Key: CapsLock
-xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
+## Compose Key: Menu key
+#xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
+xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:menu"
 
 ## Dashboard hot keys
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>Super_L" -t string -s 'xfdashboard'
