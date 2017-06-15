@@ -70,9 +70,9 @@ DESKTOP_GLOBE="EXCEPTION"; fi
 ## Window Snapping
 #notyet
 
-## Compose Key: Menu key
-#dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:caps']"
-dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:menu']"
+## Compose Key: CapsLock key
+dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:caps']"
+#dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:menu']"
 
 ## Alt + Secondary click = resize
 gconftool-2 -s -t bool /apps/metacity/general/resize_with_right_button true
@@ -219,8 +219,8 @@ gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshel
 ## Theme & Icons
 #Depreciated?
 #gsettings set org.gnome.desktop.wm.preferences theme 'Adapta-Nokto'
-gsettings set org.gnome.desktop.interface gtk-theme "Adapta-Nokto"
-gsettings set org.gnome.desktop.interface icon-theme "Ultra-Flat-Green"
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface icon-theme "Surfn-Luv"
 
 ### Conky IN DEV
 #cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
@@ -242,7 +242,7 @@ gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'chromium-brow
 #Depreciated?
 #gsettings set org.gnome.desktop.wm.preferences theme 'Arc-Dark'
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
-gsettings set org.gnome.desktop.interface icon-theme "Flat Remix"
+gsettings set org.gnome.desktop.interface icon-theme "Surfn-Luv"
 
 ## Make icons work in menues
 gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
@@ -277,9 +277,9 @@ fi
 ## Xfce Startup Apps
 cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
 
-## Compose Key: Menu key
-#xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
-xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:menu"
+## Compose Key: CapLock key
+xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
+#xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:menu"
 
 ## Dashboard hot keys
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>Super_L" -t string -s 'xfdashboard'
@@ -287,8 +287,8 @@ xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt>Super_R" -
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
 
 ## Set theme & icons
-xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta-Nokto-Eta"
-xfconf-query -c xsettings -p /Net/IconThemeName -s "Flat Remix"
+xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Dark"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Luv"
 
 ## Terminal color scheme
 ~/.vrk/donjon/xt-xfce
