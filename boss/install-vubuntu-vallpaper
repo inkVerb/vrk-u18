@@ -2,6 +2,8 @@
 #inkVerbBoss! verb.ink
 
 # This installs and/or updates Vubuntu native wallpapers
+## This is automatically run by: install-vubuntu-desktop and install-vubuntu
+## Prerequesite: Vrk™ must be installed
 
 # How to use:
 ## sudo ./install-vallpaper-vubuntu

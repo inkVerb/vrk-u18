@@ -1,7 +1,8 @@
 #!/bin/sh
 #inkVerbSurfer! verb.ink
 
-# This installs Vubuntu Desktop settings & wallpapers
+# This sets the Vubuntu Desktop preferences for a Vubuntu installation.
+## Prerequesite: Vrk™ must be installed
 
 # How to use:
 ## set-vrk-desktop

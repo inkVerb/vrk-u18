@@ -5,7 +5,7 @@ set -e
 # This installs Vrk™ core directories and configs for a user
 ## This needs some root permissions
 ## This is not necessaary to run on a Verber/Inker server
-## Prerequesite: put vrk in the base of your home folder
+## Prerequesite: Vrk™ must be installed
 
 # How to use on your local computer:
 ## sudo ./install-vrk

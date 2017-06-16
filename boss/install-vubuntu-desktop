@@ -1,7 +1,9 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
 
-# This installs Vubuntu Desktop settings & wallpapers
+# This installs Vubuntu Desktop settings, theming, and Vubuntu Wallpaper
+## This is automatically run by: install-vubuntu
+## Prerequesite: Vrk™ must be installed
 
 # How to use:
 ## sudo ./install-vubuntu-desktop
@@ -81,7 +83,7 @@ ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/lib/libreoffic
 ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/share/libreoffice/share/config/
 
 # Wallpapers
-/var/local/vrk/boss/install-vallpaper-vubuntu
+/var/local/vrk/boss/install-vubuntu-vallpaper
 
 # Themes
 /var/local/vrk/boss/themicons-git-upstall

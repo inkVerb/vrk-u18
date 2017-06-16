@@ -3,6 +3,7 @@
 set -e
 
 # This creates a new GitHub repo locally
+## Prerequesite: vgitinst
 
 # How to use:
 ## vgitrepo [username - option] [repo - optional]
@@ -22,7 +23,9 @@ if [ -z "$1" ]; then
 
 ## Check if entered
  if [ -z "${GITRUNAME}" ]; then
- echo "You must enter the GitHub repo's username. It doesn't exist on GitHub already, but it can locally in ~/git/, or not. That's kinda' the idea...
+ echo "You must enter the GitHub repo's username. It doesn't exist on GitHub already, but it can locally in ~/git/, or not...
+(An https repo looks like: https://github.com/YourProject/YourRepo.git)
+(An SSH repo looks like: git@github.com:YourProject/YourRepo.git)
 Enter the GitHub repo's username:
 "
  read GITRUNAME

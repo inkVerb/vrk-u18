@@ -1,7 +1,9 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
 
-# This installs Vubuntu apps and Desktop settings & wallpapers
+# This installs Vubuntu Desktop and Vubuntu Studio Lite
+## This runs: install-vubuntu-studiolite, install-vubuntu-desktop, and install-vubuntu-vallpaper
+## Prerequesite: Vrk™ must be installed
 
 # How to use:
 ## sudo ./install-vubuntu

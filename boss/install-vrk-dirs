@@ -5,7 +5,7 @@ set -e
 # This installs Vrk™ directory structure for a user (Work, myWall)
 ## This needs some root permissions
 ## This is not necessaary to run on a Verber/Inker server
-## Prerequesite: vrk installed for the user
+## Prerequesite: Vrk™ must be installed
 
 # How to use on your local computer:
 ## sudo ./install-vrk-dirs

@@ -2,6 +2,8 @@
 #inkVerbBoss! verb.ink
 
 # This installs a "lite" version of Ubuntu Studio
+## This is automatically run by: install-vubuntu
+## Prerequesite: Vrk™ must be installed
 
 # How to use:
 ## sudo ./install-vubuntu-apps
