@@ -149,6 +149,39 @@ echo "<?xml version=\"1.0\"?>
 </wallpapers>" > /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml
 fi
 
+# File link structure
+## KDE, Budgie & Global
+if [ ! -d /home/${VRK_USER}/.local/share/backgrounds ]; then
+mkdir /home/${VRK_USER}/.local/share/backgrounds
+fi
+ln -sfn /home/${VRK_USER}/.vrk/myWall /home/${VRK_USER}/.local/share/backgrounds/${VRK_USER}Wall
+## GNOME
+if [ ! -d /home/${VRK_USER}/.local/share/gnome-background-properties ]; then
+mkdir /home/${VRK_USER}/.local/share/gnome-background-properties
+fi
+if [ -d /usr/share/gnome-background-properties ]; then
+ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/gnome-background-properties/
+fi
+## Xfce
+if [ -d /home/${VRK_USER}/.config/xfce4 ]; then
+mkdir /home/${VRK_USER}/.config/xfce4
+fi
+if [ ! -d ~/.config/xfce4/mcs_settings ]; then
+mkdir /home/${VRK_USER}/.config/xfce4/mcs_settings
+fi
+ln -sfn /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
+## MATE
+if [ -d /usr/share/mate-background-properties ]; then
+ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/mate-background-properties/
+fi
+## Cinnamon
+if [ -d /usr/share/cinnamon-background-properties ]; then
+ln -sfn /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wallpapers.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
+fi
+## Own
+chown -R ${VRK_USER} /home/${VRK_USER}/.local
+chown -R ${VRK_USER} /home/${VRK_USER}/.config
+
 # Work folder name in config
 sudo -u ${VRK_USER} sed -i "s/VRK_WORK_DIR=.*/VRK_WORK_DIR=\"${WORK_FOLDER_NAME}\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
 

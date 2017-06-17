@@ -68,9 +68,8 @@ apt install -y gtk-theme-config gnome-tweak-tool unity-tweak-tool xfdashboard va
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
 
 # Git, bc, build tools, and theme dependencies (may be redundant, but never can be too sure, here they all are from each theme's dependency instructions)
-apt install -y git bc dconf-cli autoconf automake libtool cutomake intltool inkscape cmake krita gimp
-apt install -y gnome-themes-standard libgdk-pixbuf2.0-dev libglib2.0-dev libgtk-3-dev libxml2-utils gtk3-engines-unico gtk2-engines-murrine gtk2-engines-pixbuf pkg-config
-python3 ruby-bundler ruby-sass
+apt install -y git bc wmctrl dconf-cli autoconf automake libtool cutomake intltool inkscape cmake krita gimp
+apt install -y gnome-themes-standard libgdk-pixbuf2.0-dev libglib2.0-dev libgtk-3-dev libxml2-utils gtk3-engines-unico gtk2-engines-murrine gtk2-engines-pixbuf pkg-config python3 ruby-bundler ruby-sass
 ## Specific for making Adapta themes (may only be used to make Adapta, but why not)
 apt install -y sassc libsass0 librsvg2-dev 
 ## Some of these Adapta-make packages have alternate names, just in case, but this will probably get rejected

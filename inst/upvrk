@@ -13,7 +13,7 @@
 
 # How to use:
 ## cd ~/vrk/inst
-## chmod +x update
+## chmod +x upvrk
 ## sudo ./update [user - if not current sudoer]
 
 
@@ -86,42 +86,18 @@ if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
   if [ $(echo "$UPDATE_PATCH_KVERNO>$USER_KVERNO"|bc) = 1 ]; then
 ## Update/refresh Bosses, Surfers, and Donjon
    if [ $(echo "$UPDATE_PATCH_KVERNO>$KVERNO"|bc) = 1 ]; then
-rm /var/local/vrk/boss/*
-rm /var/local/vrk/surf/*
-rm -r /var/local/vrk/donjon/vrktemplates
+rm -rf /var/local/vrk/boss/*
+rm -rf /var/local/vrk/surf/*
+rm -rf /var/local/vrk/donjon/*
+rm -rf /var/local/vrk/droids/*
 cp -r /home/${SUDO_USER}/vrk /var/local/
 chmod +x /var/local/vrk/boss/*
 chmod +x /var/local/vrk/surf/*
 chmod +x /var/local/vrk/donjon/*
 chmod +x /var/local/vrk/donjon/vrktemplates/7_BASH
    fi
-## Create the link to the user directory
-### For any user
-if [ ! -e /home/${VRK_USER}/.vrk ]; then
-mkdir /home/${VRK_USER}/.vrk
-fi
-if [ ! -e /home/${VRK_USER}/.vrk/boards ]; then
-mkdir /home/${VRK_USER}/.vrk/boards
-fi
-cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
-if [ -L /home/${VRK_USER}/.vrk/donjon ]; then
-rm -f /home/${VRK_USER}/.vrk/donjon
-fi
-ln -sfn /var/local/vrk/donjon /home/${VRK_USER}/.vrk/
-cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
-if [ ! -e /home/${VRK_USER}/.vrk/go ]; then
-mkdir /home/${VRK_USER}/.vrk/go
-fi
-#### Copy configs
-if [ ! -d /home/${VRK_USER}/.vrk/configs ]; then
-cp -R /var/local/vrk/donjon/configs-inst /home/${VRK_USER}/.vrk/configs
-fi
-### For a sudoer
-if [ -z $1 ]; then
-ln -sfn /var/local/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
-fi
-### Own
-chown -R ${VRK_USER} /home/${VRK_USER}/.vrk
+## Refresh the links for the user
+/var/local/vrk/boss/vrkfresh ${VRK_USER}
 
   fi
  fi

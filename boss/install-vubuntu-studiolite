@@ -100,13 +100,13 @@ if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
 apt update && apt -y upgrade
 touch /var/local/vrk/.vubuntu-studiolite-repo
 fi
-## Dialogue installs first, and the rest of the fonts
+## Verify interactives first, and the rest of the fonts
 apt install -y ttf-mscorefonts-installer jackd2
 apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
-apt install -y zip p7zip-full gzip guake phatch docky gedit kate nautilus grabc gparted shutter kazam
+apt install -y zip p7zip-full gzip guake flatpak phatch docky gedit kate nautilus grabc gparted shutter kazam
 # Redundant from install-vubuntu-desktop
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
 echo "
@@ -183,15 +183,6 @@ apt install -y kolourpaint4 pencil2d pinta tupi karbon
 #cd /var/local/vrk/donjon
 #rm -R gimp-plugin-bimp
 
-## MyPaint
-if [ "${PROCVNO}" = "amd64" ]; then
-echo "64 bit system, not installing MyPaint. Install it anytime with:
-sudo apt install mypaint mypaint-data-extras"
-fi
-if [ "${PROCVNO}" = "i386" ]; then
-apt install -y mypaint mypaint-data-extras
-fi
-
 echo "
 Graphic design done. Media stuff, VLC, audio players, Kdenlive...
 "
@@ -213,8 +204,17 @@ Dropbox may want to start, go ahead. Now doing Skype...
 "
 apt install -y skype
 echo "
-You got Skype. Now to final settings...
+You got Skype. On to MyPaint...
 "
+
+## MyPaintx86
+if [ "${PROCVNO}" = "amd64" ]; then
+/var/local/vrk/boss/install-mypaint64
+fi
+if [ "${PROCVNO}" = "i386" ]; then
+apt install -y mypaint mypaint-data-extras
+fi
+
 
 ## Hot Corners in Xfce ?
 #http://ubuntuhandbook.org/index.php/2015/07/hot-corners-plugin-xfce4/

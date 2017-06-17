@@ -112,14 +112,6 @@ fi
 if [ -d /usr/share/gnome-background-properties ]; then
 ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/gnome-background-properties/
 fi
-## MATE
-if [ -d /usr/share/mate-background-properties ]; then
-ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/mate-background-properties/
-fi
-## Cinnamon
-if [ -d /usr/share/cinnamon-background-properties ]; then
-ln -sfn /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wallpapers.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
-fi
 ## Xfce
 if [ -d /home/${VRK_USER}/.config/xfce4 ]; then
 mkdir /home/${VRK_USER}/.config/xfce4
@@ -128,6 +120,14 @@ if [ ! -d ~/.config/xfce4/mcs_settings ]; then
 mkdir /home/${VRK_USER}/.config/xfce4/mcs_settings
 fi
 ln -sfn /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
+## MATE
+if [ -d /usr/share/mate-background-properties ]; then
+ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/mate-background-properties/
+fi
+## Cinnamon
+if [ -d /usr/share/cinnamon-background-properties ]; then
+ln -sfn /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wallpapers.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
+fi
 ## Own
 chown -R ${VRK_USER} /home/${VRK_USER}/.local
 chown -R ${VRK_USER} /home/${VRK_USER}/.config

@@ -12,7 +12,7 @@ set -e
 
 # Eg:
 ## sudo ./updatevrk git (for web update via git)
-## sudo ./updatevrk local (for web update via git)
+## sudo ./updatevrk local (for local copy in the ~/vrk folder)
 
 
 UTYPE=$1
@@ -52,18 +52,22 @@ fi
 # Local or web update
 ## GitHub
 if [ "${UTYPE}" = "git" ]; then
-cd /var/local/vrk
-git clone https://github.com/inkVerb/vrk-update.git
-cd vrk-update
-chmod +x update
-./update
+cd /home/${SUDO_USER}
+git clone https://github.com/inkVerb/vrk.git
+cd vrk/inst
+chmod +x upvrk
+./upvrk
+/home/${SUDO_USER}
+rm -rf vrk
+echo "Vrk is up-to-date."
 exit 0
 fi
 ## Local copy
 if [ "${UTYPE}" = "local" ]; then
-cd /var/local/vrk/vrk-update
-chmod +x update
-./update
+cd /home/${SUDO_USER}/vrk/inst
+chmod +x upvrk
+./upvrk
+echo "Vrk is up-to-date. You may remove the vrk folder from home."
 exit 0
 fi
 

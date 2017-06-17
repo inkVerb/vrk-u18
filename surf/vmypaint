@@ -1,0 +1,12 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This MyPaint from Flatpak
+
+# How to use
+## vmypaint
+
+
+flatpak run org.mypaint.MyPaint
+

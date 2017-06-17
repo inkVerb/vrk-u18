@@ -105,10 +105,10 @@ fi
 # Create the links to the user directory
 ## For any user
 if [ ! -e /home/${VRK_USER}/.vrk ]; then
-mkdir /home/${VRK_USER}/.vrk
+mkdir -p /home/${VRK_USER}/.vrk
 fi
 if [ ! -e /home/${VRK_USER}/.vrk/boards ]; then
-mkdir /home/${VRK_USER}/.vrk/boards
+mkdir -p /home/${VRK_USER}/.vrk/boards
 fi
 cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
 if [ -L /home/${VRK_USER}/.vrk/donjon ]; then
@@ -117,7 +117,7 @@ fi
 ln -sfn /var/local/vrk/donjon /home/${VRK_USER}/.vrk/
 cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
 if [ ! -e /home/${VRK_USER}/.vrk/go ]; then
-mkdir /home/${VRK_USER}/.vrk/go
+mkdir -p /home/${VRK_USER}/.vrk/go
 fi
 ### Copy configs
 if [ ! -d /home/${VRK_USER}/.vrk/configs ]; then

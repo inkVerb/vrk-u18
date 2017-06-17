@@ -32,6 +32,36 @@ sudo ./setupvrk
 exit 0
 fi
 
+# Set user
+if [ -z $1 ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
+# Check if already installed
+if [ -d "/var/local/vrk" ]; then
+ if [ -d "/home/${VRK_USER}/.vrk" ]; then
+## Already installed
+echo "Vrk is already installed. Updating..."
+chmod +x /home/${VRK_USER}/vrk/inst/upvrk
+/home/${VRK_USER}/vrk/inst/upvrk ${VRK_USER}
+exit 0
+ else
+## vrk dir exists, not .vrk
+echo "Vrk is only partially installed. Removing it and starting over..."
+rm -rf /var/local/vrk
+rm -rf /var/local/vall
+ fi
+else
+## .vrk exists, not vrk
+ if [ -d "/home/${VRK_USER}/.vrk" ]; then
+echo "Vrk is damaged. Removing it, then trying to continue. If this fails, remove the .vrk folder and start again."
+chmod +x /home/${VRK_USER}/vrk/boss/uninstall-vubuntu-vrkstation
+/home/${VRK_USER}/vrk/boss/uninstall-vubuntu-vrkstation
+ fi
+fi
+
 # Disclaimer
 echo "
 \"Disclaimer\"...
@@ -72,7 +102,7 @@ SESSDISTRO=$(wmctrl -m | grep "Name:" | awk '{print $2}')
 # Set the directory to var/local, but a hidden link in the user's
 ## Check if it is already in var/local from a previous install
 if [ ! -d /var/local/vrk ]; then
-cp -r /home/${SUDO_USER}/vrk /var/local/
+cp -r /home/${VRK_USER}/vrk /var/local/
 fi
 
 # Executable check
@@ -98,7 +128,7 @@ fi
 echo "#!/bin/sh
 # inkVerb Machine-wide config file, verb.ink
 
-VRK_INST_BY=\"${SUDO_USER}\"
+VRK_INST_BY=\"${VRK_USER}\"
 CPUPKGVER=\"${PROCVNO}\"
 UBUNT_DISTRO=\"${SESSDISTRO}\"
 " > /var/local/vrk/machineinfo

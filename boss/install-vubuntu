@@ -42,7 +42,7 @@ echo "Vrk is installed on this machine, but has yet to be installed for this use
 exit 22
 fi
 
-# Install the interactives first
+# Verify the interactives first
 apt install -y msttcorefonts jackd2
 
 # Add the graphix PPA

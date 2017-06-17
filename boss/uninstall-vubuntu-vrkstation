@@ -131,12 +131,16 @@ rm -rf /home/${VRK_USER}/myLang
 cp /home/${VRK_USER}/.config/user-dirs.dirs.ink-bak /home/${VRK_USER}/.config/user-dirs.dirs
 
 # Remove myWall wallpapers
-if [ -e /usr/share/backgrounds/${VRK_USER}Wall ]; then
-rm -f /usr/share/backgrounds/${VRK_USER}Wall
-fi
-if [ -e /usr/share/gnome-background-properties/${VRK_USER}-wallpapers.xml ]; then
-rm -f /usr/share/gnome-background-properties/${VRK_USER}-wallpapers.xml
-fi
+## KDE, Budgie & Global
+rm -rf /home/${VRK_USER}/.local/share/backgrounds/${VRK_USER}Wall
+## GNOME
+rm -rf /home/${VRK_USER}/.local/share/gnome-background-properties/my-wallpapers.xml
+## Xfce
+rm -rf /home/${VRK_USER}/.config/xfce4
+## MATE
+rm -rf /home/${VRK_USER}/.local/share/mate-background-properties/my-wallpapers.xml
+## Cinnamon
+rm -rf /home/${VRK_USER}/.local/share/cinnamon-background-properties/linuxmint-my-cinn-wallpapers.xml
 
 # Remove installation
 rm -rf /home/${VRK_USER}/.vrk

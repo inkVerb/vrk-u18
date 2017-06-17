@@ -48,15 +48,10 @@ exit 0; fi
 fi
 
 # Install
-## Verify build dependencies
-apt install -y libtool autoconf cutomake intltool
-mkdir mypaintvrk
-cd mypaintvrk
-git clone https://github.com/mypaint/libmypaint.git
-cd libmypaint
-git clone https://github.com/mypaint/libmypaint.deb.git debian
-fakeroot debian/rules binary
-
+## Verify Flatpak
+sudo apt install flatpak -y
+## MyPaint
+flatpak install -y --from https://raw.githubusercontent.com/mypaint/mypaint/master/flatpak/mypaint-stable.flatpakref
 
 # Config
 echo "#!/bin/sh
@@ -68,5 +63,7 @@ MYPAINTSTATUS="INSTALLED"
 # Finish
 apt autoremove -y
 echo "MyPaint should now be installed to the newest version.
+But, it won't show up until you log in again.
+Run MyPaint from the terminal with this: vmypaint
 "
 
