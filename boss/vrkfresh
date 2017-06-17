@@ -42,6 +42,9 @@ sudo ./vrkfresh
 exit 22
 fi
 
+# Include the config
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+
 # Refresh the user directory
 ## For any user
 mkdir -p /home/${VRK_USER}/.vrk/boards
