@@ -52,6 +52,9 @@ chmod +x /home/${SUDO_USER}/vrk/boss/uninstall-vubuntu-vrkstation
 # Remove vrk
 rm -rf /var/local/vrk
 
+# Cleanup
+rm -rf /home/${SUDO_USER}/vrk
+
 # Finish
 echo "Vrk is gone. A few broken links may remain in /usr/share/themes/ and /usr/share/icons/
 "

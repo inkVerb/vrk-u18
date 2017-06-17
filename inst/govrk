@@ -118,6 +118,7 @@ chmod +x /var/local/vrk/droids/*
 chmod +x /var/local/vrk/surf/*
 chmod +x /var/local/vrk/donjon/*
 chmod +x /var/local/vrk/donjon/vrktemplates/7_BASH
+chmod +x /var/local/vrk/droids/*
 
 # Background image directories
 ## If "backgrounds" doesn't exist (KDE, cough cough)
@@ -143,6 +144,9 @@ UBUNT_DISTRO=\"${SESSDISTRO}\"
 # Finish
 echo "Vrk is setup on this machine. Now installing it for this user...
 "
+
+# Cleanup
+rm -rf /home/${SUDO_USER}/vrk
 
 /var/local/vrk/boss/install-vrk
 
