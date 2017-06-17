@@ -139,9 +139,6 @@ CPUPKGVER=\"${PROCVNO}\"
 UBUNT_DISTRO=\"${SESSDISTRO}\"
 " > /var/local/vrk/machineinfo
 
-# Fix the Taiwan Locale problem, just in case
-sed -i "s/lzh_TW/zh_TW/g" /etc/default/locale
-
 # Finish
 echo "Vrk is setup on this machine. Now installing it for this user...
 "
