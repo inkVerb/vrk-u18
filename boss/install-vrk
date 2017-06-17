@@ -229,11 +229,14 @@ echo "Install Nextcloud with sudo ./install-nextcloud"
  fi
 fi
 
+# Locale
+/home/${SUDO_USER}/.vrk/boards/vrklocale
+
 # Cleanup
 apt autoremove -y
 
 ## myWall message
-/home/${VRK_USER}/.vrk/boards/mywall -h
+/home/${SUDO_USER}/.vrk/boards/mywall -h
 
 # Reboot
 if [ -z $1 ]; then

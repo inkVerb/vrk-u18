@@ -63,3 +63,4 @@ chown -R ${VRK_USER} /home/${VRK_USER}/.vrk
 
 # Finish
 echo "Vrk tools are up-to-date for ${VRK_USER}."
+
