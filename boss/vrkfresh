@@ -51,10 +51,9 @@ if [ -L /home/${VRK_USER}/.vrk/donjon ]; then
 rm -f /home/${VRK_USER}/.vrk/donjon
 fi
 ln -sfn /var/local/vrk/donjon /home/${VRK_USER}/.vrk/
-cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
 mkdir -p /home/${VRK_USER}/.vrk/go
 ## For a sudoer
-if [ -z $1 ]; then
+if [ "${USER_BOSSYN}" = "CAN_BOSS" ]; then
 ln -sfn /var/local/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
 ln -sfn /var/local/vrk/droids/* /home/${VRK_USER}/.vrk/boards/
 fi

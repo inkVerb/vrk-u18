@@ -155,7 +155,13 @@ UPDATE_PATCH_KVERNO=0.301
 # Run the update scripts for this patch
 if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
 ##### PER-USER SCRIPTS GO HERE ###
-
+if [ -z "${USER_BOSSYN}" ]; then
+echo "USER_BOSSYN=\"CAN_BOSS\"" >> /home/${VRK_USER}/.vrk/configs/stationinfo
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+/var/local/vrk/boss/vrkfresh ${VRK_USER}
+else 
+echo "USER_BOSSYN=\"NOT_BOSS\"" >> /home/${VRK_USER}/.vrk/configs/stationinfo
+fi
 
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklists

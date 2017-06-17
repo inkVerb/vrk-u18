@@ -176,6 +176,13 @@ sudo -u ${VRK_USER} sed -i "s/VRK_INSTALLED=.*/VRK_INSTALLED=\"YES\"/g" /home/${
 . /var/local/vrk/vrkverno
 sudo -u ${VRK_USER} sed -i "s/USER_KVERNO=.*/USER_KVERNO=${KVERNO}/g" /home/${VRK_USER}/.vrk/configs/stationinfo
 
+if [ -z "$1" ]; then
+sudo -u ${VRK_USER} sed -i "s/USER_BOSSYN=.*/USER_BOSSYN=\"CAN_BOSS\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+else
+sudo -u ${VRK_USER} sed -i "s/USER_BOSSYN=.*/USER_BOSSYN=\"NOT_BOSS\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+fi
+
+
 # Other Jobs
 
 ## Vrk dirs (Work, myWall)
