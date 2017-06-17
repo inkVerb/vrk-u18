@@ -75,7 +75,7 @@ if [ -f "/home/${VRK_USER}/.vrk/configs/stationinfo" ]; then
  if [ "${VRK_INSTALLED}" = "YES" ]; then
 echo "Vrk is already installed for this user.
 To uninstall and re-install, type:
-rm -R /home/${VRK_USER}/.vrk
+rm -rf /home/${VRK_USER}/.vrk
 
 If you would like to continue to refresh the Vrk Station folder configuration, or change your cloud or Work folder, type \"yes\" and <Enter>...
 "
