@@ -11,12 +11,6 @@ set -e
 ## sudo ./govrk [user - if not current sudoer]
 
 
-# Check if present
-if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
-echo "The vrk folder is not in the right place. I quit."
-exit 22
-fi
-
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
 if [ "$(id -u)" = "0" ]; then
@@ -37,6 +31,13 @@ sudo ./setupvrk
 "
 exit 0
 fi
+
+# Check if present
+if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
+echo "The vrk folder is not in the right place. I quit."
+exit 22
+fi
+
 
 # Set user
 if [ -z $1 ]; then
