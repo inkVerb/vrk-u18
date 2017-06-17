@@ -207,14 +207,14 @@ echo "
 You got Skype. On to MyPaint...
 "
 
-## MyPaintx86
+## MyPaint
 if [ "${PROCVNO}" = "amd64" ]; then
 /var/local/vrk/boss/install-mypaint64
 fi
 if [ "${PROCVNO}" = "i386" ]; then
 apt install -y mypaint mypaint-data-extras
 fi
-
+/var/local/vrk/boss/install-mypaint-brushes
 
 ## Hot Corners in Xfce ?
 #http://ubuntuhandbook.org/index.php/2015/07/hot-corners-plugin-xfce4/
@@ -232,8 +232,10 @@ STUDIOLITE=\"INSTALLED\"
 ## Remove repo temp progress files
 rm /var/local/vrk/.vubuntu-studiolite-*
 
-# Finish
+# Cleanup
 apt autoremove -y
+
+# Finish
 echo "
 Vubuntu Studio Lite is all set.
 "

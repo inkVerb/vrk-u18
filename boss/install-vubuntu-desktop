@@ -159,6 +159,9 @@ sleep 1
 ## Kill the name of the "splash screen" process that eventually ends up running
 killall oosplash
 
+# Cleanup
+apt autoremove -y
+
 # Finish
 apt autoremove -y
 echo "Vubuntu Desktop is now installed. Now you can run set-vrk-desktop"

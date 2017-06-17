@@ -17,11 +17,10 @@
 ## sudo ./update [user - if not current sudoer]
 
 
-# Set user
-if [ -z $1 ]; then
-VRK_USER=${SUDO_USER}
-else
-VRK_USER=$1
+# Check if present
+if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
+echo "The vrk folder is not in the right place. I quit."
+exit 22
 fi
 
 # Check to make sure this is run as sudo, but not run by root
@@ -45,6 +44,12 @@ sudo ./setupvrk
 exit 0
 fi
 
+# Set user
+if [ -z $1 ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
 
 ## Sample version updater:
 #UPDATE_PATCH_KVERNO=
@@ -111,7 +116,8 @@ if [ $(echo "$UPDATE_PATCH_KVERNO>$KVERNO"|bc) = 1 ]; then
 # Run the update scripts for this patch
 
 ##### SCRIPTS GO HERE #####
-
+# Fix the Taiwan Locale problem, just in case
+sed -i "s/lzh_TW/zh_TW/g" /etc/default/locale
 
 # Set and refresh the current version into inklists
 sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno

@@ -2,15 +2,12 @@
 #inkVerbBoss! verb.ink
 set -e
 
-# This installs MyPaint
+# This installs MyPaint via Flatpak and repo in a way that is more sure to work on 64 bit systems.
+## When finished, you can run it as a Flatpak app (via vmypaint) and as a normal app.
 
 # How to use:
 ## sudo ./install-mypaint64
 
-
-# Actually, this is in DEV and won't be necessary when myPaint gets working on x64 bit machines.
-## If you want to help below, in the "Install" area to do this properly, make a git pull request for this file.
-echo "This doesn't work, it's only in dev."
 
 # Check if installed
 if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
@@ -49,9 +46,11 @@ fi
 
 # Install
 ## Verify Flatpak
-sudo apt install flatpak -y
-## MyPaint
+apt install -y flatpak
+## MyPaint via Flatpak
 flatpak install -y --from https://raw.githubusercontent.com/mypaint/mypaint/master/flatpak/mypaint-stable.flatpakref
+## MyPaint via APT
+apt install -y mypaint mypaint-data-extras
 
 # Config
 echo "#!/bin/sh
@@ -64,6 +63,6 @@ MYPAINTSTATUS="INSTALLED"
 apt autoremove -y
 echo "MyPaint should now be installed to the newest version.
 But, it won't show up until you log in again.
-Run MyPaint from the terminal with this: vmypaint
+If you want to be strange, run MyPaint via Flatpak from the terminal with this: vmypaint
 "
 

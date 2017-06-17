@@ -179,13 +179,13 @@ sudo -u ${VRK_USER} sed -i "s/USER_KVERNO=.*/USER_KVERNO=${KVERNO}/g" /home/${VR
 # Other Jobs
 
 ## Vrk dirs (Work, myWall)
-/home/${VRK_USER}/.vrk/boards/install-vrk-dirs
+/home/${VRK_USER}/.vrk/boards/install-vrk-dirs ${VRK_USER}
 
 ## English home/ dirs
-/home/${VRK_USER}/.vrk/boards/install-vrk-langdirs
+/home/${VRK_USER}/.vrk/boards/install-vrk-langdirs ${VRK_USER}
 
 ## Vrk Cloud
-/home/${VRK_USER}/.vrk/boards/install-vrk-cloud
+/home/${VRK_USER}/.vrk/boards/install-vrk-cloud ${VRK_USER}
 
 # Get the config
 . /home/${VRK_USER}/.vrk/configs/stationinfo
@@ -228,6 +228,9 @@ echo "Install Nextcloud with sudo ./install-nextcloud"
 echo "Install Nextcloud with sudo ./install-nextcloud"
  fi
 fi
+
+# Cleanup
+apt autoremove -y
 
 ## myWall message
 /home/${VRK_USER}/.vrk/boards/mywall -h

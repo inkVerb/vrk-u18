@@ -8,8 +8,14 @@ set -e
 ## Prerequesite: put vrk in the base of your home folder
 
 # How to use on your local computer:
-## sudo ./govrk
+## sudo ./govrk [user - if not current sudoer]
 
+
+# Check if present
+if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
+echo "The vrk folder is not in the right place. I quit."
+exit 22
+fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
@@ -132,6 +138,9 @@ VRK_INST_BY=\"${VRK_USER}\"
 CPUPKGVER=\"${PROCVNO}\"
 UBUNT_DISTRO=\"${SESSDISTRO}\"
 " > /var/local/vrk/machineinfo
+
+# Fix the Taiwan Locale problem, just in case
+sed -i "s/lzh_TW/zh_TW/g" /etc/default/locale
 
 # Finish
 echo "Vrk is setup on this machine. Now installing it for this user...

@@ -1,0 +1,31 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+set -e
+
+# This installs MyPaint
+
+# How to use:
+## vrk-mypaint-brushes
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Copy the folder
+cp ~/.vrk/donjon/mypaint-brushes ~/
+
+# Finish
+echo "Thanks to MyPaint Brush contributors. Check out their sites listed in ~/.vrk/donjon/mypaint-brushes/CREDITS...
+To learn how to install your brush packages, click here:
+https://github.com/mypaint/mypaint/wiki/Brush-Packages#installing-a-brush-package
+
+Ready! How to install them:
+
+1. In MyPaint: Brush > Import Brushes...
+2. The Brushes are in your home folder: mypaint-brushes
+3. You can delete the mypaint-brushes folder when you're finished.
+"
+

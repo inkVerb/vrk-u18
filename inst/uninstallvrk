@@ -8,8 +8,14 @@ set -e
 ## Prerequesite: put vrk in the base of your home folder
 
 # How to use on your local computer:
-## sudo ./uninstallvrk
+## sudo ./uninstallvrk [user - if not current sudoer]
 
+
+# Check if present
+if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
+echo "The vrk folder is not in the right place. I quit."
+exit 22
+fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
@@ -32,9 +38,16 @@ sudo ./setupvrk
 exit 0
 fi
 
-# Remove linked directories
-rm -rf /usr/share/backgrounds/vubuntu
-rm -f /usr/share/gnome-background-properties/vubuntu-wallpapers.xml
+# Set user
+if [ -z $1 ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
+# Remove installations for user
+chmod +x /home/${SUDO_USER}/vrk/boss/uninstall-vubuntu-vrkstation
+/home/${SUDO_USER}/vrk/boss/uninstall-vubuntu-vrkstation ${VRK_USER}
 
 # Remove vrk
 rm -rf /var/local/vrk
