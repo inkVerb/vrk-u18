@@ -129,7 +129,7 @@ if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 . /home/${VRK_USER}/.vrk/configs/stationinfo
  if [ "${VRK_INSTALLED}" = "YES" ]; then
 ## Check minimal user updateable version
-  if [ $(echo "${MIN_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+  if [ $(echo "${KVERNO}>${MIN_KVERNO}"|bc) = 1 ]; then
 ## Update/refresh Bosses, Surfers, Droids, and Donjon
 rm -rf /var/local/vrk/boss/*
 rm -rf /var/local/vrk/surf/*
