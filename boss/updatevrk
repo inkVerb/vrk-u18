@@ -22,8 +22,11 @@ if [ -z $1 ]; then
 UTYPE="git"
 fi
 
+# Set user
+VRK_USER=${SUDO_USER}
+
 # Check if installed
-if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22
 fi

@@ -9,6 +9,15 @@
 ## sudo ./install-vubuntu-vallpaper
 
 
+# Set user
+VRK_USER=${SUDO_USER}
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
 if [ "$(id -u)" = "0" ]; then
@@ -30,15 +39,9 @@ sudo ./install-vubuntu-vallpaper
 exit 22
 fi
 
-# Installed?
-## Check if Vrk installed on this machine
+# Check if Vrk installed on this machine
 if [ ! -f /var/local/vrk/machineinfo ]; then
 echo "Install Vrk on this machine first. See README.md"
-exit 22
-fi
-## Check if installed for this user
-if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
-echo "Vrk is installed on this machine, but has yet to be installed for this user. See README.md"
 exit 22
 fi
 

@@ -19,10 +19,16 @@ set -e
 
 
 # Set user
-if [ -z $1 ]; then
+if [ -z "$1" ]; then
 VRK_USER=${SUDO_USER}
 else
 VRK_USER=$1
+fi
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
 fi
 
 # Check to make sure this is run as sudo, but not run by root
@@ -64,19 +70,6 @@ exit 22
 fi
 if [ ! -e /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" ]; then
 echo "User does not have the ${XDG_TEMPLATES_DIR} folder! Create that folder, then try again."
-exit 22
-fi
-
-# Check if Vrk Staion is installed for this user
-if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
-. /home/${VRK_USER}/.vrk/configs/stationinfo
- if [ "${VRK_INSTALLED}" != "YES" ]; then
-echo "Vrk is not installed for this user. Do that first. Bye."
-exit 22
- else
- fi
-else
-echo "Vrk is not installed for this user. Do that first. Bye."
 exit 22
 fi
 

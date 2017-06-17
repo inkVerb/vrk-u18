@@ -13,8 +13,15 @@
 ## sudo ./themicons-apt-upstall
 
 
+# Set user
+if [ -z "$1" ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
 # Check if installed
-if [ ! -f ~/.vrk/configs/stationinfo ]; then
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22
 fi

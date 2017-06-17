@@ -9,6 +9,15 @@
 ## sudo ./install-vubuntu-apps
 
 
+# Set user
+VRK_USER=${SUDO_USER}
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
 if [ "$(id -u)" = "0" ]; then
@@ -27,12 +36,6 @@ echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
 sudo ./install-vubuntu-studiolite
 "
-exit 22
-fi
-
-# Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
-echo "Install Vrk first. See README.md"
 exit 22
 fi
 

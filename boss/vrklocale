@@ -8,8 +8,15 @@ set -e
 ## sudo ./vrklocale
 
 
+# Set user
+if [ -z "$1" ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
 # Check if installed
-if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22
 fi
@@ -32,19 +39,6 @@ echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
 sudo ./vrklocale
 "
-exit 22
-fi
-
-# Set user
-if [ -z "$1" ]; then
-VRK_USER=${SUDO_USER}
-else
-VRK_USER=$1
-fi
-
-# Check if installed
-if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
-echo "Install Vrk first. See README.md"
 exit 22
 fi
 

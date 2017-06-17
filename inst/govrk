@@ -11,6 +11,13 @@ set -e
 ## sudo ./govrk [user - if not current sudoer]
 
 
+# Set user
+if [ -z "$1" ]; then
+VRK_USER=${SUDO_USER}
+else
+VRK_USER=$1
+fi
+
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
 if [ "$(id -u)" = "0" ]; then
@@ -38,13 +45,6 @@ echo "The vrk folder is not in the right place. I quit."
 exit 22
 fi
 
-
-# Set user
-if [ -z $1 ]; then
-VRK_USER=${SUDO_USER}
-else
-VRK_USER=$1
-fi
 
 # Check if already installed
 if [ -d "/var/local/vrk" ]; then
