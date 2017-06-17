@@ -92,15 +92,13 @@ fi
 
 
 # Vrk user update
-## Refresh the links for the user
-/var/local/vrk/boss/vrkfresh ${VRK_USER}
 ## Check if Vrk Staion is installed for this user
 if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 . /home/${VRK_USER}/.vrk/configs/stationinfo
-## Check minimal user updateable version
  if [ "${VRK_INSTALLED}" = "YES" ]; then
-## Update/refresh Bosses, Surfers, and Donjon
-  if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+## Check minimal user updateable version
+  if [ $(echo "${MIN_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+## Update/refresh Bosses, Surfers, Droids, and Donjon
 rm -rf /var/local/vrk/boss/*
 rm -rf /var/local/vrk/surf/*
 rm -rf /var/local/vrk/donjon/*
@@ -110,10 +108,11 @@ chmod +x /var/local/vrk/boss/*
 chmod +x /var/local/vrk/surf/*
 chmod +x /var/local/vrk/donjon/*
 chmod +x /var/local/vrk/donjon/vrktemplates/7_BASH
+## Refresh the links for the user
+/var/local/vrk/boss/vrkfresh ${VRK_USER}
   fi
  fi
 fi
-
 
 # Run version-by-version updates
 
