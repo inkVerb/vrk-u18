@@ -187,6 +187,29 @@ sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
 fi
 ###############END#UPDATE#PATCH#
 
+UPDATE_PATCH_KVERNO=0.302
+
+# Run the update scripts for this patch
+if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+##### PER-USER SCRIPTS GO HERE ###
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklists
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+fi
+if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+##### GLOBAL SCRIPTS GO HERE #####
+# Update Vallpaper
+cp -f /var/local/vrk/donjon/vallpaper/vubuntu/inkVerb-Carbon.png /var/local/vall/rooms/vubuntu/
+cp -f /var/local/vrk/donjon/vallpaper/vubuntu/inkVerb-Mesh.png /var/local/vall/rooms/vubuntu/
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
 
 
 # Cleanup
