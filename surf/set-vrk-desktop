@@ -125,11 +125,11 @@ mkdir ~/.gconf/apps
 fi
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
  if [ "$DESKTOP_GLOBE" != "EXCEPTION" ]; then
-cp -R ~/.vrk/donjon/global/gconf/apps/docky-2 ~/.gconf/apps/
+cp -rf ~/.vrk/donjon/global/gconf/apps/docky-2 ~/.gconf/apps/
  fi
 fi
 if [ ! -d ~/.gconf/apps/guake ]; then
-cp -R ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
+cp -rf ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
 fi
 if [ ! -f ~/.gconf/apps/%gconf.xml ]; then
 cp ~/.vrk/donjon/global/gconf/apps/%gconf.xml ~/.gconf/apps/

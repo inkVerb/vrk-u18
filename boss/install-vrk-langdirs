@@ -178,6 +178,9 @@ if [ ! -d /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" ] && [ -d /home/${VRK_USER}/"${X
 	ln -sfn /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" /home/${VRK_USER}/myLang/"${XDG_VIDEOS_DIR}"
 fi
 
+## Own
+chown -R ${VRK_USER} /home/${VRK_USER}/myLang
+
 ## Set the home directories langauge system config to English
 cp /home/${VRK_USER}/.config/user-dirs.dirs /home/${VRK_USER}/.config/user-dirs.dirs.ink-bak
 cp /home/${VRK_USER}/.config/user-dirs.dirs /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL.dirs

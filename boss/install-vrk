@@ -184,6 +184,8 @@ fi
 
 
 # Other Jobs
+## Locale (if after Lang Dirs change, it creates a dialogue at the next login. DO THIS FIRST!)
+/home/${SUDO_USER}/.vrk/boards/vrklocale
 
 ## Vrk dirs (Work, myWall)
 /home/${VRK_USER}/.vrk/boards/install-vrk-dirs ${VRK_USER}
@@ -235,9 +237,6 @@ echo "Install Nextcloud with sudo ./install-nextcloud"
 echo "Install Nextcloud with sudo ./install-nextcloud"
  fi
 fi
-
-# Locale
-/home/${SUDO_USER}/.vrk/boards/vrklocale
 
 # Cleanup
 apt autoremove -y

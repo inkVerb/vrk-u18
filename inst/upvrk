@@ -135,7 +135,7 @@ rm -rf /var/local/vrk/boss/*
 rm -rf /var/local/vrk/surf/*
 rm -rf /var/local/vrk/donjon/*
 rm -rf /var/local/vrk/droids/*
-cp -r /home/${SUDO_USER}/vrk /var/local/
+cp -rf /home/${SUDO_USER}/vrk /var/local/
 chmod +x /var/local/vrk/boss/*
 chmod +x /var/local/vrk/surf/*
 chmod +x /var/local/vrk/donjon/*
