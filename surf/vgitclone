@@ -3,19 +3,12 @@
 set -e
 
 # This clones a GitHub repo locally via http or SSH
-## Prerequesite: vgitinst
 
 # NOTE: If you use the username and repo from the command line rather than from the dialogue, it will use ssh keys if you have them installed.
 
 # How to use:
 ## vgitclone [username - option] [repo - optional]
 
-
-# Check if installed
-if [ ! -f ~/.vrk/configs/vgitinstdone ]; then
-echo "Run vgitinst first."
-exit 22
-fi
 
 # Username
 if [ -z "$1" ]; then

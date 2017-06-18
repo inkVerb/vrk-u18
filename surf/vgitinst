@@ -71,7 +71,8 @@ git config --global user.email "${GITUEMAIL}"
 mkdir -p git
 
 # Config
-touch ~/.vrk/configs/vgitinstdone
+touch ~/.vrk/configs/.vgitinstdone
+sed -i "s/VGIT_INST.*/VGIT_INST=\"DONE\"/g" ~/.vrk/configs/stationinfo
 
 # Finish
 echo "GitHub settings for ${USER} are username: ${GITUEMAIL} and email: ${GITUNAME}

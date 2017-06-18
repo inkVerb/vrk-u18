@@ -12,7 +12,7 @@ set -e
 
 
 # Check if installed
-if [ ! -f ~/.vrk/configs/vgitinstdone ]; then
+if [ ! -f ~/.vrk/configs/.vgitinstdone ]; then
 echo "Run vgitinst first."
 exit 22
 fi

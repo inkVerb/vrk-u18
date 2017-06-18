@@ -165,6 +165,13 @@ echo "USER_BOSSYN=\"CAN_BOSS\"" >> /home/${VRK_USER}/.vrk/configs/stationinfo
 /var/local/vrk/boss/vrkfresh ${VRK_USER}
 fi
 
+# vGit
+if grep -q "VGIT_INS" "/home/${VRK_USER}/.vrk/configs/stationinfo"; then
+echo "Already has vGit..."
+else
+echo "VGIT_INST=\"NOT_YET\"" >> /home/${VRK_USER}/.vrk/configs/stationinfo
+fi
+
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklists
 sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${VRK_USER}/.vrk/configs/stationinfo
