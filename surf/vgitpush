@@ -1,8 +1,9 @@
 #!/bin/bash
 # This git-updates the current directory, if owned by the user.
+## Prerequesite: vgitinst
 
 # How to use:
-## gogit [Commit message - optional]
+## vgitpush ["Commit message - optional"]
 
 
 if [ -n "$1" ]; then

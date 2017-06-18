@@ -2,13 +2,13 @@
 #inkVerbSurfer! verb.ink
 set -e
 
-# This creates a new GitHub repo locally via http or SSH
+# This clones a GitHub repo locally via http or SSH
 ## Prerequesite: vgitinst
 
 # NOTE: If you use the username and repo from the command line rather than from the dialogue, it will use ssh keys if you have them installed.
 
 # How to use:
-## vgitrepo [username - option] [repo - optional]
+## vgitclone [username - option] [repo - optional]
 
 
 # Check if installed
@@ -61,30 +61,14 @@ else
 GITREPONAME=$2
 fi
 
-# Do it
-## If not done already
-git init
-if [ ! -e "README.md" ]; then
-echo "# ${GITREPONAME}
-Created on my Vrk Station" >> README.md
-git add README.md
-fi
-if [ ! -e "LICENSE" ]; then
-echo ~/.vrk/donjon/vgit/LICENSE >> LICENSE
-git add LICENSE
-echo "A GPLv3 license has been added."
-fi
-git commit -m "first commit"
-fi
-## Push it
+# Clone it
 if [ -z "$2" ]; then
-git remote add origin https://github.com/${GITRUNAME}/${GITREPONAME}.git
+git clone https://github.com/${GITRUNAME}/${GITREPONAME}.git
 else
-git remote add origin git@github.com:${GITRUNAME}/${GITREPONAME}.git
+git clone git@github.com:${GITRUNAME}/${GITREPONAME}.git
 fi
-git push -u origin master
 
 # Finish
-echo "GitHub repo ${GITRUNAME}/${GITREPONAME} is set up.
+echo "GitHub repo ${GITRUNAME}/${GITREPONAME} has been cloned.
 "
 
