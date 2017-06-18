@@ -15,7 +15,7 @@ exit 22
 fi
 
 # Copy the folder
-cp ~/.vrk/donjon/mypaint-brushes ~/
+cp -r ~/.vrk/donjon/mypaint-brushes ~/
 
 # Finish
 echo "Thanks to MyPaint Brush contributors. Check out their sites listed in ~/.vrk/donjon/mypaint-brushes/CREDITS...
