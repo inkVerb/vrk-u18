@@ -65,8 +65,26 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
+    <name>Get to Vrk. - Yellow</name>
+    <filename>/usr/share/images/vall/vubuntu/Get-to-Vrk.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
     <name>Ink. - Green</name>
     <filename>/usr/share/images/vall/vubuntu/Whitetype-Ink-Green.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Ink. - PenDot</name>
+    <filename>/usr/share/images/vall/vubuntu/Whitetype-Ink-Green-PenDot.png</filename>
     <options>zoom</options>
     <pcolor>#ececec</pcolor>
     <scolor>#ececec</scolor>

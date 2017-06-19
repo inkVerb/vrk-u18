@@ -87,6 +87,7 @@ echo "Alright, refreshing..."
   fi
  fi
 fi
+
 # Include the config
 . /var/local/vrk/machineinfo
 

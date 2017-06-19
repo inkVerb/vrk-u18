@@ -5,11 +5,12 @@
 ## You must choose the Room and the Image like so: ROOM/IMAGE.png
 
 # How to use:
-## set-vall ROOM/IMAGE.EXT
+## set-vall ROOM IMAGE.EXT
 
 # Eg:
-## set-vall vubuntu/Not-A-Mac.png
+## set-vall vubuntu Not-A-Mac.png
 
-NEWIMAGE=$1
-gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${NEWIMAGE}
+VALLROOM=$1
+NEWIMAGE=$2
+gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
 

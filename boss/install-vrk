@@ -187,6 +187,10 @@ fi
 ## Locale (if after Lang Dirs change, it creates a dialogue at the next login. DO THIS FIRST!)
 /home/${SUDO_USER}/.vrk/boards/vrklocale
 
+# Vrk avatar icon
+cp -f /var/local/vrk/donjon/inkVerb-avatar.png /usr/share/pixmaps/faces/
+sed -i "s/Icon=.*/Icon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar.png/g" /var/lib/AccountsService/users/${VRK_USER}
+
 ## Vrk dirs (Work, myWall)
 /home/${VRK_USER}/.vrk/boards/install-vrk-dirs ${VRK_USER}
 

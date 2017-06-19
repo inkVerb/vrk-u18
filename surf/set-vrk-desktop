@@ -88,7 +88,7 @@ gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
 #gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
 
 ### Set Background Wallpaper
-~/.vrk/boards/set-vall vubuntu/Not-A-Mac.png
+~/.vrk/boards/set-vall vubuntu Get-to-Vrk.png
 
 ## Flatabulous terminal "profile" (color scheme)
 ~/.vrk/donjon/xt-gnome

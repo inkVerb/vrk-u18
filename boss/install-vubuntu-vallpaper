@@ -9,6 +9,9 @@
 ## sudo ./install-vubuntu-vallpaper
 
 
+# Set Room name
+VALL_ROOM="vubuntu"
+
 # Set user
 VRK_USER=${SUDO_USER}
 
@@ -46,22 +49,20 @@ exit 22
 fi
 
 # Install/Update Vallpaper
-if [ ! -d "/var/local/vall" ]; then
-mkdir /var/local/vall
-fi
-if [ ! -d "/var/local/vall/rooms" ]; then
-mkdir /var/local/vall/rooms
-fi
+mkdir -p /var/local/vall/rooms/${VALL_ROOM}/wallpapers
 if [ ! -d "/usr/share/images" ]; then
 mkdir /usr/share/images
 fi
-ln -sfn /var/local/vall/rooms /usr/share/images/vall
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers /usr/share/images/vall
 
 # Install/Reset the Vubuntu Vallpaper Room
-if [ -d "/var/local/vall/rooms/vubuntu" ]; then
-rm -rf /var/local/vall/rooms/vubuntu
+if [ -d "/var/local/vall/rooms/${VALL_ROOM}" ]; then
+rm -rf /var/local/vall/rooms/${VALL_ROOM}
 fi
-cp -r /var/local/vrk/donjon/vallpaper/vubuntu /var/local/vall/rooms/
+cp -r /var/local/vrk/donjon/vallpaper/${VALL_ROOM} /var/local/vall/rooms/
+
+# Add Avatar icons
+ln -sfn var/local/vall/rooms/${VALL_ROOM}/avitar-icons/* /usr/share/pixmaps/faces/
 
 # Install Vubuntu native wallpapers
 ## Global (GNOME, KDE, Budgie)
@@ -72,25 +73,25 @@ fi
 if [ ! -d /usr/share/gnome-background-properties ]; then
 mkdir /usr/share/gnome-background-properties
 fi
-ln -sfn /var/local/vall/rooms/vubuntu /usr/share/backgrounds/
-ln -sfn /var/local/vall/rooms/vubuntu/vubuntu-wallpapers.xml /usr/share/gnome-background-properties/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers /usr/share/backgrounds/${VALL_ROOM}
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/${VALL_ROOM}-wallpapers.xml /usr/share/gnome-background-properties/
 ## Xfce
 if [ -d /usr/share/xfce4/backdrops ]; then
-ln -sfn /var/local/vall/rooms/vubuntu/*.png /usr/share/xfce4/backdrops/
-ln -sfn /var/local/vall/rooms/vubuntu/*.jpg /usr/share/xfce4/backdrops/
-### If Ubuntu Studio is already installed
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/*.png /usr/share/xfce4/backdrops/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/*.jpg /usr/share/xfce4/backdrops/
+### If Ubuntu Studio is already installed after Xfce, add those
 ln -sfn /usr/share/backgrounds/ubuntustudio/* /usr/share/xfce4/backdrops/
-### Remove any broken symlinks
+### If not, remove any broken symlinks
 cd /usr/share/xfce4/backdrops/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 ## MATE
 if [ -d /usr/share/mate-background-properties ]; then
-ln -sfn /var/local/vall/rooms/vubuntu/vubuntu-wallpapers.xml /usr/share/mate-background-properties/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/${VALL_ROOM}-wallpapers.xml /usr/share/mate-background-properties/
 fi
 ## Cinnamon
 if [ -d /usr/share/cinnamon-background-properties ]; then
-ln -sfn /var/local/vall/rooms/vubuntu/linuxmint-vubuntu.xml /usr/share/cinnamon-background-properties/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/linuxmint-${VALL_ROOM}.xml /usr/share/cinnamon-background-properties/
 fi
 
 # Finish
