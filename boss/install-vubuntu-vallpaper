@@ -69,10 +69,10 @@ ln -sfn /var/local/vall/rooms/vubuntu/avitar-icons/* /usr/share/pixmaps/faces/
 ## Global (GNOME, KDE, Budgie)
 ### If "backgrounds" doesn't exist (KDE, cough cough)
 if [ ! -d /usr/share/backgrounds ]; then
-mkdir /usr/share/backgrounds
+mkdir -p /usr/share/backgrounds
 fi
 if [ ! -d /usr/share/gnome-background-properties ]; then
-mkdir /usr/share/gnome-background-properties
+mkdir -p /usr/share/gnome-background-properties
 fi
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers /usr/share/backgrounds/${VALL_ROOM}
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/${VALL_ROOM}-wallpapers.xml /usr/share/gnome-background-properties/

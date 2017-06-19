@@ -122,14 +122,14 @@ if [ -L /home/${VRK_USER}/"${WORK_FOLDER_NAME}" ]; then
 fi
 ## Make the Work folder
 if [ ! -e /home/${VRK_USER}/"${WORK_FOLDER_NAME}" ]; then
-mkdir /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
+mkdir -p /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
 fi
 
 # myWall Custom Wallpapers
 ## NOTE: Create configs for all desktop environments so that they sync via Vrk Cloud even if desktops envs are different on different machins
 ## myWall folder
 if [ ! -e /home/${VRK_USER}/.vrk/myWall ]; then
-mkdir /home/${VRK_USER}/.vrk/myWall
+mkdir -p /home/${VRK_USER}/.vrk/myWall
 fi
 ### Xfce
 if [ ! -f /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ]; then
@@ -153,22 +153,22 @@ fi
 # File link structure
 ## KDE, Budgie & Global
 if [ ! -d /home/${VRK_USER}/.local/share/backgrounds ]; then
-mkdir /home/${VRK_USER}/.local/share/backgrounds
+mkdir -p /home/${VRK_USER}/.local/share/backgrounds
 fi
 ln -sfn /home/${VRK_USER}/.vrk/myWall /home/${VRK_USER}/.local/share/backgrounds/
 ## GNOME
 if [ ! -d /home/${VRK_USER}/.local/share/gnome-background-properties ]; then
-mkdir /home/${VRK_USER}/.local/share/gnome-background-properties
+mkdir -p /home/${VRK_USER}/.local/share/gnome-background-properties
 fi
 if [ -d /usr/share/gnome-background-properties ]; then
 ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/gnome-background-properties/
 fi
 ## Xfce
 if [ -d /home/${VRK_USER}/.config/xfce4 ]; then
-mkdir /home/${VRK_USER}/.config/xfce4
+mkdir -p /home/${VRK_USER}/.config/xfce4
 fi
 if [ ! -d ~/.config/xfce4/mcs_settings ]; then
-mkdir /home/${VRK_USER}/.config/xfce4/mcs_settings
+mkdir -p /home/${VRK_USER}/.config/xfce4/mcs_settings
 fi
 ln -sfn /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
 ## MATE

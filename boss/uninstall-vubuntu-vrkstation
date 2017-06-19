@@ -73,7 +73,7 @@ fi
 . /home/${VRK_USER}/.vrk/configs/stationinfo
 
 # Put folders back from cloud
-if [ "${VRK_CLOUD_DIR}" = "NOT_SET_AT_INST" ]; then
+if [ "${VRK_CLOUD_DIR}" = "NOT_SET" ]; then
 echo "No cloud... Okay."
 else
 ## Put directories back where links were
@@ -101,6 +101,7 @@ cp -R /home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/"${VRK_WORK_DIR}" /home/${VRK_USER}
 chown -R ${VRK_USER} /home/${VRK_USER}/${VRK_WORK_DIR}
   fi
  fi
+fi
 
 # Original language home directories
 if [ -d /home/${VRK_USER}/"${VRK_DESKTOP_DIR}" ] && [ ! -d /home/${VRK_USER}/"${XDG_DESKTOP_DIR}" ]; then

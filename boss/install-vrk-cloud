@@ -256,7 +256,6 @@ ln -sfn /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/myLang/"${XDG
 
 # End cloud entered interaction
 else
-echo "VRK_CLOUD_DIR=\"NOT_SET\"" >> /home/${VRK_USER}/.vrk/configs/stationinfo
 echo "Cloud not entered. Skipping cloud integration. To install later use: install-vrk-cloud"
 fi
 
