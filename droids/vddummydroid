@@ -1,0 +1,25 @@
+#!/bin/bash
+#inkVerbDroid! verb.ink
+
+# This is the first droid.
+## Take note of the format, including the two line breaks after instructions and one line at the end of the file.
+
+# How to use:
+## vddummydroid [ h - optional ]
+
+# Eg:
+## vddummydroid
+## vddummydroid h
+
+
+echo "I'm a droid. I do things."
+
+if [ "$1" = "h" ]; then
+echo "
+All droid names can perform sudo-related tasks and are therefore only available to sudoer Vrkers.
+
+But, they don't always need sudo.
+
+Droid names always start with vd in the name and instructions are at the top of the file."
+fi
+

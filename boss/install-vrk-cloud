@@ -11,7 +11,7 @@ set -e
 ## sudo ./install-vrk-cloud
 
 # How to use on your local computer for another, non-sudo user:
-## sudo ./install-vrk-cloud [user - if not current sudoer]
+## sudo ./install-vrk-cloud [user - if not current sudoer] [cloud choice - optional]
 
 # NOTE: If you run this for yourself without a [user] declaration, then your .vrk folder will have a "boss" folder link.
 
@@ -22,6 +22,12 @@ VRK_USER=${SUDO_USER}
 else
 VRK_USER=$1
 fi
+
+# Set Cloud
+if [ -n $2 ]; then
+CLOUD_CHOICE=$2
+fi
+
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
@@ -75,7 +81,6 @@ if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
  if [ "${VRK_INSTALLED}" != "YES" ]; then
 echo "Vrk is not installed for this user. Do that first. Bye."
 exit 22
- else
  fi
 else
 echo "Vrk is not installed for this user. Do that first. Bye."
@@ -117,16 +122,17 @@ fi
 . /var/local/vrk/machineinfo
 
 # Setup the cloud
+if [ -z $2 ]; then
 echo "
 Your choice of cloud: Nextcloud, Dropbox, or some other thing in the strato-orbit-box-osphere...
 
 Read carefully...
 
-This will sync: ${VRK_TEMPLATES_DIR}, ${VRK_DOCUMENTS_DIR}, & ${WORK_FOLDER_NAME} to YOUR-CLOUD/Vrk/
+This will sync: ${VRK_TEMPLATES_DIR}, ${VRK_DOCUMENTS_DIR}, & ${VRK_WORK_DIR} to YOUR-CLOUD/Vrk/
 These folders will then be the same across all Vrk Station devices with the same primary cloud choice.
 You can use many clouds services on this machine of course, but this will choose the \"primary\" cloud to sync these folders.
 If this cloud folder doesn't already exist, it will be created. You can copy contents of an old copy of your cloud folder later,
-BUT DO NOT DELETE THE \"Vrk\" FOLDER IN YOUR CLOUD!! ${VRK_TEMPLATES_DIR}, ${VRK_DOCUMENTS_DIR}, & ${WORK_FOLDER_NAME} actually reside in this cloud folder. Those folders in your home folder will be links to this cloud.
+BUT DO NOT DELETE THE \"Vrk\" FOLDER IN YOUR CLOUD!! ${VRK_TEMPLATES_DIR}, ${VRK_DOCUMENTS_DIR}, & ${VRK_WORK_DIR} actually reside in this cloud folder. Those folders in your home folder will be links to this cloud.
 
 You can always change or set this later by running this again.
 Enter nothing to not choose your main cloud now.
@@ -134,17 +140,35 @@ Enter nothing to not choose your main cloud now.
 Cloud folder - Exact name of cloud folder, case-sensitive. Type, then press <Enter>: (Leave empty to skip cloud integration for now.)"
 read CLOUD_CHOICE
 
+## If not entered
+ if [ -z ${CLOUD_CHOICE} ]; then
+echo "You must type your cloud folder name. You may try one more time:"
+read VRK_WORK_DIR
+ fi
+ if [ -z ${CLOUD_CHOICE} ]; then
+echo "You didn't enter your cloud folder. I quit."
+exit 22.
+ fi
+else
+echo "Using \"${CLOUD_CHOICE}\" as the cloud folder..."
+fi
+
 ## Check if the cloud folder exists
-if [ ! -e "/home/${VRK_USER}/${CLOUD_CHOICE}" ]; then
+### Skip the dialogue if it was entered in the command line
+if [ -z $2 ]; then
+ if [ ! -e "/home/${VRK_USER}/${CLOUD_CHOICE}" ]; then
 echo "That cloud service does not seem to be installed. It is often best to install and sync that folder on this machine first, if you want to avoid duplicates, over-writes, and conflicts.
 
-If you want to continue anyway, no big deal, just type \"yes\" and <Enter>...
+If you want to create it anyway and sync your cloud later, no big deal, just type \"yes\" and <Enter>...
 "
 read CONTINUEYES
- if [ ${CONTINUEYES} != "yes" ]; then
+  if [ ${CONTINUEYES} != "yes" ]; then
 echo "Bye.
 "
 exit 0
+  fi
+## Own the empty cloud
+chown -R ${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"
  fi
 fi
 
@@ -185,19 +209,17 @@ fi
   fi
  else
   if [ -d /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ]; then
-	cp -R /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
-	rm -rf /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
+	mv /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
   fi
  fi
 ### Work folder
- if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${WORK_FOLDER_NAME}" ]; then
-  if [ -d /home/${VRK_USER}/"${WORK_FOLDER_NAME}" ]; then
-	mv /home/${VRK_USER}/"${WORK_FOLDER_NAME}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
+ if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_WORK_DIR}" ]; then
+  if [ -d /home/${VRK_USER}/"${VRK_WORK_DIR}" ]; then
+	mv /home/${VRK_USER}/"${VRK_WORK_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
   fi
  else
-  if [ -d /home/${VRK_USER}/"${WORK_FOLDER_NAME}" ]; then
-	cp -R /home/${VRK_USER}/"${WORK_FOLDER_NAME}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
-	rm -rf /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
+  if [ -d /home/${VRK_USER}/"${VRK_WORK_DIR}" ]; then
+	mv /home/${VRK_USER}/"${VRK_WORK_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
   fi
  fi
 ### myWall
@@ -207,8 +229,7 @@ fi
   fi
  else
   if [ -d /home/${VRK_USER}/.vrk/myWall ]; then
-	cp -R /home/${VRK_USER}/.vrk/myWall/* /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER}
-	rm -rf /home/${VRK_USER}/.vrk/myWall
+	mv /home/${VRK_USER}/.vrk/myWall/* /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER}
   fi
  fi
 ### myLanguage
@@ -217,14 +238,12 @@ fi
 	ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/myLang/"${XDG_DOCUMENTS_DIR}"
  fi
 
-# Own the cloud
-chown -R ${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"
-
 # Set the links from the cloud
 ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/
 ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/
-ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${WORK_FOLDER_NAME}" /home/${VRK_USER}/
+ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_WORK_DIR}" /home/${VRK_USER}/
 ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER} /home/${VRK_USER}/.vrk/myWall
+ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER} /home/${VRK_USER}/.local/share/backgrounds/myWall
 ### Xfce (Does't like Templates in a linked folder)
  if [ "${UBUNT_DISTRO}" = "Xfwm4" ]; then
 rm -f /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
@@ -244,7 +263,7 @@ fi
 if [ -n ${CLOUD_CHOICE} ]; then
 echo "Alright, Sparky! Vrk station is now syncing with ${CLOUD_CHOICE}.
 
-${WORK_FOLDER_NAME}, Documents, Templates, and myWall folders on this Vrk Station (computer) will be backed up to the \"${CLOUD_CHOICE}/Vrk\" folder, whenever ${CLOUD_CHOICE} is installed if it isn't already.
+${VRK_WORK_DIR}, Documents, Templates, and myWall folders on this Vrk Station (computer) will be backed up to the \"${CLOUD_CHOICE}/Vrk\" folder, whenever ${CLOUD_CHOICE} is installed if it isn't already.
 Anything you put in ${XDG_TEMPLATES_DIR} will be in your \"New Document\" context menu, and synced across all stations.
 "
 ## Xfce notice

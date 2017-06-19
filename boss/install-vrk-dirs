@@ -155,7 +155,7 @@ fi
 if [ ! -d /home/${VRK_USER}/.local/share/backgrounds ]; then
 mkdir /home/${VRK_USER}/.local/share/backgrounds
 fi
-ln -sfn /home/${VRK_USER}/.vrk/myWall /home/${VRK_USER}/.local/share/backgrounds/${VRK_USER}Wall
+ln -sfn /home/${VRK_USER}/.vrk/myWall /home/${VRK_USER}/.local/share/backgrounds/
 ## GNOME
 if [ ! -d /home/${VRK_USER}/.local/share/gnome-background-properties ]; then
 mkdir /home/${VRK_USER}/.local/share/gnome-background-properties

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# This turns off the Vrk cloud sync for the current user.
+## Prerequesite: install-vrk-cloud
+
+# How to use:
+## vcloudoff
+
+
+# Set the user
+VRK_USER=${USER}
+
+# Include the config
+. /home/${VRK_USER}/.vrk/configs/stationinfo
+
+# Remove the links and move the directories back
+if [ -L "/home/${VRK_USER}/${VRK_TEMPLATES_DIR}" ]; then
+ rm -f /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
+ mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/
+fi
+if [ -L "/home/${VRK_USER}/${VRK_DOCUMENTS_DIR}" ]; then
+ rm -f /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
+ mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/
+fi
+if [ -L "/home/${VRK_USER}/${VRK_WORK_DIR}" ]; then
+ rm -f /home/${VRK_USER}/"${VRK_WORK_DIR}"
+ mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_WORK_DIR}" /home/${VRK_USER}/
+fi
+if [ -L "/home/${VRK_USER}/.vrk/myWall" ]; then
+ rm -f /home/${VRK_USER}/.vrk/myWall
+ mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/myWall-${VRK_USER} /home/${VRK_USER}/.vrk/myWall
+ ln -sfn /home/${VRK_USER}/.vrk/myWall /home/${VRK_USER}/.local/share/backgrounds/
+fi
+
+# Config
+echo "OLD_CLOUD=\"${VRK_CLOUD_DIR}\"" >> ~/.vrk/configs/stationinfo
+sed -i "s/VRK_CLOUD_DIR=.*/VRK_CLOUD_DIR=\"NOT_YET\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+
+# Finish
+echo "The cloud folder ${VRK_CLOUD_DIR} is no longer being synced by Vrk.
+${VRK_WORK_DIR}, ${VRK_DOCUMENTS_DIR}, ${VRK_TEMPLATES_DIR}, and myWall have all been removed from ${VRK_CLOUD_DIR}/Vrk and only exist locally on this computer."
+
+

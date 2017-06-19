@@ -18,7 +18,7 @@
 
 # Set user
 if [ -z $1 ]; then
-USER=${USER}
+VUSER=${USER}
 else
 VUSER=$1
 fi

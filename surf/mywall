@@ -73,6 +73,8 @@ exit 22
 fi
 
 # Check-n-fix XML list dependencies
+## This is necessary in the event that the user has meddled with things in the cloud.
+## It does not examin settings beyond what the user may normally see.
 ## Xfce
 if [ ! -f /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ]; then
 touch /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml
@@ -99,38 +101,38 @@ echo "<?xml version=\"1.0\"?>
 </wallpapers>" > /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml
 fi
 
-# Check-n-fix folder & file structure
-## KDE, Budgie & Global
-if [ ! -d /home/${VRK_USER}/.local/share/backgrounds ]; then
-mkdir /home/${VRK_USER}/.local/share/backgrounds
-fi
-ln -sfn /home/${VRK_USER}/.vrk/myWall /home/${VRK_USER}/.local/share/backgrounds/${VRK_USER}Wall
-## GNOME
-if [ ! -d /home/${VRK_USER}/.local/share/gnome-background-properties ]; then
-mkdir /home/${VRK_USER}/.local/share/gnome-background-properties
-fi
-if [ -d /usr/share/gnome-background-properties ]; then
-ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/gnome-background-properties/
-fi
-## Xfce
-if [ -d /home/${VRK_USER}/.config/xfce4 ]; then
-mkdir /home/${VRK_USER}/.config/xfce4
-fi
-if [ ! -d ~/.config/xfce4/mcs_settings ]; then
-mkdir /home/${VRK_USER}/.config/xfce4/mcs_settings
-fi
-ln -sfn /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
-## MATE
-if [ -d /usr/share/mate-background-properties ]; then
-ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/mate-background-properties/
-fi
-## Cinnamon
-if [ -d /usr/share/cinnamon-background-properties ]; then
-ln -sfn /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wallpapers.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
-fi
-## Own
-chown -R ${VRK_USER} /home/${VRK_USER}/.local
-chown -R ${VRK_USER} /home/${VRK_USER}/.config
+## Check-n-fix folder & file structure
+### KDE, Budgie & Global
+#if [ ! -d /home/${VRK_USER}/.local/share/backgrounds ]; then
+#mkdir /home/${VRK_USER}/.local/share/backgrounds
+#fi
+#ln -sfn /home/${VRK_USER}/.vrk/myWall /home/${VRK_USER}/.local/share/backgrounds/${VRK_USER}Wall
+### GNOME
+#if [ ! -d /home/${VRK_USER}/.local/share/gnome-background-properties ]; then
+#mkdir /home/${VRK_USER}/.local/share/gnome-background-properties
+#fi
+#if [ -d /usr/share/gnome-background-properties ]; then
+#ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/gnome-background-properties/
+#fi
+### Xfce
+#if [ -d /home/${VRK_USER}/.config/xfce4 ]; then
+#mkdir /home/${VRK_USER}/.config/xfce4
+#fi
+#if [ ! -d ~/.config/xfce4/mcs_settings ]; then
+#mkdir /home/${VRK_USER}/.config/xfce4/mcs_settings
+#fi
+#ln -sfn /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
+### MATE
+#if [ -d /usr/share/mate-background-properties ]; then
+#ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/mate-background-properties/
+#fi
+### Cinnamon
+#if [ -d /usr/share/cinnamon-background-properties ]; then
+#ln -sfn /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wallpapers.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
+#fi
+### Own
+#chown -R ${VRK_USER} /home/${VRK_USER}/.local
+#chown -R ${VRK_USER} /home/${VRK_USER}/.config
 
 # Copy the file
 cp ${FILENAME} /home/${VRK_USER}/.vrk/myWall/
