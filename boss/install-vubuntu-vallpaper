@@ -51,18 +51,19 @@ fi
 # Install/Update Vallpaper
 mkdir -p /var/local/vall/rooms/${VALL_ROOM}/wallpapers
 if [ ! -d "/usr/share/images" ]; then
-mkdir /usr/share/images
+mkdir -p /usr/share/images
 fi
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers /usr/share/images/vall
 
 # Install/Reset the Vubuntu Vallpaper Room
 if [ -d "/var/local/vall/rooms/${VALL_ROOM}" ]; then
 rm -rf /var/local/vall/rooms/${VALL_ROOM}
 fi
-cp -r /var/local/vrk/donjon/vallpaper/${VALL_ROOM} /var/local/vall/rooms/
+cp -r /var/local/vrk/donjon/vallpaper/vubuntu /var/local/vall/rooms/
+rm -rf /usr/share/images/vall/${VALL_ROOM}
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers /usr/share/images/vall/${VALL_ROOM}
 
 # Add Avatar icons
-ln -sfn var/local/vall/rooms/${VALL_ROOM}/avitar-icons/* /usr/share/pixmaps/faces/
+ln -sfn /var/local/vall/rooms/vubuntu/avitar-icons/* /usr/share/pixmaps/faces/
 
 # Install Vubuntu native wallpapers
 ## Global (GNOME, KDE, Budgie)

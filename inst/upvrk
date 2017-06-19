@@ -193,6 +193,7 @@ UPDATE_PATCH_KVERNO=0.302
 if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
 ##### PER-USER SCRIPTS GO HERE ###
 /home/${VRK_USER}/.vrk/boards/set-vall vubuntu Get-to-Vrk.png
+#sed -i "s/Icon=.*/Icon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar.png/g" /var/lib/AccountsService/users/
 
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklists
