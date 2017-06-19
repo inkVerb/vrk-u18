@@ -190,6 +190,7 @@ fi
  if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk ]; then
 	mkdir /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk
  fi
+chown -R ${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk
 ### Templates
  if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}" ]; then
   if [ -d /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ]; then

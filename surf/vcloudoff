@@ -40,4 +40,3 @@ sed -i "s/VRK_CLOUD_DIR=.*/VRK_CLOUD_DIR=\"NOT_YET\"/g" /home/${VRK_USER}/.vrk/c
 echo "The cloud folder ${VRK_CLOUD_DIR} is no longer being synced by Vrk.
 ${VRK_WORK_DIR}, ${VRK_DOCUMENTS_DIR}, ${VRK_TEMPLATES_DIR}, and myWall have all been removed from ${VRK_CLOUD_DIR}/Vrk and only exist locally on this computer."
 
-
