@@ -57,6 +57,8 @@ fi
 ## Run the update scripts for this patch
 #if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
 ###### PER-USER SCRIPTS GO HERE ###
+## Make the user do the job himself 
+## sudo -u ${VRK_USER} echo "I am myself."
 #
 #
 ################STOP#USER#PATCH#
@@ -192,7 +194,7 @@ UPDATE_PATCH_KVERNO=0.302
 # Run the update scripts for this patch
 if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
 ##### PER-USER SCRIPTS GO HERE ###
-/home/${VRK_USER}/.vrk/boards/set-vall vubuntu Get-to-Vrk.png
+sudo -u ${VRK_USER} /home/${VRK_USER}/.vrk/boards/set-vall vubuntu Get-to-Vrk.png
 cp -f /var/local/vrk/donjon/inkVerb-avatar.png /usr/share/pixmaps/faces/
 sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
 echo "Icon=/usr/share/pixmaps/faces/inkVerb-avatar.png" >> /var/lib/AccountsService/users/${VRK_USER}

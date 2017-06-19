@@ -67,6 +67,11 @@ exit 0
 fi
 ## Local copy
 if [ "${UTYPE}" = "local" ]; then
+### Test the directory
+ if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
+echo "vrk folder is not in the home directory. I quit."
+exit 22
+ fi
 cd /home/${SUDO_USER}/vrk/inst
 chmod +x upvrk
 ./upvrk
