@@ -199,7 +199,7 @@ echo "Icon=/usr/share/pixmaps/faces/inkVerb-avatar.png" >> /var/lib/AccountsServ
 /home/${VRK_USER}/.vrk/boards/install-vrk-langdirs ${VRK_USER}
 
 ## Vrk Cloud
-/home/${VRK_USER}/.vrk/boards/install-vrk-cloud ${VRK_USER}
+#/home/${VRK_USER}/.vrk/boards/install-vrk-cloud ${VRK_USER}
 
 # Get the config
 . /home/${VRK_USER}/.vrk/configs/stationinfo

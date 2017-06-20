@@ -179,7 +179,9 @@ if [ ! -d /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" ] && [ -d /home/${VRK_USER}/"${X
 fi
 
 ## Own
+if [ -d "/home/${VRK_USER}/myLang" ]; then
 chown -R ${VRK_USER} /home/${VRK_USER}/myLang
+fi
 
 ## Set the home directories langauge system config to English
 cp /home/${VRK_USER}/.config/user-dirs.dirs /home/${VRK_USER}/.config/user-dirs.dirs.ink-bak
