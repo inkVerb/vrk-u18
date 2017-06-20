@@ -117,15 +117,10 @@ fi
 
 # Include the configs
 . /var/local/vrk/vrkverno
-## Check minimal user updateable version
+
+# Check minimal updateable version
 if [ $(echo "${MIN_KVERNO}>${KVERNO}"|bc) = 1 ]; then
 echo "Can't run. The minimum version to run is ${MIN_KVERNO}. This Vrk version is ${KVERNO}. I quit."
-fi
-
-# Check minimal system-wide updateable version
-if [ $(echo "$MIN_KVERNO>$KVERNO"|bc) = 1 ]; then
-echo "Current Verber™ version is ${KVERNO}, minimum ${MIN_KVERNO} to use this updater.
-Run updateverberlegacy for older versions."
 exit 0
 fi
 
