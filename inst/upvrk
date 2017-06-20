@@ -117,6 +117,10 @@ fi
 
 # Include the configs
 . /var/local/vrk/vrkverno
+## Check minimal user updateable version
+if [ $(echo "${MIN_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+echo "Can't run. The minimum version to run is ${MIN_KVERNO}. This Vrk version is ${KVERNO}. I quit."
+fi
 
 # Check minimal system-wide updateable version
 if [ $(echo "$MIN_KVERNO>$KVERNO"|bc) = 1 ]; then
@@ -130,8 +134,6 @@ fi
 if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 . /home/${VRK_USER}/.vrk/configs/stationinfo
  if [ "${VRK_INSTALLED}" = "YES" ]; then
-## Check minimal user updateable version
-  if [ $(echo "${KVERNO}>${MIN_KVERNO}"|bc) = 1 ]; then
 ## Update/refresh Bosses, Surfers, Droids, and Donjon
 rm -rf /var/local/vrk/boss/*
 rm -rf /var/local/vrk/surf/*
@@ -144,7 +146,6 @@ chmod +x /var/local/vrk/donjon/vrktemplates/7_BASH
 chmod +x /var/local/vrk/droids/*
 ## Refresh the links for the user
 /var/local/vrk/boss/vrkfresh ${VRK_USER}
-  fi
  fi
 fi
 

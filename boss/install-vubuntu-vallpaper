@@ -55,6 +55,7 @@ mkdir -p /usr/share/images
 fi
 
 # Install/Reset the Vubuntu Vallpaper Room
+## The /usr/share/images folder is used by some Desktops and by set-vall and Vallpaper rooms and chrons
 if [ -d "/var/local/vall/rooms/${VALL_ROOM}" ]; then
 rm -rf /var/local/vall/rooms/${VALL_ROOM}
 fi
@@ -74,9 +75,7 @@ fi
 if [ ! -d /usr/share/gnome-background-properties ]; then
 mkdir -p /usr/share/gnome-background-properties
 fi
-if [ -e "/usr/share/backgrounds/${VALL_ROOM}" ]; then
 rm -rf /usr/share/backgrounds/${VALL_ROOM}
-fi
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers /usr/share/backgrounds/${VALL_ROOM}
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/${VALL_ROOM}-wallpapers.xml /usr/share/gnome-background-properties/
 ## Xfce
