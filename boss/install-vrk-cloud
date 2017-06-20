@@ -210,7 +210,10 @@ chown -R ${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk
   fi
  else
   if [ -d /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ]; then
-	mv /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
+#	mv /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
+######## Need to find a way to move-merge, possibly with rsync https://unix.stackexchange.com/questions/127712/merging-folders-with-mv
+	mv /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" 	mv /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"-vback
+	echo "${VRK_DOCUMENTS_DIR} already exists in your cloud and has been backed up to: ${VRK_DOCUMENTS_DIR}-vback"
   fi
  fi
 ### Work folder
@@ -220,7 +223,10 @@ chown -R ${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk
   fi
  else
   if [ -d /home/${VRK_USER}/"${VRK_WORK_DIR}" ]; then
-	mv /home/${VRK_USER}/"${VRK_WORK_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
+#	mv /home/${VRK_USER}/"${VRK_WORK_DIR}" /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/
+######## Need to find a way to move-merge, possibly with rsync https://unix.stackexchange.com/questions/127712/merging-folders-with-mv
+	mv /home/${VRK_USER}/"${VRK_WORK_DIR}" 	mv /home/${VRK_USER}/"${VRK_WORK_DIR}"-vback
+	echo "${VRK_WORK_DIR} already exists in your cloud and has been backed up to: ${VRK_WORK_DIR}-vback"
   fi
  fi
 ### myWall
