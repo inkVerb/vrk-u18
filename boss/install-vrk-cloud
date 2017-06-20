@@ -182,7 +182,6 @@ fi
 if [ -L /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ]; then
 	rm -f /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
 fi
-######## NOTE: The Work folder got this same check after it was declared above
 ## Create Vrk and cloud folders if they don't exist, merge if they do, remove old Documents/Work/Templates links if they exist
  if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}" ]; then
 	mkdir /home/${VRK_USER}/"${CLOUD_CHOICE}"
@@ -200,7 +199,11 @@ chown -R ${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk
   if [ -d /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ]; then
 #### NOTE: Once Vrk Templates are in a Vrk Cloud folder, they replace all local Templates, even from Vrk.
 ####       If a user wants to update to current Vrk Templates, run update-vrk-templates [ user ]
-	rm -rf /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
+####       This backs them up like the others, but deleting it is also an option
+	mv /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"-vback
+	echo "
+${VRK_TEMPLATES_DIR} already exists in your cloud and has been backed up to: ${VRK_TEMPLATES_DIR}-vback
+"
   fi
  fi
 ### Documents
@@ -258,9 +261,10 @@ ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER} /home/${VRK_U
 ### Xfce (Does't like Templates in a linked folder)
  if [ "${UBUNT_DISTRO}" = "Xfwm4" ]; then
 rm -f /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
-cp -R /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/
+mv /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}"-vback /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
   if [ -d /home/${VRK_USER}/myLang ]; then
-ln -sfn /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/myLang/"${XDG_TEMPLATES_DIR}"
+   rm /home/${VRK_USER}/myLang/"${XDG_TEMPLATES_DIR}"
+   ln -sfn /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/myLang/"${XDG_TEMPLATES_DIR}"
   fi
  fi
 

@@ -14,22 +14,50 @@ VRK_USER=${USER}
 . /home/${VRK_USER}/.vrk/configs/stationinfo
 
 # Remove the links and move the directories back
+## Templates
 if [ -L "/home/${VRK_USER}/${VRK_TEMPLATES_DIR}" ]; then
  rm -f /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
- mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/
+ if [ -d "/home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/${VRK_TEMPLATES_DIR}" ]; then
+  mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/
+ else
+  mkdir /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
+ fi
 fi
+## Documents
 if [ -L "/home/${VRK_USER}/${VRK_DOCUMENTS_DIR}" ]; then
  rm -f /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
- mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/
+ if [ -d "/home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/${VRK_DOCUMENTS_DIR}" ]; then
+  mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/
+ else
+  mkdir /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
+ fi
 fi
+## Work
 if [ -L "/home/${VRK_USER}/${VRK_WORK_DIR}" ]; then
  rm -f /home/${VRK_USER}/"${VRK_WORK_DIR}"
- mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_WORK_DIR}" /home/${VRK_USER}/
+ if [ -d "/home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/${VRK_WORK_DIR}" ]; then
+  mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/"${VRK_WORK_DIR}" /home/${VRK_USER}/
+ else
+  mkdir /home/${VRK_USER}/"${VRK_WORK_DIR}"
+ fi
 fi
+## myWall
 if [ -L "/home/${VRK_USER}/.vrk/myWall" ]; then
  rm -f /home/${VRK_USER}/.vrk/myWall
- mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/myWall-${VRK_USER} /home/${VRK_USER}/.vrk/myWall
+ if [ -d "/home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/myWall-${VRK_USER}" ]; then
+  mv /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/Vrk/myWall-${VRK_USER} /home/${VRK_USER}/.vrk/myWall
+ else
+  mkdir /home/${VRK_USER}/.vrk/myWall
+ fi
  ln -sfn /home/${VRK_USER}/.vrk/myWall /home/${VRK_USER}/.local/share/backgrounds/
+fi
+
+# Language Dirs?
+if [ -d /home/${VRK_USER}/myLang ]; then
+ rm /home/${VRK_USER}/myLang/"${XDG_TEMPLATES_DIR}"
+ ln -sfn /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/myLang/"${XDG_TEMPLATES_DIR}"
+ rm /home/${VRK_USER}/myLang/"${XDG_DOCUMENTS_DIR}"
+ ln -sfn /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/myLang/"${XDG_DOCUMENTS_DIR}"
 fi
 
 # Config
