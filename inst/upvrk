@@ -200,6 +200,9 @@ fi
 if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
 ##### GLOBAL SCRIPTS GO HERE #####
 # Update Vallpaper
+if [ -L "/usr/share/images/vall" ]; then
+rm -f /usr/share/images/vall
+fi
 /var/local/vrk/boss/install-vubuntu-vallpaper
 
 # Set and refresh the current version into inklists
