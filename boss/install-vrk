@@ -134,8 +134,13 @@ cp -R /var/local/vrk/donjon/vrktemplates/* ${XDG_TEMPLATES_DIR}/
 ## Own
 chown -R ${VRK_USER} /home/${VRK_USER}/.vrk
 
-# Set the global user bin for surfers 
-echo "export PATH=\$PATH:/home/${VRK_USER}/.vrk/boards:/home/${VRK_USER}/.vrk/go" >> /home/${VRK_USER}/.bashrc
+# Set the global user bin for surfers
+if grep -Fq "#VrkPath" /home/${VRK_USER}/.bashrc; then
+echo "
+#VrkPath
+export PATH=\$PATH:/home/${VRK_USER}/.vrk/boards:/home/${VRK_USER}/.vrk/go
+" >> /home/${VRK_USER}/.bashrc
+fi
 
 # Folder & file structure
 ## KDE & Global
@@ -188,9 +193,27 @@ fi
 /home/${SUDO_USER}/.vrk/boards/vrklocale
 
 # Vrk avatar icon
-cp -f /var/local/vrk/donjon/inkVerb-avatar.png /usr/share/pixmaps/faces/
+## For most desktops
+if [ -d "/usr/share/pixmaps/faces/" ]; then
+cp -f /var/local/vrk/donjon/icons/inkVerb-avatar.png /usr/share/pixmaps/faces/
 sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
-echo "Icon=/usr/share/pixmaps/faces/inkVerb-avatar.png" >> /var/lib/AccountsService/users/${VRK_USER}
+sed -i "s/[User]/[User]\nIcon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar\.png/" >> /var/lib/AccountsService/users/${VRK_USER}
+else
+## For Xfce
+### Backup in case
+ if [ -f "/var/lib/AccountsService/icons/${VRK_USER}" ]; then
+ mv /var/lib/AccountsService/icons/${VRK_USER} /var/lib/AccountsService/icons/${VRK_USER}-vbak
+ rm -f /var/lib/AccountsService/icons/${VRK_USER}
+ echo "
+Your avatar has been backed up to /var/lib/AccountsService/icons/${VRK_USER}-vbak. To restore it, enter:
+sudo mv /var/lib/AccountsService/icons/${VRK_USER}-vbak /var/lib/AccountsService/icons/${VRK_USER}
+"
+ fi
+### Set it
+cp -f /var/local/vrk/donjon/icons/inkVerb-avatar-Xfce.png /var/lib/AccountsService/icons/${VRK_USER}
+sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
+sed -i "s/[User]/[User]\nIcon=\/var\/lib\/AccountsService\/icons\/${VRK_USER}/" >> /var/lib/AccountsService/users/${VRK_USER}
+fi
 
 ## Vrk dirs (Work, myWall)
 /home/${VRK_USER}/.vrk/boards/install-vrk-dirs ${VRK_USER}

@@ -70,12 +70,12 @@ Created on my Vrk Station" >> README.md
 git add README.md
 fi
 if [ ! -e "LICENSE" ]; then
-echo ~/.vrk/donjon/vgit/LICENSE >> LICENSE
+cat ~/.vrk/donjon/vgit/LICENSE > LICENSE
 git add LICENSE
 echo "A GPLv3 license has been added."
 fi
 git commit -m "first commit"
-fi
+
 ## Push it
 if [ -z "$2" ]; then
 git remote add origin https://github.com/${GITRUNAME}/${GITREPONAME}.git

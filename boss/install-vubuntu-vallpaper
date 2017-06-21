@@ -63,7 +63,7 @@ cp -r /var/local/vrk/donjon/vallpaper/vubuntu /var/local/vall/rooms/
 rm -rf /usr/share/images/vall/${VALL_ROOM}
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers /usr/share/images/vall/${VALL_ROOM}
 
-# Add Avatar icons
+# Add Avatar icons (but not Xfce)
 if [ -d "/usr/share/pixmaps/faces/" ]; then
 ln -sfn /var/local/vall/rooms/vubuntu/avitar-icons/* /usr/share/pixmaps/faces/
 fi
