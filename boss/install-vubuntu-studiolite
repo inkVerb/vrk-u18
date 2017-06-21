@@ -211,13 +211,12 @@ You got Skype. On to MyPaint...
 "
 
 ## MyPaint
-if [ "${PROCVNO}" = "amd64" ]; then
-/var/local/vrk/boss/install-mypaint64
-fi
-if [ "${PROCVNO}" = "i386" ]; then
-apt install -y mypaint mypaint-data-extras
-fi
-/var/local/vrk/boss/install-mypaint-brushes
+#if [ "${PROCVNO}" = "amd64" ]; then
+#/var/local/vrk/boss/install-mypaint64
+#fi
+#if [ "${PROCVNO}" = "i386" ]; then
+#apt install -y mypaint mypaint-data-extras
+#fi
 
 ## Hot Corners in Xfce ?
 #http://ubuntuhandbook.org/index.php/2015/07/hot-corners-plugin-xfce4/
