@@ -90,7 +90,8 @@ Vrk™ will override many of your settings or defaults with its own EVERYTIME it
 4. This comes with NO warranty or guarantee. Use at your own risk!
 
 I understand the above \"Disclaimer\" and am ready to proceed into the wild unknown dangerous-treacherous glee of having an inkVerb Vrk™ Station!
-Type \"yes\" if and only if you agree, accept, and want to continue...
+
+Type \"yes\" to agree, accept, and continue...
 "
 read CONTINUEYES
 if [ "${CONTINUEYES}" != "yes" ]; then
