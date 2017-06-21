@@ -14,7 +14,7 @@
 # How to use:
 ## cd ~/vrk/inst
 ## chmod +x upvrk
-## sudo ./upvrk [user - if not current sudoer]
+## sudo ./upvrk
 
 
 # Check to make sure this is run as sudo, but not run by root
@@ -44,36 +44,40 @@ echo "The vrk folder is not in the right place. I quit."
 exit 22
 fi
 
-# Set user
-if [ -z $1 ]; then
-VRK_USER=${SUDO_USER}
-else
-VRK_USER=$1
-fi
 
-## Sample version updater:
-#UPDATE_PATCH_KVERNO=
-#
-## Run the update scripts for this patch
-#if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
-###### PER-USER SCRIPTS GO HERE ###
-## Make the user do the job himself 
-## sudo -u ${VRK_USER} echo "I am myself."
-#
-#
-################STOP#USER#PATCH#
-## Set and refresh the current version into inklists
-#sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${VRK_USER}/.vrk/configs/stationinfo
-#fi
-#if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
-###### GLOBAL SCRIPTS GO HERE #####
-#
-#
-## Set and refresh the current version into inklists
-#sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
-#. /var/local/vrk/vrkverno
-#fi
-################END#UPDATE#PATCH#
+# Sample version updater:
+UPDATE_PATCH_KVERNO=
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER in ./*/
+do
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself 
+# sudo -u ${PATCH_USER} echo "I am myself."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
 
 
 
@@ -108,13 +112,6 @@ echo "The vrk folder is not in the right place. I quit."
 exit 22
 fi
 
-# Set user
-if [ -z $1 ]; then
-VRK_USER=${SUDO_USER}
-else
-VRK_USER=$1
-fi
-
 # Include the configs
 . /var/local/vrk/vrkverno
 
@@ -126,9 +123,13 @@ fi
 
 # Vrk user update
 ## Check if Vrk Staion is installed for this user
-if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
-. /home/${VRK_USER}/.vrk/configs/stationinfo
- if [ "${VRK_INSTALLED}" = "YES" ]; then
+cd /home
+for PATCH_USER in ./*/
+do
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ "${VRK_INSTALLED}" = "YES" ]; then
 ## Update/refresh Bosses, Surfers, Droids, and Donjon
 rm -rf /var/local/vrk/boss/*
 rm -rf /var/local/vrk/surf/*
@@ -140,7 +141,8 @@ chmod +x /var/local/vrk/donjon/*
 chmod +x /var/local/vrk/donjon/vrktemplates/7_BASH
 chmod +x /var/local/vrk/droids/*
 ## Refresh the links for the user
-/var/local/vrk/boss/vrkfresh ${VRK_USER}
+/var/local/vrk/boss/vrkfresh ${PATCH_USER}
+  fi
  fi
 fi
 
@@ -151,28 +153,38 @@ fi
 UPDATE_PATCH_KVERNO=0.301
 
 # Run the update scripts for this patch
-if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+cd /home
+for PATCH_USER in ./*/
+do
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
 ##### PER-USER SCRIPTS GO HERE ###
 # Add bossability declaration and properly update boards
-if grep -q "USER_BOSSYN" "/home/${VRK_USER}/.vrk/configs/stationinfo"; then
+if grep -q "USER_BOSSYN" "/home/${PATCH_USER}/.vrk/configs/stationinfo"; then
 echo "Already a known boss..."
 else
-echo "USER_BOSSYN=\"CAN_BOSS\"" >> /home/${VRK_USER}/.vrk/configs/stationinfo
-. /home/${VRK_USER}/.vrk/configs/stationinfo
-/var/local/vrk/boss/vrkfresh ${VRK_USER}
+echo "USER_BOSSYN=\"CAN_BOSS\"" >> /home/${PATCH_USER}/.vrk/configs/stationinfo
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+/var/local/vrk/boss/vrkfresh ${PATCH_USER}
 fi
 
 # vGit
-if grep -q "VGIT_INS" "/home/${VRK_USER}/.vrk/configs/stationinfo"; then
+if grep -q "VGIT_INS" "/home/${PATCH_USER}/.vrk/configs/stationinfo"; then
 echo "Already has vGit..."
 else
-echo "VGIT_INST=\"NOT_YET\"" >> /home/${VRK_USER}/.vrk/configs/stationinfo
+echo "VGIT_INST=\"NOT_YET\"" >> /home/${PATCH_USER}/.vrk/configs/stationinfo
 fi
 
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklists
-sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
 fi
+done
+# Global patch
 if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
 ##### GLOBAL SCRIPTS GO HERE #####
 # Fix the locale problem in older versions
@@ -184,19 +196,30 @@ sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
 fi
 ###############END#UPDATE#PATCH#
 
+
 UPDATE_PATCH_KVERNO=0.302
 
 # Run the update scripts for this patch
-if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+cd /home
+for PATCH_USER in ./*/
+do
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
 ##### PER-USER SCRIPTS GO HERE ###
 cp -f /var/local/vrk/donjon/inkVerb-avatar.png /usr/share/pixmaps/faces/
-sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
-echo "Icon=/usr/share/pixmaps/faces/inkVerb-avatar.png" >> /var/lib/AccountsService/users/${VRK_USER}
+sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${PATCH_USER}
+echo "Icon=/usr/share/pixmaps/faces/inkVerb-avatar.png" >> /var/lib/AccountsService/users/${PATCH_USER}
 
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklists
-sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${VRK_USER}/.vrk/configs/stationinfo
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
 fi
+done
+# Global patch
 if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
 ##### GLOBAL SCRIPTS GO HERE #####
 # Update Vallpaper
@@ -217,5 +240,5 @@ fi
 rm -rf /home/${SUDO_USER}/vrk
 
 # Finish
-echo "Vrk Station and user \"${VRK_USER}\" are Vrking at v${KVERNO}"
+echo "Vrk Station and users are Vrking at v${KVERNO}"
 

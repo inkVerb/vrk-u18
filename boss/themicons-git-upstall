@@ -4,6 +4,8 @@
 # This updates all themes and icons (included and extra) via Git and installs them overtop of old versions of the same files linked to /usr/share
 ## This also adds existing archives of the Libra theme and Ultra-Flat icons, which rarely change and are not available via Git.
 
+# "Upstall" means "update or install".
+
 # How to use:
 ## sudo ./themicons-git-upstall
 
@@ -69,7 +71,8 @@ Grab some tea. This is gonna' take a while...
 "
 
 # Themes
-mkdir /var/local/vrk/donjon/ti/themes-
+rm -rf /var/local/vrk/donjon/ti/themes-
+mkdir -p /var/local/vrk/donjon/ti/themes-
 cd /var/local/vrk/donjon/ti/themes-
 
 ## Adapta
