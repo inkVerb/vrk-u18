@@ -120,9 +120,6 @@ chmod +x /var/local/vrk/donjon/*
 chmod +x /var/local/vrk/donjon/vrktemplates/7_BASH
 chmod +x /var/local/vrk/droids/*
 
-# Get the droids
-/var/local/vrk/boss/vdroid https://github.com/inkVerb/droids
-
 # Background image directories
 ## If "backgrounds" doesn't exist (KDE, cough cough)
 if [ ! -d /usr/share/backgrounds ]; then

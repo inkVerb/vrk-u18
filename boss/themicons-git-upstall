@@ -137,15 +137,15 @@ cd /var/local/vrk/donjon/ti/icons-
 
 ## Surfn
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "surfn" ]; then
-git clone https://github.com/erikdubois/Super-Ultra-Flat-Numix-Remix
-cd Super-Ultra-Flat-Numix-Remix
+git clone https://github.com/erikdubois/Surfn
+cd Surfn
 mv Surfn* /usr/share/icons/
 ### Update
 cd /usr/share/icons
 for SURFN in Surfn*; do
-    if [ -d "${SURFN}" ]; then
-    gtk-update-icon-cache /usr/share/icons/${SURFN}
-    fi
+ if [ -d "${SURFN}" ]; then
+ gtk-update-icon-cache /usr/share/icons/${SURFN}
+ fi
 done
 fi
 

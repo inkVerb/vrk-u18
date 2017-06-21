@@ -193,11 +193,18 @@ fi
 /home/${SUDO_USER}/.vrk/boards/vrklocale
 
 # Vrk avatar icon
+touch /var/lib/AccountsService/users/${VRK_USER}
+if grep -Fq "[User]" /path/to//var/lib/AccountsService/users/${VRK_USER}; then
+echo "Vrk avatar icons..."
+else
+echo "[User]" >>/var/lib/AccountsService/users/${VRK_USER}
+echo "Vrk avatar icons..."
+fi
 ## For most desktops
 if [ -d "/usr/share/pixmaps/faces/" ]; then
 cp -f /var/local/vrk/donjon/icons/inkVerb-avatar.png /usr/share/pixmaps/faces/
 sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
-sed -i "s/[User]/[User]\nIcon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar\.png/" >> /var/lib/AccountsService/users/${VRK_USER}
+sed -i "s/\[User\]/\[User\]\nIcon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar\.png/" >> /var/lib/AccountsService/users/${VRK_USER}
 else
 ## For Xfce
 ### Backup in case
@@ -267,7 +274,12 @@ echo "Install Nextcloud with sudo ./install-nextcloud"
 fi
 
 # Cleanup
+echo "Cleaning up..."
 apt autoremove -y
+
+# Get the droids
+echo "Getting the first droids..."
+/var/local/vrk/boss/vdroid https://github.com/inkVerb/droids
 
 ## myWall message
 /home/${SUDO_USER}/.vrk/boards/mywall -h

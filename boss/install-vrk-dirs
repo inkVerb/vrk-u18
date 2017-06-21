@@ -130,6 +130,7 @@ fi
 ## myWall folder
 if [ ! -e /home/${VRK_USER}/.vrk/myWall ]; then
 mkdir -p /home/${VRK_USER}/.vrk/myWall
+chown -R ${VRK_USER} /home/${VRK_USER}/.vrk/myWall
 fi
 ### Xfce
 if [ ! -f /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ]; then
