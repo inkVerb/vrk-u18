@@ -49,9 +49,9 @@ exit 22
 fi
 
 # Install/Update Vallpaper
-mkdir -p /var/local/vall/rooms/${VALL_ROOM}/wallpapers
+mkdir -p /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}
 if [ ! -d "/usr/share/images" ]; then
-mkdir -p /usr/share/images
+mkdir -p /usr/share/images/vall
 fi
 
 # Install/Reset the Vubuntu Vallpaper Room
@@ -61,7 +61,7 @@ rm -rf /var/local/vall/rooms/${VALL_ROOM}
 fi
 cp -r /var/local/vrk/donjon/vallpaper/vubuntu /var/local/vall/rooms/
 rm -rf /usr/share/images/vall/${VALL_ROOM}
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers /usr/share/images/vall/${VALL_ROOM}
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/images/vall/
 
 # Add Avatar icons (but not Xfce)
 if [ -d "/usr/share/pixmaps/faces/" ]; then
@@ -78,12 +78,12 @@ if [ ! -d /usr/share/gnome-background-properties ]; then
 mkdir -p /usr/share/gnome-background-properties
 fi
 rm -rf /usr/share/backgrounds/${VALL_ROOM}
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers /usr/share/backgrounds/${VALL_ROOM}
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/${VALL_ROOM}-wallpapers.xml /usr/share/gnome-background-properties/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/backgrounds/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/${VALL_ROOM}-wallpapers.xml /usr/share/gnome-background-properties/
 ## Xfce
 if [ -d /usr/share/xfce4/backdrops ]; then
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/*.png /usr/share/xfce4/backdrops/
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/*.jpg /usr/share/xfce4/backdrops/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/xfce4/backdrops/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/xfce4/backdrops/
 ### If Ubuntu Studio is already installed after Xfce, add those
 ln -sfn /usr/share/backgrounds/ubuntustudio/* /usr/share/xfce4/backdrops/
 ### If not, remove any broken symlinks
@@ -92,11 +92,11 @@ for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi;
 fi
 ## MATE
 if [ -d /usr/share/mate-background-properties ]; then
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/${VALL_ROOM}-wallpapers.xml /usr/share/mate-background-properties/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/${VALL_ROOM}-wallpapers.xml /usr/share/mate-background-properties/
 fi
 ## Cinnamon
 if [ -d /usr/share/cinnamon-background-properties ]; then
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/wallpapers/linuxmint-${VALL_ROOM}.xml /usr/share/cinnamon-background-properties/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/linuxmint-${VALL_ROOM}.xml /usr/share/cinnamon-background-properties/
 fi
 
 # Global lock screen GNOME (run in this sudo, it sets for root, thus all)
