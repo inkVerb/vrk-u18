@@ -193,12 +193,10 @@ fi
 /home/${SUDO_USER}/.vrk/boards/vrklocale
 
 # Vrk avatar icon
+echo "Vrk avatar icons..."
 touch /var/lib/AccountsService/users/${VRK_USER}
-if grep -Fq "[User]" /var/lib/AccountsService/users/${VRK_USER}; then
-echo "Vrk avatar icons..."
-else
+if ! grep -Fq "\[User\]" /var/lib/AccountsService/users/${VRK_USER}; then
 echo "[User]" >>/var/lib/AccountsService/users/${VRK_USER}
-echo "Vrk avatar icons..."
 fi
 ## For most desktops
 if [ -d "/usr/share/pixmaps/faces/" ]; then

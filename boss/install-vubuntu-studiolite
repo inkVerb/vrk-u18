@@ -74,35 +74,53 @@ fi
 # Check CPU version
 PROCVNO=$(dpkg --print-architecture)
 
-# Update & Upgrade
-apt update && apt -y upgrade
-
 # Install the packages
 echo "
 First, updates and fonts. Get ready to agree to EULA...
 "
 ## Add some extra repositories
+if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
 ### Check at each stage to prevent duplication
-if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-partner" ]; then
+#### canonical partner
+ if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-partner" ]; then
+ vrk_ppa_repo_partner="deb http://archive.canonical.com/ "$(lsb_release -sc)" partner"
+  if ! grep -q "^deb .*$vrk_ppa_repo_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
 add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 touch /var/local/vrk/.vubuntu-studiolite-repo-partner
-fi
-if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-multiverse" ]; then
+  fi
+ fi
+#### main universe restricted multiverse
+ if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-multiverse" ]; then
+ vrk_add_repo_multiverse="deb http://archive.ubuntu.com/ubuntu "$(lsb_release -sc)" main universe restricted multiverse"
+  if ! grep -q "^deb .*$vrk_add_repo_multiverse" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
 add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
 touch /var/local/vrk/.vubuntu-studiolite-repo-multiverse
-fi
-if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-universe" ]; then
+  fi
+ fi
+#### universe
+ if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-universe" ]; then
+ vrk_add_repo_universe="eb http://archive.ubuntu.com/ubuntu "$(lsb_release -sc)" universe"
+  if ! grep -q "^deb .*$vrk_add_repo_universe" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
 add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
 touch /var/local/vrk/.vubuntu-studiolite-repo-universe
-fi
-if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner" ]; then
+  fi
+ fi
+#### ubuntu partner
+ if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner" ]; then
+ vrk_add_ubuntu_partner="eb http://archive.canonical.com/ubuntu "$(lsb_release -sc)" partner"
+  if ! grep -q "^deb .*$vrk_add_ubuntu_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
 add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
 touch /var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner
-fi
-if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
-apt update && apt -y upgrade
+  fi
+ fi
+
+### Done
 touch /var/local/vrk/.vubuntu-studiolite-repo
 fi
+
+## Update & Upgrade
+apt update && apt -y upgrade
+
 ## Verify interactives first, and the rest of the fonts
 apt install -y ttf-mscorefonts-installer jackd2
 apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts
@@ -126,11 +144,14 @@ fi
 if [ "${PROCVNO}" = "amd64" ]; then
  if [ ! -f "/var/local/vrk/.vubuntu-studiolite-chrome" ]; then
 echo "You are running a 64 bit processor, so you get Google Chrome! XD..."
+  vrk_add_repo_chrome="deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
+  if ! grep -q "^deb .*$vrk_add_repo_chrome" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
 rm -f linux_signing_key.pub
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
 sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 rm -f linux_signing_key.pub
 touch /var/local/vrk/.vubuntu-studiolite-chrome
+  fi
 apt update 
 apt install -y google-chrome-stable
  fi
