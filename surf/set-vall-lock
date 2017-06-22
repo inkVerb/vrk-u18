@@ -1,0 +1,16 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+
+# This sets the desktop background to an image in vall/rooms/...
+## You must choose the Room and the Image like so: ROOM/IMAGE.png
+
+# How to use:
+## set-vall-lock ROOM IMAGE.EXT
+
+# Eg:
+## set-vall-lock vubuntu inkVerb-Carbon.png
+
+VALLROOM=$1
+NEWIMAGE=$2
+gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+

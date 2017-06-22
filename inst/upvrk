@@ -259,7 +259,8 @@ done
 # Global patch
 if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
 ##### GLOBAL SCRIPTS GO HERE #####
-
+# Kid3
+apt install -y kid3
 
 # Set and refresh the current version into inklists
 sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
