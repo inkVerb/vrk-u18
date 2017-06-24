@@ -279,9 +279,6 @@ apt autoremove -y
 echo "Getting the first droids..."
 /var/local/vrk/boss/vdroid https://github.com/inkVerb/droids
 
-## myWall message
-/home/${SUDO_USER}/.vrk/boards/mywall -h
-
 # Reboot
 if [ -z $1 ]; then
 echo "Setup is finished.

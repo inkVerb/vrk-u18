@@ -46,8 +46,8 @@ DROIDREPO=$1
 fi
 
 # Sanitize repo
-CLNDROIDREPO1=$(echo $DROIDREPO | cut -d'/' -f4-)
-CLNDROIDREPO=$(echo $DROIDREPO | sed 's/\.git//')
+CLNDROIDREPO1=$(echo $DROIDREPO | cut -d'/' -f5-)
+CLNDROIDREPO=$(echo $CLNDROIDREPO1 | sed 's/\.git//')
 
 # Clone it
 cd /var/local/vrk/droids
@@ -55,8 +55,6 @@ git clone ${DROIDREPO}
 
 # Clean up and install
 cd ${CLNDROIDREPO}
-rm -f README.md
-rm -f LICENSE
 chmod +x vd*
 mv vd* ../
 cd ..
