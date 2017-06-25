@@ -260,11 +260,11 @@ fi
 # GNOME #
 
 
-# Xfce/UbuntuStudio
+# Xfce/Mint-Xfce/UbuntuStudio
 ## Help:
 #http://docs.xfce.org/xfce/xfconf/xfconf-query
 
-if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
 
 ## App Defaults
 cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/

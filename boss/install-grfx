@@ -3,10 +3,8 @@
 set -e
 
 # This adds the graphix driver repo and allows PPA installation of special graphix drivers
-
-# DEV VERSION!! PydioSync currently doesn't work on Linux, at least not this way. Contribute or stay tuned.
-echo "Actually, this is only in development because Pydio isn't ready for Linux yet. Feel free to help out with git pull requests."
-exit 0
+## This could include any drivers in the repo
+## Main drivers to keep tabs on are: Nvidia, Intel, AMD
 
 # How to use:
 ## sudo ./install-grfx
@@ -47,7 +45,7 @@ echo "Nvidia driver already installed
 exit 0; fi
 
 # Install
-add-apt-repository ppa:graphics-drivers/ppa -y
+add-apt-repository -y ppa:graphics-drivers/ppa
 sudo apt update
 
 # Config

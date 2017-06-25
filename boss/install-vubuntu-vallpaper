@@ -79,9 +79,10 @@ rm -rf /usr/share/backgrounds/${VALL_ROOM}
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/backgrounds/
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/${VALL_ROOM}-wallpapers.xml /usr/share/gnome-background-properties/
 ## Xfce
-if [ -d /usr/share/xfce4/backdrops ]; then
+if || [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] ; then
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/xfce4/backdrops/
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/xfce4/backdrops/
+fi
 ## UbuntuStudio
 if [ "${DESKTOP_SESSION}" = "ubuntustudio" ]; then
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/backgrounds/ubuntustudio/

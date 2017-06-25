@@ -115,8 +115,8 @@ fi
 
 
 
-# Xfce/UbuntuStudio
-if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+# Xfce/Mint-Xfce/UbuntuStudio
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
 ## Dashboard
 add-apt-repository -y ppa:xubuntu-dev/extras
 apt update

@@ -13,8 +13,8 @@
 ## sudo ./themicons-apt-upstall
 
 
-# Xfce/UbuntuStudio quit (This doesn't work for them.)
-if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+# Xfce/Mint-Xfce/UbuntuStudio quit (This doesn't work for them.)
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
 echo "Not applicable to Xfce."; exit 0; fi
 
 # Check to make sure this is run as sudo, but not run by root

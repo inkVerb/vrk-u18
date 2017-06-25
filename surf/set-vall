@@ -30,8 +30,8 @@ if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
 gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
 fi
 
-# Xfce/UbuntuStudio
-if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+# Xfce/Mint-Xfce/UbuntuStudio
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
  if [ -z "$3" ]; then
 xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
 xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}

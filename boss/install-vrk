@@ -163,7 +163,7 @@ fi
 if [ -d /usr/share/cinnamon-background-properties ]; then
 ln -sfn /home/${VRK_USER}/myWall/linuxmint-my-cinn-wallpapers.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
 fi
-## Xfce/UbuntuStudio
+## Xfce/Mint-Xfce/UbuntuStudio
 if [ ! -d /home/${VRK_USER}/.config/xfce4 ]; then
 mkdir -p /home/${VRK_USER}/.config/xfce4
 fi
@@ -203,7 +203,7 @@ cp -f /var/local/vrk/donjon/icons/inkVerb-avatar.png /usr/share/pixmaps/faces/
 sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
 sed -i "s/\[User\]/\[User\]\nIcon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar\.png/" >> /var/lib/AccountsService/users/${VRK_USER}
 else
-## For Xfce/UbuntuStudio
+## For Xfce/Mint-Xfce/UbuntuStudio
 ### Backup in case
  if [ -f "/var/lib/AccountsService/icons/${VRK_USER}" ]; then
  mv /var/lib/AccountsService/icons/${VRK_USER} /var/lib/AccountsService/icons/${VRK_USER}-vbak
