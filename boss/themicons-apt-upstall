@@ -13,18 +13,9 @@
 ## sudo ./themicons-apt-upstall
 
 
-# Set user
-if [ -z "$1" ]; then
-VRK_USER=${SUDO_USER}
-else
-VRK_USER=$1
-fi
-
-# Check if installed
-if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
-echo "Install Vrk first. See README.md"
-exit 22
-fi
+# Xfce/UbuntuStudio quit (This doesn't work for them.)
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+echo "Not applicable to Xfce."; exit 0; fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo

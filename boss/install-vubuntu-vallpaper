@@ -82,6 +82,11 @@ ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/${VALL_ROOM}-wallpapers.
 if [ -d /usr/share/xfce4/backdrops ]; then
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/xfce4/backdrops/
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/xfce4/backdrops/
+## UbuntuStudio
+if [ "${DESKTOP_SESSION}" = "ubuntustudio" ]; then
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/backgrounds/ubuntustudio/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/backgrounds/ubuntustudio/
+fi
 ### If Ubuntu Studio is already installed after Xfce, add those
 ln -sfn /usr/share/backgrounds/ubuntustudio/* /usr/share/xfce4/backdrops/
 ### If not, remove any broken symlinks
