@@ -132,10 +132,8 @@ if [ ! -e /home/${VRK_USER}/.vrk/myWall ]; then
 mkdir -p /home/${VRK_USER}/.vrk/myWall
 chown -R ${VRK_USER} /home/${VRK_USER}/.vrk/myWall
 fi
-### Xfce
-if [ ! -f /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ]; then
+### Xfce/UbuntuStudio
 touch /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml
-fi
 ### GNOME/MATE/Budgie
 if [ ! -f /home/${VRK_USER}/.vrk/myWall/my-wall.xml ]; then
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>

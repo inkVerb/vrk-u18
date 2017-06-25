@@ -12,5 +12,9 @@
 
 VALLROOM=$1
 NEWIMAGE=$2
+
+# GNOME
+if [ "${XDG_SESSION_DESKTOP}" = "gnome" ]; then
 gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
 

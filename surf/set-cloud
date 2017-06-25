@@ -147,19 +147,11 @@ ln -sfn ~/"${CLOUD_CHOICE}"/Vrk/"${VRK_DOCUMENTS_DIR}" ~/
 ln -sfn ~/"${CLOUD_CHOICE}"/Vrk/"${VRK_WORK_DIR}" ~/
 ln -sfn ~/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER} ~/
 
-# Xfce
-if [ "${UBUNT_DISTRO}" = "Xfwm4" ]; then
- if [ ! -f /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ]; then
+# Xfce/UbuntuStudio
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
 touch /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml
- fi
-fi
-if [ "${UBUNT_DISTRO}" = "Xfwm4" ]; then
- if [ -d ~/.config/xfce4 ]; then
-  if [ ! -d ~/.config/xfce4/mcs_settings ]; then
-mkdir ~/.config/xfce4/mcs_settings
-  fi
+mkdir -p ~/.config/xfce4/mcs_settings
 ln -sfn /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
- fi
 fi
 
 # Change station settings

@@ -51,7 +51,7 @@ mkdir -p /home/${VRK_USER}/.vrk/boards
 rm -rf  /home/${VRK_USER}/.vrk/boards/*
 cp /var/local/vrk/droids/* /home/${VRK_USER}/.vrk/boards/
 cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
-if [ -L /home/${VRK_USER}/.vrk/donjon ]; then
+if [ -L "/home/${VRK_USER}/.vrk/donjon" ]; then
 rm -f /home/${VRK_USER}/.vrk/donjon
 fi
 ln -sfn /var/local/vrk/donjon /home/${VRK_USER}/.vrk/

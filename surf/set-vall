@@ -12,5 +12,46 @@
 
 VALLROOM=$1
 NEWIMAGE=$2
+XMNTR=$3
+
+# Unity
+if [ "${DESKTOP_SESSION}" = "ubuntu" ]; then
 gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
+
+
+# GNOME
+if [ "${DESKTOP_SESSION}" = "gnome" ]; then
+gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
+
+# Budgie
+if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
+gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
+
+# Xfce/UbuntuStudio
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+ if [ -z "$3" ]; then
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+ else
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor${XMNTR}/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+ fi
+fi
+
+# MATE
+#if [ "$DESKTOP_SESSION" = "mate" ]; then
+#fi
+
+# Cinnamon
+#if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+#fi
+
+# KDE
+#if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
+#fi
+
 

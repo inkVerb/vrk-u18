@@ -100,7 +100,7 @@ ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/share/libreoff
 # Global #
 
 # Unity
-if [ "$UBUNT_DISTRO" = "Compiz" ]; then
+if [ "${DESKTOP_SESSION}" = "ubuntu" ]; then
 /var/local/vrk/donjon/vubuntu-unity-notifications-off
 
 fi
@@ -108,17 +108,19 @@ fi
 
 
 # GNOME
-#if [ "$UBUNT_DISTRO" = "GNOME" ]; then
+#if [ "${DESKTOP_SESSION}" = "gnome" ]; then
 
 #fi
 # GNOME #
 
 
 
-# Xfce
-#if [ "$UBUNT_DISTRO" = "Xfwm4" ]; then
-## Hot Corners
-#apt install -y xfdashboard
+# Xfce/UbuntuStudio
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+## Dashboard
+add-apt-repository -y ppa:xubuntu-dev/extras
+apt update
+apt install -y xfdashboard
 
 #fi
 # Xfce #
@@ -126,21 +128,21 @@ fi
 
 
 # KDE
-#if [ "$UBUNT_DISTRO" = "" ]; then
+#if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
 
 #fi
 # KDE #
 
 
 # MATE
-#if [ "$UBUNT_DISTRO" = "Metacity" ]; then
+#if [ "$DESKTOP_SESSION" = "mate" ]; then
 
-# MATE #
 #fi
+# MATE #
 
 
 # Cinnamon
-#if [ "$UBUNT_DISTRO" = "Mutter" ]; then
+#if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
 
 #fi
 # Cinnamon #

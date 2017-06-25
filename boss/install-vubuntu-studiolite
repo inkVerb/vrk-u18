@@ -85,7 +85,7 @@ if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
  if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-partner" ]; then
  vrk_ppa_repo_partner="deb http://archive.canonical.com/ "$(lsb_release -sc)" partner"
   if ! grep -q "^deb .*$vrk_ppa_repo_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 touch /var/local/vrk/.vubuntu-studiolite-repo-partner
   fi
  fi
@@ -93,7 +93,7 @@ touch /var/local/vrk/.vubuntu-studiolite-repo-partner
  if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-multiverse" ]; then
  vrk_add_repo_multiverse="deb http://archive.ubuntu.com/ubuntu "$(lsb_release -sc)" main universe restricted multiverse"
   if ! grep -q "^deb .*$vrk_add_repo_multiverse" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
+add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
 touch /var/local/vrk/.vubuntu-studiolite-repo-multiverse
   fi
  fi
@@ -101,7 +101,7 @@ touch /var/local/vrk/.vubuntu-studiolite-repo-multiverse
  if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-universe" ]; then
  vrk_add_repo_universe="eb http://archive.ubuntu.com/ubuntu "$(lsb_release -sc)" universe"
   if ! grep -q "^deb .*$vrk_add_repo_universe" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
+add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
 touch /var/local/vrk/.vubuntu-studiolite-repo-universe
   fi
  fi
@@ -109,7 +109,7 @@ touch /var/local/vrk/.vubuntu-studiolite-repo-universe
  if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner" ]; then
  vrk_add_ubuntu_partner="eb http://archive.canonical.com/ubuntu "$(lsb_release -sc)" partner"
   if ! grep -q "^deb .*$vrk_add_ubuntu_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
+add-apt-repository -y "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
 touch /var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner
   fi
  fi
@@ -127,7 +127,7 @@ apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstr
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
-apt install -y zip p7zip-full gzip guake flatpak phatch docky gedit kate nautilus grabc gparted shutter kazam
+apt install -y zip p7zip-full gzip guake phatch docky gedit kate nautilus grabc gparted shutter kazam
 # Redundant from install-vubuntu-desktop
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
 echo "
@@ -135,10 +135,10 @@ Tools done. Now doing browsers...
 "
 apt install -y midori thunderbird firefox
 apt install -y chromium-browser djview-plugin
-if [ "$UBUNT_DISTRO" = "Compiz" ]; then
+if [ "${DESKTOP_SESSION}" = "ubuntu" ]; then
 apt install -y unity-chromium-extension
 fi
-if [ "$UBUNT_DISTRO" = "GNOME" ]; then
+if [ "${DESKTOP_SESSION}" = "gnome" ]; then
 apt install -y epiphany-browser gconf-editor
 fi
 if [ "${PROCVNO}" = "amd64" ]; then

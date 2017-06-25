@@ -48,8 +48,6 @@ killall -q dolphin
 killall -q docky
 
 # Global exceptions tests
-if [ "$DESKTOP_SESSION" != "/usr/share/xsessions/plasma" ]; then
-DESKTOP_GLOBE="EXCEPTION"; fi
 if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
 #if [ "$DESKTOP_SESSION" = "gnome" ]; then
@@ -58,10 +56,14 @@ if [ "$DESKTOP_SESSION" = "ubuntu" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
 if [ "$DESKTOP_SESSION" = "xubuntu" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
+if [ "$DESKTOP_SESSION" = "ubuntustudio" ]; then
+DESKTOP_GLOBE="EXCEPTION"; fi
 if [ "$DESKTOP_SESSION" = "mate" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
 if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
+#if [ "$DESKTOP_SESSION" != "/usr/share/xsessions/plasma" ]; then
+#DESKTOP_GLOBE="EXCEPTION"; fi
 
 # Global
 ## Gedit always opens a new window, not tab-clustering (possible solutions)
@@ -108,13 +110,9 @@ gsettings set org.gnome.desktop.screensaver lock-enabled false
 
 ## App configs
 ### Check prerequesite directories
-if [ ! -d ~/.config/autostart ]; then
-mkdir ~/.config/autostart
-fi
+mkdir -p ~/.config/autostart
 #### Just in case, we never know when some update will break the known order
-if [ ! -d ~/.gconf ]; then
-mkdir ~/.gconf/
-fi
+mkdir -p ~/.gconf/
 ### Autostart, Docky, Guake, Dolphin, Kate
 #### Budgie needs its own autostart configs
 if [ "$DESKTOP_SESSION" != "budgie-desktop" ]; then
@@ -262,11 +260,11 @@ fi
 # GNOME #
 
 
-# Xfce
+# Xfce/UbuntuStudio
 ## Help:
 #http://docs.xfce.org/xfce/xfconf/xfconf-query
 
-if [ "$DESKTOP_SESSION" = "xubuntu" ]; then
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
 
 ## App Defaults
 cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
@@ -289,7 +287,7 @@ xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt>Super_R" -
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
 
 ## Set theme & icons
-xfconf-query -c xsettings -p /Net/ThemeName -s "Arc-Dark"
+xfconf-query -c xsettings -p /Net/ThemeName -s "Greybird"
 xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Luv"
 
 ## Terminal color scheme

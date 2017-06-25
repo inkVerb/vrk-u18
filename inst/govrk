@@ -105,7 +105,7 @@ apt update && apt -yf upgrade && apt install -yf bc wmctrl
 
 # Check CPU version
 PROCVNO=$(dpkg --print-architecture)
-SESSDISTRO=$(wmctrl -m | grep "Name:" | awk '{print $2}')
+SESSDISTRO="$DESKTOP_SESSION"
 
 # Set the directory to var/local, but a hidden link in the user's
 ## Check if it is already in var/local from a previous install
@@ -139,7 +139,7 @@ echo "#!/bin/sh
 
 VRK_INST_BY=\"${VRK_USER}\"
 CPUPKGVER=\"${PROCVNO}\"
-UBUNT_DISTRO=\"${SESSDISTRO}\"
+LINUX_DISTRO=\"${SESSDISTRO}\"
 " > /var/local/vrk/machineinfo
 
 # Finish
