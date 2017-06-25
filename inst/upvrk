@@ -296,7 +296,7 @@ done
 if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
 ##### GLOBAL SCRIPTS GO HERE #####
 # Vallpaper
-mv /var/local/vall/rooms/vubuntu/wallpaper /var/local/vall/rooms/vubuntu/vubuntu
+mv /var/local/vall/rooms/vubuntu/vubuntu /var/local/vall/rooms/vubuntu/vubuntu
 rm -rf /usr/share/backgrounds/vubuntu
 rm -rf /usr/share/images/vall
 mkdir /usr/share/images/vall
