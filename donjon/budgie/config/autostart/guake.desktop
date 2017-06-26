@@ -14,6 +14,6 @@ Exec=guake
 Icon=guake
 Type=Application
 Categories=GNOME;GTK;System;Utility;TerminalEmulator;
-StartupNotify=true
+StartupNotify=false
 X-Desktop-File-Install-Version=0.22
 Keywords=Terminal;Utility;

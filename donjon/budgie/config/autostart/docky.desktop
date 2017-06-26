@@ -1,9 +1,10 @@
 [Desktop Entry]
 Name=Docky
-Type=Application
-Exec=docky
-Terminal=false
-Icon=docky
 Comment=The finest dock no money can buy.
+TryExec=docky
+Exec=docky
+Icon=docky
+Type=Application
+Terminal=false
 NoDisplay=false
 Categories=Utility;

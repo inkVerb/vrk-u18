@@ -48,20 +48,33 @@ killall -q dolphin
 killall -q docky
 
 # Global exceptions tests
+if [ "$DESKTOP_SESSION" = "ubuntu" ]; then
+DESKTOP_GLOBE="EXCEPTION"; fi
 if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
 #if [ "$DESKTOP_SESSION" = "gnome" ]; then
 #DESKTOP_GLOBE="EXCEPTION"; fi
-if [ "$DESKTOP_SESSION" = "ubuntu" ]; then
-DESKTOP_GLOBE="EXCEPTION"; fi
 if [ "$DESKTOP_SESSION" = "xubuntu" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
 if [ "$DESKTOP_SESSION" = "ubuntustudio" ]; then
+DESKTOP_GLOBE="EXCEPTION"; fi
+if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
 if [ "$DESKTOP_SESSION" = "mate" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
 if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
+if [ "$DESKTOP_SESSION" = "xfce" ]; then
+DESKTOP_GLOBE="EXCEPTION"; fi
+## Needs Docky on side
+if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
+DESKTOP_DOCKY="SIDE"; fi
+if [ "$DESKTOP_SESSION" = "mate" ]; then
+DESKTOP_DOCKY="SIDE"; fi
+if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+DESKTOP_DOCKY="SIDE"; fi
+if [ "$DESKTOP_SESSION" = "xfce" ]; then
+DESKTOP_DOCKY="SIDE"; fi
 #if [ "$DESKTOP_SESSION" != "/usr/share/xsessions/plasma" ]; then
 #DESKTOP_GLOBE="EXCEPTION"; fi
 
@@ -112,21 +125,15 @@ gsettings set org.gnome.desktop.screensaver lock-enabled false
 ### Check prerequesite directories
 mkdir -p ~/.config/autostart
 #### Just in case, we never know when some update will break the known order
-mkdir -p ~/.gconf/
+mkdir -p ~/.gconf/apps/
 ### Autostart, Docky, Guake, Dolphin, Kate
 #### Budgie needs its own autostart configs
 if [ "$DESKTOP_SESSION" != "budgie-desktop" ]; then
 cp ~/.vrk/donjon/global/config/autostart/* ~/.config/autostart/
 fi
+#### Other configs
 cp ~/.vrk/donjon/global/config/katepartrc ~/.config/
-if [ ! -d ~/.gconf/apps ]; then
-mkdir ~/.gconf/apps
-fi
-if [ ! -d ~/.gconf/apps/docky-2 ]; then
- if [ "$DESKTOP_GLOBE" != "EXCEPTION" ]; then
-cp -rf ~/.vrk/donjon/global/gconf/apps/docky-2 ~/.gconf/apps/
- fi
-fi
+mkdir -p ~/.gconf/apps
 if [ ! -d ~/.gconf/apps/guake ]; then
 cp -rf ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
 fi
@@ -235,6 +242,11 @@ fi
 # GNOME
 if [ "$DESKTOP_SESSION" = "gnome" ]; then
 
+## Docky
+if [ ! -d ~/.gconf/apps/docky-2 ]; then
+cp -rf ~/.vrk/donjon/global/gconf/apps/docky-2 ~/.gconf/apps/
+fi
+
 ## Launcher
 gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'epiphany.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'thunderbird.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
 
@@ -260,11 +272,11 @@ fi
 # GNOME #
 
 
-# Xfce/Mint-Xfce/UbuntuStudio
+# Xfce/UbuntuStudio
 ## Help:
 #http://docs.xfce.org/xfce/xfconf/xfconf-query
 
-if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
 
 ## App Defaults
 cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
@@ -274,7 +286,7 @@ if [ ! -d ~/.gconf/apps/docky-2 ]; then
 cp -R ~/.vrk/donjon/xfce/gconf/apps/docky-2 ~/.gconf/apps/
 fi
 
-## Xfce Startup Apps
+## Xfce Startup Apps (Xfdashboard)
 cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
 
 ## Compose Key: CapLock key
@@ -348,7 +360,7 @@ fi
 # Xfce #
 
 
-# KDE
+# KDE (Mint_KDE & Kubuntu)
 if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
 
 ## App Defaults
@@ -372,12 +384,25 @@ fi
 # KDE #
 
 
-# Cinnamon
-if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+# Mint_Cinnamon & Mint_Xfce
+if [ "$DESKTOP_SESSION" = "cinnamon" ] || [ "${DESKTOP_SESSION}" = "xfce" ] ; then
 
+## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
-cp -R ~/.vrk/donjon/cinnamon/gconf/apps/docky-2 ~/.gconf/apps/
+cp -R ~/.vrk/donjon/mint/gconf/apps/docky-2 ~/.gconf/apps/
 fi
+
+## Xfdashboard (expirimental)
+### Autostart
+cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
+### Xfdashboard settings
+xfconf-query -c xfdashboard -p /always-launch-new-instance -s false
+xfconf-query -n -c xfdashboard -p /components/applications-view/show-all-apps -s true
+xfconf-query -n -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
+xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
+xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-duration -s 100
+xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
+xfconf-query -c xfdashboard -p /theme -s xfdashboard-dark
 
 ### Conky IN DEV
 #cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
@@ -389,13 +414,13 @@ fi
 # Cinnamon #
 
 
-# MATE
+# MATE & Mint_MATE
 if [ "$DESKTOP_SESSION" = "mate" ]; then
 
+## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
 cp -R ~/.vrk/donjon/mate/gconf/apps/docky-2 ~/.gconf/apps/
 fi
-
 
 ### Conky IN DEV
 #cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
