@@ -39,7 +39,7 @@ fi
 
 # Prepare notice
 echo "
-This only installs Arc themes and Surfin icons!
+This only installs Adapta, Arc, and Vertex themes and only Surfin icons!
 
 Any others must be specified like so:
 
@@ -67,7 +67,7 @@ mkdir -p /var/local/vrk/donjon/ti/themes-
 cd /var/local/vrk/donjon/ti/themes-
 
 ## Adapta
-if [ "${INSTHEMICON}" = "adapta" ]; then
+if [ -z "${1}" ] || [ "${INSTHEMICON}" = "adapta" ]; then
 git clone https://github.com/adapta-project/adapta-gtk-theme
 cd adapta-gtk-theme
 ./autogen.sh
@@ -79,7 +79,7 @@ rm -rf adapta-gtk-theme
 fi
 
 ## Arc
-if [ -z "${1}" ] || [ "${INSTHEMICON}" = "arc" ]; then
+if [ -z "${1}" ] || [ "${INSTHEMICON}" = "arc" ] ; then
 git clone https://github.com/horst3180/arc-theme
 cd arc-theme
 ./autogen.sh --prefix=/usr
@@ -107,7 +107,7 @@ mv Flatabulous /usr/share/themes/
 fi
 
 ## Vertex
-if [ "${INSTHEMICON}" = "vertex" ]; then
+if [ -z "${1}" ] || [ "${INSTHEMICON}" = "vertex" ]; then
 git clone https://github.com/horst3180/vertex-theme
 cd vertex-theme
 ./autogen.sh --prefix=/usr
