@@ -60,7 +60,8 @@ git clone https://github.com/inkVerb/vrk.git
 cd vrk/inst
 chmod +x upvrk
 ./upvrk
-/home/${SUDO_USER}
+### Just make sure it's gone
+cd /home/${SUDO_USER}
 rm -rf vrk
 echo "Vrk is up-to-date."
 exit 0
