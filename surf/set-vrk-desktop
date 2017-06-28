@@ -278,6 +278,9 @@ fi
 
 if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
 
+## Mouse cursor theme
+gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
+
 ## App Defaults
 cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
@@ -364,7 +367,7 @@ fi
 if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
 
 ## App Defaults
-cp -R ~/.vrk/donjon/local/share/applications ~/.local/share/
+cp -rf ~/.vrk/donjon/local/share/applications ~/.local/share/
 
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
@@ -384,13 +387,55 @@ fi
 # KDE #
 
 
-# Mint_Cinnamon & Mint_Xfce
-if [ "$DESKTOP_SESSION" = "cinnamon" ] || [ "${DESKTOP_SESSION}" = "xfce" ] ; then
+# Mint_Cinnamon
+if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+
+## Turn off display notifications
+gsettings set org.cinnamon.desktop.notifications display-notifications 'false'
 
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
 cp -R ~/.vrk/donjon/mint/gconf/apps/docky-2 ~/.gconf/apps/
 fi
+
+## Xed
+gsettings set org.x.editor display-line-numbers true
+gsettings set org.x.editor color-scheme 'oblivion'
+
+## Theme
+### Changes the Desktop theme
+gsettings set org.cinnamon.theme name "Mint-Y-Dark"
+### Changes the Controls theme
+gsettings set org.cinnamon.desktop.interface gtk-theme "Mint-Y-Dark"
+### Changes the Window borders theme
+gsettings set org.cinnamon.desktop.wm.preferences theme "Mint-Y-Dark"
+### Changes the Mouse Pointer theme
+gsettings set org.cinnamon.desktop.interface cursor-theme "DMZ-Black"
+
+# Mint_Cinnamon #
+
+
+# Mint_Xfce
+if [ "${DESKTOP_SESSION}" = "xfce" ] ; then
+
+## Docky
+if [ ! -d ~/.gconf/apps/docky-2 ]; then
+cp -R ~/.vrk/donjon/mint/gconf/apps/docky-2 ~/.gconf/apps/
+fi
+
+## Xed
+gsettings set org.x.editor display-line-numbers true
+gsettings set org.x.editor color-scheme 'oblivion'
+
+## Theme
+### Changes the Desktop theme
+gsettings set org.cinnamon.theme name "Mint-Y-Dark"
+### Changes the Controls theme
+gsettings set org.cinnamon.desktop.interface gtk-theme "Mint-Y-Dark"
+### Changes the Window borders theme
+gsettings set org.cinnamon.desktop.wm.preferences theme "Mint-Y-Dark"
+### Changes the Mouse Pointer theme
+gsettings set org.cinnamon.desktop.interface cursor-theme "DMZ-Black"
 
 ## Xfdashboard (expirimental)
 ### Autostart
@@ -411,7 +456,7 @@ xfconf-query -c xfdashboard -p /theme -s xfdashboard-dark
 #unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
 
 fi
-# Cinnamon #
+# Mint_Xfce #
 
 
 # MATE & Mint_MATE
@@ -421,6 +466,16 @@ if [ "$DESKTOP_SESSION" = "mate" ]; then
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
 cp -R ~/.vrk/donjon/mate/gconf/apps/docky-2 ~/.gconf/apps/
 fi
+
+####### For MATE Pluma text editor
+gsettings set org.mate.pluma color-scheme 'oblivion'
+#######
+
+####### For Mint_MATE, beta
+## Xed
+gsettings set org.x.editor display-line-numbers true
+gsettings set org.x.editor color-scheme 'oblivion'
+#######
 
 ### Conky IN DEV
 #cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky

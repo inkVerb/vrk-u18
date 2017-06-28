@@ -47,8 +47,9 @@ fi
 #fi
 
 # Cinnamon
-#if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
-#fi
+if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+gsettings set org.cinnamon.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
 
 # KDE
 #if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
