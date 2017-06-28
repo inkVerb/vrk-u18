@@ -362,6 +362,7 @@ fi
 
 
 # Cleanup
+apt -y autoremove
 rm -rf /home/${SUDO_USER}/vrk
 
 # Finish
