@@ -2,6 +2,15 @@
 <!DOCTYPE wallpapers SYSTEM "cinnamon-wp-list.dtd">
 <wallpapers>
   <wallpaper>
+    <name>Finish.</name>
+    <filename>/usr/share/images/vall/vubuntu/Finish.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
     <name>inkPage Light</name>
     <filename>/usr/share/images/vall/vubuntu/inkPage.png</filename>
     <options>zoom</options>
