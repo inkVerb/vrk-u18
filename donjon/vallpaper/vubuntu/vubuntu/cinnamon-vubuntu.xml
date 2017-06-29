@@ -101,6 +101,24 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
+    <name>Vubuntu Mesh Disk</name>
+    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Vubuntu Mesh Disk - Green</name>
+    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Green.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
     <name>Vubuntu Disk - Purple</name>
     <filename>/usr/share/images/vall/vubuntu/Vubuntu-Disk-Purple.png</filename>
     <options>zoom</options>
