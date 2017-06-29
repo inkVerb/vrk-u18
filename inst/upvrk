@@ -144,6 +144,8 @@ chmod +x /var/local/vrk/donjon/vrktemplates/7_BASH
 chmod +x /var/local/vrk/droids/*
 ## Refresh the links for the user
 /var/local/vrk/boss/vrkfresh ${PATCH_USER}
+## Refresh Vubuntu Vallpaper
+/var/local/vrk/boss/install-vubuntu-vallpaper
   fi
  fi
 fi
@@ -402,6 +404,8 @@ ln -sfn /home/${PATCH_USER}/.vrk/myWall/my-cinn-wall.xml /home/${PATCH_USER}/.lo
 /home/${PATCH_USER}/.local/share/cinnamon-background-properties/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
+### Reinstall all for links
+/var/local/vrk/boss/install-vubuntu-vallpaper
 
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklist for the patch user

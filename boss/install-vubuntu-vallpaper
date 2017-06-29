@@ -12,12 +12,26 @@
 # Set Room name
 VALL_ROOM="vubuntu"
 
+# Set location of Vallpaper install folder
+## This can be absolute; or relative ie if via git clone
+## Usually, it is the name of the repo and the room is inside like this:
+### vubuntu/vubuntu
+### vubuntu/avitar-icons
+VALL_INST_DIR="/var/local/vrk/donjon/vallpaper"
+
 # Set user
 VRK_USER=${SUDO_USER}
 
-# Check if installed
+# Make any Vallpaper precondition checks
+## Check if Vrk installed for user
 if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+## Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk on this machine first. See README.md"
 exit 22
 fi
 
@@ -42,12 +56,6 @@ sudo ./install-vubuntu-vallpaper
 exit 22
 fi
 
-# Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
-echo "Install Vrk on this machine first. See README.md"
-exit 22
-fi
-
 # Install/Update Vallpaper
 ## The actuall Valls exist here under lock and key.
 mkdir -p /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}
@@ -57,7 +65,7 @@ mkdir -p /usr/share/images/vall
 # Install/Reset the Vubuntu Vallpaper Room
 ## The /usr/share/images folder is used by Xfce and by set-vall and Vallpaper rooms and chrons
 rm -rf /var/local/vall/rooms/${VALL_ROOM}
-cp -r /var/local/vrk/donjon/vallpaper/${VALL_ROOM} /var/local/vall/rooms/
+cp -r ${VALL_INST_DIR}/${VALL_ROOM} /var/local/vall/rooms/
 rm -rf /usr/share/images/vall/${VALL_ROOM}
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/images/vall/
 
@@ -69,38 +77,45 @@ fi
 # Install Vubuntu vallpapers
 ## Global (GNOME, KDE, Budgie)
 ### If "backgrounds" doesn't exist (KDE, cough cough)
-if [ ! -d /usr/share/backgrounds ]; then
 mkdir -p /usr/share/backgrounds
-fi
-if [ ! -d /usr/share/gnome-background-properties ]; then
 mkdir -p /usr/share/gnome-background-properties
-fi
 rm -rf /usr/share/backgrounds/${VALL_ROOM}
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/backgrounds/
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/${VALL_ROOM}-wallpapers.xml /usr/share/gnome-background-properties/
+### Remove any broken symlinks
+cd /usr/share/gnome-background-properties/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 ## Xfce
-if || [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] ; then
+if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] ; then
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/xfce4/backdrops/
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/xfce4/backdrops/
+### Remove any broken symlinks
+cd /usr/share/xfce4/backdrops/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 ## UbuntuStudio
 if [ "${DESKTOP_SESSION}" = "ubuntustudio" ]; then
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/backgrounds/ubuntustudio/
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/backgrounds/ubuntustudio/
-fi
 ### If Ubuntu Studio is already installed after Xfce, add those
 ln -sfn /usr/share/backgrounds/ubuntustudio/* /usr/share/xfce4/backdrops/
-### If not, remove any broken symlinks
+### Remove any broken symlinks
 cd /usr/share/xfce4/backdrops/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 ## MATE
 if [ -d /usr/share/mate-background-properties ]; then
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/${VALL_ROOM}-wallpapers.xml /usr/share/mate-background-properties/
+### Remove any broken symlinks
+cd /usr/share/mate-background-properties/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 ## Cinnamon
 if [ -d /usr/share/cinnamon-background-properties ]; then
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/linuxmint-${VALL_ROOM}.xml /usr/share/cinnamon-background-properties/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/cinnamon-${VALL_ROOM}.xml /usr/share/cinnamon-background-properties/
+### Remove any broken symlinks
+cd /usr/share/cinnamon-background-properties/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 
 # Global lock screen GNOME (run in this sudo, it sets for root, thus all)
