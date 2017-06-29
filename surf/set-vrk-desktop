@@ -91,7 +91,8 @@ dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:caps']"
 #dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:menu']"
 
 ## Alt + Secondary click = resize
-gconftool-2 -s -t bool /apps/metacity/general/resize_with_right_button true
+if [ -x "$(command -v gconftool)" ]; then
+gconftool-2 -s -t bool /apps/metacity/general/resize_with_right_button true; fi
 gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
 gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier '<Alt>'
 
@@ -109,7 +110,7 @@ gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
 ## Flatabulous terminal "profile" (color scheme)
 ~/.vrk/donjon/xt-gnome
 
-## Gedit
+## Gedit (may be redundant in per-environments below, but just be safe)
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
 gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
 
@@ -175,6 +176,8 @@ if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
 
 ## Set theme
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface icon-theme "Surfn-Majestic"
+gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
 ## Make icons work in menues
 gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
@@ -289,6 +292,10 @@ if [ ! -d ~/.gconf/apps/docky-2 ]; then
 cp -R ~/.vrk/donjon/xfce/gconf/apps/docky-2 ~/.gconf/apps/
 fi
 
+## Gedit
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+
 ## Xfce Startup Apps (Xfdashboard)
 cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
 
@@ -303,7 +310,7 @@ xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t str
 
 ## Set theme & icons
 xfconf-query -c xsettings -p /Net/ThemeName -s "Greybird"
-xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Luv"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Arch-Blue"
 
 ## Terminal color scheme
 ~/.vrk/donjon/xt-xfce
@@ -402,15 +409,21 @@ fi
 gsettings set org.x.editor display-line-numbers true
 gsettings set org.x.editor color-scheme 'oblivion'
 
+## Gedit
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+
 ## Theme
-### Changes the Desktop theme
+### Desktop theme
 gsettings set org.cinnamon.theme name "Mint-Y-Dark"
-### Changes the Controls theme
+### Controls theme
 gsettings set org.cinnamon.desktop.interface gtk-theme "Mint-Y-Dark"
-### Changes the Window borders theme
+### Window borders theme
 gsettings set org.cinnamon.desktop.wm.preferences theme "Mint-Y-Dark"
-### Changes the Mouse Pointer theme
+### Mouse Pointer theme
 gsettings set org.cinnamon.desktop.interface cursor-theme "DMZ-Black"
+### Icon theme
+gsettings set org.cinnamon.desktop.interface icon-theme "Surfn-Majestic"
 
 # Mint_Cinnamon #
 
@@ -426,6 +439,10 @@ fi
 ## Xed
 gsettings set org.x.editor display-line-numbers true
 gsettings set org.x.editor color-scheme 'oblivion'
+
+## Gedit
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
 
 ## Theme
 ### Changes the Desktop theme
@@ -467,14 +484,27 @@ if [ ! -d ~/.gconf/apps/docky-2 ]; then
 cp -R ~/.vrk/donjon/mate/gconf/apps/docky-2 ~/.gconf/apps/
 fi
 
-####### For MATE Pluma text editor
+## Gedit
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+
+####### For MATE Pluma text editor (not in Mint)
+if [ -x "$(command -v pluma)" ]; then
 gsettings set org.mate.pluma color-scheme 'oblivion'
+fi
 #######
 
-####### For Mint_MATE, beta
-## Xed
+## Dark desktop theme for MATE (not in Mint)
+if [ -d "/usr/share/themes/BlackMATE" ]; then
+gsettings set org.mate.interface gtk-theme "BlackMATE"
+gsettings set org.mate.interface icon-theme "Surfn-Evopop"
+fi
+
+####### For Mint_MATE Xed text editor (not in MATE)
+if [ -x "$(command -v xed)" ]; then
 gsettings set org.x.editor display-line-numbers true
 gsettings set org.x.editor color-scheme 'oblivion'
+fi
 #######
 
 ### Conky IN DEV

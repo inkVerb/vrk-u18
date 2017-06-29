@@ -101,7 +101,7 @@ exit 0
 fi
 
 # Basic installs
-apt update && apt -yf upgrade && apt install -yf bc wmctrl
+apt update && apt -yf upgrade --fix-missing && apt install -yf bc wmctrl
 
 # Check CPU version
 PROCVNO=$(dpkg --print-architecture)

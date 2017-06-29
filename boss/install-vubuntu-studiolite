@@ -119,7 +119,7 @@ touch /var/local/vrk/.vubuntu-studiolite-repo
 fi
 
 ## Update & Upgrade
-apt update && apt -y upgrade
+apt update && apt -y upgrade --fix-missing
 
 ## Verify interactives first, and the rest of the fonts
 apt install -y ttf-mscorefonts-installer jackd2

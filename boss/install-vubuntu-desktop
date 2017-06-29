@@ -60,7 +60,7 @@ fi
 
 
 # Update & Upgrade
-apt update && apt -y upgrade
+apt update && apt -y upgrade --fix-missing
 apt -yf install
 
 # Ubuntu Studio Wallpapers, GTK configs, GNOME/Unity Tweak Tools, Xfce Dashboard, Guake, Docky, Variety

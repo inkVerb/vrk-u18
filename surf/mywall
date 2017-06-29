@@ -76,9 +76,7 @@ fi
 ## This is necessary in the event that the user has meddled with things in the cloud.
 ## It does not examin settings beyond what the user may normally see.
 ## Xfce
-if [ ! -f /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ]; then
 touch /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml
-fi
 ## GNOME/Budgie
 if [ ! -f /home/${VRK_USER}/.vrk/myWall/my-wall.xml ]; then
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -87,18 +85,18 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 </wallpapers>" > /home/${VRK_USER}/.vrk/myWall/my-wall.xml
 fi
 ## MATE
-if [ ! -f /home/${VRK_USER}/.vrk/myWall/linuxmint-my-mate-wall.xml ]; then
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/my-mate-wall.xml ]; then
 echo "<?xml version=\"1.0\"?>
 <!DOCTYPE wallpapers SYSTEM \"mate-wp-list.dtd\">
 <wallpapers>
-</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/linuxmint-my-mate-wall.xml
+</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/my-mate-wall.xml
 fi
 ## Cinnamon
-if [ ! -f /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml ]; then
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/my-cinn-wall.xml ]; then
 echo "<?xml version=\"1.0\"?>
 <!DOCTYPE wallpapers SYSTEM \"cinnamon-wp-list.dtd\">
 <wallpapers>
-</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml
+</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/my-cinn-wall.xml
 fi
 
 ## Check-n-fix folder & file structure
@@ -140,8 +138,10 @@ cp ${FILENAME} /home/${VRK_USER}/.vrk/myWall/
 # Add the file to the list
 ## GNOME/MATE/Budgie
 sed -i "s/</wallpapers>/  <wallpaper>\n    <name>${NICE_NAME}<\/name>\n    <filename>\/home\/${VRK_USER}\/.local\/share\/backgrounds\/${VRK_USER}Wall\/${FILENAME}<\/filename>\n    <options>zoom<\/options>\n    <pcolor>#ececec<\/pcolor>\n    <scolor>#ececec<\/scolor>\n    <shade_type>solid<\/shade_type>\n  <\/wallpaper>\n<\/wallpapers>/g" /home/${VRK_USER}/.vrk/myWall/my-wall.xml
+## MATE
+sed -i "s/</wallpapers>/  <wallpaper>\n    <name>${NICE_NAME}<\/name>\n    <filename>\/home\/${VRK_USER}\/.local\/share\/backgrounds\/${VRK_USER}Wall\/${FILENAME}<\/filename>\n    <options>zoom<\/options>\n    <pcolor>#ececec<\/pcolor>\n    <scolor>#ececec<\/scolor>\n    <shade_type>solid<\/shade_type>\n  <\/wallpaper>\n<\/wallpapers>/g" /home/${VRK_USER}/.vrk/myWall/my-mate-wall.xml
 ## Cinnamon
-sed -i "s/</wallpapers>/  <wallpaper>\n    <name>${NICE_NAME}<\/name>\n    <filename>\/home\/${VRK_USER}\/.local\/share\/backgrounds\/${VRK_USER}Wall\/${FILENAME}<\/filename>\n    <options>zoom<\/options>\n    <pcolor>#ececec<\/pcolor>\n    <scolor>#ececec<\/scolor>\n    <shade_type>solid<\/shade_type>\n  <\/wallpaper>\n<\/wallpapers>/g" /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml
+sed -i "s/</wallpapers>/  <wallpaper>\n    <name>${NICE_NAME}<\/name>\n    <filename>\/home\/${VRK_USER}\/.local\/share\/backgrounds\/${VRK_USER}Wall\/${FILENAME}<\/filename>\n    <options>zoom<\/options>\n    <pcolor>#ececec<\/pcolor>\n    <scolor>#ececec<\/scolor>\n    <shade_type>solid<\/shade_type>\n  <\/wallpaper>\n<\/wallpapers>/g" /home/${VRK_USER}/.vrk/myWall/my-cinn-wall.xml
 ## Xfce
 echo "<option name=\"imagepath_0_0\" type=\"string\" value=\"/home/${VRK_USER}/.local/share/backgrounds/${VRK_USER}Wall/${FILENAME}\"/>" >> /home/${VRK_USER}/"${VRK_CLOUD_DIR}"/myWall/xfce-desktop.xml
 

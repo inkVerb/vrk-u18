@@ -43,8 +43,9 @@ xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor${XMNTR}/workspace0/la
 fi
 
 # MATE
-#if [ "$DESKTOP_SESSION" = "mate" ]; then
-#fi
+if [ "$DESKTOP_SESSION" = "mate" ]; then
+gsettings set org.mate.background picture-filename /usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
+fi
 
 # Cinnamon
 if [ "$DESKTOP_SESSION" = "cinnamon" ]; then

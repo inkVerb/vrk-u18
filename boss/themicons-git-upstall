@@ -39,19 +39,21 @@ fi
 
 # Prepare notice
 echo "
-This only installs Adapta, Arc, and Vertex themes and only Surfin icons!
+This only installs Adapta, Arc, and Vertex themes and only Surfin and Numix icons!
 
 Any others must be specified like so:
 
 Themes: 
 sudo ./themicons-git-upstall adapta
 sudo ./themicons-git-upstall arc
+sudo ./themicons-git-upstall blackbird
 sudo ./themicons-git-upstall blumix
 sudo ./themicons-git-upstall flatabulous
 sudo ./themicons-git-upstall vertex
 
 Icons:
 sudo ./themicons-git-upstall surfn
+sudo ./themicons-git-upstall numix
 sudo ./themicons-git-upstall moka
 "
 sleep 4
@@ -82,11 +84,22 @@ fi
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "arc" ] ; then
 git clone https://github.com/horst3180/arc-theme
 cd arc-theme
-./autogen.sh --prefix=/usr
+./autogen.sh
+#./autogen.sh --prefix=/usr # This is only per user
 rm -rf /usr/share/themes/Arc*
 make install
 cd ..
 rm -rf arc-theme
+fi
+
+## Blackbird
+if [ "${INSTHEMICON}" = "blackbird" ]; then
+git clone https://github.com/shimmerproject/Blackbird
+cd Blackbird
+./autogen.sh
+make install
+cd ..
+rm -rf Blackbird
 fi
 
 ## Blumix
@@ -110,7 +123,8 @@ fi
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "vertex" ]; then
 git clone https://github.com/horst3180/vertex-theme
 cd vertex-theme
-./autogen.sh --prefix=/usr
+./autogen.sh
+#./autogen.sh --prefix=/usr # This is only per user
 rm -rf /usr/share/themes/Vertex*
 make install
 cd ..
@@ -123,19 +137,38 @@ rm -rf themes-
 
 
 # Icons
-mkdir /var/local/vrk/donjon/ti/icons-
+mkdir -p /var/local/vrk/donjon/ti/icons-
 cd /var/local/vrk/donjon/ti/icons-
 
 ## Surfn
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "surfn" ]; then
 git clone https://github.com/erikdubois/Surfn
 cd Surfn
+rm -rf /usr/share/icons/Surfn*
 mv Surfn* /usr/share/icons/
 ### Update
 cd /usr/share/icons
 for SURFN in Surfn*; do
  if [ -d "${SURFN}" ]; then
  gtk-update-icon-cache /usr/share/icons/${SURFN}
+ fi
+done
+fi
+
+## Numix & Numix Circle
+if [ -z "${1}" ] || [ "${INSTHEMICON}" = "numix" ]; then
+git clone https://github.com/numixproject/numix-icon-theme
+git clone https://github.com/numixproject/numix-icon-theme-circle
+rm -rf /usr/share/icons/Numix*
+cd numix-icon-theme
+mv Numix* /usr/share/icons/
+cd ../numix-icon-theme-circle
+mv Numix-Circle* /usr/share/icons/
+### Update
+cd /usr/share/icons
+for NUMXIC in Numix*; do
+ if [ -d "${NUMXIC}" ]; then
+ gtk-update-icon-cache /usr/share/icons/${NUMXIC}
  fi
 done
 fi

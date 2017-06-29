@@ -134,19 +134,26 @@ chown -R ${VRK_USER} /home/${VRK_USER}/.vrk/myWall
 fi
 ### Xfce/Mint-Xfce/UbuntuStudio
 touch /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml
-### GNOME/MATE/Budgie
+### GNOME/Budgie
 if [ ! -f /home/${VRK_USER}/.vrk/myWall/my-wall.xml ]; then
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE wallpapers SYSTEM \"gnome-wp-list.dtd\">
 <wallpapers>
 </wallpapers>" > /home/${VRK_USER}/.vrk/myWall/my-wall.xml
 fi
+### MATE
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/my-mate-wall.xml ]; then
+echo "<?xml version=\"1.0\"?>
+<!DOCTYPE wallpapers SYSTEM \"mate-wp-list.dtd\">
+<wallpapers>
+</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/my-mate-wall.xml
+fi
 ### Cinnamon
-if [ ! -f /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml ]; then
+if [ ! -f /home/${VRK_USER}/.vrk/myWall/my-cinn-wall.xml ]; then
 echo "<?xml version=\"1.0\"?>
 <!DOCTYPE wallpapers SYSTEM \"cinnamon-wp-list.dtd\">
 <wallpapers>
-</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml
+</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/my-cinn-wall.xml
 fi
 
 # File link structure
@@ -160,7 +167,7 @@ if [ ! -d /home/${VRK_USER}/.local/share/gnome-background-properties ]; then
 mkdir -p /home/${VRK_USER}/.local/share/gnome-background-properties
 fi
 if [ -d /usr/share/gnome-background-properties ]; then
-ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/gnome-background-properties/
+ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wall.xml /home/${VRK_USER}/.local/share/gnome-background-properties/
 fi
 ## Xfce
 if [ -d /home/${VRK_USER}/.config/xfce4 ]; then
@@ -172,11 +179,11 @@ fi
 ln -sfn /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml ~/.config/xfce4/mcs_settings/desktop.xml
 ## MATE
 if [ -d /usr/share/mate-background-properties ]; then
-ln -sfn /home/${VRK_USER}/.vrk/myWall/my-wallpapers.xml /home/${VRK_USER}/.local/share/mate-background-properties/
+ln -sfn /home/${VRK_USER}/.vrk/myWall/my-mate-wall.xml /home/${VRK_USER}/.local/share/mate-background-properties/
 fi
 ## Cinnamon
 if [ -d /usr/share/cinnamon-background-properties ]; then
-ln -sfn /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wallpapers.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
+ln -sfn /home/${VRK_USER}/.vrk/myWall/my-cinn-wall.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
 fi
 ## Own
 chown -R ${VRK_USER} /home/${VRK_USER}/.local
