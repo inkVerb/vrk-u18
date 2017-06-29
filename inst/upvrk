@@ -122,6 +122,9 @@ echo "Can't run. The minimum version to run is ${MIN_KVERNO}. This Vrk version i
 exit 0
 fi
 
+# Update & Upgrade
+apt update && apt upgrade -yf --fix-missing
+
 # Vrk user update
 ## Check if Vrk Staion is installed for this user
 cd /home

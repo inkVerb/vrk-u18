@@ -429,6 +429,7 @@ gsettings set org.cinnamon.desktop.interface icon-theme "Surfn-Majestic"
 
 
 # Mint_Xfce
+## Currently does not support changing mouse cursor themes
 if [ "${DESKTOP_SESSION}" = "xfce" ] ; then
 
 ## Docky
@@ -445,14 +446,14 @@ gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
 gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
 
 ## Theme
-### Changes the Desktop theme
-gsettings set org.cinnamon.theme name "Mint-Y-Dark"
-### Changes the Controls theme
-gsettings set org.cinnamon.desktop.interface gtk-theme "Mint-Y-Dark"
-### Changes the Window borders theme
-gsettings set org.cinnamon.desktop.wm.preferences theme "Mint-Y-Dark"
-### Changes the Mouse Pointer theme
-gsettings set org.cinnamon.desktop.interface cursor-theme "DMZ-Black"
+xfconf-query -c xsettings -p /Net/ThemeName -s "Mint-Y-Dark"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Vertexed"
+
+## Wallpaper
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/inkPage.png
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/Pen-Black.png
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
+xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
 
 ## Xfdashboard (expirimental)
 ### Autostart
@@ -477,6 +478,7 @@ fi
 
 
 # MATE & Mint_MATE
+## Currently does not support changing mouse cursor themes
 if [ "$DESKTOP_SESSION" = "mate" ]; then
 
 ## Docky
@@ -498,6 +500,10 @@ fi
 if [ -d "/usr/share/themes/BlackMATE" ]; then
 gsettings set org.mate.interface gtk-theme "BlackMATE"
 gsettings set org.mate.interface icon-theme "Surfn-Evopop"
+else
+## Dark desktop theme for Mint_MATE
+gsettings set org.mate.interface gtk-theme "Mint-Y-Dark"
+gsettings set org.mate.interface icon-theme "Surfn-Numix-Misty"
 fi
 
 ####### For Mint_MATE Xed text editor (not in MATE)

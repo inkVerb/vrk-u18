@@ -60,7 +60,7 @@ fi
 
 
 # Update & Upgrade
-apt update && apt -y upgrade --fix-missing
+apt update && apt upgrade -yf --fix-missing
 apt -yf install
 
 # Ubuntu Studio Wallpapers, GTK configs, GNOME/Unity Tweak Tools, Xfce Dashboard, Guake, Docky, Variety
@@ -168,7 +168,6 @@ killall oosplash
 apt autoremove -y
 
 # Finish
-apt autoremove -y
 echo "Vubuntu Desktop is now installed. Now you can run set-vrk-desktop"
 sleep 2
 

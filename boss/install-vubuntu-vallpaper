@@ -1,7 +1,7 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
 
-# This installs and/or updates Vubuntu native wallpapers
+# This installs and/or updates Vubuntu native wallpapers in the Vallpaper module
 ## This is automatically run by: install-vubuntu-desktop and install-vubuntu
 ## Prerequesite: Vrk™ must be installed
 
@@ -56,7 +56,7 @@ sudo ./install-vubuntu-vallpaper
 exit 22
 fi
 
-# Install/Update Vallpaper
+# Install/Update Vallpaper base
 ## The actuall Valls exist here under lock and key.
 mkdir -p /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}
 ## The images are duplicated here for hard system link use.
@@ -81,12 +81,13 @@ mkdir -p /usr/share/backgrounds
 mkdir -p /usr/share/gnome-background-properties
 rm -rf /usr/share/backgrounds/${VALL_ROOM}
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/backgrounds/
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/${VALL_ROOM}-wallpapers.xml /usr/share/gnome-background-properties/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/vallpapers-${VALL_ROOM}.xml /usr/share/gnome-background-properties/
 ### Remove any broken symlinks
 cd /usr/share/gnome-background-properties/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 ## Xfce
 if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] ; then
+#### DEV NOTE: In Linuxmint Xfce, /usr/share/xfce4/backdrops is a symlink containing native backgrounds for both
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/xfce4/backdrops/
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/xfce4/backdrops/
 ### Remove any broken symlinks
@@ -95,17 +96,16 @@ for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi;
 fi
 ## UbuntuStudio
 if [ "${DESKTOP_SESSION}" = "ubuntustudio" ]; then
+#### DEV NOTE: in UbuntuStudio, /usr/share/xfce4/backdrops is a symlink to /usr/share/backgrounds/ubuntustudio, containing native backgrounds for both
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/backgrounds/ubuntustudio/
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/backgrounds/ubuntustudio/
-### If Ubuntu Studio is already installed after Xfce, add those
-ln -sfn /usr/share/backgrounds/ubuntustudio/* /usr/share/xfce4/backdrops/
 ### Remove any broken symlinks
 cd /usr/share/xfce4/backdrops/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 ## MATE
 if [ -d /usr/share/mate-background-properties ]; then
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/${VALL_ROOM}-wallpapers.xml /usr/share/mate-background-properties/
+ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/mate-${VALL_ROOM}.xml /usr/share/mate-background-properties/
 ### Remove any broken symlinks
 cd /usr/share/mate-background-properties/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done

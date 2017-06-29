@@ -39,7 +39,7 @@ fi
 
 # Prepare notice
 echo "
-This only installs Adapta, Arc, and Vertex themes and only Surfin and Numix icons!
+This only installs Adapta, Arc, and Vertex themes and only Surfin icons!
 
 Any others must be specified like so:
 
@@ -84,8 +84,7 @@ fi
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "arc" ] ; then
 git clone https://github.com/horst3180/arc-theme
 cd arc-theme
-./autogen.sh
-#./autogen.sh --prefix=/usr # This is only per user
+./autogen.sh --prefix=/usr
 rm -rf /usr/share/themes/Arc*
 make install
 cd ..
@@ -123,8 +122,7 @@ fi
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "vertex" ]; then
 git clone https://github.com/horst3180/vertex-theme
 cd vertex-theme
-./autogen.sh
-#./autogen.sh --prefix=/usr # This is only per user
+./autogen.sh --prefix=/usr
 rm -rf /usr/share/themes/Vertex*
 make install
 cd ..
@@ -156,7 +154,7 @@ done
 fi
 
 ## Numix & Numix Circle
-if [ -z "${1}" ] || [ "${INSTHEMICON}" = "numix" ]; then
+if [ "${INSTHEMICON}" = "numix" ]; then
 git clone https://github.com/numixproject/numix-icon-theme
 git clone https://github.com/numixproject/numix-icon-theme-circle
 rm -rf /usr/share/icons/Numix*
@@ -178,7 +176,7 @@ if [ "${INSTHEMICON}" = "moka" ]; then
 cd /var/local/vrk/donjon/ti/icons-
 git clone https://github.com/snwh/moka-icon-theme
 cd moka-icon-theme
-#./autogen.sh
+./autogen.sh
 rm -rf /usr/share/icons/Moka*
 mv Moka /usr/share/icons/
 cd ..

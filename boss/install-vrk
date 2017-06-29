@@ -191,7 +191,8 @@ fi
 ## Locale (if after Lang Dirs change, it creates a dialogue at the next login. DO THIS FIRST!)
 /home/${SUDO_USER}/.vrk/boards/vrklocale
 
-## Compose default (Mainly for desktop environments that don't support the setting)
+## Compose default (Mainly for Mint_ desktop environments that don't support the setting)
+### MATE, Cinnamon, and Mint_Xfce require these sed settings; Mint_MATE, UbuntuStudio, and Xubuntu do not allow any Compose key settings
 sed -i "s/XKBOPTIONS=.*/XKBOPTIONS=\"compose:caps\"/g" /etc/default/keyboard
 
 ## Mouse cursor theme for Xfce
