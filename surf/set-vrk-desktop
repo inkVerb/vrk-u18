@@ -114,11 +114,6 @@ gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
 gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
 
-## AppDefaults
-if [ "$DESKTOP_GLOBE" != "EXCEPTION" ]; then
-cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
-fi
-
 ## Disable screen lock (which requires password every time after the screen blanks, or double-login on changing user)
 gsettings set org.gnome.desktop.screensaver lock-enabled false
 
@@ -174,6 +169,9 @@ sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice %U/g" ~/.local/share/app
 # Budgie
 if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
 
+## App Defaults
+cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
 ## Set theme
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
 gsettings set org.gnome.desktop.interface icon-theme "Surfn-Majestic"
@@ -182,9 +180,6 @@ gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 ## Make icons work in menues
 gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
 
-## AppDefaults
-cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
-
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
 cp -R ~/.vrk/donjon/budgie/gconf/apps/docky-2 ~/.gconf/apps/
@@ -192,6 +187,10 @@ fi
 
 ## Autostart
 cp ~/.vrk/donjon/budgie/config/autostart/* ~/.config/autostart/
+
+## Xfdashboard
+#https://github.com/gmc-holle/xfdashboard/issues/122
+#DEV: This is still in dev here for FYI in 15.04 and may never be necessary
 
 fi
 # Budgie #
@@ -245,6 +244,9 @@ fi
 # GNOME
 if [ "$DESKTOP_SESSION" = "gnome" ]; then
 
+## App Defaults
+cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
 cp -rf ~/.vrk/donjon/global/gconf/apps/docky-2 ~/.gconf/apps/
@@ -281,11 +283,11 @@ fi
 
 if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
 
-## Mouse cursor theme
-gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
-
 ## App Defaults
 cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Mouse cursor theme
+gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
@@ -302,11 +304,6 @@ cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
 ## Compose Key: CapLock key
 xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
 #xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:menu"
-
-## Dashboard hot keys
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>Super_L" -t string -s 'xfdashboard'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt>Super_R" -t string -s 'xfdashboard'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
 
 ## Set theme & icons
 xfconf-query -c xsettings -p /Net/ThemeName -s "Greybird"
@@ -327,14 +324,34 @@ xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-imag
 xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
 xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
 
+## Hot keys
+### Menu
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
+### Xfdashboard
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>Super_L" -t string -s 'xfdashboard'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt>Super_R" -t string -s 'xfdashboard'
+
 ## Xfdashboard
-xfconf-query -c xfdashboard -p /always-launch-new-instance -s false
-xfconf-query -n -c xfdashboard -p /components/applications-view/show-all-apps -s true
-xfconf-query -n -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
-xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
-xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-duration -s 100
-xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
+###DEV see available options: xfconf-query -c xfdashboard -lv
+#http://xfdashboard.froevel.de/settings.html
+#https://github.com/gmc-holle/xfdashboard/issues/122
+## Dashboard settings
+xfconf-query -n -t bool -c xfdashboard -p /always-launch-new-instance -s false
+xfconf-query -n -t bool -c xfdashboard -p /components/applications-view/show-all-apps -s true
+xfconf-query -n -t bool -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
 xfconf-query -c xfdashboard -p /theme -s xfdashboard-dark
+## Enable the hot-corner plugin by adding the hot-corner value to enabled-plugins as a new property
+xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner
+## Enable gnome shell search provider also (this resets all plugins every time)
+#xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner -t string -s gnome-shell-search-provider
+## Settings for hotcorner
+xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
+xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-duration -s 27
+xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
+## Favorites (spelled British in settings!)
+### Defaults:
+### xfconf-query -n -t bool -c xfdashboard -p /favourites -n -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "exo-file-manager.desktop" -t string -s "exo-terminal-emulator.desktop"
+xfconf-query -c xfdashboard -p /favourites -n -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
 
 ## Whisker menu
 ### Icon
@@ -373,8 +390,8 @@ fi
 # KDE (Mint_KDE & Kubuntu)
 if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
 
-## App Defaults
-cp -rf ~/.vrk/donjon/local/share/applications ~/.local/share/
+## App Defaults (KDE, not global)
+cp -rf ~/.vrk/donjon/kde/local/share/applications ~/.local/share/
 
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
@@ -396,6 +413,10 @@ fi
 
 # Mint_Cinnamon
 if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+
+## App Defaults
+# Not in Mint
+#cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
 ## Turn off display notifications
 gsettings set org.cinnamon.desktop.notifications display-notifications 'false'
@@ -432,6 +453,10 @@ gsettings set org.cinnamon.desktop.interface icon-theme "Surfn-Majestic"
 ## Currently does not support changing mouse cursor themes
 if [ "${DESKTOP_SESSION}" = "xfce" ] ; then
 
+## App Defaults
+# Not in Mint
+#cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
 cp -R ~/.vrk/donjon/mint/gconf/apps/docky-2 ~/.gconf/apps/
@@ -445,6 +470,9 @@ gsettings set org.x.editor color-scheme 'oblivion'
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
 gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
 
+## Xfce Startup Apps (Xfdashboard)
+cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
+
 ## Theme
 xfconf-query -c xsettings -p /Net/ThemeName -s "Mint-Y-Dark"
 xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Vertexed"
@@ -455,17 +483,35 @@ xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-imag
 xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
 xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
 
-## Xfdashboard (expirimental)
-### Autostart
-cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
-### Xfdashboard settings
-xfconf-query -c xfdashboard -p /always-launch-new-instance -s false
-xfconf-query -n -c xfdashboard -p /components/applications-view/show-all-apps -s true
-xfconf-query -n -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
-xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
-xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-duration -s 100
-xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
+## Hot keys
+### Menu
+#Already in Mint
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
+### Xfdashboard
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>Super_L" -t string -s 'xfdashboard'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt>Super_R" -t string -s 'xfdashboard'
+
+## Xfdashboard
+###DEV see available options: xfconf-query -c xfdashboard -lv
+#http://xfdashboard.froevel.de/settings.html
+#https://github.com/gmc-holle/xfdashboard/issues/122
+## Dashboard settings
+xfconf-query -n -t bool -c xfdashboard -p /always-launch-new-instance -s false
+xfconf-query -n -t bool -c xfdashboard -p /components/applications-view/show-all-apps -s true
+xfconf-query -n -t bool -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
 xfconf-query -c xfdashboard -p /theme -s xfdashboard-dark
+## Enable the hot-corner plugin by adding the hot-corner value to enabled-plugins as a new property
+xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner
+## Enable gnome shell search provider also (this resets all plugins every time)
+#xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner -t string -s gnome-shell-search-provider
+## Settings for hotcorner
+xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
+xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-duration -s 27
+xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
+## Favorites (spelled British in settings!)
+### Defaults:
+### xfconf-query -n -t bool -c xfdashboard -p /favourites -n -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "exo-file-manager.desktop" -t string -s "exo-terminal-emulator.desktop"
+xfconf-query -c xfdashboard -p /favourites -n -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
 
 ### Conky IN DEV
 #cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
@@ -480,6 +526,10 @@ fi
 # MATE (& Mint_MATE)
 ## Currently does not support changing mouse cursor themes
 if [ "$DESKTOP_SESSION" = "mate" ]; then
+
+## App Defaults
+# Not in Mint or MATE
+#cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then

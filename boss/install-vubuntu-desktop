@@ -65,7 +65,7 @@ apt -yf install
 
 # Ubuntu Studio Wallpapers, GTK configs, GNOME/Unity Tweak Tools, Xfce Dashboard, Guake, Docky, Variety
 apt install -y conky conky-all ubuntustudio-wallpapers guake docky gnome-terminal htop
-apt install -y gtk-theme-config gnome-tweak-tool unity-tweak-tool xfdashboard variety
+apt install -y gtk-theme-config gnome-tweak-tool unity-tweak-tool variety
 
 # LibreOffice (done now for vubuntu-desktop settings dependencies)
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
@@ -117,14 +117,13 @@ fi
 
 # Xfce/Mint-Xfce/UbuntuStudio
 if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
-## Dashboard
-add-apt-repository -y ppa:xubuntu-dev/extras
-apt update
+## xfDashboard
+#NO LONGER IN TESTING, normal repos work
+#add-apt-repository -y ppa:xubuntu-dev/extras && apt update
 apt install -y xfdashboard
 
-#fi
+fi
 # Xfce #
-
 
 
 # KDE
