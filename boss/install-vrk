@@ -192,7 +192,8 @@ fi
 /home/${SUDO_USER}/.vrk/boards/vrklocale
 
 ## Compose default (Mainly for Mint_ desktop environments that don't support the setting)
-### MATE, Cinnamon, and Mint_Xfce require these sed settings; Mint_MATE, UbuntuStudio, and Xubuntu do not allow any Compose key settings
+### UbuntuStudio, Xubuntu, MATE, Cinnamon, and Mint_Xfce require these sed settings; Mint_MATE, does not allow any Compose key settings
+### There was a bug in the Xfce framework that stoped allowing xfconf changes. MATE and Cinnamon probably never supported it.
 sed -i "s/XKBOPTIONS=.*/XKBOPTIONS=\"compose:caps\"/g" /etc/default/keyboard
 
 ## Mouse cursor theme for Xfce

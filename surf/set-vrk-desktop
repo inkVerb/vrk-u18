@@ -275,7 +275,7 @@ fi
 # GNOME #
 
 
-# Xfce/UbuntuStudio
+# Xfce (Xubuntu & UbuntuStudio)
 ## Help:
 #http://docs.xfce.org/xfce/xfconf/xfconf-query
 
@@ -477,7 +477,7 @@ fi
 # Mint_Xfce #
 
 
-# MATE & Mint_MATE
+# MATE (& Mint_MATE)
 ## Currently does not support changing mouse cursor themes
 if [ "$DESKTOP_SESSION" = "mate" ]; then
 

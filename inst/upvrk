@@ -307,20 +307,20 @@ done
 if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
 ##### GLOBAL SCRIPTS GO HERE #####
 # Vallpaper
-mv /var/local/vall/rooms/vubuntu/wallpapers /var/local/vall/rooms/vubuntu/vubuntu
+mv -f /var/local/vall/rooms/vubuntu/wallpapers /var/local/vall/rooms/vubuntu/vubuntu
 rm -rf /usr/share/backgrounds/vubuntu
 rm -rf /usr/share/images/vall
 mkdir /usr/share/images/vall
 ln -sfn /var/local/vall/rooms/vubuntu/vubuntu /usr/share/backgrounds/
 ln -sfn /var/local/vall/rooms/vubuntu/vubuntu /usr/share/images/vall/
-ln -sfn /var/local/vall/rooms/vubuntu/vubuntu/vubuntu-wallpapers.xml /usr/share/gnome-background-properties/
+ln -sfn /var/local/vall/rooms/vubuntu/vubuntu/vallpapers-${VALL_ROOM}.xml /usr/share/gnome-background-properties/
 ## MATE
 if [ -d /usr/share/mate-background-properties ]; then
-ln -sfn /var/local/vall/rooms/vubuntu/vubuntu/vubuntu-wallpapers.xml /usr/share/mate-background-properties/
+ln -sfn /var/local/vall/rooms/vubuntu/vubuntu/mate-${VALL_ROOM}.xml /usr/share/mate-background-properties/
 fi
 ## Cinnamon
 if [ -d /usr/share/cinnamon-background-properties ]; then
-ln -sfn /var/local/vall/rooms/vubuntu/vubuntu/linuxmint-${VALL_ROOM}.xml /usr/share/cinnamon-background-properties/
+ln -sfn /var/local/vall/rooms/vubuntu/vubuntu/cinnamon-${VALL_ROOM}.xml /usr/share/cinnamon-background-properties/
 fi
 
 
