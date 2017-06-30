@@ -216,7 +216,7 @@ fi
 if [ -d "/usr/share/pixmaps/faces/" ]; then
 cp -f /var/local/vrk/donjon/icons/inkVerb-avatar.png /usr/share/pixmaps/faces/
 sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
-sed -i "s/\[User\]/\[User\]\nIcon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar\.png/" >> /var/lib/AccountsService/users/${VRK_USER}
+sed -i "s/\[User\]/\[User\]\nIcon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar\.png/" /var/lib/AccountsService/users/${VRK_USER}
 else
 ## For Xfce/Mint-Xfce/UbuntuStudio
 ### Backup in case
