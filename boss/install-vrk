@@ -153,14 +153,17 @@ fi
 ln -sfn /home/${VRK_USER}/myWall /home/${VRK_USER}/.local/share/backgrounds/${VRK_USER}Wall
 ## GNOME/Budgie
 if [ -d /usr/share/gnome-background-properties ]; then
+mkdir -p /home/${VRK_USER}/.local/share/gnome-background-properties/
 ln -sfn /home/${VRK_USER}/myWall/my-wall.xml /home/${VRK_USER}/.local/share/gnome-background-properties/
 fi
 ## MATE
 if [ -d /usr/share/mate-background-properties ]; then
+mkdir -p /home/${VRK_USER}/.local/share/mate-background-properties/
 ln -sfn /home/${VRK_USER}/myWall/my-mate-wall.xml /home/${VRK_USER}/.local/share/mate-background-properties/
 fi
 ## Cinnamon
 if [ -d /usr/share/cinnamon-background-properties ]; then
+mkdir -p /home/${VRK_USER}/.local/share/cinnamon-background-properties/
 ln -sfn /home/${VRK_USER}/myWall/my-cinn-wall.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
 fi
 ## Xfce/Mint-Xfce/UbuntuStudio
