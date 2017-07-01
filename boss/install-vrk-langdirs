@@ -199,11 +199,12 @@ sudo -u ${VRK_USER} sed -i "s/\$HOME\///g" /home/${VRK_USER}/.vrk/configs/lang/s
 # Set config
 sudo -u ${VRK_USER} sed -i "s/VRK_LANG_DIRS=.*/VRK_LANG_DIRS=\"YES\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
 . /var/local/vrk/vrkverno
+. /home/${VRK_USER}/.vrk/configs/stationinfo
 
 # Finish
 echo "Alright, Sparky! Vrk station is now setup for ${VRK_USER}.
 
-Your work folder is "${WORK_FOLDER_NAME}".
+Your work folder is \"${VRK_WORK_DIR}\".
 
 .jpg and .png files in myWall can be added to your list of Wallpaper options with this:
 add-wallpaper [ filename.png/jpg ] [ \"My Picture Name\" ]

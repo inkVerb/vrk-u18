@@ -255,12 +255,12 @@ add-wallpaper [ filename.png/jpg ] [ \"My Picture Name\" ]
 Don't delete .xml files in myWall/ or you'll have to add your pictures again.
 "
 if [ "${VRK_WORK_DIR}" != "NOT_YET" ]; then
-echo "Your work folder is \"${WORK_FOLDER_NAME}\"."
+echo "Your work folder is \"${VRK_WORK_DIR}\"."
 fi
 
 if [ "${VRK_CLOUD_DIR}" != "NOT_YET" ]; then
 echo "Your work folder is \"${VRK_CLOUD_DIR}\". Documents, Templates, will be synced in the Vrk folder.
-Your ${WORK_FOLDER_NAME} will also be synced there, but will only sync to other Vrk Stations that you also name your Work folder as \"${WORK_FOLDER_NAME}\".
+Your ${VRK_WORK_DIR} will also be synced there, but will only sync to other Vrk Stations that you also name your Work folder as \"${VRK_WORK_DIR}\".
 "
 fi
 ## Cloud message
