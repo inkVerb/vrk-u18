@@ -3,12 +3,13 @@
 
 # This sets the desktop background to an image in vall/rooms/...
 ## You must choose the Room and the Image like so: ROOM/IMAGE.png
+## This allows Xfce to specify which monitor in the case of multiple monitors.
 
 # How to use:
-## set-vall ROOM IMAGE.EXT
+## set-vall ROOM IMAGE.EXT [monitor number 0-3 or higher numbers - optional, only Xfce, if blank will do first four monitors 0-3]
 
 # Eg:
-## set-vall vubuntu Not-A-Mac.png
+## set-vall vubuntu Not-A-Mac.png 3
 
 VALLROOM=$1
 NEWIMAGE=$2
@@ -33,10 +34,10 @@ fi
 # Xfce/Mint-Xfce/UbuntuStudio
 if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
  if [ -z "$3" ]; then
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
  else
 xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor${XMNTR}/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
  fi

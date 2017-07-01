@@ -145,10 +145,6 @@ if [ ! -f ~/.gconf/apps/%gconf.xml ]; then
 cp ~/.vrk/donjon/global/gconf/apps/%gconf.xml ~/.gconf/apps/
 fi
 
-## LibreOffice
-### Can be: breeze oxygen tango voffice etc
-sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
-
 ## App Theming
 ### Future: (still doesn't work all the time)
 #http://askubuntu.com/questions/78088/can-i-apply-a-different-gtk3-theme-from-the-main-one-to-an-individual-applicatio
@@ -188,6 +184,10 @@ gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 ## Make icons work in menues
 gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
 
+## LibreOffice theming
+### Can be: breeze oxygen tango voffice etc
+sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
 cp -R ~/.vrk/donjon/budgie/gconf/apps/docky-2 ~/.gconf/apps/
@@ -208,6 +208,10 @@ if [ "$DESKTOP_SESSION" = "ubuntu" ]; then
 
 ## App Defaults
 cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## LibreOffice theming
+### Can be: breeze oxygen tango voffice etc
+sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
 
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
@@ -254,6 +258,10 @@ if [ "$DESKTOP_SESSION" = "gnome" ]; then
 
 ## App Defaults
 cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## LibreOffice theming
+### Can be: breeze oxygen tango voffice etc
+sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
 
 ## Docky
 if [ ! -d ~/.gconf/apps/docky-2 ]; then
@@ -327,10 +335,10 @@ xfconf-query -c xfwm4 -p /general/mousewheel_rollup -s true
 xfconf-query -c xfwm4 -p /general/tile_on_move -s true
 
 ## Wallpaper
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/inkPage.png
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/Pen-Black.png
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/inkPage.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/Pen-Black.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
 
 ## Hot keys
 ### Menu
@@ -454,6 +462,7 @@ gsettings set org.cinnamon.desktop.interface cursor-theme "DMZ-Black"
 ### Icon theme
 gsettings set org.cinnamon.desktop.interface icon-theme "Surfn-Majestic"
 
+fi
 # Mint_Cinnamon #
 
 
@@ -486,10 +495,10 @@ xfconf-query -c xsettings -p /Net/ThemeName -s "Mint-Y-Dark"
 xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Vertexed"
 
 ## Wallpaper
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/inkPage.png
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/Pen-Black.png
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/inkPage.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/Pen-Black.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
 
 ## Hot keys
 ### Menu
