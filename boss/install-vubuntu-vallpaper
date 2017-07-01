@@ -9,8 +9,11 @@
 ## sudo ./install-vubuntu-vallpaper
 
 
-# Set Room name
+# Set
+## Room name
 VALL_ROOM="vubuntu"
+## Root Lockscreen
+ROOT_LOCK_VALL="inkVerb-Carbon.png"
 
 # Set location of Vallpaper install folder
 ## This can be absolute; or relative ie if via git clone
@@ -119,7 +122,7 @@ for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi;
 fi
 
 # Global lock screen GNOME (run in this sudo, it sets for root, thus all)
-gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images/vall/vubuntu/vubuntu/inkVerb-Carbon.png
+gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images/vall/vubuntu/vubuntu/${ROOT_LOCK_VALL}
 ## More here:
 # http://fabhax.com/technology/change-wallpapers-in-gnome-3.4/
 ## Unity? lagacy

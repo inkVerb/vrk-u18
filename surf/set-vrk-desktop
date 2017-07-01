@@ -8,6 +8,14 @@
 ## set-vrk-desktop
 
 
+# Set
+## Vall room
+VALL_ROOM="vubuntu"
+## Vall background
+VALL_BACKGRN="Get-to-Vrk.png"
+## Vall lockscreen
+VALL_LOCKSRN="inkVerb-Carbon.png"
+
 # Check to make sure this not run as sudo or root
 if [ "$(id -u)" = "0" ]; then
 echo "Do not run as root or sudo."; exit 22
@@ -104,8 +112,8 @@ gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
 #gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
 
 ### Set Background Wallpaper
-~/.vrk/boards/set-vall vubuntu Get-to-Vrk.png
-~/.vrk/boards/set-vall-lock vubuntu inkVerb-Carbon.png
+~/.vrk/boards/set-vall ${VALL_ROOM} ${VALL_BACKGRN}
+~/.vrk/boards/set-vall-lock ${VALL_ROOM} ${VALL_LOCKSRN}
 
 ## Flatabulous terminal "profile" (color scheme)
 ~/.vrk/donjon/xt-gnome

@@ -76,43 +76,10 @@ PROCVNO=$(dpkg --print-architecture)
 
 # Install the packages
 echo "
+Installing Vubuntu Studio Lite
+
 First, updates and fonts. Get ready to agree to EULA...
 "
-## Add some extra repositories
-if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
-### Check at each stage to prevent duplication
-#### canonical partner
- if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-partner" ]; then
- vrk_ppa_repo_partner="deb http://archive.canonical.com/ "$(lsb_release -sc)" partner"
-  if ! grep -q "^deb .*$vrk_ppa_repo_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-touch /var/local/vrk/.vubuntu-studiolite-repo-partner
-  fi
- fi
-#### main universe restricted multiverse
- if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-multiverse" ]; then
- vrk_add_repo_multiverse="deb http://archive.ubuntu.com/ubuntu "$(lsb_release -sc)" main universe restricted multiverse"
-  if ! grep -q "^deb .*$vrk_add_repo_multiverse" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
-touch /var/local/vrk/.vubuntu-studiolite-repo-multiverse
-  fi
- fi
-#### universe
- if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-universe" ]; then
- vrk_add_repo_universe="eb http://archive.ubuntu.com/ubuntu "$(lsb_release -sc)" universe"
-  if ! grep -q "^deb .*$vrk_add_repo_universe" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
-touch /var/local/vrk/.vubuntu-studiolite-repo-universe
-  fi
- fi
-#### ubuntu partner
- if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner" ]; then
- vrk_add_ubuntu_partner="eb http://archive.canonical.com/ubuntu "$(lsb_release -sc)" partner"
-  if ! grep -q "^deb .*$vrk_add_ubuntu_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-add-apt-repository -y "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
-touch /var/local/vrk/.vubuntu-studiolite-repo-ubuntu-partner
-  fi
- fi
 
 ### Done
 touch /var/local/vrk/.vubuntu-studiolite-repo
@@ -223,13 +190,15 @@ echo "
 Got the goodies. Sky time... Stellarium...
 "
 apt install -y stellarium
-echo "
-Dropbox may want to start, go ahead. Now doing Skype...
-"
-apt install -y skype
-echo "
-You got Skype. On to MyPaint...
-"
+
+#
+#echo "
+#Now doing Skype...
+#"
+#apt install -y skype
+#echo "
+#You got Skype.
+#"
 
 ## MyPaint
 #if [ "${PROCVNO}" = "amd64" ]; then
@@ -239,11 +208,6 @@ You got Skype. On to MyPaint...
 #apt install -y mypaint mypaint-data-extras
 #fi
 
-## Hot Corners in Xfce ?
-#http://ubuntuhandbook.org/index.php/2015/07/hot-corners-plugin-xfce4/
-#add-apt-repository -y ppa:xubuntu-dev/extras
-#apt update
-#apt install -y xfce4-hotcorner-plugin
 
 # Set config
 echo "VUBUNTU_STUDIOLITE_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
