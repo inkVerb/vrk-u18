@@ -164,7 +164,7 @@ if [ "${PROCVNO}" = "amd64" ]; then
 rm -f google-earth-stable_current_amd64.deb*
 wget https://dl.google.com/dl/earth/client/current/google-earth-stable_current_amd64.deb
 dpkg -i google-earth-stable*.deb
-apt -yf install
+apt install -yf
 rm -f google-earth-stable_current_amd64.deb*
 touch /var/local/vrk/.vubuntu-studiolite-earth64
  fi
@@ -174,7 +174,7 @@ if [ "${PROCVNO}" = "i386" ]; then
 rm -f google-earth-stable_current_i386.deb*
 wget https://dl.google.com/dl/earth/client/current/google-earth-stable_current_i386.deb
 dpkg -i google-earth-stable*.deb
-apt -yf install
+apt install -yf
 rm -f google-earth-stable_current_i386.deb*
 touch /var/local/vrk/.vubuntu-studiolite-earth386
  fi

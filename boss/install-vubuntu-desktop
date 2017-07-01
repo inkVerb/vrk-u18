@@ -61,7 +61,7 @@ fi
 
 # Update & Upgrade
 apt update && apt upgrade -yf --fix-missing
-apt -yf install
+apt install -yf
 
 # Ubuntu Studio Wallpapers, GTK configs, GNOME/Unity Tweak Tools, Xfce Dashboard, Guake, Docky, Variety
 apt install -y conky conky-all ubuntustudio-wallpapers guake docky gnome-terminal htop
