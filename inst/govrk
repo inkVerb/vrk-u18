@@ -106,9 +106,7 @@ SESSDISTRO="$DESKTOP_SESSION"
 
 # Set the directory to var/local, but a hidden link in the user's
 ## Check if it is already in var/local from a previous install
-if [ ! -d /var/local/vrk ]; then
-cp -r /home/${VRK_USER}/vrk /var/local/
-fi
+cp -rf /home/${VRK_USER}/vrk /var/local/
 
 # Executable check
 chmod +x /var/local/vrk/boss/*
