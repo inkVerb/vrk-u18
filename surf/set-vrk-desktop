@@ -140,6 +140,9 @@ mkdir -p ~/.gconf/apps
 if [ ! -d ~/.gconf/apps/guake ]; then
 cp -rf ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
 fi
+if [ ! -f ~/.gconf/apps/%gconf.xml ]; then
+cp -rf ~/.vrk/donjon/global/gconf/apps/%gconf.xml ~/.gconf/apps/
+fi
 
 ## App Theming
 ### Future: (still doesn't work all the time)
