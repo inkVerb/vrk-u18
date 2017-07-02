@@ -56,7 +56,7 @@ fi
 #if [ -d "/home/${PATCH_USER}" ]; then
 # if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 #. /home/${PATCH_USER}/.vrk/configs/stationinfo
-#  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+#  if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ###### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 ## Make the user do the job himself 
 ## sudo -u ${PATCH_USER} echo "I am myself v${UPDATE_PATCH_KVERNO}."
@@ -70,7 +70,7 @@ fi
 #fi
 #done
 ## Global patch
-#if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+#if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ###### GLOBAL SCRIPTS GO HERE #####
 #
 #
@@ -117,13 +117,10 @@ fi
 . /var/local/vrk/vrkverno
 
 # Check minimal updateable version
-if [ $(echo "${MIN_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+if [ $(echo ${MIN_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 echo "Can't run. The minimum version to run is ${MIN_KVERNO}. This Vrk version is ${KVERNO}. I quit."
 exit 0
 fi
-
-# Update & Upgrade
-apt update && apt upgrade -yf --fix-missing
 
 # Vrk user update
 ## Check if Vrk Staion is installed for this user
@@ -168,7 +165,8 @@ PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PA
 if [ -d "/home/${PATCH_USER}" ]; then
  if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
-  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+
+  if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### PER-USER SCRIPTS GO HERE ###
 # Add bossability declaration and properly update boards
 if grep -q "USER_BOSSYN" "/home/${PATCH_USER}/.vrk/configs/stationinfo"; then
@@ -194,7 +192,7 @@ sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USE
 fi
 done
 # Global patch
-if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### GLOBAL SCRIPTS GO HERE #####
 # Fix the locale problem in older versions
 /var/local/vrk/boss/vrklocale
@@ -216,7 +214,7 @@ PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PA
 if [ -d "/home/${PATCH_USER}" ]; then
  if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
-  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+  if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### PER-USER SCRIPTS GO HERE ###
 cp -f /var/local/vrk/donjon/inkVerb-avatar.png /usr/share/pixmaps/faces/
 sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${PATCH_USER}
@@ -230,7 +228,7 @@ sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USE
 fi
 done
 # Global patch
-if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### GLOBAL SCRIPTS GO HERE #####
 # Update Vallpaper
 if [ -L "/usr/share/images/vall" ]; then
@@ -254,7 +252,7 @@ PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PA
 if [ -d "/home/${PATCH_USER}" ]; then
  if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
-  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+  if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 # Make the user do the job himself 
 # sudo -u ${PATCH_USER} echo "I am myself v${UPDATE_PATCH_KVERNO}."
@@ -268,10 +266,9 @@ sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USE
 fi
 done
 # Global patch
-if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### GLOBAL SCRIPTS GO HERE #####
-# Kid3
-apt install -y kid3
+
 
 # Set and refresh the current version into inklists
 sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
@@ -290,7 +287,7 @@ PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PA
 if [ -d "/home/${PATCH_USER}" ]; then
  if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
-  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+  if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 # Make the user do the job himself 
 # sudo -u ${PATCH_USER} echo "I am myself v${UPDATE_PATCH_KVERNO}."
@@ -304,7 +301,7 @@ sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USE
 fi
 done
 # Global patch
-if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### GLOBAL SCRIPTS GO HERE #####
 # Vallpaper
 mv -f /var/local/vall/rooms/vubuntu/wallpapers /var/local/vall/rooms/vubuntu/vubuntu
@@ -341,7 +338,7 @@ PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PA
 if [ -d "/home/${PATCH_USER}" ]; then
  if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
-  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+  if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 # Make the user do the job himself 
 # sudo -u ${PATCH_USER} echo "I am myself v${UPDATE_PATCH_KVERNO}."
@@ -355,7 +352,7 @@ sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USE
 fi
 done
 # Global patch
-if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### GLOBAL SCRIPTS GO HERE #####
 sed -i "s/UBUNT_DISTRO/LINUX_DISTRO/g" /var/local/vrk/machineinfo
 
@@ -377,7 +374,7 @@ PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PA
 if [ -d "/home/${PATCH_USER}" ]; then
  if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
-  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+  if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 # Make the user do the job himself 
 # sudo -u ${PATCH_USER} echo "I am myself v${UPDATE_PATCH_KVERNO}."
@@ -418,7 +415,7 @@ sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USE
 fi
 done
 # Global patch
-if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### GLOBAL SCRIPTS GO HERE #####
 
 
@@ -439,7 +436,7 @@ PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PA
 if [ -d "/home/${PATCH_USER}" ]; then
  if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
-  if [ $(echo "${UPDATE_PATCH_KVERNO}>${USER_KVERNO}"|bc) = 1 ]; then
+  if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 # Make the user do the job himself 
 # sudo -u ${PATCH_USER} echo "I am myself v${UPDATE_PATCH_KVERNO}."
@@ -466,7 +463,7 @@ sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USE
 fi
 done
 # Global patch
-if [ $(echo "${UPDATE_PATCH_KVERNO}>${KVERNO}"|bc) = 1 ]; then
+if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### GLOBAL SCRIPTS GO HERE #####
 
 
@@ -478,7 +475,6 @@ fi
 
 
 # Cleanup
-apt -y autoremove
 rm -rf /home/${SUDO_USER}/vrk
 
 # Finish

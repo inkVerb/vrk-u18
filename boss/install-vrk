@@ -285,10 +285,6 @@ echo "Install Nextcloud with sudo ./install-nextcloud"
  fi
 fi
 
-# Cleanup
-echo "Cleaning up..."
-apt autoremove -y
-
 # Get the droids
 echo "Getting the first droids..."
 /var/local/vrk/boss/vdroid https://github.com/inkVerb/droids

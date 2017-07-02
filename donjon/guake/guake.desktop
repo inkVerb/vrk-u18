@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Guake
+Comment=F12 Terminal
+TryExec=guake
+Exec=guake
+Icon=guake
+Type=Application
+Categories=GNOME;GTK;System;Utility;TerminalEmulator;
+Hidden=false
+Terminal=false
+NoDisplay=false
+StartupNotify=false
+X-GNOME-Autostart-enabled=true
+X-MATE-Autostart-enabled=true

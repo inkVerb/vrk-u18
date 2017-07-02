@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="ShowDockyItem" mtime="1479868048" type="bool" value="true"/>
-	<entry name="Hue" mtime="1479868048" type="int" value="0"/>
-	<entry name="HoverText" mtime="1479868048" type="string">
-		<stringvalue>Docky</stringvalue>
-	</entry>
-</gconf>

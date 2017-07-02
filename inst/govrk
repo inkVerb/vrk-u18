@@ -100,9 +100,6 @@ echo "Bye.
 exit 0
 fi
 
-# Basic installs
-apt update && apt upgrade -yf --fix-missing && apt install -yf bc wmctrl
-
 # Check CPU version
 PROCVNO=$(dpkg --print-architecture)
 SESSDISTRO="$DESKTOP_SESSION"

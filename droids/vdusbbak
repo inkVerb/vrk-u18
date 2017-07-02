@@ -1,0 +1,310 @@
+#!/bin/sh
+#inkVerbDroid! verb.ink
+
+# This droid backs up many common config files from Ubuntu's home folder to transfer them to a new Ubuntu installation
+## This only backs up hidden configs, no visible stuff
+## This requires a USB, probably the same one you will use to install Ubuntu
+
+## You must run this from the root folder of the USB to back things up to
+## You must run this for per user
+
+## This does NOT backup:
+### Digital currency wallets
+### Stuff you probably add yourself, such as .themes, .icons, or .fonts
+
+# How to use
+## vdusbbak [user - optional]
+
+
+# Set user
+if [ -z $1 ]; then
+VUSER=${USER}
+else
+VUSER=$1
+fi
+
+# Sort out the directories
+## Make 0_Vrk
+if [ ! -d 0_Vrk ]; then
+mkdir 0_Vrk
+fi
+cd 0_Vrk
+## Make user's directory
+if [ -d ${VUSER} ]; then
+echo "${VUSER} already has a backup folder on this USB. Change the folder's name or delete it first."
+exit 22
+else
+mkdir ${VUSER}
+fi
+cd ${VUSER}
+mkdir .config .local .kde
+mkdir .local/share .kde/share
+mkdir .kde/share/apps
+# Copy settings one at a time
+if [ -d /home/${VUSER}/.ssh ]; then
+cp -R /home/${VUSER}/.ssh .
+fi
+
+mkdir .vrk
+
+if [ -d /home/${VUSER}/.vrk/go ]; then
+cp -R /home/${VUSER}/.vrk/go .vrk/
+fi
+
+if [ -d /home/${VUSER}/.vrk/configs/net ]; then
+mkdir .vrk/configs
+cp -R /home/${VUSER}/.vrk/configs/net .vrk/configs/
+fi
+
+if [ -d /home/${VUSER}/.audacity-data ]; then
+cp -R /home/${VUSER}/.audacity-data .
+fi
+
+if [ -d /home/${VUSER}/.FontForge ]; then
+cp -R /home/${VUSER}/.FontForge .
+fi
+
+if [ -d /home/${VUSER}/.guake-indicator ]; then
+cp -R /home/${VUSER}/.guake-indicator .
+fi
+
+if [ -d /home/${VUSER}/.gconf ]; then
+cp -R /home/${VUSER}/.gconf .
+fi
+
+if [ -d /home/${VUSER}/.gimp-2.8 ]; then
+cp -R /home/${VUSER}/.gimp-2.8 .
+fi
+
+if [ -d /home/${VUSER}/.mozilla ]; then
+cp -R /home/${VUSER}/.mozilla .
+fi
+
+if [ -d /home/${VUSER}/.putty ]; then
+cp -R /home/${VUSER}/.putty .
+fi
+
+if [ -d /home/${VUSER}/.thunderbird ]; then
+cp -R /home/${VUSER}/.thunderbird .
+fi
+
+if [ -d /home/${VUSER}/.scribus ]; then
+cp -R /home/${VUSER}/.scribus .
+fi
+
+if [ -d /home/${VUSER}/.Skype ]; then
+cp -R /home/${VUSER}/.Skype .
+fi
+
+if [ -d /home/${VUSER}/.stellarium ]; then
+cp -R /home/${VUSER}/.stellarium .
+fi
+
+if [ -d /home/${VUSER}/.sword ]; then
+cp -R /home/${VUSER}/.sword .
+fi
+
+if [ -d /home/${VUSER}/.xiphos ]; then
+cp -R /home/${VUSER}/.xiphos .
+fi
+
+if [ -d /home/${VUSER}/.yate ]; then
+cp -R /home/${VUSER}/.yate .
+fi
+
+cd .config
+
+if [ -d /home/${VUSER}/.config/blender ]; then
+cp -R /home/${VUSER}/.config/blender .
+fi
+
+if [ -d /home/${VUSER}/.config/chromium ]; then
+cp -R /home/${VUSER}/.config/chromium .
+fi
+
+if [ -d /home/${VUSER}/.config/Clementine ]; then
+cp -R /home/${VUSER}/.config/Clementine .
+fi
+
+if [ -d /home/${VUSER}/.config/darktable ]; then
+cp -R /home/${VUSER}/.config/darktable .
+fi
+
+if [ -d /home/${VUSER}/.config/Empathy ]; then
+cp -R /home/${VUSER}/.config/Empathy .
+fi
+
+if [ -d /home/${VUSER}/.config/epiphany ]; then
+cp -R /home/${VUSER}/.config/epiphany .
+fi
+
+if [ -d /home/${VUSER}/.config/evolution ]; then
+cp -R /home/${VUSER}/.config/evolution .
+fi
+
+if [ -d /home/${VUSER}/.config/filezilla ]; then
+cp -R /home/${VUSER}/.config/filezilla .
+fi
+
+if [ -d /home/${VUSER}/.config/gedit ]; then
+cp -R /home/${VUSER}/.config/gedit .
+fi
+
+if [ -d /home/${VUSER}/.config/inkscape ]; then
+cp -R /home/${VUSER}/.config/inkscape .
+fi
+
+if [ -d /home/${VUSER}/.config/libreoffice ]; then
+cp -R /home/${VUSER}/.config/libreoffice .
+fi
+
+if [ -d /home/${VUSER}/.config/midori ]; then
+cp -R /home/${VUSER}/.config/midori .
+fi
+
+if [ -d /home/${VUSER}/.config/MuseScore ]; then
+cp -R /home/${VUSER}/.config/MuseScore .
+fi
+
+if [ -d /home/${VUSER}/.config/nautilus ]; then
+cp -R /home/${VUSER}/.config/nautilus .
+fi
+
+if [ -d /home/${VUSER}/.config/torbrowser ]; then
+cp -R /home/${VUSER}/.config/torbrowser .
+fi
+
+if [ -d /home/${VUSER}/.config/vlc ]; then
+cp -R /home/${VUSER}/.config/vlc .
+fi
+
+if [ -d /home/${VUSER}/.config/webbrowser-app ]; then
+cp -R /home/${VUSER}/.config/webbrowser-app .
+fi
+
+if [ -d /home/${VUSER}/.config/yelp ]; then
+cp -R /home/${VUSER}/.config/yelp .
+fi
+
+cd ..
+cd .kde/share
+
+if [ -d /home/${VUSER}/.kde/share/config ]; then
+cp -R /home/${VUSER}/.kde/share/config .
+fi
+
+cd apps
+
+if [ -d /home/${VUSER}/.kde/share/apps/amarok ]; then
+cp -R /home/${VUSER}/.kde/share/apps/amarok .
+fi
+
+if [ -d /home/${VUSER}/.kde/share/apps/dockmanager ]; then
+cp -R /home/${VUSER}/.kde/share/apps/dockmanager .
+fi
+
+if [ -d /home/${VUSER}/.kde/share/apps/calligra ]; then
+cp -R /home/${VUSER}/.kde/share/apps/calligra .
+fi
+
+if [ -d /home/${VUSER}/.kde/share/apps/kmail ]; then
+cp -R /home/${VUSER}/.kde/share/apps/kmail .
+fi
+
+if [ -d /home/${VUSER}/.kde/share/apps/kontact ]; then
+cp -R /home/${VUSER}/.kde/share/apps/kontact .
+fi
+
+if [ -d /home/${VUSER}/.kde/share/apps/krita ]; then
+cp -R /home/${VUSER}/.kde/share/apps/krita .
+fi
+
+if [ -d /home/${VUSER}/.kde/share/apps/kwallet ]; then
+cp -R /home/${VUSER}/.kde/share/apps/kwallet .
+fi
+
+cd ../../..
+cd .local/share
+
+if [ -d /home/${VUSER}/.local/share/docky ]; then
+cp -R /home/${VUSER}/.local/share/docky .
+fi
+
+if [ -d /home/${VUSER}/.local/share/dolphin ]; then
+cp -R /home/${VUSER}/.local/share/dolphin .
+fi
+
+if [ -d /home/${VUSER}/.local/share/epiphany ]; then
+cp -R /home/${VUSER}/.local/share/epiphany .
+fi
+
+if [ -d /home/${VUSER}/.local/share/gnome-music ]; then
+cp -R /home/${VUSER}/.local/share/gnome-music .
+fi
+
+if [ -d /home/${VUSER}/.local/share/kate ]; then
+cp -R /home/${VUSER}/.local/share/kate .
+fi
+
+if [ -d /home/${VUSER}/.local/share/keyrings ]; then
+cp -R /home/${VUSER}/.local/share/keyrings .
+fi
+
+if [ -d /home/${VUSER}/.local/share/midori ]; then
+cp -R /home/${VUSER}/.local/share/midori .
+fi
+
+if [ -d /home/${VUSER}/.local/share/nautilus ]; then
+cp -R /home/${VUSER}/.local/share/nautilus .
+fi
+
+if [ -d /home/${VUSER}/.local/share/rhythmbox ]; then
+cp -R /home/${VUSER}/.local/share/rhythmbox .
+fi
+
+if [ -d /home/${VUSER}/.local/share/torbrowser ]; then
+cp -R /home/${VUSER}/.local/share/torbrowser .
+fi
+
+if [ -d /home/${VUSER}/.local/share/unity-webapps ]; then
+cp -R /home/${VUSER}/.local/share/unity-webapps .
+fi
+
+if [ -d /home/${VUSER}/.local/share/vlc ]; then
+cp -R /home/${VUSER}/.local/share/vlc .
+fi
+
+if [ -d /home/${VUSER}/.local/share/webbrowser-app ]; then
+cp -R /home/${VUSER}/.local/share/webbrowser-app .
+fi
+
+
+echo "All done. Here is a list of what this usually backs up:
+
+- PIM apps: Thunderbird, GNOME/Kubuntu mail/contacts/chat, Skype, Yate
+
+- Music/Player apps: Amarok, GNOME-Music, Rhythmbox, Clementine, VLC
+
+- Secure stuff: WiFi/VPN/Network profiles, KDE wallet, keyring
+
+- Media/art apps: GIMP, Inkscape, Audacity, Blender, Muse, Darktable, Krita
+
+- Web browsers: Chromium, Firefox, Midori, Tor, Epiphany (GNOME), Web (Unity)
+
+- Dev tools: Guake Indicator, FileZilla, SSH keys
+
+- Other apps: Nautilus, Dolphin, Kate, gedit, Stellarium, Xiphos/SWORD
+
+- NOTE: Cloud apps don't like to have their settings backed up. So, Dropbox, ownCloud, and Pydio get skipped.
+
+You might also want to copy any visible folders, such as your cloud(s), music, or anything else you want.
+
+Use at your own risk. Double-checking is good. This has some rather sensitive info. So, wipe it all off your USB after you restore it to your new Ubuntu install.
+
+To restore these after your next Ubuntu install:
+
+Ctrl + H to see the contents of 0_Vrk/${USER} and drag EVERYTHING right into your new home folder.
+...Do this RIGHT after Ubuntu finishes and you reboot, before ANYTHING else! Then, your apps won't know anything happened.
+"
+
+

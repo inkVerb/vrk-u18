@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<gconf>
-	<entry name="ActiveDocks" mtime="1479868048" type="list" ltype="string">
-		<li type="string">
-			<stringvalue>Dock1</stringvalue>
-		</li>
-	</entry>
-	<entry name="CompositeCheckEnabled" mtime="1479868047" type="bool" value="true"/>
-</gconf>

@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Guake Indicator
+Comment=F12 Terminal & SSH Menu
+TryExec=guake-indicator
+Exec=guake-indicator
+Icon=guake-indicator
+Type=Application
+Categories=GNOME;GTK;System;Utility;TerminalEmulator;
+Hidden=false
+Terminal=false
+NoDisplay=false
+StartupNotify=false
+X-GNOME-Autostart-enabled=true
+X-MATE-Autostart-enabled=true

@@ -125,24 +125,20 @@ gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
 ## Disable screen lock (which requires password every time after the screen blanks, or double-login on changing user)
 gsettings set org.gnome.desktop.screensaver lock-enabled false
 
-## App configs
+## App global configs
 ### Check prerequesite directories
 mkdir -p ~/.config/autostart
 #### Just in case, we never know when some update will break the known order
 mkdir -p ~/.gconf/apps/
-### Autostart, Docky, Guake, Dolphin, Kate
-#### Budgie needs its own autostart configs
-if [ "$DESKTOP_SESSION" != "budgie-desktop" ]; then
-cp ~/.vrk/donjon/global/config/autostart/* ~/.config/autostart/
-fi
-#### Other configs
-cp ~/.vrk/donjon/global/config/katepartrc ~/.config/
+### Autostart
+cp -rf ~/.vrk/donjon/global/config/autostart ~/.config/
+### Kate
+cp -rf ~/.vrk/donjon/global/config/katepartrc ~/.config/
+### Guake
+~/.vrk/boards/set-guake-on
 mkdir -p ~/.gconf/apps
 if [ ! -d ~/.gconf/apps/guake ]; then
 cp -rf ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
-fi
-if [ ! -f ~/.gconf/apps/%gconf.xml ]; then
-cp ~/.vrk/donjon/global/gconf/apps/%gconf.xml ~/.gconf/apps/
 fi
 
 ## App Theming
@@ -170,11 +166,15 @@ sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice %U/g" ~/.local/share/app
 
 # Global #
 
+
 # Budgie
 if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
 
 ## App Defaults
 cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Autostart special
+cp -rf ~/.vrk/donjon/budgie/config/autostart ~/.config/
 
 ## Set theme
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
@@ -188,14 +188,6 @@ gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/Shell
 ### Can be: breeze oxygen tango voffice etc
 sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
 
-## Docky
-if [ ! -d ~/.gconf/apps/docky-2 ]; then
-cp -R ~/.vrk/donjon/budgie/gconf/apps/docky-2 ~/.gconf/apps/
-fi
-
-## Autostart
-cp ~/.vrk/donjon/budgie/config/autostart/* ~/.config/autostart/
-
 ## Xfdashboard
 #https://github.com/gmc-holle/xfdashboard/issues/122
 #DEV: This is still in dev here for FYI in 15.04 and may never be necessary
@@ -203,20 +195,19 @@ cp ~/.vrk/donjon/budgie/config/autostart/* ~/.config/autostart/
 fi
 # Budgie #
 
+
 # Unity
 if [ "$DESKTOP_SESSION" = "ubuntu" ]; then
 
 ## App Defaults
-cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+cp -rf ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Autostart special
+cp -rf ~/.vrk/donjon/unity/config/autostart ~/.config/
 
 ## LibreOffice theming
 ### Can be: breeze oxygen tango voffice etc
 sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
-
-## Docky
-if [ ! -d ~/.gconf/apps/docky-2 ]; then
-cp -R ~/.vrk/donjon/unity/gconf/apps/docky-2 ~/.gconf/apps/
-fi
 
 ## Workspaces
 dconf write /org/compiz/profiles/unity/plugins/core/hsize 2
@@ -257,16 +248,14 @@ fi
 if [ "$DESKTOP_SESSION" = "gnome" ]; then
 
 ## App Defaults
-cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+cp -rf ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Autostart special
+cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 
 ## LibreOffice theming
 ### Can be: breeze oxygen tango voffice etc
 sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
-
-## Docky
-if [ ! -d ~/.gconf/apps/docky-2 ]; then
-cp -rf ~/.vrk/donjon/global/gconf/apps/docky-2 ~/.gconf/apps/
-fi
 
 ## Launcher
 gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'epiphany.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'thunderbird.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
@@ -283,12 +272,6 @@ gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/Shell
 ## Extensions
 gnome-shell-extension-tool -e launch-new-instance
 
-## Conky IN DEV
-#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
-#chmod +x .start-conky
-#cd && wget -O gotham-noobslab-ugs.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-ugs.zip
-#unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
-
 fi
 # GNOME #
 
@@ -300,22 +283,17 @@ fi
 if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
 
 ## App Defaults
-cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+cp -rf ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Autostart special
+cp -rf ~/.vrk/donjon/xfce/config/autostart ~/.config/
 
 ## Mouse cursor theme
 gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
-## Docky
-if [ ! -d ~/.gconf/apps/docky-2 ]; then
-cp -R ~/.vrk/donjon/xfce/gconf/apps/docky-2 ~/.gconf/apps/
-fi
-
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
 gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
-
-## Xfce Startup Apps (Xfdashboard)
-cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
 
 ## Compose Key: CapLock key
 xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
@@ -386,12 +364,6 @@ sed -i "s/Exec=.*/Exec=env GTK_THEME=Vertex-Dark rhythmbox %U/g" ~/.local/share/
 #### Can be: breeze oxygen etc
 sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>oxygen</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
 
-### Conky IN DEV
-#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
-#chmod +x .start-conky
-#cd && wget -O gotham-noobslab-gmo.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-gmo.zip
-#unzip gotham-noobslab-gmo.zip && rm gotham-noobslab-gmo.zip
-
 ## Message
 echo "
 Ctrl + Win (left side only) shows your dashboard.
@@ -409,14 +381,12 @@ if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
 ## App Defaults (KDE, not global)
 cp -rf ~/.vrk/donjon/kde/local/share/applications ~/.local/share/
 
-## Docky
-if [ ! -d ~/.gconf/apps/docky-2 ]; then
-cp -R ~/.vrk/donjon/kde/gconf/apps/docky-2 ~/.gconf/apps/
-fi
+## Autostart special
+# Not in KDE
 
 ## Settings for Konsole, Dolphin, hotkeys, 4 virtual desktops
-cp -R ~/.vrk/donjon/kde/local/share ~/.local/
-cp -R ~/.vrk/donjon/kde/config/* ~/.config/
+cp -rf ~/.vrk/donjon/kde/local/share ~/.local/
+cp -rf ~/.vrk/donjon/kde/config/* ~/.config/
 sed -i "s/ToolButtonStyle=.*/ToolButtonStyle=IconOnly/g" ~/.config/dolphinrc
 
 ## LibreOffice
@@ -432,15 +402,12 @@ if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
 
 ## App Defaults
 # Not in Mint
-#cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Autostart special
+# Not in Mint
 
 ## Turn off display notifications
 gsettings set org.cinnamon.desktop.notifications display-notifications 'false'
-
-## Docky
-if [ ! -d ~/.gconf/apps/docky-2 ]; then
-cp -R ~/.vrk/donjon/mint/gconf/apps/docky-2 ~/.gconf/apps/
-fi
 
 ## Xed
 gsettings set org.x.editor display-line-numbers true
@@ -472,12 +439,9 @@ if [ "${DESKTOP_SESSION}" = "xfce" ] ; then
 
 ## App Defaults
 # Not in Mint
-#cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
-## Docky
-if [ ! -d ~/.gconf/apps/docky-2 ]; then
-cp -R ~/.vrk/donjon/mint/gconf/apps/docky-2 ~/.gconf/apps/
-fi
+## Autostart special
+# Not in Mint
 
 ## Xed
 gsettings set org.x.editor display-line-numbers true
@@ -486,9 +450,6 @@ gsettings set org.x.editor color-scheme 'oblivion'
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
 gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
-
-## Xfce Startup Apps (Xfdashboard)
-cp ~/.vrk/donjon/xfce/config/autostart/* ~/.config/autostart/
 
 ## Theme
 xfconf-query -c xsettings -p /Net/ThemeName -s "Mint-Y-Dark"
@@ -500,42 +461,6 @@ xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspa
 xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
 xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
 
-## Hot keys
-### Menu
-#Already in Mint
-#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
-### Xfdashboard
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>Super_L" -t string -s 'xfdashboard'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt>Super_R" -t string -s 'xfdashboard'
-
-## Xfdashboard
-###DEV see available options: xfconf-query -c xfdashboard -lv
-#http://xfdashboard.froevel.de/settings.html
-#https://github.com/gmc-holle/xfdashboard/issues/122
-## Dashboard settings
-xfconf-query -n -t bool -c xfdashboard -p /always-launch-new-instance -s false
-xfconf-query -n -t bool -c xfdashboard -p /components/applications-view/show-all-apps -s true
-xfconf-query -n -t bool -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
-xfconf-query -c xfdashboard -p /theme -s xfdashboard-dark
-## Enable the hot-corner plugin by adding the hot-corner value to enabled-plugins as a new property
-xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner
-## Enable gnome shell search provider also (this resets all plugins every time)
-#xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner -t string -s gnome-shell-search-provider
-## Settings for hotcorner
-xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
-xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-duration -s 27
-xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
-## Favorites (spelled British in settings!)
-### Defaults:
-### xfconf-query -n -t bool -c xfdashboard -p /favourites -n -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "exo-file-manager.desktop" -t string -s "exo-terminal-emulator.desktop"
-xfconf-query -c xfdashboard -p /favourites -n -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
-
-### Conky IN DEV
-#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
-#chmod +x .start-conky
-#cd && wget -O gotham-noobslab-ugs.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-ugs.zip
-#unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
-
 fi
 # Mint_Xfce #
 
@@ -546,12 +471,9 @@ if [ "$DESKTOP_SESSION" = "mate" ]; then
 
 ## App Defaults
 # Not in Mint or MATE
-#cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
-## Docky
-if [ ! -d ~/.gconf/apps/docky-2 ]; then
-cp -R ~/.vrk/donjon/mate/gconf/apps/docky-2 ~/.gconf/apps/
-fi
+## Autostart special
+# Not in Mint or MATE
 
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
@@ -579,12 +501,6 @@ gsettings set org.x.editor display-line-numbers true
 gsettings set org.x.editor color-scheme 'oblivion'
 fi
 #######
-
-### Conky IN DEV
-#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
-#chmod +x .start-conky
-#cd && wget -O gotham-noobslab-ugs.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-ugs.zip
-#unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
 
 fi
 # MATE #

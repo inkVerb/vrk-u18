@@ -1,0 +1,23 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This adds an existing surfer's profile to Guake Indicator as a root menu item
+
+# How to use:
+## ./set-guake-indicator-on
+
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Refresh guake's autostart status for indicator (to avoid duplicate autostarts)
+rm -f ~/.config/autostart/guake.desktop
+cp ~/.vrk/donjon/guake/guake-indicator.desktop ~/.config/autostart/
+
+# Finish
+echo "Guake-Indicator is now loading at startup. You can also use F12 for the local \"Earth Guake\" ;-)"
+
