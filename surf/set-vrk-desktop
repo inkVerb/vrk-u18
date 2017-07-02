@@ -140,9 +140,6 @@ mkdir -p ~/.gconf/apps
 if [ ! -d ~/.gconf/apps/guake ]; then
 cp -rf ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
 fi
-if [ ! -f ~/.gconf/apps/%gconf.xml ]; then
-cp -rf ~/.vrk/donjon/global/gconf/apps/%gconf.xml ~/.gconf/apps/
-fi
 
 ## App Theming
 ### Future: (still doesn't work all the time)
@@ -323,10 +320,29 @@ xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspa
 
 ## Hot keys
 ### Menu
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>space" -t string -s 'xfce4-popup-whiskermenu'
+#legacy
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
 ### Xfdashboard
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>Super_L" -t string -s 'xfdashboard'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt>Super_R" -t string -s 'xfdashboard'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>space" -t string -s 'xfdashboard'
+#avoid minor conflict with tiling Ctrl press order
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>Super_L" -t string -s 'xfdashboard'
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl>Super_R" -t string -s 'xfdashboard'
+### Window tiling
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Super>Up" -t string -s 'tile_up_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Super>Down" -t string -s 'tile_down_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Super>Left" -t string -s 'tile_left_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Super>Right" -t string -s 'tile_right_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Left" -t string -s 'tile_up_left_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Right" -t string -s 'tile_up_right_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Left" -t string -s 'tile_down_left_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Right" -t string -s 'tile_down_right_key'
+### Whisker menu
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>z" -t string -s 'xfce4-popup-whiskermenu'
+#avoid minor conflict with tiling Alt press order
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt>Super_L" -t string -s 'xfce4-popup-whiskermenu'
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt>Super_R" -t string -s 'xfce4-popup-whiskermenu'
+
 
 ## Xfdashboard
 ###DEV see available options: xfconf-query -c xfdashboard -lv
