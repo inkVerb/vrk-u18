@@ -443,16 +443,16 @@ if [ -d "/home/${PATCH_USER}" ]; then
 # myWall new names
 mv -f /home/${PATCH_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml /home/${PATCH_USER}/.vrk/myWall/my-cinn-wall.xml
 if [ -d /usr/share/cinnamon-background-properties ]; then
-ln -sfn /home/${VRK_USER}/.vrk/myWall/my-cinn-wall.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
+ln -sfn /home/${PATCH_USER}/.vrk/myWall/my-cinn-wall.xml /home/${PATCH_USER}/.local/share/cinnamon-background-properties/
 fi
-if [ ! -f /home/${VRK_USER}/.vrk/myWall/my-mate-wall.xml ]; then
+if [ ! -f /home/${PATCH_USER}/.vrk/myWall/my-mate-wall.xml ]; then
 echo "<?xml version=\"1.0\"?>
 <!DOCTYPE wallpapers SYSTEM \"mate-wp-list.dtd\">
 <wallpapers>
-</wallpapers>" > /home/${VRK_USER}/.vrk/myWall/my-mate-wall.xml
+</wallpapers>" > /home/${PATCH_USER}/.vrk/myWall/my-mate-wall.xml
 fi
 if [ -d /usr/share/mate-background-properties ]; then
-ln -sfn /home/${VRK_USER}/.vrk/myWall/my-mate-wall.xml /home/${VRK_USER}/.local/share/mate-background-properties/
+ln -sfn /home/${PATCH_USER}/.vrk/myWall/my-mate-wall.xml /home/${PATCH_USER}/.local/share/mate-background-properties/
 fi
 
 ###############STOP#USER#PATCH#
