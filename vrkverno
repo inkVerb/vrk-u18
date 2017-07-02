@@ -1,6 +1,6 @@
 #!/bin/sh
 # inkVerb Vrk™ version information config, verb.ink
 
-KVERNO=0.307
+KVERNO=0.308
 VTYPE=VRK_STATION
 

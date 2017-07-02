@@ -12,7 +12,9 @@ else
 COMMSG="Normal vrk station updates"
 fi
 
+EXTD_DESCRP=$2
+
 git add .
-git commit -m "${COMMSG}"
+git commit -m "${COMMSG}" -m "${EXTD_DESCRP}"
 git push -u origin master
 
