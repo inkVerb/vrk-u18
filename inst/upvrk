@@ -123,10 +123,11 @@ exit 0
 fi
 
 # Update/refresh Bosses, Surfers, Droids, and Donjon
-rm -rf /var/local/vrk/boss/*
-rm -rf /var/local/vrk/surf/*
-rm -rf /var/local/vrk/donjon/*
+rm -rf /var/local/vrk/boss
+rm -rf /var/local/vrk/surf
+rm -rf /var/local/vrk/donjon
 cp -rf /home/${SUDO_USER}/vrk /var/local/
+rm -f /var/local/vrk/inst/vrkverno
 chmod +x /var/local/vrk/boss/*
 chmod +x /var/local/vrk/surf/*
 chmod +x /var/local/vrk/donjon/*

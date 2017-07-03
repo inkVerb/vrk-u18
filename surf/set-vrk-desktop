@@ -132,7 +132,8 @@ mkdir -p ~/.config/autostart
 #### Just in case, we never know when some update will break the known order
 mkdir -p ~/.gconf/apps/
 ### Autostart
-cp -rf ~/.vrk/donjon/global/config/autostart ~/.config/
+#right now there aren't any global autostarts and the vrk/donjon/global/config/autostart dir doesn't exist.
+#cp -rf ~/.vrk/donjon/global/config/autostart ~/.config/
 ### Kate
 cp -rf ~/.vrk/donjon/global/config/katepartrc ~/.config/
 ### Guake

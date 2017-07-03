@@ -111,6 +111,7 @@ SESSDISTRO="$1"
 # Set the directory to var/local, but a hidden link in the user's
 ## Check if it is already in var/local from a previous install
 cp -rf /home/${VRK_USER}/vrk /var/local/
+mv -rf /var/local/vrk/inst/vrkverno /var/local/vrk/
 
 # Executable check
 chmod +x /var/local/vrk/boss/*
