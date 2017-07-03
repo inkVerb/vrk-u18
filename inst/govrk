@@ -8,15 +8,19 @@ set -e
 ## Prerequesite: put vrk in the base of your home folder
 
 # How to use on your local computer:
-## sudo ./govrk [user - if not current sudoer]
+## sudo ./govrk $DESKTOP_SESSION
 
+
+# Verify $DESKTOP_SESSION is included
+if [ -z "$1" ]; then
+echo "Wrong. You must run it this way:
+
+sudo ./govrk \$DESKTOP_SESSION
+"
+exit 0; fi
 
 # Set user
-if [ -z "$1" ]; then
 VRK_USER=${SUDO_USER}
-else
-VRK_USER=$1
-fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
@@ -52,7 +56,7 @@ if [ -d "/var/local/vrk" ]; then
 ## Already installed
 echo "Vrk is already installed. Updating..."
 chmod +x /home/${VRK_USER}/vrk/inst/upvrk
-/home/${VRK_USER}/vrk/inst/upvrk ${VRK_USER}
+/home/${VRK_USER}/vrk/inst/upvrk $1
 exit 0
  else
 ## vrk dir exists, not .vrk
@@ -100,9 +104,9 @@ echo "Bye.
 exit 0
 fi
 
-# Check CPU version
+# CPU version and distro
 PROCVNO=$(dpkg --print-architecture)
-SESSDISTRO="$DESKTOP_SESSION"
+SESSDISTRO="$1"
 
 # Set the directory to var/local, but a hidden link in the user's
 ## Check if it is already in var/local from a previous install

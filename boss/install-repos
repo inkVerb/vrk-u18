@@ -35,11 +35,10 @@ sudo ./install-grfx
 exit 22
 fi
 
-# Check status and add missing
-## If older
-if [ -f /home/${SUDO_USER}/.vrk/configs/grfxstatus ]; then
-echo "Nvidia driver already installed
-"
+# Check status
+. /var/local/vrk/machineinfo
+if [ "${REPOS_INSTALLED}" = "YES" ]; then
+echo "Extra repos already installed."
 exit 0; fi
 
 ## Add some extra repositories
@@ -61,6 +60,10 @@ add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) m
 touch /var/local/vrk/.vubuntu-studiolite-repo-multiverse
   fi
  fi
+
+# Config
+echo "REPOS_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+touch /var/local/vrk/.reposinstalled
 
 # Finish
 apt update

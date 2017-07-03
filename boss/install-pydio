@@ -39,27 +39,22 @@ sudo ./install-pydio
 exit 22
 fi
 
-# Install dependencies
+# Check status
+. /var/local/vrk/machineinfo
+if [ "${PYDIO_INSTALLED}" = "YES" ]; then
+echo "Pydio already installed."
+exit 0; fi
+
+# Install
+## Dependencies
 apt install python-pip
 pip install --upgrade pip
 pip install git+https://github.com/pydio/pydio-sync.git
-
-# Check status and add missing
-## If older
-if [ -f /home/${SUDO_USER}/.vrk/configs/pydiostatus ]; then
-echo "PydioSync already installed. Updating...
-"
-else
-echo "Installing PydioSync...
-"
-fi
+#DEV: This is not finished and Pydio doesn't always work as of yet.
 
 # Config
-echo "#!/bin/sh
-# Pydio install status
-
-PYDIOSTATUS=\"INSTALLED\"
-" > /home/${SUDO_USER}/.vrk/configs/pydiostatus
+echo "PYDIO_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+touch /var/local/vrk/.pydioinstalled
 
 # Finish
 apt autoremove -y

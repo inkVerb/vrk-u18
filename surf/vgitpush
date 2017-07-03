@@ -3,7 +3,7 @@
 ## Prerequesite: vgitinst
 
 # How to use:
-## vgitpush ["Commit message - optional"]
+## vgitpush ["Commit message - optional"] ["Commit long description - optional"]
 
 
 if [ -n "$1" ]; then

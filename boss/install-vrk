@@ -200,7 +200,7 @@ fi
 sed -i "s/XKBOPTIONS=.*/XKBOPTIONS=\"compose:caps\"/g" /etc/default/keyboard
 
 ## Mouse cursor theme for Xfce
-if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] || [ "${DESKTOP_SESSION}" = "xfce" ] ; then
+if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] || [ "${LINUX_DISTRO}" = "xfce" ] ; then
  if [ -d "/usr/share/icons/DMZ-Black/cursor.theme" ]; then
 ln -fs /usr/share/icons/DMZ-Black/cursor.theme /etc/alternatives/x-cursor-theme
  fi

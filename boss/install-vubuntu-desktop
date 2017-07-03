@@ -12,6 +12,12 @@
 # Set user
 VRK_USER=${SUDO_USER}
 
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk on this machine first. See README.md"
+exit 22
+fi
+
 # Check if installed
 if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
@@ -39,16 +45,9 @@ sudo ./install-vubuntu-desktop
 exit 22
 fi
 
-# Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
-echo "Install Vrk on this machine first. See README.md"
-exit 22
-fi
-
 # Check if Vubuntu Desktop installed
-. /var/local/vrk/machineinfo
 if [ "${VUBUNTU_DESKTOP_INSTALLED}" = "YES" ]; then
-echo "Vubuntu apps already installed."
+echo "Vubuntu desktop apps already installed."
 exit 0
 fi
 
@@ -58,6 +57,8 @@ echo "Vubuntu Desktop already installed on this machine."
 exit 0
 fi
 
+# Include the config
+. /var/local/vrk/machineinfo
 
 # Update & Upgrade
 apt update && apt upgrade -yf --fix-missing
@@ -100,7 +101,7 @@ ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/share/libreoff
 # Global #
 
 # Unity
-if [ "${DESKTOP_SESSION}" = "ubuntu" ]; then
+if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
 /var/local/vrk/donjon/vubuntu-unity-notifications-off
 
 fi
@@ -108,45 +109,51 @@ fi
 
 
 # GNOME
-#if [ "${DESKTOP_SESSION}" = "gnome" ]; then
+#if [ "${LINUX_DISTRO}" = "gnome" ]; then
 
 #fi
 # GNOME #
 
 
 
-# Xfce/Mint-Xfce/UbuntuStudio
-if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+# Xubuntu/UbuntuStudio
+if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ; then
 ## xfDashboard
-#NO LONGER IN TESTING, normal repos work
-#add-apt-repository -y ppa:xubuntu-dev/extras && apt update
+#NO LONGER IN TESTING, normal repos may work, just in case
+add-apt-repository -y ppa:xubuntu-dev/extras
+apt update
 apt install -y xfdashboard
 
 fi
-# Xfce #
+# Xubuntu #
 
 
 # KDE
-#if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
+#if [ "$LINUX_DISTRO" = "/usr/share/xsessions/plasma" ]; then
 
 #fi
 # KDE #
 
 
 # MATE
-#if [ "$DESKTOP_SESSION" = "mate" ]; then
+#if [ "$LINUX_DISTRO" = "mate" ]; then
 
 #fi
 # MATE #
 
 
 # Cinnamon
-#if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+#if [ "$LINUX_DISTRO" = "cinnamon" ]; then
 
 #fi
 # Cinnamon #
 
 
+# Mint_XFCE
+#if  [ "${LINUX_DISTRO}" = "xfce" ]; then
+
+#fi
+# Mint_Xfce
 
 # Set configs
 echo "VUBUNTU_DESKTOP_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo

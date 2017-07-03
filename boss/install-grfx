@@ -37,11 +37,10 @@ sudo ./install-grfx
 exit 22
 fi
 
-# Check status and add missing
-## If older
-if [ -f /home/${SUDO_USER}/.vrk/configs/grfxstatus ]; then
-echo "Nvidia driver already installed
-"
+# Check status
+. /var/local/vrk/machineinfo
+if [ "${VRK_GRFX_INSTALLED}" = "YES" ]; then
+echo "Graphics drivers already installed."
 exit 0; fi
 
 # Install
@@ -49,11 +48,8 @@ add-apt-repository -y ppa:graphics-drivers/ppa
 sudo apt update
 
 # Config
-echo "#!/bin/sh
-# Pydio repo status
-
-GRFXSTATUS=INSTALLED
-" > /home/${SUDO_USER}/.vrk/configs/grfxstatus
+echo "VRK_GRFX_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+touch /var/local/vrk/.grfxinstalled
 
 # Finish
 apt autoremove -y

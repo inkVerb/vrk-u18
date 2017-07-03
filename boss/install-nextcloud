@@ -36,12 +36,10 @@ exit 22
 fi
 
 # Check status
-if [ -f /home/${SUDO_USER}/.vrk/configs/nextcloudstatus ]; then
-. /home/${SUDO_USER}/.vrk/configs/nextcloudstatus
-if [ "${NCSTATUS}" = "INSTALLED" ]; then
-echo "Nextcloud already installed. Nothing to do."
+. /var/local/vrk/machineinfo
+if [ "${NC_INSTALLED}" = "YES" ]; then
+echo "Nextcloud already installed."
 exit 0; fi
-fi
 
 # Install
 if [ ! -f "/var/local/vrk/.vubuntu-nextcloud" ]; then
@@ -52,11 +50,8 @@ apt update
 apt install nextcloud-client -y
 
 # Config
-echo "#!/bin/sh
-# Nextcloud repo status
-
-NCSTATUS=\"INSTALLED\"
-" > /home/${SUDO_USER}/.vrk/configs/nextcloudstatus
+echo "NC_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+touch /var/local/vrk/.nextcloudinstalled
 
 # Finish
 apt autoremove -y

@@ -259,7 +259,7 @@ ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_WORK_DIR}" /home/${VRK_US
 ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER} /home/${VRK_USER}/.vrk/myWall
 ln -sfn /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/myWall-${VRK_USER} /home/${VRK_USER}/.local/share/backgrounds/myWall
 ### Xfce/Mint-Xfce/UbuntuStudio (Does't like Templates in a linked folder)
- if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+ if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "xfce" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ; then
 rm -f /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
 mv /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}"-vback /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
   if [ -d /home/${VRK_USER}/myLang ]; then
@@ -281,7 +281,7 @@ ${VRK_WORK_DIR}, Documents, Templates, and myWall folders on this Vrk Station (c
 Anything you put in ${XDG_TEMPLATES_DIR} will be in your \"New Document\" context menu, and synced across all stations.
 "
 ## Xfce/Mint-Xfce/UbuntuStudio notice
- if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+ if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "xfce" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ; then
 echo "FYI: Because you are using Xfce, your Templates will NOT be synced across machines automatically.
 
 You still have a folder in CLOUD/Vrk/Templates which is synced, but on this machine you must keep CLOUD/Vrk/Templates and Templates synced yourself.

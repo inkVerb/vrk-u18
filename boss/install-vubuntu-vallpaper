@@ -59,6 +59,9 @@ sudo ./install-vubuntu-vallpaper
 exit 22
 fi
 
+# Include the config
+. /var/local/vrk/machineinfo
+
 # Install/Update Vallpaper base
 ## The actuall Valls exist here under lock and key.
 mkdir -p /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}
@@ -89,7 +92,7 @@ ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/vallpapers-${VALL_ROOM}.
 cd /usr/share/gnome-background-properties/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 ## Xfce
-if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] ; then
+if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "xfce" ] ; then
 #### DEV NOTE: In Linuxmint Xfce, /usr/share/xfce4/backdrops is a symlink containing native backgrounds for both
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/xfce4/backdrops/
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/xfce4/backdrops/
@@ -98,12 +101,12 @@ cd /usr/share/xfce4/backdrops/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 ## UbuntuStudio
-if [ "${DESKTOP_SESSION}" = "ubuntustudio" ]; then
+if [ "${LINUX_DISTRO}" = "ubuntustudio" ]; then
 #### DEV NOTE: in UbuntuStudio, /usr/share/xfce4/backdrops is a symlink to /usr/share/backgrounds/ubuntustudio, containing native backgrounds for both
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/backgrounds/ubuntustudio/
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/backgrounds/ubuntustudio/
 ### Remove any broken symlinks
-cd /usr/share/xfce4/backdrops/
+cd /usr/share/backgrounds/ubuntustudio/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 ## MATE
@@ -130,6 +133,6 @@ gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images
 
 # Finish
 echo "
-Vubuntu native wallpapers are installed and up to date.
+Vubuntu Vallpaper native wallpapers are installed and up to date.
 "
 

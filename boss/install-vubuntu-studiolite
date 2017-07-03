@@ -12,6 +12,12 @@
 # Set user
 VRK_USER=${SUDO_USER}
 
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk on this machine first. See README.md"
+exit 22
+fi
+
 # Check if installed
 if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
@@ -40,11 +46,9 @@ exit 22
 fi
 
 # Check if Vubuntu StudioLite installed
-. /var/local/vrk/machineinfo
 if [ "${VUBUNTU_STUDIOLITE_INSTALLED}" = "YES" ]; then
-echo "Vubuntu StudioLite already installed."
-exit 0
-fi
+echo "Vubuntu StudioLite apps already installed."
+exit 0; fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
@@ -102,10 +106,10 @@ Tools done. Now doing browsers...
 "
 apt install -y midori thunderbird firefox
 apt install -y chromium-browser djview-plugin
-if [ "${DESKTOP_SESSION}" = "ubuntu" ]; then
+if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
 apt install -y unity-chromium-extension
 fi
-if [ "${DESKTOP_SESSION}" = "gnome" ]; then
+if [ "${LINUX_DISTRO}" = "gnome" ]; then
 apt install -y epiphany-browser gconf-editor
 fi
 if [ "${PROCVNO}" = "amd64" ]; then
@@ -211,11 +215,7 @@ apt install -y stellarium
 
 # Set config
 echo "VUBUNTU_STUDIOLITE_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
-echo "#!/bin/sh
-# Pydio repo status
-
-STUDIOLITE=\"INSTALLED\"
-" > /home/${SUDO_USER}/.vrk/configs/studiolitestatus
+touch /home/${SUDO_USER}/.vrk/configs/.studiolite
 ## Remove repo temp progress files
 rm /var/local/vrk/.vubuntu-studiolite-*
 

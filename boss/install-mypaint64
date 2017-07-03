@@ -37,12 +37,10 @@ exit 22
 fi
 
 # Check status
-if [ -f /home/${SUDO_USER}/.vrk/configs/mypaintstatus ]; then
-. /home/${SUDO_USER}/.vrk/configs/mypaintstatus
-if [ "${MYPAINTSTATUS}" = "INSTALLED" ]; then
-echo "MyPaint already installed. Nothing to do."
+. /var/local/vrk/machineinfo
+if [ "${MYPAINT_INSTALLED}" = "YES" ]; then
+echo "MyPaint already installed."
 exit 0; fi
-fi
 
 # Install
 ## Verify Flatpak
@@ -53,11 +51,8 @@ flatpak install -y --from https://raw.githubusercontent.com/mypaint/mypaint/mast
 apt install -y mypaint mypaint-data-extras
 
 # Config
-echo "#!/bin/sh
-# Nextcloud repo status
-
-MYPAINTSTATUS="INSTALLED"
-" > /home/${SUDO_USER}/.vrk/configs/mypaintstatus
+echo "MYPAINT_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo 
+touch /var/local/vrk/.mypaintinstalled
 
 # Finish
 apt autoremove -y
