@@ -56,7 +56,7 @@ fi
 ## GitHub
 if [ "${UTYPE}" = "git" ]; then
 cd /home/${SUDO_USER}
-git clone https://github.com/inkVerb/vrk.git
+git clone https://github.com/inkVerb/vrk
 cd vrk/inst
 chmod +x upvrk
 ./upvrk
