@@ -360,12 +360,12 @@ xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner
 #xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner -t string -s gnome-shell-search-provider
 ## Settings for hotcorner
 xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
-xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-duration -s 27
-xfconf-query -n -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
+xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-duration -s 27
+xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
 ## Favorites (spelled British in settings!)
 ### Defaults:
 ### xfconf-query -n -t bool -c xfdashboard -p /favourites -n -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "exo-file-manager.desktop" -t string -s "exo-terminal-emulator.desktop"
-xfconf-query -c xfdashboard -p /favourites -n -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
+xfconf-query -n -t string -c xfdashboard -p /favourites -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
 
 ## Whisker menu
 ### Icon
