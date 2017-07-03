@@ -146,6 +146,8 @@ cp -rf ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
 fi
 
 ## App Theming
+### Dependency directory
+mkdir -p ~/.local/share/applications
 ### Future: (still doesn't work all the time)
 #http://askubuntu.com/questions/78088/can-i-apply-a-different-gtk3-theme-from-the-main-one-to-an-individual-applicatio
 # This directory has .css files with app names
@@ -167,6 +169,9 @@ cp /usr/share/applications/libreoffice-impress.desktop ~/.local/share/applicatio
 sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --impress %U/g" ~/.local/share/applications/libreoffice.impress.desktop
 cp /usr/share/applications/libreoffice-startcenter.desktop ~/.local/share/applications/libreoffice.startcenter.desktop
 sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice %U/g" ~/.local/share/applications/libreoffice.startcenter.desktop
+
+## Pause to avoid trouble
+sleep 1
 
 # Global #
 
@@ -304,8 +309,29 @@ xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "
 #xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:menu"
 
 ## Set theme & icons
+#### Theme
 xfconf-query -c xsettings -p /Net/ThemeName -s "Greybird"
-xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Arch-Blue"
+#### Per distro ;-)
+if [ "${LINUX_DISTRO}" = "ubuntustudio" ]; then
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Arch-Blue"; fi
+if [ "${LINUX_DISTRO}" = "xubuntu" ]; then
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Numix-Misty"; fi
+
+## Pause to avoid trouble
+sleep 1
+
+## Whisker menu
+### Icon
+#### Per distro ;-)
+if [ "${LINUX_DISTRO}" = "ubuntustudio" ]; then
+sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/inkVerb-disk-blue\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc; fi
+if [ "${LINUX_DISTRO}" = "xubuntu" ]; then
+sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/inkVerb-disk-white\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc; fi
+#### Show it
+sed -i "s/show-button-icon=.*/show-button-icon=true/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+### Favorites
+sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,chromium-browser\.desktop,firefox\.desktop,midori\.desktop,gedit\.desktop,libreoffice-writer\.desktop,thunderbird\.desktop,rhythmbox\.desktop,org\.gnome\.Software\.desktop,gnome-calculator\.desktop/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 
 ## Terminal color scheme
 ~/.vrk/donjon/xt-xfce
@@ -322,6 +348,9 @@ xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspa
 xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
 xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
 
+## Pause to avoid trouble
+sleep 1
+
 ## Hot keys
 ### Menu
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
@@ -335,18 +364,17 @@ xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Supe
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_R" -t string -s 'xfdashboard'
 ### Window tiling
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Up" -t string -s 'tile_up_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Up" -t string -s 'tile_up_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Up" -t string -s 'tile_up_key'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Down" -t string -s 'tile_down_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Down" -t string -s 'tile_down_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Down" -t string -s 'tile_down_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Left" -t string -s 'tile_left_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Right" -t string -s 'tile_right_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Left" -t string -s 'tile_up_left_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Right" -t string -s 'tile_up_right_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Left" -t string -s 'tile_left_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Right" -t string -s 'tile_right_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Left" -t string -s 'tile_up_left_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Right" -t string -s 'tile_up_right_key'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Left" -t string -s 'tile_down_left_key'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Right" -t string -s 'tile_down_right_key'
 ### Whisker menu
+
+## Pause to avoid trouble
+sleep 1
 
 ## Xfdashboard
 ###DEV see available options: xfconf-query -c xfdashboard -lv
@@ -369,15 +397,10 @@ xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-radiu
 ### Defaults:
 ### xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "exo-file-manager.desktop" -t string -s "exo-terminal-emulator.desktop"
 ### xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
-xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
+xfconf-query -n -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
 
-## Whisker menu
-### Icon
-sed -i "s/button-icon=.*/button-icon=\/var\/local\/vrk\/donjon\/icons\/inkVerb-disk-blue\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc
-sed -i "s/show-button-icon=.*/show-button-icon=true/g" ~/.config/xfce4/panel/whiskermenu-1.rc
-### Favorites
-sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,chromium-browser\.desktop,firefox\.desktop,midori\.desktop,gedit\.desktop,libreoffice-writer\.desktop,thunderbird\.desktop,rhythmbox\.desktop,org\.gnome\.Software\.desktop,gnome-calculator\.desktop/g" ~/.config/xfce4/panel/whiskermenu-1.rc
-sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+## Pause to avoid trouble
+sleep 1
 
 ## App Theming (specifically for Xfce since some GTK themes ignore some apps)
 ### Rhythmbox
@@ -390,8 +413,10 @@ sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name=
 
 ## Message
 echo "
-Ctrl + Win (left side only) shows your dashboard.
-
+Ctrl + Win + Up/Down/Right/Left tiles your window in 1/2 screen.
+Shft + Win + Up/Down/Right/Left tiles your window in 1/4 screen on the top.
+Alt  + Win + Up/Down/Right/Left tiles your window in 1/4 screen on the bottom.
+Ctrl + Win + Alt shows your window spread & dashboard.
 Scroll on the desktop to switch workspaces.
 "
 
@@ -477,7 +502,7 @@ gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
 
 ## Theme
 xfconf-query -c xsettings -p /Net/ThemeName -s "Mint-Y-Dark"
-xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Vertexed"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Numix-Misty"
 
 ## Wallpaper
 xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/inkPage.png

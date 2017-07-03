@@ -54,7 +54,8 @@ exit 0; fi
 . /var/local/vrk/machineinfo
 
 # Update & Upgrade
-apt update && apt upgrade -yf --fix-missing
+apt update
+apt upgrade -yf --fix-missing
 apt install -yf
 
 # Ubuntu Studio Wallpapers, GTK configs, GNOME/Unity Tweak Tools, Xfce Dashboard, Guake, Docky, Variety

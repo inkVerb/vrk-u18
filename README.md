@@ -1,4 +1,26 @@
 # Vrk
+Vrk supercharges your ubuntu desktop experience by "breaking it in" with settings, theming, wallpapers, apps, and more.
+
+###### Environments
+- Xfce (Xubuntu/UbuntuStudio) has the most support, with 1/4 window hotkey tiling and even the "Xfdashboard" window spread.
+- GNOME & Budgie are well-supported provide a rather awesome experience already, so they have just a little less tweaking.
+- MATE is semi-supported, but not much since it is a legacy by definition.
+- Mint (Cinnamon, Xfce, and MATE) is supported, but already makes things "Minty", so it has few changes so as not to interfere.
+
+###### Xubuntu/UbuntuStudio Hotkeys:
+Win          opens the menu, finally.
+Ctrl + Win + Up/Down/Right/Left tiles your window in 1/2 screen.
+Shft + Win + Up/Down/Right/Left tiles your window in 1/4 screen on the top.
+Alt  + Win + Up/Down/Right/Left tiles your window in 1/4 screen on the bottom.
+Ctrl + Win + Alt shows your window spread & dashboard.
+Scroll on the desktop to switch workspaces.
+
+###### Other environments
+- Unity does retain legacy support and is quite awesome with Vrk. Vrk "desktop" was originally written to make Unity 7 "less unbearable". In the end, Unity 7.5 with the Vrk Desktop scripts weren't only "less unbearable", but made a pretty awesome desktop experience. Unity legacy will remain as long as Ubuntu 16.04 LTS is supported, likely through 2021. Eventually, Vrk may put Unity 8 for tablets into the mix, cheers to the guys over at [http://UBports.com]! Shuttlesworth, you weren't wrong, just busy changing the world where you were most needed.
+- KDE/Kubuntu? No way. The roadmap for KDE is already awesome and doesn't need help, it's desktop preferences (viz no Ctrl+Alt+T terminal, abnormal Dolphin file manager actions, etc.) are too weird for "Vrkers", and it's too buggy and doesn't always boot up for development. KDE is anti-supported by the release of Vrk beta 0.4. That said, KDE has awesome ideas. IMHO, their talent is wasted on desktop; they need to focus on making their awesome apps awesomerer. The same could be said of MATE, but legacy GNOME is understandable, except they at least need easy-accessed search. We need fewer desktop environments to spend our developer energies on, not more.
+- LXDE and others, sorry, really. If you want, write in the support and make a pull request.
+- Manjaro/Arch support is coming. The code has already been written in anticipation of this so the pacman installers can just be dropped in.
+
 ##### BETA:
 This has only been tested with Ubuntu: Xfce (Xubuntu), Unity (Ubuntu, legacy but still working for the 16.04 LTS), GNOME, KDE, Cinnamon, and Mate. Linuxmint has limited testing, but should theoretically work. Manjaro is a later goal.
 
@@ -195,4 +217,5 @@ Now, the user that ran this will have Vrk in his own system.
 - Included with installvubuntu is Docky with a rollup of several common apps and a transparent dock configuration, some normal settings for Guake, and the like.
 - Vubuntu is a long-term plan as a possible distro, but aims to work as a seamless add-on for the main Ubuntu distro desktops. If ever a distro, it owuld aim for easy desktop environment changes.
 - Note, installvubuntu includes Chris' Dynamic Compressor plugin for Audacity. We remember.
+
 
