@@ -333,13 +333,13 @@ xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_R" -t str
 #### set for both orders since order matters
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_L" -t string -s 'xfdashboard'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_R" -t string -s 'xfdashboard'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt><Ctrl>Super_L" -t string -s 'xfdashboard'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Alt><Ctrl>Super_R" -t string -s 'xfdashboard'
 ### Window tiling
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Up" -t string -s 'tile_up_key'
-xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Down" -t string -s 'tile_down_key'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Up" -t string -s 'tile_up_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Up" -t string -s 'tile_up_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Down" -t string -s 'tile_down_key'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Down" -t string -s 'tile_down_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Down" -t string -s 'tile_down_key'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Left" -t string -s 'tile_left_key'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Right" -t string -s 'tile_right_key'
 xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Left" -t string -s 'tile_up_left_key'
@@ -367,8 +367,9 @@ xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-durat
 xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
 ## Favorites (spelled British in settings!)
 ### Defaults:
-### xfconf-query -n -t bool -c xfdashboard -p /favourites -n -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "exo-file-manager.desktop" -t string -s "exo-terminal-emulator.desktop"
-xfconf-query -n -t string -c xfdashboard -p /favourites -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
+### xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "exo-file-manager.desktop" -t string -s "exo-terminal-emulator.desktop"
+### xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
+xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
 
 ## Whisker menu
 ### Icon

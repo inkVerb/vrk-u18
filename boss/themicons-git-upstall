@@ -12,6 +12,11 @@
 
 INSTHEMICON=$1
 
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22; fi
+
 # Xfce/Mint-Xfce/UbuntuStudio quit (This doesn't work for them.)
 if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "xfce" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ; then
 echo "Not applicable to Xfce."; exit 0; fi
@@ -25,17 +30,17 @@ echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perha
 like this:
 sudo ./themicons-git-upstall
 "
-exit 22
- fi
-fi
+exit 22; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
 sudo ./themicons-git-upstall
 "
-exit 22
-fi
+exit 22; fi
+
+# Include the config
+. /var/local/vrk/machineinfo
 
 # Prepare notice
 echo "

@@ -10,11 +10,15 @@ set -e
 ## sudo ./install-grfx
 
 
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22; fi
+
 # Check if installed
 if [ ! -f /home/${SUDO_USER}/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
-exit 22
-fi
+exit 22; fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
@@ -25,23 +29,21 @@ echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perha
 like this:
 sudo ./install-grfx
 "
-exit 22
- fi
-fi
+exit 22; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
 sudo ./install-grfx
 "
-exit 22
-fi
+exit 22; fi
 
 # Check status
 . /var/local/vrk/machineinfo
 if [ "${VRK_GRFX_INSTALLED}" = "YES" ]; then
 echo "Graphics drivers already installed."
 exit 0; fi
+
 
 # Install
 add-apt-repository -y ppa:graphics-drivers/ppa

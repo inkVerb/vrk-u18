@@ -30,42 +30,34 @@ echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perha
 like this:
 sudo ./install-vrk-langdirs
 "
-exit 0
- fi
-fi
+exit 0; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
 sudo ./install-vrk-langdirs
 "
-exit 0
-fi
+exit 0; fi
 
 # Check if Vrk installed on this machine
 if [ ! -f /var/local/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
-exit 22
-fi
+exit 22; fi
 
 # Check if user exists
 if [ ! -e /home/${VRK_USER} ]; then
 echo "User does not exist! Try again."
-exit 22
-fi
+exit 22; fi
 ## User settings, has logged in and has necessary folders
 if [ ! -e /home/${VRK_USER}/.config/user-dirs.dirs ]; then
 echo "User has not logged in yet or lacks vital configs! Log in with the user one time, then try again."
-exit 22
-fi
+exit 22; fi
 if [ ! -e /home/${VRK_USER}/"${XDG_DOCUMENTS_DIR}" ]; then
 echo "User does not have the ${XDG_DOCUMENTS_DIR} folder! Create that folder, then try again."
-exit 22
-fi
+exit 22; fi
 if [ ! -e /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" ]; then
 echo "User does not have the ${XDG_TEMPLATES_DIR} folder! Create that folder, then try again."
-exit 22
-fi
+exit 22; fi
 
 # Check if Vrk Staion is installed for this user
 if [ -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
