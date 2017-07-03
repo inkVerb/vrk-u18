@@ -68,8 +68,8 @@ else
 ## .vrk exists, not vrk
  if [ -d "/home/${VRK_USER}/.vrk" ]; then
 echo "Vrk is damaged. Removing it, then trying to continue. If this fails, remove the .vrk folder and start again."
-chmod +x /home/${VRK_USER}/vrk/boss/uninstall-vubuntu-vrkstation
-/home/${VRK_USER}/vrk/boss/uninstall-vubuntu-vrkstation
+chmod +x /home/${VRK_USER}/vrk/boss/uninstall-vrk
+/home/${VRK_USER}/vrk/boss/uninstall-vrk
  fi
 fi
 
