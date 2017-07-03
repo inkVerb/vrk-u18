@@ -78,9 +78,11 @@ Installing Vubuntu Studio Lite
 First, updates and fonts. Get ready to agree to EULA...
 "
 
-### Done
-touch /var/local/vrk/.vubuntu-studiolite-repo
-fi
+## Repos
+#if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
+#Add any repos here
+#touch /var/local/vrk/.vubuntu-studiolite-repo
+#fi
 
 ## Update & Upgrade
 apt update && apt upgrade -yf --fix-missing
@@ -92,7 +94,7 @@ echo "
 Fonts are now installed. Now doing some basic tools...
 "
 apt install -y zip p7zip-full gzip guake phatch docky gedit kate nautilus grabc gparted shutter kazam
-# Redundant from install-vubuntu-desktop
+## Redundant from install-vubuntu-desktop
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
 echo "
 Tools done. Now doing browsers...
