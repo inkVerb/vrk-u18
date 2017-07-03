@@ -30,7 +30,7 @@ Read the README.md before reporting problems! !! Seriously.
 
 `chmod +x govrk`
 
-`sudo ./govrk`
+`sudo ./govrk $DESKTOP_SESSION`
 
 - Answer the two simple folder questions carefully
 - The machine will reboot if you are installing the first time.
@@ -71,13 +71,13 @@ Now, the user that ran this will have Vrk in his own system.
 ### Updates
 - If already installed, the same install procedure will update instead.
 - Some specific features per user must be updated per user.
-- Per user update:
+- This will update the core and all users:
 
 `cd /vrk/inst`
 
 `chmod +x upvrk`
 
-`sudo ./upvrk user`
+`sudo ./upvrk $DESKTOP_SESSION`
 
 
 ## Where stuff is
