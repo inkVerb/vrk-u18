@@ -19,5 +19,5 @@ rm -f ~/.config/autostart/guake-indicator.desktop
 cp ~/.vrk/donjon/guake/guake.desktop ~/.config/autostart/
 
 # Finish
-echo "Guake-Indicator will not run at startup, Guake will load instead, usually in silence, use F12 ;-)"
+echo "Guake will load at startup, usually in silence, use F12 ;-)"
 

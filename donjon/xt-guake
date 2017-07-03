@@ -1,5 +1,6 @@
 #!/bin/sh
 # Color scheme for Guake terminal
 
+mkdir -p ~/.gconf/apps/
 cp -R ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
 

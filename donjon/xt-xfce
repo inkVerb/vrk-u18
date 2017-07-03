@@ -1,6 +1,10 @@
 #!/bin/sh
 # Color scheme for Xfce terminal
 
+# Create the directory
+mkdir -p ~/.config/xfce4/terminal
+
+# Echo the settings
 echo "[Configuration]
 ColorPalette=#0c0d0e;#e31a1c;#31a354;#dca060;#3182bd;#756bb1;#80b1d3;#b7b8b9;#737475;#e31a1c;#31a354;#dca060;#3182bd;#756bb1;#80b1d3;#fcfdfe
 FontName=DejaVu Sans Mono 11

@@ -118,9 +118,6 @@ gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
 ~/.vrk/boards/set-vall ${VALL_ROOM} ${VALL_BACKGRND}
 ~/.vrk/boards/set-vall-lock ${VALL_ROOM} ${VALL_LOCKSRN}
 
-## Flatabulous terminal "profile" (color scheme)
-~/.vrk/donjon/xt-gnome
-
 ## Gedit (may be redundant in per-environments below, but just be safe)
 gsettings set org.gnome.gedit.preferences.editor wrap-mode none
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
@@ -184,6 +181,9 @@ cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
 ## Autostart special
 cp -rf ~/.vrk/donjon/budgie/config/autostart ~/.config/
+
+## Flatabulous terminal "profile" (color scheme)
+~/.vrk/donjon/xt-gnome
 
 ## Set theme
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
@@ -262,12 +262,8 @@ cp -rf ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 ## Autostart special
 cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 
-## LibreOffice theming
-### Can be: breeze oxygen tango voffice etc
-sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
-
-## Launcher
-gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'epiphany.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'thunderbird.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
+## Flatabulous terminal "profile" (color scheme)
+~/.vrk/donjon/xt-gnome
 
 ## Set theme & icons
 #Depreciated?
@@ -278,8 +274,16 @@ gsettings set org.gnome.desktop.interface icon-theme "Surfn-Luv"
 ## Make icons work in menues
 gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
 
+## LibreOffice theming
+### Can be: breeze oxygen tango voffice etc
+sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+
+## Launcher
+gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'epiphany.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'thunderbird.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
+
 ## Extensions
-gnome-shell-extension-tool -e launch-new-instance
+#No, use Ctrl + Click instead
+#gnome-shell-extension-tool -e launch-new-instance
 
 fi
 # GNOME #
@@ -384,7 +388,7 @@ sleep 1
 xfconf-query -n -t bool -c xfdashboard -p /always-launch-new-instance -s false
 xfconf-query -n -t bool -c xfdashboard -p /components/applications-view/show-all-apps -s true
 xfconf-query -n -t bool -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
-xfconf-query -c xfdashboard -p /theme -s xfdashboard-dark
+xfconf-query -n -t string -c xfdashboard -p /theme -s xfdashboard-dark
 ## Enable the hot-corner plugin by adding the hot-corner value to enabled-plugins as a new property
 xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner
 ## Enable gnome shell search provider also (this resets all plugins every time)
