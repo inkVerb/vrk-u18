@@ -11,28 +11,36 @@
 # Eg:
 ## set-vall vubuntu Not-A-Mac.png 3
 
+
 VALLROOM=$1
 NEWIMAGE=$2
 XMNTR=$3
 
+## Check if Vall installed on this machine
+if [ ! -f /var/local/vall/vallmachineinfo ]; then
+echo "Install Vall on this machine first. See README.md"
+exit 22; fi
+
+# Include the config
+. /var/local/vall/vallmachineinfo
+
 # Unity
-if [ "${DESKTOP_SESSION}" = "ubuntu" ]; then
+if [ "${VALL_LINUX_DISTRO}" = "ubuntu" ]; then
 gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
 fi
 
-
 # GNOME
-if [ "${DESKTOP_SESSION}" = "gnome" ]; then
+if [ "${VALL_LINUX_DISTRO}" = "gnome" ]; then
 gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
 fi
 
 # Budgie
-if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
+if [ "$VALL_LINUX_DISTRO" = "budgie-desktop" ]; then
 gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
 fi
 
 # Xfce/Mint-Xfce/UbuntuStudio
-if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "xfce" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+if [ "${VALL_LINUX_DISTRO}" = "xubuntu" ] || [ "${VALL_LINUX_DISTRO}" = "xfce" ] || [ "${VALL_LINUX_DISTRO}" = "ubuntustudio" ] ; then
  if [ -z "$3" ]; then
 xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
 xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/${NEWIMAGE}
@@ -44,17 +52,17 @@ xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor${XMNTR}/workspace0/la
 fi
 
 # MATE
-if [ "$DESKTOP_SESSION" = "mate" ]; then
+if [ "$VALL_LINUX_DISTRO" = "mate" ]; then
 gsettings set org.mate.background picture-filename /usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
 fi
 
 # Cinnamon
-if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+if [ "$VALL_LINUX_DISTRO" = "cinnamon" ]; then
 gsettings set org.cinnamon.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
 fi
 
 # KDE
-#if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
+#if [ "$VALL_LINUX_DISTRO" = "/usr/share/xsessions/plasma" ]; then
 #fi
 
 

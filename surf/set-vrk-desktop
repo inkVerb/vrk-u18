@@ -51,39 +51,42 @@ exit 0
  fi
 fi
 
+# Include the config
+. /var/local/vrk/machineinfo
+
 # Kill conflicting apps
 killall -q dolphin
 killall -q docky
 
 # Global exceptions tests
-if [ "$DESKTOP_SESSION" = "ubuntu" ]; then
+if [ "$LINUX_DISTRO" = "ubuntu" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
-if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
+if [ "$LINUX_DISTRO" = "budgie-desktop" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
-#if [ "$DESKTOP_SESSION" = "gnome" ]; then
+#if [ "$LINUX_DISTRO" = "gnome" ]; then
 #DESKTOP_GLOBE="EXCEPTION"; fi
-if [ "$DESKTOP_SESSION" = "xubuntu" ]; then
+if [ "$LINUX_DISTRO" = "xubuntu" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
-if [ "$DESKTOP_SESSION" = "ubuntustudio" ]; then
+if [ "$LINUX_DISTRO" = "ubuntustudio" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
-if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
+if [ "$LINUX_DISTRO" = "/usr/share/xsessions/plasma" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
-if [ "$DESKTOP_SESSION" = "mate" ]; then
+if [ "$LINUX_DISTRO" = "mate" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
-if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+if [ "$LINUX_DISTRO" = "cinnamon" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
-if [ "$DESKTOP_SESSION" = "xfce" ]; then
+if [ "$LINUX_DISTRO" = "xfce" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
 ## Needs Docky on side
-if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
+if [ "$LINUX_DISTRO" = "/usr/share/xsessions/plasma" ]; then
 DESKTOP_DOCKY="SIDE"; fi
-if [ "$DESKTOP_SESSION" = "mate" ]; then
+if [ "$LINUX_DISTRO" = "mate" ]; then
 DESKTOP_DOCKY="SIDE"; fi
-if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+if [ "$LINUX_DISTRO" = "cinnamon" ]; then
 DESKTOP_DOCKY="SIDE"; fi
-if [ "$DESKTOP_SESSION" = "xfce" ]; then
+if [ "$LINUX_DISTRO" = "xfce" ]; then
 DESKTOP_DOCKY="SIDE"; fi
-#if [ "$DESKTOP_SESSION" != "/usr/share/xsessions/plasma" ]; then
+#if [ "$LINUX_DISTRO" != "/usr/share/xsessions/plasma" ]; then
 #DESKTOP_GLOBE="EXCEPTION"; fi
 
 # Global
@@ -169,7 +172,7 @@ sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice %U/g" ~/.local/share/app
 
 
 # Budgie
-if [ "$DESKTOP_SESSION" = "budgie-desktop" ]; then
+if [ "$LINUX_DISTRO" = "budgie-desktop" ]; then
 
 ## App Defaults
 cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
@@ -198,7 +201,7 @@ fi
 
 
 # Unity
-if [ "$DESKTOP_SESSION" = "ubuntu" ]; then
+if [ "$LINUX_DISTRO" = "ubuntu" ]; then
 
 ## App Defaults
 cp -rf ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
@@ -246,7 +249,7 @@ fi
 
 
 # GNOME
-if [ "$DESKTOP_SESSION" = "gnome" ]; then
+if [ "$LINUX_DISTRO" = "gnome" ]; then
 
 ## App Defaults
 cp -rf ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
@@ -281,7 +284,7 @@ fi
 ## Help:
 #http://docs.xfce.org/xfce/xfconf/xfconf-query
 
-if [ "${DESKTOP_SESSION}" = "xubuntu" ] || [ "${DESKTOP_SESSION}" = "ubuntustudio" ] ; then
+if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ; then
 
 ## App Defaults
 cp -rf ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
@@ -396,7 +399,7 @@ fi
 
 
 # KDE (Mint_KDE & Kubuntu)
-if [ "$DESKTOP_SESSION" = "/usr/share/xsessions/plasma" ]; then
+if [ "$LINUX_DISTRO" = "/usr/share/xsessions/plasma" ]; then
 
 ## App Defaults (KDE, not global)
 cp -rf ~/.vrk/donjon/kde/local/share/applications ~/.local/share/
@@ -418,7 +421,7 @@ fi
 
 
 # Mint_Cinnamon
-if [ "$DESKTOP_SESSION" = "cinnamon" ]; then
+if [ "$LINUX_DISTRO" = "cinnamon" ]; then
 
 ## App Defaults
 # Not in Mint
@@ -455,7 +458,7 @@ fi
 
 # Mint_Xfce
 ## Currently does not support changing mouse cursor themes
-if [ "${DESKTOP_SESSION}" = "xfce" ] ; then
+if [ "${LINUX_DISTRO}" = "xfce" ] ; then
 
 ## App Defaults
 # Not in Mint
@@ -487,7 +490,7 @@ fi
 
 # MATE (& Mint_MATE)
 ## Currently does not support changing mouse cursor themes
-if [ "$DESKTOP_SESSION" = "mate" ]; then
+if [ "$LINUX_DISTRO" = "mate" ]; then
 
 ## App Defaults
 # Not in Mint or MATE
