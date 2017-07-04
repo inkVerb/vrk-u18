@@ -187,7 +187,7 @@ cp -rf ~/.vrk/donjon/budgie/config/autostart ~/.config/
 #~/.vrk/donjon/xt-budgie # it uses Terminix, not the gnome terminal
 
 ## Set theme
-gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface icon-theme "Surfn-Majestic"
 gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
