@@ -187,7 +187,8 @@ cp -rf ~/.vrk/donjon/budgie/config/autostart ~/.config/
 #~/.vrk/donjon/xt-budgie # it uses Terminix, not the gnome terminal
 
 ## Set theme
-gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+#Budgie's theme is already awesome and other GTK themes don't seem to work well with Budgie
+#gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface icon-theme "Surfn-Majestic"
 gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
@@ -568,4 +569,3 @@ sed -i "s/VUBUNTU_DESKTOP_SET=.*/VUBUNTU_DESKTOP_SET=\"YES\"/g" ~/.vrk/configs/s
 echo "Enjoy Vubuntu Desktop settings. Login again to see them all. :-)
 "
 sleep 2
-
