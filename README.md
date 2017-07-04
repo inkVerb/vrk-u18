@@ -101,6 +101,7 @@ Now, the user that ran this will have Vrk in his own system.
 
 `sudo ./upvrk $DESKTOP_SESSION`
 
+Note: Update version numbers reference the framework. Ongoing updates continue for the surfer and boss, etc job scripts. Framework needs rated, sequential alteration, which is why "version" numbers apply to them. Any update will update job scripts, regardless of the current version number.
 
 ## Where stuff is
 - Your "Work" folder (whatever you set in govrk) syncs your docs in your cloud folder (whatever you set in govrk).
