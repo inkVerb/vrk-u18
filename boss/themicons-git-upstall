@@ -17,10 +17,6 @@ if [ ! -f /var/local/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
-# Xfce/Mint-Xfce/UbuntuStudio quit (This doesn't work for them.)
-if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "xfce" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ; then
-echo "Not applicable to Xfce."; exit 0; fi
-
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
 if [ "$(id -u)" = "0" ]; then
@@ -41,6 +37,10 @@ exit 22; fi
 
 # Include the config
 . /var/local/vrk/machineinfo
+
+# Budgie/Xfce/Mint-Xfce/UbuntuStudio skip themes (This doesn't work for them.)
+if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "xfce" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] || [ "${LINUX_DISTRO}" = "budgie-desktop" ] ; then
+THEME_DISTRO="NO"; fi
 
 # Prepare notice
 echo "
@@ -68,13 +68,18 @@ echo "Installing now.
 Grab some tea. This is gonna' take a while...
 "
 
+# Theme check
+if [ "${THEME_DISTRO}" = "NO" ]; then
+echo "Not doing themes for this distro."
+else
+
 # Themes
 rm -rf /var/local/vrk/donjon/ti/themes-
 mkdir -p /var/local/vrk/donjon/ti/themes-
 cd /var/local/vrk/donjon/ti/themes-
 
 ## Adapta
-if [ -z "${1}" ] || [ "${INSTHEMICON}" = "adapta" ]; then
+if [ -z "${1}" ] || [ "${INSTHEMICON}" = "adapta" ] ; then
 git clone https://github.com/adapta-project/adapta-gtk-theme
 cd adapta-gtk-theme
 ./autogen.sh
@@ -138,6 +143,9 @@ fi
 cd ../
 rm -rf themes-
 
+# Theme check #
+fi
+
 
 # Icons
 mkdir -p /var/local/vrk/donjon/ti/icons-
@@ -197,4 +205,3 @@ rm -rf /var/local/vrk/donjon/ti/icons-
 
 # Finish
 echo "Themes and icons updated, cap'n."
-
