@@ -59,8 +59,7 @@ apt upgrade -yf --fix-missing
 apt install -yf
 
 # Ubuntu Studio Wallpapers, GTK configs, GNOME/Unity Tweak Tools, Xfce Dashboard, Guake, Docky, Variety
-apt install -y conky conky-all ubuntustudio-wallpapers guake docky gnome-terminal htop
-apt install -y gtk-theme-config gnome-tweak-tool unity-tweak-tool variety
+apt install -y conky conky-all ubuntustudio-wallpapers guake docky gnome-terminal variety htop gtk-theme-config
 
 # LibreOffice (done now for vubuntu-desktop settings dependencies)
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
@@ -97,15 +96,15 @@ ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/share/libreoff
 # Unity
 if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
 /var/local/vrk/donjon/vubuntu-unity-notifications-off
-
+apt install -y unity-tweak-tool 
 fi
 # Unity #
 
 
 # GNOME
-#if [ "${LINUX_DISTRO}" = "gnome" ]; then
-
-#fi
+if [ "${LINUX_DISTRO}" = "gnome" ]; then
+apt install -y gnome-tweak-tool
+fi
 # GNOME #
 
 
