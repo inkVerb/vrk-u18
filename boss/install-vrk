@@ -135,6 +135,9 @@ cp -R /var/local/vrk/donjon/vrktemplates/* ${XDG_TEMPLATES_DIR}/
 chown -R ${VRK_USER} /home/${VRK_USER}/.vrk
 
 # Set the global user bin for surfers
+## Sometimes it doesn't exist
+touch /home/${VRK_USER}/.bashrc
+## Add the path config
 if ! grep -Fq "#VrkPath" /home/${VRK_USER}/.bashrc; then
 echo "
 #VrkPath
@@ -235,10 +238,10 @@ sed -i "s/[User]/[User]\nIcon=\/var\/lib\/AccountsService\/icons\/${VRK_USER}/" 
 fi
 
 ## Vrk dirs (Work, myWall)
-/home/${VRK_USER}/.vrk/boards/install-vrk-dirs ${VRK_USER}
+/home/${SUDO_USER}/.vrk/boards/install-vrk-dirs ${VRK_USER}
 
 ## English home/ dirs
-/home/${VRK_USER}/.vrk/boards/install-vrk-langdirs ${VRK_USER}
+/home/${SUDO_USER}/.vrk/boards/install-vrk-langdirs ${VRK_USER}
 
 ## Vrk Cloud
 #/home/${VRK_USER}/.vrk/boards/install-vrk-cloud ${VRK_USER}

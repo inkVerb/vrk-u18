@@ -564,7 +564,7 @@ fi
 sed -i "s/VUBUNTU_DESKTOP_SET=.*/VUBUNTU_DESKTOP_SET=\"YES\"/g" ~/.vrk/configs/stationinfo
 
 # Finish
-echo "Enjoy Vubuntu Desktop settings. :-)
+echo "Enjoy Vubuntu Desktop settings. Login again to see them all. :-)
 "
 sleep 2
 
