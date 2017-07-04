@@ -184,7 +184,7 @@ cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 cp -rf ~/.vrk/donjon/budgie/config/autostart ~/.config/
 
 ## Flatabulous terminal "profile" (color scheme)
-~/.vrk/donjon/xt-gnome
+#~/.vrk/donjon/xt-budgie # it uses Terminix, not the gnome terminal
 
 ## Set theme
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
@@ -196,7 +196,8 @@ gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/Shell
 
 ## LibreOffice theming
 ### Can be: breeze oxygen tango voffice etc
-sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+# reports an error message
+#sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
 
 ## Xfdashboard
 #https://github.com/gmc-holle/xfdashboard/issues/122
