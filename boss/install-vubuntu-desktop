@@ -55,7 +55,7 @@ exit 0; fi
 . /var/local/vrk/machineinfo
 
 # Update & Upgrade
-apt update
+apt update -yf --fix-missing
 apt upgrade -yf --fix-missing
 apt install -yf
 

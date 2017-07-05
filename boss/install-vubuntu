@@ -43,6 +43,11 @@ exit 22; fi
 # Include the config
 . /var/local/vrk/machineinfo
 
+# Update & Upgrade
+apt update -yf --fix-missing
+apt upgrade -yf --fix-missing
+apt install -yf
+
 # Verify the interactives first
 apt install -y msttcorefonts jackd2
 

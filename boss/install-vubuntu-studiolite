@@ -85,9 +85,10 @@ First, updates and fonts. Get ready to agree to EULA...
 #touch /var/local/vrk/.vubuntu-studiolite-repo
 #fi
 
-## Update & Upgrade
-apt update
+# Update & Upgrade
+apt update -yf --fix-missing
 apt upgrade -yf --fix-missing
+apt install -yf
 
 ## Verify interactives first, and the rest of the fonts
 apt install -y ttf-mscorefonts-installer jackd2
@@ -125,32 +126,9 @@ apt install -y google-chrome-stable
  fi
 fi
 echo "
-Tools done. Now doing Google Earth...
+Tools done. More office stuff...
 "
-if [ "${PROCVNO}" = "amd64" ]; then
- if [ ! -f "/var/local/vrk/.vubuntu-studiolite-earth64" ]; then
-rm -f google-earth-stable_current_amd64.deb*
-wget https://dl.google.com/dl/earth/client/current/google-earth-stable_current_amd64.deb
-dpkg -i google-earth-stable*.deb
-apt install -yf
-rm -f google-earth-stable_current_amd64.deb*
-touch /var/local/vrk/.vubuntu-studiolite-earth64
- fi
-fi
-if [ "${PROCVNO}" = "i386" ]; then
- if [ ! -f "/var/local/vrk/.vubuntu-studiolite-earth386" ]; then
-rm -f google-earth-stable_current_i386.deb*
-wget https://dl.google.com/dl/earth/client/current/google-earth-stable_current_i386.deb
-dpkg -i google-earth-stable*.deb
-apt install -yf
-rm -f google-earth-stable_current_i386.deb*
-touch /var/local/vrk/.vubuntu-studiolite-earth386
- fi
-fi
-echo "
-Google Earth done. Flash and some more office stuff...
-"
-apt install -y adobe-flashplugin libreoffice scribus
+apt install -y libreoffice scribus
 echo "
 Flash and office stuff done. Doing web dev favorites...
 "
@@ -200,15 +178,6 @@ apt install -y stellarium
 #echo "
 #You got Skype.
 #"
-
-## MyPaint
-#if [ "${PROCVNO}" = "amd64" ]; then
-#/var/local/vrk/boss/install-mypaint64
-#fi
-#if [ "${PROCVNO}" = "i386" ]; then
-#apt install -y mypaint mypaint-data-extras
-#fi
-
 
 # Set config
 echo "VUBUNTU_STUDIOLITE_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo

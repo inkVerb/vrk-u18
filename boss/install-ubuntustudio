@@ -44,10 +44,21 @@ echo "Some Vubuntu tools are not yet installed. Installing them now to make thin
 /var/local/vrk/boss/install-vubuntu
 fi
 
+# Update & Upgrade
+apt update -yf --fix-missing
+apt upgrade -yf --fix-missing
+apt install -yf
+
+
 # Install Ubuntu Studio
 echo "Installing the full load of Ubuntu Studio..."
 
-apt install -y ubuntustudio-audio ubuntustudio-audio-plugins ubuntustudio-graphics ubuntustudio-photography ubuntustudio-publishing ubuntustudio-video
+apt install -y ubuntustudio-audio
+apt install -y ubuntustudio-audio-plugins
+apt install -y ubuntustudio-graphics
+apt install -y ubuntustudio-photography
+apt install -y ubuntustudio-publishing
+apt install -y ubuntustudio-video
 
 # Set configs
 echo "VUBUNTU_UBUNTUSTUDIO_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
