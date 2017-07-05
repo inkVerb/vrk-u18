@@ -1,5 +1,6 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
+set -e
 
 # This installs a "lite" version of Ubuntu Studio
 ## This is automatically run by: install-vubuntu
@@ -85,7 +86,8 @@ First, updates and fonts. Get ready to agree to EULA...
 #fi
 
 ## Update & Upgrade
-apt update && apt upgrade -yf --fix-missing
+apt update
+apt upgrade -yf --fix-missing
 
 ## Verify interactives first, and the rest of the fonts
 apt install -y ttf-mscorefonts-installer jackd2

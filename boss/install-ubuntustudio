@@ -1,5 +1,6 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
+set -e
 
 # This installs Ubuntu Studio, what's left after install-vubuntu did  most of the work
 ## Prerequesite: install-vubuntu
