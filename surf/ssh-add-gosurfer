@@ -43,7 +43,7 @@ echo "#!/bin/sh
 
 # Connect
 ssh \${GOUSER}@\${GOIP} -p \${GOPORT}
-" > ~/.vrk/go/go.${SURFERNAME}.boards
+" > ~/.vrk/go/go.${SURFERNAME}
 
 # Create a config
 echo "#!/bin/sh

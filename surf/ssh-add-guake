@@ -25,7 +25,7 @@ exit 22
 fi
 
 # Include the config
-. ~/.vrk/boards/${GOSURFER}.malibu
+. ~/.vrk/go/go.${GOSURFER}.malibu
 
 # Assign 22 if [port] option is left empty
 if [ -z "${PORT}" ]; then

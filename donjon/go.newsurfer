@@ -3,7 +3,7 @@
 
 
 # Include the config
-. ~/.vrk/boards/go.${SURFERNAME}.malibu
+. ~/.vrk/go/go.${SURFERNAME}.malibu
 
 # Connect
 ssh \${GOUSER}@\${GOIP} -p \${GOPORT}
