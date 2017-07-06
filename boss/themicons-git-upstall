@@ -38,17 +38,16 @@ exit 22; fi
 # Include the config
 . /var/local/vrk/machineinfo
 
-# Budgie/Xfce/Mint-Xfce/UbuntuStudio skip themes (This doesn't work for them.)
-if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "xfce" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] || [ "${LINUX_DISTRO}" = "budgie-desktop" ] ; then
-THEME_DISTRO="NO"; fi
+
+# Theme check #
+if [ "$LINUX_DISTRO" = "ubuntu" ] || [ "$LINUX_DISTRO" = "gnome" ]; then
 
 # Prepare notice
 echo "
-This only installs Adapta, Arc, and Vertex themes and only Surfin icons!
+This only installs Adapta, Arc, and Vertex themes!
 
 Any others must be specified like so:
 
-Themes: 
 sudo ./themicons-git-upstall adapta
 sudo ./themicons-git-upstall arc
 sudo ./themicons-git-upstall blackbird
@@ -56,10 +55,6 @@ sudo ./themicons-git-upstall blumix
 sudo ./themicons-git-upstall flatabulous
 sudo ./themicons-git-upstall vertex
 
-Icons:
-sudo ./themicons-git-upstall surfn
-sudo ./themicons-git-upstall numix
-sudo ./themicons-git-upstall moka
 "
 sleep 4
 
@@ -67,11 +62,6 @@ echo "Installing now.
 
 Grab some tea. This is gonna' take a while...
 "
-
-# Theme check
-if [ "${THEME_DISTRO}" = "NO" ]; then
-echo "Not doing themes for this distro."
-else
 
 # Themes
 rm -rf /var/local/vrk/donjon/ti/themes-
@@ -145,6 +135,19 @@ rm -rf themes-
 
 # Theme check #
 fi
+
+
+# Prepare notice
+echo "
+This only installs Surfin icons!
+
+Any others must be specified like so:
+
+sudo ./themicons-git-upstall surfn
+sudo ./themicons-git-upstall numix
+sudo ./themicons-git-upstall moka
+"
+sleep 4
 
 
 # Icons
