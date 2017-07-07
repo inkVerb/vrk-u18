@@ -115,6 +115,7 @@ fi
 
 # Include the configs
 . /var/local/vrk/vrkverno
+. /var/local/vrk/machineinfo
 
 # Check minimal updateable version
 if [ $(echo ${MIN_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
@@ -600,5 +601,5 @@ fi
 rm -rf /home/${SUDO_USER}/vrk
 
 # Finish
-echo "Vrk Station and users are Vrking at v${KVERNO}"
+echo "Vrk Station and users are Vrking at v${KVERNO} from ${VRKUPDATEREPO}."
 
