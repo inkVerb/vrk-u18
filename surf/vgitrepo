@@ -25,9 +25,9 @@ if [ -z "$1" ]; then
 
 ## Check if entered
  if [ -z "${GITRUNAME}" ]; then
- echo "You must enter the GitHub repo's username. It doesn't exist on GitHub already, but it can locally in ~/git/, or not...
-(An https repo looks like: https://github.com/YourProject/YourRepo.git)
-(An SSH repo looks like: git@github.com:YourProject/YourRepo.git)
+ echo "You must enter the GitHub repo's username. It must exist on GitHub already and locally, and you must be in that working directory...
+(An https repo looks like: https://github.com/USERNAME/REPO.git)
+(An SSH repo looks like: git@github.com:USERNAME/REPO.git)
 Enter the GitHub repo's username:
 "
  read GITRUNAME
@@ -48,8 +48,8 @@ if [ -z "$2" ]; then
 
 ## Check if entered
  if [ -z "${GITREPONAME}" ]; then
- echo "You must enter the GitHub repo. It doesn't exist on GitHub already, but it can locally in ~/git/${GITRUNAME}/, or not. That's kinda' the idea...
-Enter your GitHub email address:
+ echo "You must enter the GitHub repo.
+Enter your GitHub repo:
 "
  read GITREPONAME
  fi
@@ -63,17 +63,18 @@ fi
 
 # Do it
 ## If not done already
-git init
 if [ ! -e "README.md" ]; then
 echo "# ${GITREPONAME}
 Created on my Vrk Station" >> README.md
-git add README.md
 fi
 if [ ! -e "LICENSE" ]; then
 cat ~/.vrk/donjon/vgit/LICENSE > LICENSE
-git add LICENSE
 echo "A GPLv3 license has been added."
 fi
+git init
+git add README.md
+git add LICENSE
+git add .
 git commit -m "first commit"
 
 ## Push it

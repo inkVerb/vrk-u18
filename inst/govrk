@@ -140,6 +140,7 @@ echo "#!/bin/sh
 VRK_INST_BY=\"${VRK_USER}\"
 CPUPKGVER=\"${PROCVNO}\"
 LINUX_DISTRO=\"${SESSDISTRO}\"
+VRKUPDATEREPO=\"vrk\"
 " > /var/local/vrk/machineinfo
 
 # Finish

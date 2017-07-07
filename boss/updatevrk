@@ -52,11 +52,17 @@ sudo ./updatevrk
 exit 22
 fi
 
+# Include the config
+. /var/local/vrk/machineinfo
+
 # Local or web update
 ## GitHub
 if [ "${UTYPE}" = "git" ]; then
 cd /home/${SUDO_USER}
-git clone https://github.com/inkVerb/vrk
+git clone https://github.com/inkVerb/${VRKUPDATEREPO}
+ if [ "${VRKUPDATEREPO}" != "vrk" ]; then
+mv ${VRKUPDATEREPO} vrk
+ fi
 cd vrk/inst
 chmod +x upvrk
 ./upvrk
