@@ -79,11 +79,8 @@ Installing Vubuntu Studio Lite
 First, updates and fonts. Get ready to agree to EULA...
 "
 
-## Repos
-#if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
-#Add any repos here
-#touch /var/local/vrk/.vubuntu-studiolite-repo
-#fi
+# Add repos
+/var/local/vrk/boss/install-repos
 
 # Update & Upgrade
 apt update -yf --fix-missing

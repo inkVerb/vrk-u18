@@ -1,0 +1,72 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This installs libsass and sassc
+##DEV: Right now sassc just doesn't seem to want to install in the known universe.
+
+# How to use:
+## sudo ./install-libsassc
+
+
+# Set user
+VRK_USER=${SUDO_USER}
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./updatevrk
+"
+exit 22
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./updatevrk
+"
+exit 22
+fi
+
+# Include the config
+. /var/local/vrk/machineinfo
+
+# Install libsass and sassc
+## Thanks: https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04
+
+cd /usr/local/lib/
+git clone https://github.com/sass/sassc.git --branch 3.4.2 --depth 1
+git clone https://github.com/sass/libsass.git --branch 3.4-stable --depth 1
+git clone https://github.com/sass/sass-spec.git --depth=1
+echo 'SASS_LIBSASS_PATH="/usr/local/lib/libsass"' | tee -a /etc/environment
+source /etc/environment
+make -C libsass
+make -C sassc
+make -C sassc install
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

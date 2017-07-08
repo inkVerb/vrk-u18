@@ -1,4 +1,6 @@
 #!/bin/bash
+#inkVerbSurfer! verb.ink
+set -e
 
 # This adds droids from a git repo.
 
@@ -62,5 +64,4 @@ rm -rf ${CLNDROIDREPO}
 
 # Finish
 echo "The droids from \"${CLNDROIDREPO}\" are installed."
-
 

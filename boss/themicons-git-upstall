@@ -44,7 +44,7 @@ if [ "$LINUX_DISTRO" = "ubuntu" ] || [ "$LINUX_DISTRO" = "gnome" ]; then
 
 # Prepare notice
 echo "
-This only installs Adapta, Arc, and Vertex themes!
+This only installs Arc, and Vertex themes!
 
 Any others must be specified like so:
 
@@ -68,8 +68,8 @@ rm -rf /var/local/vrk/donjon/ti/themes-
 mkdir -p /var/local/vrk/donjon/ti/themes-
 cd /var/local/vrk/donjon/ti/themes-
 
-## Adapta
-if [ -z "${1}" ] || [ "${INSTHEMICON}" = "adapta" ] ; then
+## Adapta # Not supported since sassc package not in the repos and won't work
+if [ "${INSTHEMICON}" = "adapta" ] ; then 
 git clone https://github.com/adapta-project/adapta-gtk-theme
 cd adapta-gtk-theme
 ./autogen.sh
