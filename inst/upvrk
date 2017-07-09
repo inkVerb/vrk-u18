@@ -17,33 +17,8 @@
 ## sudo ./upvrk
 
 
-# Check to make sure this is run as sudo, but not run by root
-## If root or sudo
-if [ "$(id -u)" = "0" ]; then
-## If sudo is NOT present
- if [ -z "${SUDO_COMMAND}" ]; then
-echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
-like this:
-sudo ./upvrk
-"
-exit 0
- fi
-fi
-## If sudo is NOT present
-if [ -z "${SUDO_COMMAND}" ]; then
-echo "Run this as a sudoer sudo, not merely as a sudoer.
-like this:
-sudo ./upvrk
-"
-exit 0
-fi
-
-# Check if present
-if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
-echo "The vrk folder is not in the right place. I quit."
-exit 22
-fi
-
+MIN_KVERNO=0.300
+KUPDATE_REPO="vrk"
 
 # Sample version updater:
 #UPDATE_PATCH_KVERNO=
@@ -57,8 +32,14 @@ fi
 # if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 #. /home/${PATCH_USER}/.vrk/configs/stationinfo
 #  if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+#
+# Move to working directory of the patch
+#if [ -d "/home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/" ]; then
+#cd /home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/; fi
+#
 ###### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 ## Make the user do the job himself 
+## NOTE: PWD is /home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/
 ## sudo -u ${PATCH_USER} echo "I am myself v${UPDATE_PATCH_KVERNO}."
 #
 #
@@ -71,7 +52,13 @@ fi
 #done
 ## Global patch
 #if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+#
+# Verify the working directory of the patch
+#if [ -d "/home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/" ]; then
+#cd /home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/; fi
+#
 ###### GLOBAL SCRIPTS GO HERE #####
+## NOTE: PWD is /home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/
 #
 #
 ## Set and refresh the current version into inklists
@@ -81,10 +68,32 @@ fi
 ################END#UPDATE#PATCH#
 
 
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./upvrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./upvrk
+"
+exit 0
+fi
 
-
-MIN_KVERNO=0.300
-
+# Check if present
+if [ ! -d "/home/${SUDO_USER}/${KUPDATE_REPO}" ]; then
+echo "The vrk folder is not in the right place. I quit."
+exit 22
+fi
 
 # Check to make sure this is run as sudo, but not run by root
 ## If root or sudo
@@ -108,7 +117,7 @@ exit 0
 fi
 
 # Check if present
-if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
+if [ ! -d "/home/${SUDO_USER}/${KUPDATE_REPO}" ]; then
 echo "The vrk folder is not in the right place. I quit."
 exit 22
 fi
@@ -127,7 +136,7 @@ fi
 rm -rf /var/local/vrk/boss
 rm -rf /var/local/vrk/surf
 rm -rf /var/local/vrk/donjon
-cp -rf /home/${SUDO_USER}/vrk /var/local/
+cp -rf /home/${SUDO_USER}/${KUPDATE_REPO} /var/local/
 rm -f /var/local/vrk/inst/vrkverno
 chmod +x /var/local/vrk/boss/*
 chmod +x /var/local/vrk/surf/*
@@ -598,7 +607,7 @@ fi
 
 
 # Cleanup
-rm -rf /home/${SUDO_USER}/vrk
+rm -rf /home/${SUDO_USER}/${KUPDATE_REPO}
 
 # Finish
 echo "Vrk Station and users are Vrking at v${KVERNO} from ${VRKUPDATEREPO}."
