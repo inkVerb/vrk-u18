@@ -1,5 +1,5 @@
 #!/bin/sh
-# inkVerb Surfer, verb.ink
+# inkVerbSurfer, verb.ink
 set -e
 
 # This creates an Vrk Client key to be signed by a CA Verber
@@ -27,7 +27,7 @@ fi
 
 # Generate signing keys
 cd ~/.ssh
-ssh-keygen -f -N "" inknet_client_${CLIENTNAME}_key
+ssh-keygen -f -N "" in_cli_${CLIENTNAME}_key
 
 ### Copy-paste method
 # Finish

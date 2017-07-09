@@ -1,5 +1,5 @@
 #!/bin/sh
-# inkVerb Surfer, verb.ink
+# inkVerbSurfer, verb.ink
 set -e
 
 # This sets up and installs inkNet and various inkVerb dependencies for a Vrk Station
@@ -7,18 +7,20 @@ set -e
 ## This can be interactive if credentials are not entered first
 
 # How to use:
-## inknetinstall [Verber host - usually same as namespace] [Verber namespace] [Verber tld] [Verber IP] [Vrk IP - if known] [Vrk URI - if known] (must add Vrk IP first, if unknown, use 'NOT_SET')
+## inknetinstall [Verber host] [Verber IP] [Vrk IP - if known]
+
+# Eg:
+## inknetinstall joey1.joey.verb.ink 999.999.411.199
+## inknetinstall joey1.joey.verb.ink 999.999.411.199 333.333.333.333
+
 
 VHOST=$1
-VNAME=$2
-VTLD=$3
-VIP=$4
-CIP=$5
-CURI=$6
+VIP=$2
+CIP=$3
 
 # Prepare the Vrk Station as a Client
 if [ ! -f ~/.vrk/configs/inknet/client.vrk.cnf ]; then
- if [ -z "$4" ]; then
+ if [ -z "$3" ]; then
 echo "If you know your Vrk Station's IP, you may enter it here. Otherwise, just press Enter.
 You can change this anytime via inknetmakevrkclient
 "
@@ -29,14 +31,7 @@ CIP="NOT_SET"
 CIP=${ECIP}
   fi
  fi
- if [ -z "$5" ]; then
-echo "If you know your Vrk Station's public URI on the Web (listed on a DNS), you may enter it here. Otherwise, just press Enter.
-You can change this anytime via inknetmakevrkclient
-"
-read ECURI
-CURI=${ECURI}
- fi
-~/.vrk/boards/inknetmakevrkclient ${CIP} ${CURI}
+~/.vrk/boards/inknetmakevrkclient ${CIP}
 fi
 if [ -f ~/.vrk/configs/inknet/client.vrk.cnf ]; then
 echo "Already set-up as a Client..."
@@ -44,38 +39,38 @@ fi
 
 # Add the CA Verber profile
 if [ -z $3 ] && [ ! -f ~/.vrk/configs/inknet/verbers/verber.*.cnf ]; then
-echo " Enter the Verber namespace, such as \"john\" in \"john.verb.ink\""
+echo " Enter the Verber host, such as \"john1.john.verb.ink\""
 read EVNAME
-echo " Enter the Verber tld, such as \"ink\" in \"john.verb.ink\""
-read EVTLD
+if [ -z "${EVNAME}" ]; then
+echo "Nothing entered. I quit."; exit 22; fi
 echo " Enter the Verber IP Address with dots and all, ie: 777.06.55.4321"
 read EVIP
-VNAME=${EVNAME}
-VTLD=${EVTLD}
+if [ -z "${EVIP}" ]; then
+echo "Nothing entered. I quit."; exit 22; fi
+VHOST=${EVNAME}
 VIP=${EVIP}
-~/.vrk/boards/inknetaddverber ${VNAME} ${VTLD} ${VIP}
+~/.vrk/boards/inknetaddverber ${VHOST} ${VIP}
+## Add the Verber's Cert
+echo "Getting the latest cert from this Verber..."
+~/.vrk/boards/inknetaddcaverberpubkey ${VHOST}
+fi
+if [ -n $2 ]
+~/.vrk/boards/inknetaddverber ${VHOST} ${VIP}
 ## Add the Verber's Cert
 echo "Getting the latest cert from this Verber..."
 VERBERNAME=${VNAME}_verb_${VTLD}
 ~/.vrk/boards/inknetaddcaverberpubkey ${VERBERNAME}
 fi
-if [ -n $3 ]
-~/.vrk/boards/inknetaddverber ${VNAME} ${VTLD} ${VIP}
-## Add the Verber's Cert
-echo "Getting the latest cert from this Verber..."
-VERBERNAME=${VNAME}_verb_${VTLD}
-~/.vrk/boards/inknetaddcaverberpubkey ${VERBERNAME}
-fi
-if [ -z $3 ] && [ -f ~/.vrk/configs/inknet/verbers/verber.*.cnf ]
+if [ -z $2 ] && [ -f ~/.vrk/configs/inknet/verbers/verber.*.cnf ]
 echo "This Vrk Station is already configured for at least one Verber. If you want to add another or update the Verber's IP, run this again like this:
-inknetinstall [Verber namespace] [Verber tld] [Verber ip]
+inknetinstall [Verber host - ie: joey1.joey.verb.ink ] [Verber ip]
 "
 fi
 
 # Finish
 . ~/.vrk/configs/inknet/client.vrk.cnf
 ## If there is no key yet
-if [ ! -f ~/.ssh/inknet_client_${CLIENTNAME}_key ]; then
+if [ ! -f ~/.ssh/in_cli_${CLIENTNAME}_key ]; then
 ~/.vrk/boards/inknetnewvrkclientkey
 exit 0
 else

@@ -1,8 +1,8 @@
 #!/bin/sh
-# inkVerb Surfer, verb.ink
+# inkVerbSurfer, verb.ink
 
 # This puts the login credentials into the right place for a Vrk Station
-## This assumes that the key has been already uploaded to the CA Verber, signed, downloaded as a .ink file from the CA, and put on this Vrk station in the users home folder
+## This assumes that the key has been already uploaded to the CA Verber, signed, downloaded as a .ink file from the CA, and put on this Vrk station in the user's home folder
 
 # How to use:
 ## inknetapplyvrkcert
@@ -11,34 +11,25 @@
 # Check if installed
 if [ ! -f ~/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
-exit 22
-fi
+exit 22; fi
 
 # Include the config
 if [ ! -f ~/.vrk/configs/inknet/client.vrk.cnf ]; then
 echo "Ahead of yourself. First, run: inknetinstall"
-exit 22
-fi
+exit 22; fi
 . ~/.vrk/configs/inknet/client.vrk.cnf
 cd ~/
-
-##DEV-NOTE: This needs to resolve the IP of the local Vrk Station, which is usually not set
-## If download-ready
-#if [ -n "$1" ]; then
-#SECPATH=$1
-#wget -q https://${CAVERBERHOST}.${CAVERBERURI}/inknet/${SECPATH}/${VCNAME}.ink --no-check-certificate
-#fi
 
 # Unpack
 cd ~/
 mv ${CLIENTNAME}.ink ${CLIENTNAME}.zip
 unzip ${CLIENTNAME}.zip
-rm ${CLIENTNAME}.zip
+rm -f ${CLIENTNAME}.zip
 cd ${CLIENTNAME}
 . /verbername
 cp client.vrk.${CLIENTNAME}.cnf ~/.vrk/configs/inknet/verbers/client.login.${VERBERNAME}.cnf
 cd ..
-rm -R ${CLIENTNAME}
+rm -rf ${CLIENTNAME}
 
 # Finish
 echo "The Verber-signed cert for this Vrk Station has been installed. You can now connect to the Verber."

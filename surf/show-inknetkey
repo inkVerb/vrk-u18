@@ -27,5 +27,5 @@ fi
 # Display info
 echo "Copy and paste the ENTIRE long key below, as is, into the \"sign/activate Client key\" area on the inkNet CA Inker:
 "
-cat ~/.ssh/inknet_client_${CLIENTNAME}_key.pub
+cat ~/.ssh/in_cli_${CLIENTNAME}_key.pub
 

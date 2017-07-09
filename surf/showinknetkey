@@ -30,5 +30,5 @@ Client Type: \"verber\"
 Client Name: \"${CLIENTNAME}\"
 Copy and paste the ENTIRE long key below, as is, into the \"Activate Client key\" area on the inkNet CA Inker:
 "
-cat ~/.ssh/inknet_client_${CLIENTNAME}_key.pub
+cat ~/.ssh/in_cli_${CLIENTNAME}_key.pub
 

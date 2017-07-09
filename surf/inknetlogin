@@ -1,30 +1,37 @@
 #!/bin/sh
-# inkVerb Surfer, verb.ink
+# inkVerbSurfer, verb.ink
 set -e
 
 # This logs into a CA Verber
-## Don't use any options if logging into the primary CA Verbe, such as the Inker
+## You can use the name or the URI, host.namespace.verb.ink or host_namespace_verb_ink
 
 # How to use:
 ## ./inknetlogin [verber_name]
 
 # Eg:
 ## ./inknetlogin joe3red_joesbigasphalttrucking_verb_red
+## ./inknetlogin joe3red.joesbigasphalttrucking.verb.red
+## ./inknetlogin joe1.red.inkisaverb.com
 
 
-FULLVERBERNAME=$1
-VERBERNAME=$(echo $FULLVERBERNAME | cut -c1-18)
+CAVHOST=$1
+CAVNAME="$(echo ${CAVHOST} | sed 's/\./_/g')"
 
 # Check & include the config
 if [ ! -f ~/.vrk/configs/inknet/client.vrk.cnf ]; then
 echo "This is not yet connected to a CA Verber via inkNet."
-exit 22
-fi
+exit 22; fi
 
 # Include the configs
 . ~/.vrk/configs/inknet/client.vrk.cnf
-. ~/.vrk/configs/inknet/verbers/client.login.${VERBERNAME}.cnf
+. ~/.vrk/configs/inknet/verbers/client.login.${CAVNAME}.cnf
 
 # Login
-ssh -o HostName=${CAVERBERHOST}.${CAVERBERURI} -p ${CLIENTPORT} ${CLIENTUSERNAME}@${CAVERBERIP}
+##DEV: Done by the user ${CLIENTSAILOR} with no password. This may not be executed correctly. Delete this DEV note if this script works.
+## Follow these instructions https://www.cyberciti.biz/open-source/command-line-hacks/linux-run-command-as-different-user/
+ssh -o HostName=${CAVERBERHOST} -p ${CLIENTPORT} ${CLIENTUSERNAME}@${CAVERBERIP}
+echo "${SAILCOMMAND}"
+sleep 10
+exit
+echo "Done."
 

@@ -1,5 +1,5 @@
 #!/bin/sh
-# inkVerb Surfer, verb.ink
+# inkVerbSurfer, verb.ink
 set -e
 
 # This adds a CA Verber's public signing key to the known_hosts of this Vrk Client
@@ -14,25 +14,27 @@ set -e
 # How to use:
 ## inknetaddcaverberpubkey [ca verber name]
 
-# Eg: (Use this format exactly!)
-## inknetaddcaverberpubkey myvname_verb_ink
+# Eg:
+## ./inknetaddcaverberpubkey two1.two.verb.ink
+## ./inknetaddcaverberpubkey two1_two_verb_ink
+## ./inknetaddcaverberpubkey two1.ink.inkisaverb.com
+## ./inknetaddcaverberpubkey two1_ink_inkisaverb_com
 
 
-VERBERNAME=$1
+CAURI=$1
+VERBERNAME="$(echo ${CAURI} | sed 's/\./_/g')"
 
 # Check if installed
 if [ ! -f ~/.vrk/configs/stationinfo ]; then
 echo "Install Vrk first. See README.md"
-exit 22
-fi
+exit 22; fi
 
 # Check variables
 if [ -z $1 ]; then
 echo "You need to specify stuff, like this:
 inknetaddcaverberpubkey myvname_verb_ink
 "
-exit 22
-fi
+exit 22; fi
 
 # Check and include the config
 if [ ! -f ~/.vrk/configs/inknet/verbers/verber.${VERBERNAME}.cnf ]; then
@@ -45,8 +47,7 @@ First, run inknetaddverber
 # Check if already added
 if [ -f ~/.ssh/inknet_ca_${VERBERNAME}_key.pub ]; then
 echo "This Inker CA key is already installed. To update it, use inknetupdatecaverberkey"
-exit 22
-fi
+exit 22; fi
 
 # Download the CA Server pub key to the Client
 cd ~/.ssh/
@@ -56,8 +57,7 @@ wget -q https://${VERBERURI}/inknet/inknet_ca_${VERBERNAME}_key.pub --no-check-c
 if [ ! -f ~/.ssh/inknet_ca_${CAVERBERNAME}_key.pub ]; then
 echo "This Verber CA key could not be downloaded. Either it has been entered wrong or the Inker is offline.
 Try again with inknetinstall, or try inknetaddverber, then inknetmakevrkclient, then panic."
-exit 22
-fi
+exit 22 ;fi
 
 # Add the CA Verber key to the Client's global known_hosts
 ## Make sure it exists
