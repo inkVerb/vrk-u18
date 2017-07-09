@@ -8,7 +8,7 @@ set -e
 # NOTE: If you use the username and repo from the command line rather than from the dialogue, it will use ssh keys if you have them installed.
 
 # How to use:
-## vgitrepo [username - option] [repo - optional]
+## vgitrepo [username - optional] [repo - optional]
 
 
 # Check if installed
