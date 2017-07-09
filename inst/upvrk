@@ -610,5 +610,5 @@ fi
 rm -rf /home/${SUDO_USER}/${KUPDATE_REPO}
 
 # Finish
-echo "Vrk Station and users are Vrking at v${KVERNO} from ${VRKUPDATEREPO}."
+echo "Vrk Station and users are Vrking at v${KVERNO} framework from ${VRKUPDATEREPO}."
 
