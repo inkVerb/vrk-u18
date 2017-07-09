@@ -27,12 +27,6 @@ SCORENHOSTNAME="$(echo ${ADDTHISHOST} | sed 's/\./_/g')"
 ADDUSER="${USER}"
 ADDCLIENTNAME="${ADDUSER}_${SCORENHOSTNAME}"
 
-# inkNet ivApp Sailor (to login to the CA Verber)
-## Password generator
-ADDINIVSAILORNAME=sail$(pwgen -s -1 14)
-## Add the Sailor
-/var/local/vrk/boss/inkneivappaddsailor ${ADDINIVSAILORNAME}
-
 echo "#!/bin/sh
 # inkNet config, verb.ink
 ## This contains information about this Client Vrk Station's credentials used in signing SSH keys for inkNet on a CA Verber
@@ -42,7 +36,6 @@ CLIENTMACHINE=\"${ADDTHISHOST}\"
 CLIENTNAME=\"${ADDCLIENTNAME}\"
 CLIENTIP=\"${ADDIP}\"
 CLIENTUSER=\"${ADDUSER}\"
-CLIENTSAILOR=\"${ADDINIVSAILORNAME}\"
 " > ~/.vrk/configs/inknet/client.vrk.cnf
 
 # Finish
