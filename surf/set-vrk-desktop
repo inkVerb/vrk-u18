@@ -94,6 +94,9 @@ DESKTOP_DOCKY="SIDE"; fi
 #gsettings set org.gnome.gedit.preferences.ui show-tabs-mode 'never'
 #echo "alias gedit=\"gedit --new-window\"" >> ~/.bashrc
 
+## Templates
+~/.vrk/boards/do-vrktemplates
+
 ## Window Snapping
 #notyet
 

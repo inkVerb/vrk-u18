@@ -5,7 +5,7 @@
 ## This can be run by any normal user who has Vrk™ installed.
 
 # How to use:
-## vubuntu-vrktemplates
+## do-vrktemplates
 
 
 # Check to make sure this is run as sudo, but not run by root
@@ -21,6 +21,9 @@ echo "Install Vrk first. See README.md"
 exit 22
 fi
 
+# Make sure variables are included
+. ~/.config/user-dirs.dirs
+
 # Copy the files
-cp ~/vrk/donjon/vrktemplates/* ~/${XDG_TEMPLATES_DIR}/
+cp -r ~/.vrk/donjon/vrktemplates/* ~/${XDG_TEMPLATES_DIR}/
 

@@ -44,16 +44,17 @@ fi
 
 # Install libsass and sassc
 ## Thanks: https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04
-
+## SassC: https://github.com/sass/sassc/blob/master/docs/building/unix-instructions.md
 cd /usr/local/lib/
-git clone https://github.com/sass/sassc.git --branch 3.4.2 --depth 1
-git clone https://github.com/sass/libsass.git --branch 3.4-stable --depth 1
-git clone https://github.com/sass/sass-spec.git --depth=1
-echo 'SASS_LIBSASS_PATH="/usr/local/lib/libsass"' | tee -a /etc/environment
+git clone https://github.com/sass/sassc.git
+git clone https://github.com/sass/libsass.git
+git clone https://github.com/sass/sass-spec.git
+echo 'SASS_LIBSASS_PATH="/usr/local/lib/libsass"' | sudo tee -a /etc/environment
 source /etc/environment
 make -C libsass
 make -C sassc
 make -C sassc install
+
 
 
 
