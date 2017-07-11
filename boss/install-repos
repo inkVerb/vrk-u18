@@ -42,10 +42,11 @@ echo "Extra repos already installed."
 exit 0; fi
 
 # Add via apt
-add-apt-repository universe
-add-apt-repository main
-add-apt-repository restricted
-add-apt-repository multiverse
+add-apt-repository -y universe
+add-apt-repository -y main
+add-apt-repository -y restricted
+add-apt-repository -y multiverse
+apt update -yf --fix-missing
 
 ## Add manually
 #if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then

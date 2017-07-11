@@ -7,7 +7,8 @@
 ## This is not suggested to be run by any normal Vubuntu user unless wishing to expiriment or update. This may also be used by Vubuntu dev teams to build the latest releases via Git.
 ## Some of these PPA apt install scripts will not work in x.10 Ubuntu versions, dunno what the obsession with non-LTS x.04 versions, but oh well.
 ## The advantage is, once installed, apt update keeps it up to date.
-## This is expirimental and may be depreciated.
+
+##DEV: This is expirimental and may be depreciated.
 
 # How to use:
 ## sudo ./themicons-apt-upstall

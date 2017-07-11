@@ -48,7 +48,6 @@ This only installs Arc, and Vertex themes!
 
 Any others must be specified like so:
 
-sudo ./themicons-git-upstall adapta
 sudo ./themicons-git-upstall arc
 sudo ./themicons-git-upstall blackbird
 sudo ./themicons-git-upstall blumix
@@ -68,17 +67,17 @@ rm -rf /var/local/vrk/donjon/ti/themes-
 mkdir -p /var/local/vrk/donjon/ti/themes-
 cd /var/local/vrk/donjon/ti/themes-
 
-## Adapta # Not supported since sassc package not in the repos and won't work
-if [ "${INSTHEMICON}" = "adapta" ] ; then 
-git clone https://github.com/adapta-project/adapta-gtk-theme
-cd adapta-gtk-theme
-./autogen.sh
-make
-rm -rf /usr/share/themes/Adapta*
-make install
-cd ..
-rm -rf adapta-gtk-theme
-fi
+### Adapta # Not supported since sassc package not in the repos and won't work
+#if [ "${INSTHEMICON}" = "adapta" ] ; then 
+#git clone https://github.com/adapta-project/adapta-gtk-theme
+#cd adapta-gtk-theme
+#./autogen.sh
+#ake
+#m -rf /usr/share/themes/Adapta*
+#ake install
+#d ..
+#m -rf adapta-gtk-theme
+#fi
 
 ## Arc
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "arc" ] ; then

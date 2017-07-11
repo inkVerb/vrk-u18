@@ -537,6 +537,11 @@ xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspa
 xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
 xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
 
+## Desktop app hotkeys
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>d" -t string -s 'xed --new-document'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>e" -t string -s 'thunar'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>q" -t string -s 'gnome-calculator'
+
 fi
 # Mint_Xfce #
 

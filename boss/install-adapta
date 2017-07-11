@@ -6,7 +6,7 @@ set -e
 ##DEV: Right now sassc just doesn't seem to want to install in the known universe.
 
 # How to use:
-## sudo ./install-libsassc
+## sudo ./install-adapta
 
 
 # Set user
@@ -39,35 +39,25 @@ sudo ./updatevrk
 exit 22
 fi
 
-# Include the config
+# Check status
 . /var/local/vrk/machineinfo
+if [ "${ADAPTA_INSTALLED}" = "YES" ]; then
+echo "Extra repos already installed."
+exit 0; fi
 
-# Install libsass and sassc
-## Thanks: https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04
-## SassC: https://github.com/sass/sassc/blob/master/docs/building/unix-instructions.md
-cd /usr/local/lib/
-git clone https://github.com/sass/sassc.git
-git clone https://github.com/sass/libsass.git
-git clone https://github.com/sass/sass-spec.git
-#echo 'SASS_LIBSASS_PATH="/usr/local/lib/libsass"' | sudo tee -a /etc/environment
-#source /etc/environment
-make -C libsass
-#make -C sassc
-#make -C sassc install
-cd /usr/local/lib/sassc
-export SASS_LIBSASS_PATH=/usr/local/lib/libsass
+# Add repo
+if [ ! -f "/var/local/vrk/.adaptarepoinstalled" ]; then
+add-apt-repository -y ppa:tista/adapta
+apt update
+touch /var/local/vrk/.adaptarepoinstalled
+fi
 
+# Install Adapta
+apt install -y adapta-gtk-theme
 
+# Config
+echo "ADAPTA_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
 
-
-
-
-
-
-
-
-
-
-
-
+# Finish
+echo "Adapta added and installed."
 
