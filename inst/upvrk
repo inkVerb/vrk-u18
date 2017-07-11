@@ -583,6 +583,15 @@ if [ -d "/home/${PATCH_USER}" ]; then
 ##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 # Make the user do the job himself 
 # sudo -u ${PATCH_USER} echo "I am myself v${UPDATE_PATCH_KVERNO}."
+## Whisker menu
+### Icon
+#### Per distro ;-)
+if [ "${LINUX_DISTRO}" = "ubuntustudio" ]; then
+sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/inkVerb-disk-blue\.svg/g" /home/${PATCH_USER}/.config/xfce4/panel/whiskermenu-1.rc; fi
+if [ "${LINUX_DISTRO}" = "xubuntu" ]; then
+sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/inkVerb-disk-white\.svg/g" /home/${PATCH_USER}/.config/xfce4/panel/whiskermenu-1.rc; fi
+#### Show it
+sed -i "s/show-button-icon=.*/show-button-icon=true/g" /home/${PATCH_USER}/.config/xfce4/panel/whiskermenu-1.rc
 
 
 ###############STOP#USER#PATCH#
