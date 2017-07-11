@@ -8,8 +8,8 @@ set -e
 ## sedbot [ "find this" ] [ "replace with this" ] [ path/to/file - omit for all]
 
 # Eg:
-## sedbot foo bar
-## sedbot "I like apples." "How about these?" /home/elvis/is/alive/bunker.sec
+## vsed foo bar
+## vsed "I like apples." "How about these?" /home/elvis/is/alive/bunker.sec
 
 
 FIND=$1
