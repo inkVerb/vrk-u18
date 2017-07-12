@@ -162,6 +162,21 @@ mkdir -p ~/.gconf/apps
 if [ ! -d ~/.gconf/apps/guake ]; then
 cp -rf ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
 fi
+### Docky
+killall docky
+if [ "${DESKTOP_DOCKY}" = "SIDE" ]; then
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Position" --type string "Left"
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/IconSize" --type int "32"
+else
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Position" --type string "Bottom"
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/IconSize" --type int "48"
+fi
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Autohide" --type string "Autohide"
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/ThreeDimensional" --type string "false"
+gconftool-2 --set "/apps/docky-2/Docky/Services/ThemeService/Theme" --type string "Transparent"
+gconftool-2 --type list --list-type string --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/SortList" "[usr/share/applications/nautilus.desktop,/usr/share/applications/chromium-browser.desktop,/usr/share/applications/firefox.desktop,/usr/share/applications/thunderbird.desktop,/usr/share/applications/libreoffice-writer.desktop,/usr/share/applications/gedit.desktop,/usr/share/applications/rhythmbox.desktop]"
+gconftool-2 --type list --list-type string --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Launchers" "[file:///usr/share/applications/nautilus.desktop,file:///usr/share/applications/chromium-browser.desktop,file:///usr/share/applications/firefox.desktop,file:///usr/share/applications/thunderbird.desktop,file:///usr/share/applications/libreoffice-writer.desktop,file:///usr/share/applications/gedit.desktop,file:///usr/share/applications/rhythmbox.desktop]"
+docky
 
 ## App Theming
 ### Dependency directory

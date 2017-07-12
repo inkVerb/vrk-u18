@@ -54,6 +54,8 @@ exit 0; fi
 # Include the config
 . /var/local/vrk/machineinfo
 
+# Global
+
 # Add repos
 /var/local/vrk/boss/install-repos
 
@@ -66,8 +68,14 @@ apt install -yf
 # Adapta
 /var/local/vrk/boss/install-adapta
 
-# Ubuntu Studio Wallpapers, GTK configs, GNOME/Unity Tweak Tools, Xfce Dashboard, Guake, Docky, Variety
-apt install -y conky conky-all ubuntustudio-wallpapers guake docky gnome-terminal variety htop gtk-theme-config
+# Basic apps: Gedit, Guake, Docky, Chromium, Thunderbird, Firefox, Rhythmbox
+apt install -y gedit guake docky chromium-browser djview-plugin thunderbird firefox rhythmbox
+if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
+apt install -y unity-chromium-extension
+fi
+
+# Ubuntu Studio Wallpapers, GTK configs, Variety
+apt install -y conky conky-all ubuntustudio-wallpapers  gnome-terminal variety htop gtk-theme-config
 
 # LibreOffice (done now for vubuntu-desktop settings dependencies)
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
@@ -92,13 +100,6 @@ ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/share/libreoff
 # Themes
 /var/local/vrk/boss/themicons-git-upstall
 
-# Gedit always opens a new window, not tab-clustering (possible solutions)
-#notyet
-
-# Window Snapping
-#notyet
-
-# Global
 # Global #
 
 # Unity
@@ -114,8 +115,6 @@ if [ "${LINUX_DISTRO}" = "gnome" ]; then
 apt install -y gnome-tweak-tool
 fi
 # GNOME #
-
-
 
 # Xubuntu/UbuntuStudio
 if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ; then

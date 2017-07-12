@@ -93,17 +93,13 @@ apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstr
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
-apt install -y zip p7zip-full gzip guake phatch docky gedit kate nautilus grabc gparted shutter kazam
+apt install -y zip p7zip-full gzip guake phatch docky kate nautilus grabc gparted shutter kazam
 ## Redundant from install-vubuntu-desktop
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
 echo "
 Tools done. Now doing browsers...
 "
-apt install -y midori thunderbird firefox
-apt install -y chromium-browser djview-plugin
-if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
-apt install -y unity-chromium-extension
-fi
+apt install -y midori
 if [ "${LINUX_DISTRO}" = "gnome" ]; then
 apt install -y epiphany-browser gconf-editor
 fi
@@ -153,7 +149,7 @@ apt install -y kolourpaint4 pencil2d pinta tupi karbon mypaint mypaint-data-extr
 echo "
 Graphic design done. Media stuff, VLC, audio players, Kdenlive...
 "
-apt install -y vlc vlc-data browser-plugin-vlc mplayer2 clementine amarok kdenlive rhythmbox
+apt install -y vlc vlc-data browser-plugin-vlc mplayer2 clementine amarok kdenlive
 echo "
 Media done. Audiophile tools, Audacity, LMMS, Kid3 audio tag tool...
 "
