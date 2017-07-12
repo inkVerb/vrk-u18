@@ -33,7 +33,7 @@ KUPDATE_REPO="vrk"
 #. /home/${PATCH_USER}/.vrk/configs/stationinfo
 #  if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 #
-# Move to working directory of the patch
+## Move to working directory of the patch
 #if [ -d "/home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/" ]; then
 #cd /home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/; fi
 #
@@ -53,7 +53,7 @@ KUPDATE_REPO="vrk"
 ## Global patch
 #if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 #
-# Verify the working directory of the patch
+## Verify the working directory of the patch
 #if [ -d "/home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/" ]; then
 #cd /home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/; fi
 #
@@ -625,7 +625,7 @@ if [ -d "/home/${PATCH_USER}" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
   if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 
- Move to working directory of the patch
+# Move to working directory of the patch
 if [ -d "/home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/" ]; then
 cd /home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/; fi
 
@@ -645,7 +645,7 @@ done
 # Global patch
 if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 
- Verify the working directory of the patch
+# Verify the working directory of the patch
 if [ -d "/home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/" ]; then
 cd /home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/; fi
 
