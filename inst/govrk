@@ -29,7 +29,7 @@ if [ "$(id -u)" = "0" ]; then
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
 like this:
-sudo ./govrk
+sudo ./govrk \$DESKTOP_SESSION
 "
 exit 0
  fi
@@ -38,7 +38,7 @@ fi
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo ./govrk
+sudo ./govrk \$DESKTOP_SESSION
 "
 exit 0
 fi
