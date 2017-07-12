@@ -146,9 +146,9 @@ VRKUPDATEREPO=\"vrk\"
 # Finish
 echo "Vrk is setup on this machine. Now installing it for this user...
 "
+/var/local/vrk/boss/install-vrk
 
 # Cleanup
 rm -rf /home/${SUDO_USER}/vrk
 
-/var/local/vrk/boss/install-vrk
 
