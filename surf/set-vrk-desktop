@@ -456,8 +456,8 @@ xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-radiu
 ### xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "exo-file-manager.desktop" -t string -s "exo-terminal-emulator.desktop"
 ### xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "thunderbird.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
 ### xfconf-query -n -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
-xfconf-query -n -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "thunderbird.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
-
+### xfconf-query -n -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "thunderbird.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
+~/.vrk/donjon/xfdashboard-zilla
 
 ## App Theming (specifically for Xfce since some GTK themes ignore some apps)
 ### Rhythmbox

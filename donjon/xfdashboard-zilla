@@ -1,0 +1,6 @@
+#!/bin/sh
+# Favorites for Xfdashboard: Chrome & Mozilla apps
+
+# Echo the settings
+xfconf-query -n -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "thunderbird.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
+

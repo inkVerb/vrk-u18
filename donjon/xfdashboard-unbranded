@@ -1,0 +1,6 @@
+#!/bin/sh
+# Favorites for Xfdashboard: Unbranded "default" apps
+
+# Echo the settings
+xfconf-query -n -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
+
