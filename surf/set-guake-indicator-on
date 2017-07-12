@@ -18,6 +18,9 @@ fi
 rm -f ~/.config/autostart/guake.desktop
 cp ~/.vrk/donjon/guake/guake-indicator.desktop ~/.config/autostart/
 
+# Run it
+guake-indicator
+
 # Finish
 echo "Guake-Indicator is now loading at startup. You can also use F12 for the local \"Earth Guake\" ;-)"
 
