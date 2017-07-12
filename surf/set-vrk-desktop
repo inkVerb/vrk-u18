@@ -198,7 +198,7 @@ sleep 1
 if [ "$LINUX_DISTRO" = "budgie-desktop" ]; then
 
 ## App Defaults
-cp ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
 ## Autostart special
 cp -rf ~/.vrk/donjon/budgie/config/autostart ~/.config/
@@ -232,7 +232,7 @@ fi
 if [ "$LINUX_DISTRO" = "ubuntu" ]; then
 
 ## App Defaults
-cp -rf ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
 ## Autostart special
 cp -rf ~/.vrk/donjon/unity/config/autostart ~/.config/
@@ -280,7 +280,7 @@ fi
 if [ "$LINUX_DISTRO" = "gnome" ]; then
 
 ## App Defaults
-cp -rf ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
 ## Autostart special
 cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
@@ -319,7 +319,7 @@ fi
 if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ; then
 
 ## App Defaults
-cp -rf ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
 ## Autostart special
 cp -rf ~/.vrk/donjon/xfce/config/autostart ~/.config/
