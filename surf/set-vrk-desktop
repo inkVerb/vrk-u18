@@ -218,6 +218,13 @@ cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 ## Autostart special
 cp -rf ~/.vrk/donjon/budgie/config/autostart ~/.config/
 
+## Plank
+killall plank
+gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ theme 'Transparent'
+gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode 'auto'
+gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items "['nautilus.dockitem', 'chromium-browser.dockitem', 'firefox.dockitem', 'thunderbird.dockitem', 'gedit.dockitem', 'libreoffice-writer.dockitem', 'rhythmbox.dockitem', 'org.gnome.Calculator.dockitem', 'gnome-control-center.dockitem']"
+plank
+
 ## Flatabulous terminal "profile" (color scheme)
 #~/.vrk/donjon/xt-budgie # it uses Terminix, not the gnome terminal
 
