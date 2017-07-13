@@ -62,10 +62,10 @@ exit 22; fi
 ## Include dirs config
 . /home/${VRK_USER}/.config/user-dirs.dirs
 ## Check if directories exist
-if [ ! -e /home/${VRK_USER}/"${XDG_DOCUMENTS_DIR}" ]; then
+if [ ! -e "${XDG_DOCUMENTS_DIR}" ]; then
 echo "User does not have the ${XDG_DOCUMENTS_DIR} folder! Create that folder, then try again."
 exit 22; fi
-if [ ! -e /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" ]; then
+if [ ! -e "${XDG_TEMPLATES_DIR}" ]; then
 echo "User does not have the ${XDG_TEMPLATES_DIR} folder! Create that folder, then try again."
 exit 22; fi
 
