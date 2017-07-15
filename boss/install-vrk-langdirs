@@ -113,64 +113,42 @@ echo "
 " >  /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
 cat /home/${VRK_USER}/.config/user-dirs.dirs >> /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
 sudo -u ${VRK_USER} sed -i "s/\$HOME\///g" /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
+sudo -u ${VRK_USER} sed -i "s/XDG_/INT_/g" /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
 . /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
 . /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_EN
 ## Rename the directories to English from whatever they are, backup original names in myLang if different
-if [ ! -d /home/${VRK_USER}/"${VRK_DESKTOP_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_DESKTOP_DIR}" ]; then
-	mv /home/${VRK_USER}/"${XDG_DESKTOP_DIR}" /home/${VRK_USER}/"${VRK_DESKTOP_DIR}"
-	if [ ! -d /home/${VRK_USER}/myLang ]; then
-	mkdir -p /home/${VRK_USER}/myLang
-	fi
-	ln -sfn /home/${VRK_USER}/"${VRK_DESKTOP_DIR}" /home/${VRK_USER}/myLang/"${XDG_DESKTOP_DIR}"
+mkdir -p /home/${VRK_USER}/myLang
+if [ ! -d /home/${VRK_USER}/"${VRK_DESKTOP_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_DESKTOP_DIR}" ]; then
+	mv /home/${VRK_USER}/"${INT_DESKTOP_DIR}" /home/${VRK_USER}/"${VRK_DESKTOP_DIR}"
+	ln -sfn /home/${VRK_USER}/"${VRK_DESKTOP_DIR}" /home/${VRK_USER}/myLang/"${INT_DESKTOP_DIR}"
 fi
-if [ ! -d /home/${VRK_USER}/"${VRK_DOWNLOAD_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_DOWNLOAD_DIR}" ]; then
-	mv /home/${VRK_USER}/"${XDG_DOWNLOAD_DIR}" /home/${VRK_USER}/"${VRK_DOWNLOAD_DIR}"
-	if [ ! -d /home/${VRK_USER}/myLang ]; then
-	mkdir -p /home/${VRK_USER}/myLang
-	fi
-	ln -sfn /home/${VRK_USER}/${VRK_DOWNLOAD_DIR} /home/${VRK_USER}/myLang/"${XDG_DOWNLOAD_DIR}"
+if [ ! -d /home/${VRK_USER}/"${VRK_DOWNLOAD_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_DOWNLOAD_DIR}" ]; then
+	mv /home/${VRK_USER}/"${INT_DOWNLOAD_DIR}" /home/${VRK_USER}/"${VRK_DOWNLOAD_DIR}"
+	ln -sfn /home/${VRK_USER}/${VRK_DOWNLOAD_DIR} /home/${VRK_USER}/myLang/"${INT_DOWNLOAD_DIR}"
 fi
-if [ ! -d /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" ]; then
-	mv /home/${VRK_USER}/"${XDG_TEMPLATES_DIR}" /home/${VRK_USER}/${VRK_TEMPLATES_DIR}
-	if [ ! -d /home/${VRK_USER}/myLang ]; then
-	mkdir -p /home/${VRK_USER}/myLang
-	fi
-	ln -sfn /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/myLang/"${XDG_TEMPLATES_DIR}"
+if [ ! -d /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_TEMPLATES_DIR}" ]; then
+	mv /home/${VRK_USER}/"${INT_TEMPLATES_DIR}" /home/${VRK_USER}/${VRK_TEMPLATES_DIR}
+	ln -sfn /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/myLang/"${INT_TEMPLATES_DIR}"
 fi
-if [ ! -d /home/${VRK_USER}/${VRK_PUBLICSHARE_DIR} ] && [ -d /home/${VRK_USER}/${XDG_PUBLICSHARE_DIR} ]; then
-	mv /home/${VRK_USER}/${XDG_PUBLICSHARE_DIR} /home/${VRK_USER}/${VRK_PUBLICSHARE_DIR}
-	if [ ! -d /home/${VRK_USER}/myLang ]; then
-	mkdir -p /home/${VRK_USER}/myLang
-	fi
-	ln -sfn /home/${VRK_USER}/"${VRK_PUBLICSHARE_DIR}" /home/${VRK_USER}/myLang/"${XDG_PUBLICSHARE_DIR}"
+if [ ! -d /home/${VRK_USER}/${VRK_PUBLICSHARE_DIR} ] && [ -d /home/${VRK_USER}/${INT_PUBLICSHARE_DIR} ]; then
+	mv /home/${VRK_USER}/${INT_PUBLICSHARE_DIR} /home/${VRK_USER}/${VRK_PUBLICSHARE_DIR}
+	ln -sfn /home/${VRK_USER}/"${VRK_PUBLICSHARE_DIR}" /home/${VRK_USER}/myLang/"${INT_PUBLICSHARE_DIR}"
 fi
-if [ ! -d /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_DOCUMENTS_DIR}" ]; then
-	mv /home/${VRK_USER}/"${XDG_DOCUMENTS_DIR}" /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
-	if [ ! -d /home/${VRK_USER}/myLang ]; then
-	mkdir -p /home/${VRK_USER}/myLang
-	fi
-	ln -sfn /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/myLang/"${XDG_DOCUMENTS_DIR}"
+if [ ! -d /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_DOCUMENTS_DIR}" ]; then
+	mv /home/${VRK_USER}/"${INT_DOCUMENTS_DIR}" /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
+	ln -sfn /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/myLang/"${INT_DOCUMENTS_DIR}"
 fi
-if [ ! -d /home/${VRK_USER}/"${VRK_MUSIC_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_MUSIC_DIR}" ]; then
-	mv /home/${VRK_USER}/"${XDG_MUSIC_DIR}" /home/${VRK_USER}/"${VRK_MUSIC_DIR}"
-	if [ ! -d /home/${VRK_USER}/myLang ]; then
-	mkdir -p /home/${VRK_USER}/myLang
-	fi
-	ln -sfn /home/${VRK_USER}/"${VRK_MUSIC_DIR}" /home/${VRK_USER}/myLang/"${XDG_MUSIC_DIR}"
+if [ ! -d /home/${VRK_USER}/"${VRK_MUSIC_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_MUSIC_DIR}" ]; then
+	mv /home/${VRK_USER}/"${INT_MUSIC_DIR}" /home/${VRK_USER}/"${VRK_MUSIC_DIR}"
+	ln -sfn /home/${VRK_USER}/"${VRK_MUSIC_DIR}" /home/${VRK_USER}/myLang/"${INT_MUSIC_DIR}"
 fi
-if [ ! -d /home/${VRK_USER}/"${VRK_PICTURES_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_PICTURES_DIR}" ]; then
-	mv /home/${VRK_USER}/"${XDG_PICTURES_DIR}" /home/${VRK_USER}/"${VRK_PICTURES_DIR}"
-	if [ ! -d /home/${VRK_USER}/myLang ]; then
-	mkdir -p /home/${VRK_USER}/myLang
-	fi
-	ln -sfn /home/${VRK_USER}/"${VRK_PICTURES_DIR}" /home/${VRK_USER}/myLang/"${XDG_PICTURES_DIR}"
+if [ ! -d /home/${VRK_USER}/"${VRK_PICTURES_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_PICTURES_DIR}" ]; then
+	mv /home/${VRK_USER}/"${INT_PICTURES_DIR}" /home/${VRK_USER}/"${VRK_PICTURES_DIR}"
+	ln -sfn /home/${VRK_USER}/"${VRK_PICTURES_DIR}" /home/${VRK_USER}/myLang/"${INT_PICTURES_DIR}"
 fi
-if [ ! -d /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" ] && [ -d /home/${VRK_USER}/"${XDG_VIDEOS_DIR}" ]; then
-	mv /home/${VRK_USER}/"${XDG_VIDEOS_DIR}" /home/${VRK_USER}/"${VRK_VIDEOS_DIR}"
-	if [ ! -d /home/${VRK_USER}/myLang ]; then
-	mkdir -p /home/${VRK_USER}/myLang
-	fi
-	ln -sfn /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" /home/${VRK_USER}/myLang/"${XDG_VIDEOS_DIR}"
+if [ ! -d /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_VIDEOS_DIR}" ]; then
+	mv /home/${VRK_USER}/"${INT_VIDEOS_DIR}" /home/${VRK_USER}/"${VRK_VIDEOS_DIR}"
+	ln -sfn /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" /home/${VRK_USER}/myLang/"${INT_VIDEOS_DIR}"
 fi
 
 ## Own

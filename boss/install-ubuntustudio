@@ -45,8 +45,8 @@ echo "Some Vubuntu tools are not yet installed. Installing them now to make thin
 fi
 
 # Update & Upgrade
-apt update -yf --fix-missing
-apt upgrade -yf --fix-missing
+apt update -y --fix-missing
+apt upgrade -y --fix-missing
 apt install -yf
 
 

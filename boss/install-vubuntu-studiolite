@@ -83,8 +83,8 @@ First, updates and fonts. Get ready to agree to EULA...
 /var/local/vrk/boss/install-repos
 
 # Update & Upgrade
-apt update -yf --fix-missing
-apt upgrade -yf --fix-missing
+apt update -y --fix-missing
+apt upgrade -y --fix-missing
 apt install -yf
 
 ## Verify interactives first, and the rest of the fonts

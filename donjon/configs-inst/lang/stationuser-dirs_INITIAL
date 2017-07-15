@@ -2,11 +2,11 @@
 # inkVerb Station-wide config file, verb.ink
 ## This is used for language folder variables in surfer scripts
 
-XDG_DESKTOP_DIR="Desktop"
-XDG_DOWNLOAD_DIR="Downloads"
-XDG_TEMPLATES_DIR="Templates"
-XDG_PUBLICSHARE_DIR="Public"
-XDG_DOCUMENTS_DIR="Documents"
-XDG_MUSIC_DIR="Music"
-XDG_PICTURES_DIR="Pictures"
-XDG_VIDEOS_DIR="Videos"
+INT_DESKTOP_DIR="Desktop"
+INT_DOWNLOAD_DIR="Downloads"
+INT_TEMPLATES_DIR="Templates"
+INT_PUBLICSHARE_DIR="Public"
+INT_DOCUMENTS_DIR="Documents"
+INT_MUSIC_DIR="Music"
+INT_PICTURES_DIR="Pictures"
+INT_VIDEOS_DIR="Videos"

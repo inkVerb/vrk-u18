@@ -44,7 +44,7 @@ exit 0; fi
 
 
 # Install
-apt install -yf nautilus-dropbox
+apt install -y nautilus-dropbox
 
 # Config
 echo "DROPBOX_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo

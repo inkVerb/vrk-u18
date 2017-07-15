@@ -44,8 +44,8 @@ exit 22; fi
 . /var/local/vrk/machineinfo
 
 # Update & Upgrade
-apt update -yf --fix-missing
-apt upgrade -yf --fix-missing
+apt update -y --fix-missing
+apt upgrade -y --fix-missing
 apt install -yf
 
 # Verify the interactives first

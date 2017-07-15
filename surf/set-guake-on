@@ -18,9 +18,6 @@ fi
 rm -f ~/.config/autostart/guake-indicator.desktop
 cp ~/.vrk/donjon/guake/guake.desktop ~/.config/autostart/
 
-# Run it
-guake
-
 # Finish
 echo "Guake will load at startup, usually in silence, use F12 ;-)"
 

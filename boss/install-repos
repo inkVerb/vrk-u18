@@ -46,7 +46,7 @@ add-apt-repository -y universe
 add-apt-repository -y main
 add-apt-repository -y restricted
 add-apt-repository -y multiverse
-apt update -yf --fix-missing
+apt update -y --fix-missing
 
 ## Add manually
 #if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then

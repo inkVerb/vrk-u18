@@ -25,5 +25,5 @@ fi
 . ~/.config/user-dirs.dirs
 
 # Copy the files
-cp -r ~/.vrk/donjon/vrktemplates/* ~/${XDG_TEMPLATES_DIR}/
+cp -r ~/.vrk/donjon/vrktemplates/* ${XDG_TEMPLATES_DIR}/
 
