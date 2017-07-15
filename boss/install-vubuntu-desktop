@@ -9,6 +9,9 @@ set -e
 # How to use:
 ## sudo ./install-vubuntu-desktop
 
+# Eg: (re-install for specific desktop)
+## sudo ./install-vubuntu-desktop $DESKTOP_SESSION
+
 
 # Set user
 VRK_USER=${SUDO_USER}
@@ -44,7 +47,18 @@ exit 22; fi
 # Check if Vubuntu Desktop installed
 if [ "${VUBUNTU_DESKTOP_INSTALLED}" = "YES" ]; then
 echo "Vubuntu desktop apps already installed."
-exit 0; fi
+## Allow re-install per desktop
+ if [ -n "$1" ]; then
+ echo "If you would like to re-install it for a specific desktop, type \"yes\"..."
+ read QYN
+  if [ "$QYN" != "yes" ]; then
+  echo "I quit."
+  exit 0
+  fi
+ else
+ exit 0
+ fi
+fi
 
 # Check if Vubuntu Desktop installed (again)
 if [ -f /var/local/vrk/.vubuntu-desktop-installed ]; then
@@ -53,6 +67,10 @@ exit 0; fi
 
 # Include the config
 . /var/local/vrk/machineinfo
+
+# Change the Distro variable if re-installing per-desktop
+if [ -n "$1" ]; then
+LINUX_DISTRO="$1"; fi
 
 # Global
 

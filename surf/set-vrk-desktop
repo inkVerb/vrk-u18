@@ -7,6 +7,9 @@
 # How to use:
 ## set-vrk-desktop
 
+# Eg: (re-install for specific desktop)
+## set-vrk-desktop $DESKTOP_SESSION
+
 
 # Set
 ## Vall room
@@ -43,7 +46,7 @@ fi
 if [ "${VUBUNTU_DESKTOP_SET}" = "YES" ]; then
 echo "Vubuntu Desktop already set for this user.
 
-Type \"yes\" to run it again and reset, anything else to quit...
+Type \"yes\" to run it again, anything else to quit...
 "
 read YESRESET
  if [ "${YESRESET}" != "yes" ]; then
@@ -53,6 +56,10 @@ fi
 
 # Include the config
 . /var/local/vrk/machineinfo
+
+# Change the Distro variable if re-installing per-desktop
+if [ -n "$1" ]; then
+LINUX_DISTRO="$1"; fi
 
 # Kill conflicting apps
 killall -q dolphin
