@@ -176,7 +176,7 @@ apt install -y stellarium
 echo "VUBUNTU_STUDIOLITE_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
 touch /home/${SUDO_USER}/.vrk/configs/.studiolite
 ## Remove repo temp progress files
-rm /var/local/vrk/.vubuntu-studiolite-*
+rm -f /var/local/vrk/.vubuntu-studiolite-*
 
 # Cleanup
 apt autoremove -y
