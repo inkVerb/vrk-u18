@@ -101,7 +101,7 @@ rm -rf Blackbird
 fi
 
 ## Blumix
-if [ "${INSTHEMICON}" = "blumix" ]; then
+if [ -z "${1}" ] || [ "${INSTHEMICON}" = "blumix" ] ; then
 git clone https://github.com/rhoconlinux/Blumix
 cd Blumix
 rm -rf /usr/share/themes/Blumix*

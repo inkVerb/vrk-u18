@@ -193,30 +193,31 @@ gconftool-2 --type list --list-type string --set "/apps/docky-2/Docky/Interface/
 gconftool-2 --type list --list-type string --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Launchers" "[file:///usr/share/applications/nautilus.desktop,file:///usr/share/applications/chromium-browser.desktop,file:///usr/share/applications/firefox.desktop,file:///usr/share/applications/thunderbird.desktop,file:///usr/share/applications/libreoffice-writer.desktop,file:///usr/share/applications/gedit.desktop,file:///usr/share/applications/rhythmbox.desktop]"
 
 ## App Theming
-#DEV: Breaks LibreOffice, remove this eventually.
 ### Dependency directory
-#mkdir -p ~/.local/share/applications
+mkdir -p ~/.local/share/applications
 ### Future: (still doesn't work all the time)
 #http://askubuntu.com/questions/78088/can-i-apply-a-different-gtk3-theme-from-the-main-one-to-an-individual-applicatio
 # This directory has .css files with app names
 #/usr/share/themes/*Theme Name*/gtk-3.0/apps/
 # Individual apps
 #http://worldofgnome.org/running-gtk-applications-different-themes-per-app/
-### LibreOffice (doesn't work in Xfce or GNOME, but works in Unity)
-#cp /usr/share/applications/libreoffice-writer.desktop ~/.local/share/applications/libreoffice.writer.desktop
-#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --writer %U/g" ~/.local/share/applications/libreoffice.writer.desktop
-#cp /usr/share/applications/libreoffice-calc.desktop ~/.local/share/applications/libreoffice.calc.desktop
-#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --calc %U/g" ~/.local/share/applications/libreoffice.calc.desktop
-#cp /usr/share/applications/libreoffice-math.desktop ~/.local/share/applications/libreoffice.math.desktop
-#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --math %U/g" ~/.local/share/applications/libreoffice.math.desktop
-#cp /usr/share/applications/libreoffice-base.desktop ~/.local/share/applications/libreoffice.base.desktop
-#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --base %U/g" ~/.local/share/applications/libreoffice.base.desktop
-#cp /usr/share/applications/libreoffice-draw.desktop ~/.local/share/applications/libreoffice.draw.desktop
-#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --draw %U/g" ~/.local/share/applications/libreoffice.draw.desktop
-#cp /usr/share/applications/libreoffice-impress.desktop ~/.local/share/applications/libreoffice.impress.desktop
-#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --impress %U/g" ~/.local/share/applications/libreoffice.impress.desktop
-#cp /usr/share/applications/libreoffice-startcenter.desktop ~/.local/share/applications/libreoffice.startcenter.desktop
-#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice %U/g" ~/.local/share/applications/libreoffice.startcenter.desktop
+## LibreOffice (doesn't work in Xfce or GNOME, but works in Unity)
+if [ -d "/usr/share/themes/Blumix" ]; then
+cp /usr/share/applications/libreoffice-writer.desktop ~/.local/share/applications/libreoffice.writer.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --writer %U/g" ~/.local/share/applications/libreoffice.writer.desktop
+cp /usr/share/applications/libreoffice-calc.desktop ~/.local/share/applications/libreoffice.calc.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --calc %U/g" ~/.local/share/applications/libreoffice.calc.desktop
+cp /usr/share/applications/libreoffice-math.desktop ~/.local/share/applications/libreoffice.math.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --math %U/g" ~/.local/share/applications/libreoffice.math.desktop
+cp /usr/share/applications/libreoffice-base.desktop ~/.local/share/applications/libreoffice.base.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --base %U/g" ~/.local/share/applications/libreoffice.base.desktop
+cp /usr/share/applications/libreoffice-draw.desktop ~/.local/share/applications/libreoffice.draw.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --draw %U/g" ~/.local/share/applications/libreoffice.draw.desktop
+cp /usr/share/applications/libreoffice-impress.desktop ~/.local/share/applications/libreoffice.impress.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --impress %U/g" ~/.local/share/applications/libreoffice.impress.desktop
+cp /usr/share/applications/libreoffice-startcenter.desktop ~/.local/share/applications/libreoffice.startcenter.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice %U/g" ~/.local/share/applications/libreoffice.startcenter.desktop
+fi
 
 ## Pause to avoid trouble
 sleep 1
@@ -468,7 +469,7 @@ xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-radiu
 
 ## App Theming (specifically for Xfce since some GTK themes ignore some apps)
 ### Rhythmbox
-cp /usr/share/applications/rhythmbox.desktop ~/.local/share/applications/rhythmbox.desktop
+cp -f /usr/share/applications/rhythmbox.desktop ~/.local/share/applications/rhythmbox.desktop
 sed -i "s/Exec=.*/Exec=env GTK_THEME=Vertex-Dark rhythmbox %U/g" ~/.local/share/applications/rhythmbox.desktop
 ### LibreOffice
 #### Set bright icons for the dark theme
