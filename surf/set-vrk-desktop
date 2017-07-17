@@ -382,6 +382,9 @@ xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Arch-Blue"; fi
 if [ "${LINUX_DISTRO}" = "xubuntu" ]; then
 xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Numix-Misty"; fi
 
+## Pause to avoid trouble
+sleep 1
+
 ## Whisker menu
 ### Icon
 #### Per distro ;-)
