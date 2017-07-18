@@ -125,10 +125,6 @@ fi
 if [ -z $1 ]; then
 ln -sfn /var/local/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
 fi
-## Templates
-. /home/${VRK_USER}/.config/user-dirs.dirs
-cp -R /var/local/vrk/donjon/vrktemplates/* ${XDG_TEMPLATES_DIR}/
-## Own
 chown -R ${VRK_USER} /home/${VRK_USER}/.vrk
 
 # Set the global user bin for surfers
