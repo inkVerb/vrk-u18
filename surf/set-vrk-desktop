@@ -328,6 +328,9 @@ cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 ## Autostart special
 cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 
+## Super + d already set, change Gedit Text editor hotkey to Super + x
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Super>x'
+
 ## Flatabulous terminal "profile" (color scheme)
 ~/.vrk/donjon/xt-gnome
 
