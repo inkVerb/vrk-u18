@@ -178,7 +178,7 @@ gconftool-2 --set "/apps/guake/general/use_popup" --type bool "false"
 #fi
 #DEV#
 ### Docky
-killall docky
+killall -q docky
 if [ "${DESKTOP_DOCKY}" = "SIDE" ]; then
 gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Position" --type string "Left"
 gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/IconSize" --type int "32"
@@ -189,8 +189,11 @@ fi
 gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Autohide" --type string "Autohide"
 gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/ThreeDimensional" --type string "false"
 gconftool-2 --set "/apps/docky-2/Docky/Services/ThemeService/Theme" --type string "Transparent"
-## Pause to avoid trouble
+## Run Docky once
+killall -q docky
+docky &
 sleep 1
+killall -q docky
 gconftool-2 --type list --list-type string --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/SortList" "[usr/share/applications/nautilus.desktop,/usr/share/applications/chromium-browser.desktop,/usr/share/applications/firefox.desktop,/usr/share/applications/thunderbird.desktop,/usr/share/applications/libreoffice-writer.desktop,/usr/share/applications/gedit.desktop,/usr/share/applications/rhythmbox.desktop]"
 gconftool-2 --type list --list-type string --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Launchers" "[file:///usr/share/applications/nautilus.desktop,file:///usr/share/applications/chromium-browser.desktop,file:///usr/share/applications/firefox.desktop,file:///usr/share/applications/thunderbird.desktop,file:///usr/share/applications/libreoffice-writer.desktop,file:///usr/share/applications/gedit.desktop,file:///usr/share/applications/rhythmbox.desktop]"
 
