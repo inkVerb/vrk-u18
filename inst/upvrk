@@ -591,8 +591,9 @@ sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/
 if [ "${LINUX_DISTRO}" = "xubuntu" ]; then
 sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/inkVerb-disk-white\.svg/g" /home/${PATCH_USER}/.config/xfce4/panel/whiskermenu-1.rc; fi
 #### Show it
+if [ "${LINUX_DISTRO}" = "ubuntustudio" ] || [ "${LINUX_DISTRO}" = "xubuntu" ] ; then
 sed -i "s/show-button-icon=.*/show-button-icon=true/g" /home/${PATCH_USER}/.config/xfce4/panel/whiskermenu-1.rc
-
+fi
 
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklist for the patch user

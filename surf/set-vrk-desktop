@@ -108,10 +108,10 @@ DESKTOP_DOCKY="SIDE"; fi
 #notyet
 
 ## Hotkeys for apps
-### D: Gedit
+### X: Gedit teXt editor
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'gedit'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'Editor'
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Super>d'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Super>x'
 ### E: Files
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command 'nautilus'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name 'Files'
@@ -327,9 +327,6 @@ cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 
 ## Autostart special
 cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
-
-## Super + d already set, change Gedit Text editor hotkey to Super + x
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Super>x'
 
 ## Flatabulous terminal "profile" (color scheme)
 ~/.vrk/donjon/xt-gnome
