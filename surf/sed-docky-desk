@@ -1,0 +1,54 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This puts the icons for basic desktop tools on Docky
+
+# How to use:
+## sed-docky-desk
+
+
+# Check to make sure this not run as sudo or root
+if [ "$(id -u)" = "0" ]; then
+echo "Dude. Don't change this folder as root. None of that sudo stuff here."; exit 22
+fi
+
+# Check if Vrk installed on machine
+if [ ! -d /var/local/vrk ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See README.md"; exit 22
+fi
+
+# Check if Vrk installed to user
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "First, run install-vubuntu-vrkstation for this user. See README.md"; exit 22
+fi
+
+NEW_WORK_FOLDER=$1
+
+# Check variables
+if [ -z $1 ]; then
+echo "You need to specify the new Work folder with one-word, case-sensitive, such as this:
+setcoolfolder myFolder"
+exit 22
+fi
+if [ -n $2 ]; then
+echo "You need to specify the new Work folder with one-word, case-sensitive, such as this:
+setcoolfolder myFolder"
+exit 22
+fi
+
+# Include the config
+. ~/.vrk/configs/stationinfo
+
+# Kill Docky
+killall -q docky
+
+# Put in the settings
+gconftool-2 --type list --list-type string --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/SortList" "[usr/share/applications/nautilus.desktop,/usr/share/applications/chromium-browser.desktop,/usr/share/applications/firefox.desktop,/usr/share/applications/thunderbird.desktop,/usr/share/applications/libreoffice-writer.desktop,/usr/share/applications/gedit.desktop,/usr/share/applications/rhythmbox.desktop]"
+gconftool-2 --type list --list-type string --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Launchers" "[file:///usr/share/applications/nautilus.desktop,file:///usr/share/applications/chromium-browser.desktop,file:///usr/share/applications/firefox.desktop,file:///usr/share/applications/thunderbird.desktop,file:///usr/share/applications/libreoffice-writer.desktop,file:///usr/share/applications/gedit.desktop,file:///usr/share/applications/rhythmbox.desktop]"
+
+# Start Docky again
+docky &
+
+# Finish
+echo "Done. Go see."
+
