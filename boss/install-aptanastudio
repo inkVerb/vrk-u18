@@ -2,10 +2,12 @@
 #inkVerbBoss! verb.ink
 set -e
 
-# This installs Adobe Flash
+# This installs Aptana Studio
+##DEV: This is only in dev and should be expanded on later
+##ref: http://linuxpitstop.com/install-aptana-studio-3-on-centos-and-ubuntu/
 
 # How to use:
-## sudo ./install-flash
+## sudo ./install-aptanastudio
 
 
 # Check if Vrk installed on this machine
@@ -38,7 +40,9 @@ exit 22; fi
 
 
 # Install
-apt install -y adobe-flashplugin
+echo "Here are the instructions:
+http://linuxpitstop.com/install-aptana-studio-3-on-centos-and-ubuntu/
+"
 
 # Finish
 apt autoremove -y
