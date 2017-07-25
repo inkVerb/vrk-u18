@@ -68,7 +68,7 @@ chmod +x upvrk
 ./upvrk
 ### Just make sure it's gone
 cd /home/${SUDO_USER}
-rm -rf vrk
+rm -rf ${VRKUPDATEREPO}
 echo "Vrk is up-to-date."
 exit 0
 fi
