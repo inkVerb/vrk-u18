@@ -171,6 +171,8 @@ gconftool-2 --set "/apps/guake/style/font/color" --type string "#b7b7b8b8b9b9"
 gconftool-2 --set "/apps/guake/style/background/transparency" --type int "23"
 gconftool-2 --set "/apps/guake/general/use_trayicon" --type bool "false"
 gconftool-2 --set "/apps/guake/general/use_popup" --type bool "false"
+gconftool-2 --set "/apps/guake/general/window_height_f" --type float "24"
+gconftool-2 --set "/apps/guake/general/window_height" --type int "24"
 #DEV: depreciated with gconftool-2 settings, remove if this works
 #mkdir -p ~/.gconf/apps
 #if [ ! -d ~/.gconf/apps/guake ]; then
