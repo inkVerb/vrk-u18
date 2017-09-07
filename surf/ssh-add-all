@@ -5,7 +5,7 @@ set -e
 # This adds an SSH key to a remote server, enables root no-password login, adds it to Guake Indicator, and creates a Surfer for it
 
 # How to use:
-## ./ssh-add-all [SSH key] [surfer] [remote user] [remote IP] [remote user password] [port - optional]
+## ./ssh-add-all [SSH key name] [surfer nickname] [remote user] [remote IP] [remote user password] [port - optional]
 
 
 KEYNAME=$1
@@ -24,7 +24,7 @@ fi
 # Check variables
 if [ -z $5 ]; then
 echo "You need to specify stuff, like this:
-ssh-add-all [SSH key] [surfer] [remote user] [remote IP] [remote user password] [port - optional]
+ssh-add-all [SSH key name] [surfer nickname] [remote user] [remote IP] [remote user password] [port - optional]
 "
 exit 22
 fi
