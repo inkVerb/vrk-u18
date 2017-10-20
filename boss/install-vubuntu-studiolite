@@ -125,7 +125,7 @@ apt install -y libreoffice scribus
 echo "
 Flash and office stuff done. Doing web dev favorites...
 "
-apt install -y git vim guake-indicator filezilla meld
+apt install -y git vim guake-indicator filezilla meld ssh
 echo "
 Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint...
 "
