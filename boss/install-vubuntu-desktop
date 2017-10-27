@@ -77,6 +77,10 @@ LINUX_DISTRO="$1"; fi
 # Add repos
 /var/local/vrk/boss/install-repos
 
+## For no notifications
+add-apt-repository -y ppa:vlijm/nonotifs
+apt update -y --fix-missing
+
 # Update & Upgrade
 #update included in install-repos
 #apt update -y --fix-missing
@@ -93,7 +97,7 @@ apt install -y unity-chromium-extension
 fi
 
 # Ubuntu Studio Wallpapers, GTK configs, Variety
-apt install -y conky conky-all ubuntustudio-wallpapers  gnome-terminal variety htop gtk-theme-config
+apt install -y conky conky-all ubuntustudio-wallpapers gnome-terminal variety htop gtk-theme-config
 
 # LibreOffice (done now for vubuntu-desktop settings dependencies)
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
@@ -123,7 +127,7 @@ ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/share/libreoff
 # Unity
 if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
 /var/local/vrk/donjon/vubuntu-unity-notifications-off
-apt install -y unity-tweak-tool 
+apt install -y unity-tweak-tool nonotifs
 fi
 # Unity #
 
