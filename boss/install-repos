@@ -52,13 +52,13 @@ apt update -y --fix-missing
 #if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
 ### Check at each stage to prevent duplication
 #### canonical partner
-# if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-partner" ]; then
+ if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-partner" ]; then
 #vrk_ppa_repo_partner="deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-# if ! grep -q "^deb .*$vrk_ppa_repo_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-#add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-#touch /var/local/vrk/.vubuntu-studiolite-repo-partner-$(lsb_release -sc)
-#  fi
-# fi
+ if ! grep -q "^deb .*$vrk_ppa_repo_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+touch /var/local/vrk/.vubuntu-studiolite-repo-partner-$(lsb_release -sc)
+  fi
+ fi
 ##### main universe restricted multiverse
 # if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-multiverse" ]; then
 # vrk_add_repo_multiverse="deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
@@ -73,6 +73,6 @@ echo "REPOS_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
 touch /var/local/vrk/.reposinstalled
 
 # Finish
-apt update
+apt update --fix-missing
 echo "Repos added."
 
