@@ -17,7 +17,7 @@ exit 0
 fi
 
 ## Turn it off
-mv /usr/share/dbus-1/services/org.freedesktop.Notifications.service{.disabled,}
+mv /usr/share/dbus-1/services/org.freedesktop.Notifications.service.disabled /usr/share/dbus-1/services/org.freedesktop.Notifications.service
 
 ## Set config
 rm -f /var/local/vrk/.vubuntu-unity-notifications-off

@@ -93,7 +93,7 @@ apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstr
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
-apt install -y zip p7zip-full gzip guake phatch docky kate nautilus grabc gparted shutter kazam
+apt install -y zip p7zip-full gzip guake phatch docky kate retext nautilus grabc gparted shutter kazam
 ## Redundant from install-vubuntu-desktop
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
 echo "

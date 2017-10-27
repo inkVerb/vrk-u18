@@ -2,7 +2,7 @@
 Name=Guake Indicator
 Comment=F12 Terminal & SSH Menu
 TryExec=guake-indicator
-Exec=guake-indicator
+Exec=/bin/bash -c "sleep 5 && guake-indicator"
 Icon=guake-indicator
 Type=Application
 Categories=GNOME;GTK;System;Utility;TerminalEmulator;

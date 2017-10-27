@@ -8,6 +8,7 @@ import subprocess
 # this is for "show workspaces"
 key = "/org/compiz/profiles/unity/plugins/expo/expo-edge"
 val_on = "'BottomLeft|BottomRight'"
+#val_on = "'BottomLeft'"
 
 def test():
     # read the current setting

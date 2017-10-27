@@ -294,6 +294,7 @@ dconf write /org/compiz/profiles/unity/plugins/core/vsize 2
 ### There is no gsettings schema for this. Use this Python script, read its big thanks for his 2-day coding class!
 ~/.vrk/donjon/vubuntu-unity-hotcorners.py
 ### Twice to be sure ;-)
+sleep 2
 ~/.vrk/donjon/vubuntu-unity-hotcorners.py
 
 ## Launcher autohide, sensitivity, size, etc.

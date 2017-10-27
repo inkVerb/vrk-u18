@@ -126,7 +126,7 @@ ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/share/libreoff
 
 # Unity
 if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
-/var/local/vrk/donjon/vubuntu-unity-notifications-off
+#/var/local/vrk/donjon/vubuntu-unity-notifications-off # replaced by the tool below
 apt install -y unity-tweak-tool nonotifs
 fi
 # Unity #
