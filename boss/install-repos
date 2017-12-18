@@ -46,6 +46,7 @@ add-apt-repository -y universe
 add-apt-repository -y main
 add-apt-repository -y restricted
 add-apt-repository -y multiverse
+add-apt-repository -y ppa:kdenlive/kdenlive-stable
 apt update -y --fix-missing
 
 ## Add manually
