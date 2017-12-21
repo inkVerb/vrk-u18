@@ -2,7 +2,7 @@
 #inkVerbSurfer! verb.ink
 set -e
 
-# This adds an existing surfer's profile to Guake Indicator as a root menu item
+# This removes guake-indicator from autostart and replaces it with guake
 
 # How to use:
 ## ./set-guake-on

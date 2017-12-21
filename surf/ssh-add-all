@@ -47,6 +47,6 @@ if [ ! -f ~/.ssh/${KEYNAME} ]; then
 fi
 ~/.vrk/boards/ssh-add-goguake ${SURFERNAME} ${USER} ${IP} ${PORT}
 ~/.vrk/boards/ssh-add-key ${SURFERNAME} ${KEYNAME} ${PASSWORD}
-~/.vrk/boards/ssh-filezilla-addkey ${SURFERNAME} ${KEYNAME}
-~/.vrk/boards/ssh-guake-indicator-on
+~/.vrk/boards/ssh-add-filezilla ${SURFERNAME} ${KEYNAME}
+~/.vrk/boards/set-guake-indicator-on
 

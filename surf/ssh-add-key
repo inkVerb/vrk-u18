@@ -30,7 +30,7 @@ fi
 . ~/.vrk/go/go.${GOSURFER}.malibu
 
 # Do it all in one command
-cat ~/.ssh/${KEYNAME}.pub | ssh -p ${GOPORT} ${GOUSER}@${GOIP} "mkdir -p ~/.ssh && mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys && reload ssh"
+cat ~/.ssh/${KEYNAME}.pub | ssh -p ${GOPORT} ${GOUSER}@${GOIP} "mkdir -p ~/.ssh && mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys && service ssh reload"
 expect "Password:"
 send "${PASSWORD}\r"
 
