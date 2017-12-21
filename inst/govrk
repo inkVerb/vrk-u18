@@ -151,4 +151,3 @@ echo "Vrk is setup on this machine. Now installing it for this user...
 # Cleanup
 rm -rf /home/${SUDO_USER}/vrk
 
-

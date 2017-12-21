@@ -5,7 +5,7 @@ set -e
 # This adds an existing surfer's profile to Guake Indicator as a root menu item
 
 # How to use:
-## ./ssh-add-guake [surfer]
+## ssh-add-guake [surfer]
 
 
 GOSURFER=$1

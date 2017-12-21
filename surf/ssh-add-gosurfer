@@ -5,7 +5,7 @@ set -e
 # This creates a simple "surfer" SSH login script for a remote server
 
 # How to use:
-## ./ssh-add-gosurfer [surfer name] [remote user] [remote IP] [port - optional]
+## ssh-add-gosurfer [surfer name] [remote user] [remote IP] [port - optional]
 
 
 SURFERNAME=$1

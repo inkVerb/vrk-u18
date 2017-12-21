@@ -5,7 +5,7 @@ set -e
 # This adds a remote ssh server to Guake Indicator and creates a goSurfer for it
 
 # How to use:
-## ./ssh-add-goguake [surfer & menu name] [remote user] [remote IP] [port - optional]
+## ssh-add-goguake [surfer & menu name] [remote user] [remote IP] [port - optional]
 
 
 SURFERNAME=$1
