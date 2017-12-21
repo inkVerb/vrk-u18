@@ -7,6 +7,7 @@ set -e
 ## First, make sure you have logged into your server once, accepted the key fingerprint, and, if you want, changed the port.
 ### ssh user@IPASSRESS
 ### nano /etc/ssh/sshd_config # for port
+### service ssh reload
 
 # How to use:
 ## ssh-add-all [SSH key name] [surfer nickname] [remote user] [remote IP] [remote user password] [port - optional]
