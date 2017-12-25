@@ -13,7 +13,7 @@ set -e
 ## ssh-add-all [SSH key name] [surfer nickname] [remote user] [remote IP] [remote user password] [port - optional]
 
 # Eg.
-## ssh-add-all DO_J nick root 123.456.789.1011 22
+## ssh-add-all digitalocean_Jkey nick root 123.456.789.1011 22
 
 
 KEYNAME=$1
@@ -46,8 +46,7 @@ fi
 if [ ! -f ~/.ssh/${KEYNAME} ]; then
 ~/.vrk/boards/ssh-craft-key ${KEYNAME}
 fi
-~/.vrk/boards/ssh-add-goguake ${SURFERNAME} ${USER} ${IP} ${PORT}
+~/.vrk/boards/ssh-add-goguakezilla ${KEYNAME} ${SURFERNAME} ${USER} ${IP} ${PORT}
 ~/.vrk/boards/ssh-add-key ${SURFERNAME} ${KEYNAME} ${PASSWORD}
-~/.vrk/boards/ssh-add-filezilla ${SURFERNAME} ${KEYNAME}
 ~/.vrk/boards/set-guake-indicator-on
 

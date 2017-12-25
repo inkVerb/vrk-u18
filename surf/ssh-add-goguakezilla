@@ -5,13 +5,14 @@ set -e
 # This adds a remote ssh server to Guake Indicator and creates a goSurfer for it
 
 # How to use:
-## ssh-add-goguake [surfer & menu name] [remote user] [remote IP] [port - optional]
+## ssh-add-goguakezilla [SSH key name] [surfer & menu name] [remote user] [remote IP] [port - optional]
 
 
-SURFERNAME=$1
-USER=$2
-IP=$3
-PORT=$4
+KEYNAME=$1
+SURFERNAME=$2
+USER=$3
+IP=$4
+PORT=$5
 
 # Check if installed
 if [ ! -f ~/.vrk/configs/stationinfo ]; then
@@ -22,7 +23,7 @@ fi
 # Check variables
 if [ -z $4 ]; then
 echo "You need to specify stuff, like this:
-ssh-add-goguake [surfer & menu name] [remote user] [remote IP] [port - optional]
+ssh-add-goguakezilla [SSH key name] [surfer & menu name] [remote user] [remote IP] [port - optional]
 "
 exit 22
 fi
@@ -35,4 +36,4 @@ fi
 # Run the surfers
 ~/.vrk/boards/ssh-add-gosurfer ${SURFERNAME} ${USER} ${IP} ${PORT}
 ~/.vrk/boards/ssh-add-guake ${SURFERNAME}
-
+~/.vrk/boards/ssh-add-filezilla ${SURFERNAME} ${KEYNAME}

@@ -48,7 +48,7 @@ ssh \${GOUSER}@\${GOIP} -p \${GOPORT}
 # Create a config
 echo "#!/bin/sh
 # This is a Vrk config file with the credentials of a surfer
-GOUSER=${USER}
+GOUSER=\"${USER}\"
 GOIP=${IP}
 GOPORT=${PORT}
 " > ~/.vrk/go/go.${SURFERNAME}.malibu
