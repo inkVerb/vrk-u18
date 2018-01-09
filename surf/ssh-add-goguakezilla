@@ -2,7 +2,7 @@
 #inkVerbSurfer! verb.ink
 set -e
 
-# This adds a remote ssh server to Guake Indicator and creates a goSurfer for it
+# This adds a remote ssh server to Guake Indicator and FileZilla and creates a goSurfer for it
 
 # How to use:
 ## ssh-add-goguakezilla [SSH key name] [surfer & menu name] [remote user] [remote IP] [port - optional]
