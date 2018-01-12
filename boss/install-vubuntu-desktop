@@ -192,7 +192,7 @@ sleep 1
 ## Kill the name of the "splash screen" process that eventually ends up running
 killall oosplash
 ## Own the config files just made
-chown -R ${VRK_USER} /home/${VRK_USER}/.config/libreoffice
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.config/libreoffice
 # Cleanup
 apt autoremove -y
 

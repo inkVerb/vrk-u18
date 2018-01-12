@@ -128,7 +128,7 @@ fi
 ## myWall folder
 if [ ! -e /home/${VRK_USER}/.vrk/myWall ]; then
 mkdir -p /home/${VRK_USER}/.vrk/myWall
-chown -R ${VRK_USER} /home/${VRK_USER}/.vrk/myWall
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.vrk/myWall
 fi
 ### Xfce/Mint-Xfce/UbuntuStudio
 touch /home/${VRK_USER}/.vrk/myWall/xfce-desktop.xml
@@ -183,14 +183,14 @@ if [ -d /usr/share/cinnamon-background-properties ]; then
 ln -sfn /home/${VRK_USER}/.vrk/myWall/my-cinn-wall.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
 fi
 ## Own
-chown -R ${VRK_USER} /home/${VRK_USER}/.local
-chown -R ${VRK_USER} /home/${VRK_USER}/.config
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.local
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.config
 
 # Work folder name in config
 sudo -u ${VRK_USER} sed -i "s/VRK_WORK_DIR=.*/VRK_WORK_DIR=\"${WORK_FOLDER_NAME}\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
 
 ## Own
-chown -R ${VRK_USER} /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/"${WORK_FOLDER_NAME}"
 
 
 # Set config

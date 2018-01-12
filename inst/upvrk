@@ -268,7 +268,7 @@ if [ -d "/home/${PATCH_USER}" ]; then
 ##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 # Make the user do the job himself 
 # sudo -u ${PATCH_USER} echo "I am myself v${UPDATE_PATCH_KVERNO}."
-chown -R ${PATCH_USER} /home/${PATCH_USER}/.vrk/myWall
+chown -R ${PATCH_USER}:${PATCH_USER} /home/${PATCH_USER}/.vrk/myWall
 
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklist for the patch user

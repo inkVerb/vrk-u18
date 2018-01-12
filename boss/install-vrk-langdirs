@@ -153,7 +153,7 @@ fi
 
 ## Own
 if [ -d "/home/${VRK_USER}/myLang" ]; then
-chown -R ${VRK_USER} /home/${VRK_USER}/myLang
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/myLang
 fi
 
 ## Set the home directories langauge system config to English

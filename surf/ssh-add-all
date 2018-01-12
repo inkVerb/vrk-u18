@@ -2,7 +2,7 @@
 #inkVerbSurfer! verb.ink
 set -e
 
-# This adds an SSH key to a remote server, enables root no-password login, adds it to Guake Indicator, and creates a Surfer for it
+# This adds an SSH key to a remote server for no-password login, adds it to Guake Indicator, and creates a Surfer for it
 ## If the key already exists, then it does not create it. Otherwise it will.
 ## First, make sure you have logged into your server once, accepted the key fingerprint, and, if you want, changed the port.
 ### ssh user@IPASSRESS

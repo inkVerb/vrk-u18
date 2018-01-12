@@ -143,8 +143,8 @@ fi
 #ln -sfn /home/${VRK_USER}/.vrk/myWall/linuxmint-my-cinn-wallpapers.xml /home/${VRK_USER}/.local/share/cinnamon-background-properties/
 #fi
 ### Own
-#chown -R ${VRK_USER} /home/${VRK_USER}/.local
-#chown -R ${VRK_USER} /home/${VRK_USER}/.config
+#chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.local
+#chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.config
 
 # Copy the file
 cp ${FILENAME} /home/${VRK_USER}/.vrk/myWall/

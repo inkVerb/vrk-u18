@@ -61,7 +61,7 @@ if [ "${USER_BOSSYN}" = "CAN_BOSS" ]; then
 ln -sfn /var/local/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
 fi
 ## Own
-chown -R ${VRK_USER} /home/${VRK_USER}/.vrk
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.vrk
 
 # Finish
 echo "Vrk tools are up-to-date for ${VRK_USER}."

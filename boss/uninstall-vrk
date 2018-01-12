@@ -82,7 +82,7 @@ else
   if [ -d /home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/"${VRK_DOCUMENTS_DIR}" ]; then
 rm -f /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
 cp -R /home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/
-chown -R ${VRK_USER} /home/${VRK_USER}/${VRK_DOCUMENTS_DIR}
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/${VRK_DOCUMENTS_DIR}
   fi
  fi
 ### Templates
@@ -90,7 +90,7 @@ chown -R ${VRK_USER} /home/${VRK_USER}/${VRK_DOCUMENTS_DIR}
    if [ -d /home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/"${VRK_TEMPLATES_DIR}" ]; then
 rm -f /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}"
 cp -R /home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/
-chown -R ${VRK_USER} /home/${VRK_USER}/${VRK_TEMPLATES_DIR}
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/${VRK_TEMPLATES_DIR}
   fi
  fi
 ### Work folder
@@ -98,7 +98,7 @@ chown -R ${VRK_USER} /home/${VRK_USER}/${VRK_TEMPLATES_DIR}
   if [ -d /home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/"${VRK_WORK_DIR}" ]; then
 rm -f /home/${VRK_USER}/"${VRK_WORK_DIR}"
 cp -R /home/${VRK_USER}/${VRK_CLOUD_DIR}/Vrk/"${VRK_WORK_DIR}" /home/${VRK_USER}/
-chown -R ${VRK_USER} /home/${VRK_USER}/${VRK_WORK_DIR}
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/${VRK_WORK_DIR}
   fi
  fi
 fi

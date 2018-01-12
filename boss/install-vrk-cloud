@@ -161,7 +161,7 @@ echo "Bye.
 exit 0
   fi
 ## Own the empty cloud
-chown -R ${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"
  fi
 fi
 
@@ -182,7 +182,7 @@ fi
  if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk ]; then
 	mkdir /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk
  fi
-chown -R ${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk
 ### Templates
  if [ ! -d /home/${VRK_USER}/"${CLOUD_CHOICE}"/Vrk/"${VRK_TEMPLATES_DIR}" ]; then
   if [ -d /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ]; then
