@@ -86,6 +86,8 @@ apt update -y --fix-missing
 #apt update -y --fix-missing
 apt upgrade -y --fix-missing
 apt install -yf
+apt update -y --fix-missing
+apt update -y --fix-broken
 
 # Adapta
 /var/local/vrk/boss/install-adapta

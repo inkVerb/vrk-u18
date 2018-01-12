@@ -48,6 +48,7 @@ add-apt-repository -y restricted
 add-apt-repository -y multiverse
 add-apt-repository -y ppa:kdenlive/kdenlive-stable
 apt update -y --fix-missing
+apt update -y --fix-broken
 
 ## Add manually
 #if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
@@ -74,6 +75,8 @@ echo "REPOS_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
 touch /var/local/vrk/.reposinstalled
 
 # Finish
-apt update --fix-missing
+apt update -y --fix-missing
+apt update -y --fix-broken
+
 echo "Repos added."
 
