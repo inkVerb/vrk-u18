@@ -1,11 +1,11 @@
 #!/bin/sh
-#inkVerbSurfer! verb.ink
+#inkVerb Surfer, verb.ink
 set -e
 
 # This shows the inkNet Client key, probably so it can be signed by the CA Verber
 
 # How to use:
-## show-inknetkey
+## showinknetkey
 
 
 # Check if installed
@@ -25,7 +25,10 @@ fi
 ~/.vrk/configs/inknet/client.verber.cnf
 
 # Display info
-echo "Copy and paste the ENTIRE long key below, as is, into the \"sign/activate Client key\" area on the inkNet CA Inker:
+echo "
+Client Type: \"verber\"
+Client Name: \"${CLIENTNAME}\"
+Copy and paste the ENTIRE long key below, as is, into the \"Activate Client key\" area on the inkNet CA Inker:
 "
 cat ~/.ssh/in_cli_${CLIENTNAME}_key.pub
 
