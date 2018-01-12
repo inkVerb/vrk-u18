@@ -116,47 +116,52 @@ sudo -u ${VRK_USER} sed -i "s/\$HOME\///g" /home/${VRK_USER}/.vrk/configs/lang/s
 sudo -u ${VRK_USER} sed -i "s/XDG_/INT_/g" /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
 . /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
 . /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_EN
+
+# Check to see if the myLang folder is necessary
+if [ ${INT_DESKTOP_DIR} = ${VRK_DESKTOP_DIR} && ${INT_DOWNLOAD_DIR} = ${VRK_DOWNLOAD_DIR} && ${INT_TEMPLATES_DIR} = ${VRK_TEMPLATES_DIR} && ${INT_PUBLICSHARE_DIR} = ${VRK_PUBLICSHARE_DIR} && ${INT_DOCUMENTS_DIR} = ${VRK_DOCUMENTS_DIR} && ${INT_MUSIC_DIR} = ${VRK_MUSIC_DIR} && ${INT_PICTURES_DIR} = ${VRK_PICTURES_DIR} && ${INT_VIDEOS_DIR} = ${VRK_VIDEOS_DIR} ]; then
+echo "Home directorys' language is already English. No need for myLang."
+else
 ## Rename the directories to English from whatever they are, backup original names in myLang if different
 mkdir -p /home/${VRK_USER}/myLang
-if [ ! -d /home/${VRK_USER}/"${VRK_DESKTOP_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_DESKTOP_DIR}" ]; then
+ if [ ! -d /home/${VRK_USER}/"${VRK_DESKTOP_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_DESKTOP_DIR}" ]; then
 	mv /home/${VRK_USER}/"${INT_DESKTOP_DIR}" /home/${VRK_USER}/"${VRK_DESKTOP_DIR}"
 	ln -sfn /home/${VRK_USER}/"${VRK_DESKTOP_DIR}" /home/${VRK_USER}/myLang/"${INT_DESKTOP_DIR}"
-fi
-if [ ! -d /home/${VRK_USER}/"${VRK_DOWNLOAD_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_DOWNLOAD_DIR}" ]; then
+ fi
+ if [ ! -d /home/${VRK_USER}/"${VRK_DOWNLOAD_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_DOWNLOAD_DIR}" ]; then
 	mv /home/${VRK_USER}/"${INT_DOWNLOAD_DIR}" /home/${VRK_USER}/"${VRK_DOWNLOAD_DIR}"
 	ln -sfn /home/${VRK_USER}/${VRK_DOWNLOAD_DIR} /home/${VRK_USER}/myLang/"${INT_DOWNLOAD_DIR}"
-fi
-if [ ! -d /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_TEMPLATES_DIR}" ]; then
+ fi
+ if [ ! -d /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_TEMPLATES_DIR}" ]; then
 	mv /home/${VRK_USER}/"${INT_TEMPLATES_DIR}" /home/${VRK_USER}/${VRK_TEMPLATES_DIR}
 	ln -sfn /home/${VRK_USER}/"${VRK_TEMPLATES_DIR}" /home/${VRK_USER}/myLang/"${INT_TEMPLATES_DIR}"
-fi
-if [ ! -d /home/${VRK_USER}/${VRK_PUBLICSHARE_DIR} ] && [ -d /home/${VRK_USER}/${INT_PUBLICSHARE_DIR} ]; then
+ fi
+ if [ ! -d /home/${VRK_USER}/${VRK_PUBLICSHARE_DIR} ] && [ -d /home/${VRK_USER}/${INT_PUBLICSHARE_DIR} ]; then
 	mv /home/${VRK_USER}/${INT_PUBLICSHARE_DIR} /home/${VRK_USER}/${VRK_PUBLICSHARE_DIR}
 	ln -sfn /home/${VRK_USER}/"${VRK_PUBLICSHARE_DIR}" /home/${VRK_USER}/myLang/"${INT_PUBLICSHARE_DIR}"
-fi
-if [ ! -d /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_DOCUMENTS_DIR}" ]; then
+ fi
+ if [ ! -d /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_DOCUMENTS_DIR}" ]; then
 	mv /home/${VRK_USER}/"${INT_DOCUMENTS_DIR}" /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}"
 	ln -sfn /home/${VRK_USER}/"${VRK_DOCUMENTS_DIR}" /home/${VRK_USER}/myLang/"${INT_DOCUMENTS_DIR}"
-fi
-if [ ! -d /home/${VRK_USER}/"${VRK_MUSIC_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_MUSIC_DIR}" ]; then
+ fi
+ if [ ! -d /home/${VRK_USER}/"${VRK_MUSIC_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_MUSIC_DIR}" ]; then
 	mv /home/${VRK_USER}/"${INT_MUSIC_DIR}" /home/${VRK_USER}/"${VRK_MUSIC_DIR}"
 	ln -sfn /home/${VRK_USER}/"${VRK_MUSIC_DIR}" /home/${VRK_USER}/myLang/"${INT_MUSIC_DIR}"
-fi
-if [ ! -d /home/${VRK_USER}/"${VRK_PICTURES_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_PICTURES_DIR}" ]; then
+ fi
+ if [ ! -d /home/${VRK_USER}/"${VRK_PICTURES_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_PICTURES_DIR}" ]; then
 	mv /home/${VRK_USER}/"${INT_PICTURES_DIR}" /home/${VRK_USER}/"${VRK_PICTURES_DIR}"
 	ln -sfn /home/${VRK_USER}/"${VRK_PICTURES_DIR}" /home/${VRK_USER}/myLang/"${INT_PICTURES_DIR}"
-fi
-if [ ! -d /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_VIDEOS_DIR}" ]; then
+ fi
+ if [ ! -d /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" ] && [ -d /home/${VRK_USER}/"${INT_VIDEOS_DIR}" ]; then
 	mv /home/${VRK_USER}/"${INT_VIDEOS_DIR}" /home/${VRK_USER}/"${VRK_VIDEOS_DIR}"
 	ln -sfn /home/${VRK_USER}/"${VRK_VIDEOS_DIR}" /home/${VRK_USER}/myLang/"${INT_VIDEOS_DIR}"
-fi
-
+ fi
 ## Own
-if [ -d "/home/${VRK_USER}/myLang" ]; then
-chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/myLang
+ if [ -d "/home/${VRK_USER}/myLang" ]; then
+ chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/myLang
+ fi
 fi
 
-## Set the home directories langauge system config to English
+# Set the home directories langauge system config to English
 cp /home/${VRK_USER}/.config/user-dirs.dirs /home/${VRK_USER}/.config/user-dirs.dirs.ink-bak
 cp /home/${VRK_USER}/.config/user-dirs.dirs /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL.dirs
 cp /home/${VRK_USER}/.vrk/configs/lang/user-dirs_EN.dirs /home/${VRK_USER}/.config/user-dirs.dirs
