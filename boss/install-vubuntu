@@ -48,7 +48,6 @@ apt update -y --fix-missing
 apt upgrade -y --fix-missing
 apt install -yf
 apt update -y --fix-missing
-apt update -y --fix-broken
 
 # Verify the interactives first
 apt install -y msttcorefonts jackd2

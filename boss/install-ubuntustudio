@@ -49,7 +49,6 @@ apt update -y --fix-missing
 apt upgrade -y --fix-missing
 apt install -yf
 apt update -y --fix-missing
-apt update -y --fix-broken
 
 # Install Ubuntu Studio
 echo "Installing the full load of Ubuntu Studio..."
