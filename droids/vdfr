@@ -1,0 +1,19 @@
+#!/bin/bash
+#inkVerbDroid! verb.ink
+
+# This droid runs a sed find-replacement for specified files
+
+# How to use
+## vdfr [find this] [replace with this] [file]
+
+# Eg:
+## vdfr foo bar *
+## vdfr "foo this" "bar none" milkshop
+
+
+FOO=$1
+BAR=$2
+FLE=$3
+
+sed -i "s/${FOO}/${BAR}/g" ${FLE}
+

@@ -1,0 +1,28 @@
+#!/bin/bash
+#inkVerbDroid! verb.ink
+
+# This droid replaces a common part of a filename beginning or end, such as from .htm to .html
+## This only works with the beginning or end of a file
+
+# How to use
+## vdext [find this] [replace with this] [file]
+
+# Eg:
+## vdext foo bar *
+## vdext "foo this" "bar none" milkshop
+
+
+OLD=$1
+NEW=$2
+
+
+# Extensions
+for f in *${OLD}; do 
+mv -- "$f" "${f%$OLD}${NEW}"
+done
+
+# Surnames
+for f in ${OLD}*; do 
+mv -- "$f" "${NEW}${f%$OLD}"
+done
+
