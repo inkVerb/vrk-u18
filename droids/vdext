@@ -21,8 +21,6 @@ for f in *${OLD}; do
 mv -- "$f" "${f%$OLD}${NEW}"
 done
 
-# Surnames
-for f in ${OLD}*; do 
-mv -- "$f" "${NEW}${f%$OLD}"
-done
+# Elsewhere
+rename  "s/${OLD}/${NEW}/" *
 
