@@ -1,5 +1,5 @@
 #!/bin/sh
-#inkVerbDroid! verb.ink
+#inkVerbDroid! verb.ink &inkVerbSerf!
 set -e
 
 # This compresses a directory into a .tar.xz file, renamed as a .vtxz file, all in the PWD

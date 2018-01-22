@@ -1,0 +1,20 @@
+#!/bin/sh
+#inkVerbDroid! verb.ink
+set -e
+
+# This compresses a directory into a .tar.xz file, all in the PWD
+
+# The directory MUST be in the PWD!
+# This will OVERWRITE any .tar.xz destination file by the same name!
+
+# How to use:
+## ./vtxzin [directory]
+
+# Eg:
+## ./vtxzin mystuff
+
+
+DIR=$1
+
+tar -cf - ${DIR}/ | xz -9 -c - > ${DIR}.tar.xz
+

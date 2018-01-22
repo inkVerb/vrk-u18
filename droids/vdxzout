@@ -1,0 +1,27 @@
+#!/bin/sh
+#inkVerbDroid! verb.ink
+set -e
+
+# This decompresses a .tar.xz file and places its contents in same directory, all in the PWD
+
+# The .tar.xz file MUST be in the PWD!
+# Do NOT include the .tar.xz extension in the filename parameter!
+
+# How to use:
+## ./vdxzout [vtxzfile]
+
+# Eg:
+## ./vdxzout mystuff
+
+
+FIL=$1
+
+# Test for a .tar of the same name
+if [ -e "${FIL}.tar" ]; then
+echo "The file ${FIL}.tar exists, which conflicts with this operation. Deal with that out first."
+exit 11; fi
+
+xz -d ${FIL}.tar.xz
+tar -xf ${FIL}.tar
+rm ${FIL}.tar
+

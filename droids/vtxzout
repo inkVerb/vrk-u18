@@ -1,5 +1,5 @@
 #!/bin/sh
-#inkVerbDroid! verb.ink
+#inkVerbDroid! verb.ink &inkVerbSerf!
 set -e
 
 # This decompresses a .tvxz file and places its contents in same directory, all in the PWD

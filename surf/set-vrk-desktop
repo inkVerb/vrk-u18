@@ -393,9 +393,11 @@ xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "
 #xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:menu"
 
 ## Set theme & icons
-#### Theme
-xfconf-query -c xsettings -p /Net/ThemeName -s "Greybird"
-#### Per distro ;-)
+### Window Theme
+xfconf-query -c xfwm4 -p /general/theme -s "Numix"
+### Color Theme
+xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta-Nokto"
+### Per distro ;-)
 if [ "${LINUX_DISTRO}" = "ubuntustudio" ]; then
 xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Arch-Blue"; fi
 if [ "${LINUX_DISTRO}" = "xubuntu" ]; then
