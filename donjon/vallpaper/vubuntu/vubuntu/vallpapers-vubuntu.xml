@@ -110,8 +110,44 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
+    <name>Vubuntu Mesh Disk - Blue</name>
+    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Blue.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
     <name>Vubuntu Mesh Disk - Green</name>
     <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Green.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Vubuntu Mesh Disk - Orange</name>
+    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Orange.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Vubuntu Mesh Disk - Red</name>
+    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Red.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>Vubuntu Mesh Disk - Purple</name>
+    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Purple.png</filename>
     <options>zoom</options>
     <pcolor>#ececec</pcolor>
     <scolor>#ececec</scolor>
