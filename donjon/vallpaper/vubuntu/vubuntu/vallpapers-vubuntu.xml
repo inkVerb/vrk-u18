@@ -110,6 +110,15 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
+    <name>Vubuntu Mesh Disk - Gray</name>
+    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Gray.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
     <name>Vubuntu Mesh Disk - Blue</name>
     <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Blue.png</filename>
     <options>zoom</options>
