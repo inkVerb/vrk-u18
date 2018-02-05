@@ -697,6 +697,8 @@ add-apt-repository -y ppa:kdenlive/kdenlive-stable
 apt update -y --fix-missing
 apt install -y blender kdenlive
 
+# Icon/theme update
+/var/local/vrk/boss/themicons-git-upstall
 
 # Set and refresh the current version into inklists
 sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
