@@ -101,6 +101,15 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
+    <name>Fiber Herringbone</name>
+    <filename>/usr/share/backgrounds/vubuntu/Fiber-Herringbone.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
     <name>Vubuntu Mesh Disk</name>
     <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk.png</filename>
     <options>zoom</options>
