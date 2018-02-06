@@ -156,7 +156,16 @@ cd /var/local/vrk/donjon/ti/icons-
 ## Surfn
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "surfn" ]; then
 git clone https://github.com/erikdubois/Surfn
-cd Surfn
+### Fix Surfn's LMMS icon
+cd Surfn/Surfn/scalable/apps/scalable/
+git clone https://github.com/inkVerb/icons/
+rm -f lmms.svg
+cd icons
+cp -f lmms-solid.svg ../lmms.svg
+cd ..
+rm -rf icons
+### Continue
+cd /var/local/vrk/donjon/ti/icons-
 rm -rf /usr/share/icons/Surfn*
 mv Surfn* /usr/share/icons/
 ### Update
