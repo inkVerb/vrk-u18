@@ -156,7 +156,7 @@ cd /var/local/vrk/donjon/ti/icons-
 ## Surfn
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "surfn" ]; then
 git clone https://github.com/erikdubois/Surfn
- if [ ! -d "Surfn" ]; then; exit 44; fi
+ if [ ! -d "Surfn" ]; then exit 44; fi
 ### Fix Surfn's LMMS icon
 rm -f /var/local/vrk/donjon/ti/icons-/Surfn/Surfn/scalable/apps/scalable/lmms.svg
 cp -f /var/local/vrk/donjon/ti/lmms.svg /var/local/vrk/donjon/ti/icons-/Surfn/Surfn/scalable/apps/scalable/
@@ -176,9 +176,9 @@ fi
 ## Numix & Numix Circle
 if [ "${INSTHEMICON}" = "numix" ]; then
 git clone https://github.com/numixproject/numix-icon-theme
- if [ ! -d "numix-icon-theme" ]; then; exit 44; fi
+ if [ ! -d "numix-icon-theme" ]; then exit 44; fi
 git clone https://github.com/numixproject/numix-icon-theme-circle
- if [ ! -d "numix-icon-theme-circle" ]; then; exit 44; fi
+ if [ ! -d "numix-icon-theme-circle" ]; then exit 44; fi
 rm -rf /usr/share/icons/Numix*
 cd numix-icon-theme
 mv Numix* /usr/share/icons/
@@ -197,7 +197,7 @@ fi
 if [ "${INSTHEMICON}" = "moka" ]; then
 cd /var/local/vrk/donjon/ti/icons-
 git clone https://github.com/snwh/moka-icon-theme
- if [ ! -d "moka-icon-theme" ]; then; exit 44; fi
+ if [ ! -d "moka-icon-theme" ]; then exit 44; fi
 cd moka-icon-theme
 ./autogen.sh
 rm -rf /usr/share/icons/Moka*
