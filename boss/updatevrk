@@ -55,6 +55,10 @@ fi
 # Include the config
 . /var/local/vrk/machineinfo
 
+# Prep the PWD
+if [ -d "vrk" ]; then
+rm -rf vrk; fi
+
 # Local or web update
 ## GitHub
 if [ "${UTYPE}" = "git" ]; then
@@ -82,7 +86,8 @@ exit 22
 cd /home/${SUDO_USER}/vrk/inst
 chmod +x upvrk
 ./upvrk
-echo "Vrk is up-to-date. You may remove the vrk folder from home."
+echo "Vrk is up-to-date. You may remove the vrk folder from home with:
+sudo rm -r vrk"
 exit 0
 fi
 

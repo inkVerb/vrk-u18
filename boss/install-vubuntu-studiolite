@@ -154,7 +154,12 @@ apt install -y vlc vlc-data browser-plugin-vlc mplayer2 clementine amarok kdenli
 echo "
 Media done. Audiophile tools, Audacity, LMMS, Yate VoIP client, Kid3 audio tag tool...
 "
-apt install -y audacity lmms kid3 pulseaudio yate-qt4
+## pulseaudio & pavucontrol for mixing & monitor control in Audacity
+apt install -y audacity lmms kid3 pulseaudio pavucontrol yate-qt4
+## Audacity DeClicker & DeEsser http://forum.audacityteam.org/viewtopic.php?f=42&t=79278&p=245549
+cd /usr/share/audacity/plug-ins/
+wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
+wget -O DeEsser.ny http://forum.audacityteam.org/download/file.php?id=10125
 echo "Sound's great. (hehe) Getting desktop goodies...
 "
 apt install -y ubuntu-restricted-extras alsa-oss libasound2 libasound2-plugins
