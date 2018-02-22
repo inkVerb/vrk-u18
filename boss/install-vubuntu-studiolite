@@ -97,6 +97,18 @@ Fonts are now installed. Now doing some basic tools...
 apt install -y zip p7zip-full gzip guake phatch docky kate retext nautilus grabc gparted shutter kazam
 ## Redundant from install-vubuntu-desktop
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
+## WSP Office
+### Get updated links here: http://wps-community.org/download.html
+if [ "${PROCVNO}" = "amd64" ]; then
+wget -O wps-office.deb http://kdl.cc.ksosoft.com/wps-community/download/a21/wps-office_10.1.0.5707~a21_amd64.deb
+else
+wget -O wps-office.deb http://kdl.cc.ksosoft.com/wps-community/download/a21/wps-office_10.1.0.5707~a21_i386.deb
+fi
+dpkg -i wps-office.deb
+apt -f install && rm wps-office.deb
+wget -O web-office-fonts.deb http://kdl.cc.ksosoft.com/wps-community/download/fonts/wps-office-fonts_1.0_all.deb
+dpkg -i web-office-fonts.deb
+rm -f web-office-fonts.deb
 echo "
 Tools done. Now doing browsers...
 "
