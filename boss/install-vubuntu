@@ -50,14 +50,14 @@ apt install -yf
 apt update -y --fix-missing
 
 # Verify the interactives first
-apt install -y msttcorefonts jackd2
+apt install -y jackd2
 
 # Add the graphix PPA
 /var/local/vrk/boss/install-grfx
 
-# Vubuntu Desktop
-/var/local/vrk/boss/install-vubuntu-desktop
-
 # Vubuntu StudioLite
 /var/local/vrk/boss/install-vubuntu-studiolite
+
+# Vubuntu Desktop
+/var/local/vrk/boss/install-vubuntu-desktop
 

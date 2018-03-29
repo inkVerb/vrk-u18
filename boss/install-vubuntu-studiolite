@@ -76,7 +76,7 @@ PROCVNO=$(dpkg --print-architecture)
 echo "
 Installing Vubuntu Studio Lite
 
-First, updates and fonts. Get ready to agree to EULA...
+First, updates and fonts...
 "
 
 # Add repos
@@ -115,7 +115,7 @@ apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impre
 echo "
 Tools done. Now doing browsers...
 "
-apt install -y midori
+#apt install -y midori #DEV Delayed until 18.04 is out of beta
 if [ "${LINUX_DISTRO}" = "gnome" ]; then
 apt install -y epiphany-browser gconf-editor
 fi
