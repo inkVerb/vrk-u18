@@ -65,6 +65,13 @@ LINUX_DISTRO="$1"; fi
 killall -q dolphin
 killall -q docky
 
+# Distro version
+ubuntu_release=$(lsb_release -r -s)
+## Depreciated
+if [ "$ubuntu_release" = "14.04" ] || [ "$ubuntu_release" = "12.04" ]; then
+echo "Verion $ubuntu_release not supported."
+exit 77; fi
+
 # Global exceptions tests
 if [ "$LINUX_DISTRO" = "ubuntu" ]; then
 DESKTOP_GLOBE="EXCEPTION"; fi
@@ -96,10 +103,10 @@ DESKTOP_DOCKY="SIDE"; fi
 #if [ "$LINUX_DISTRO" != "/usr/share/xsessions/plasma" ]; then
 #DESKTOP_GLOBE="EXCEPTION"; fi
 
+# # 18.04 # # Ubuntu GNOME
+if [ "$ubuntu_release" = "18.04" ]; then
+
 # Global
-## Gedit always opens a new window, not tab-clustering (possible solutions)
-#gsettings set org.gnome.gedit.preferences.ui show-tabs-mode 'never'
-#echo "alias gedit=\"gedit --new-window\"" >> ~/.bashrc
 
 ## Templates
 ~/.vrk/boards/do-vrktemplates
@@ -231,6 +238,51 @@ sleep 1
 
 # Global #
 
+# Ubuntu (GNOME)
+if [ "$LINUX_DISTRO" = "ubuntu" ]; then
+
+## App Defaults
+cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Autostart special
+cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
+
+## Flatabulous terminal "profile" (color scheme)
+~/.vrk/donjon/xt-gnome
+
+## Set theme & icons
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface icon-theme "Surfn-Luv"
+
+## Make icons work in menues
+gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
+
+## LibreOffice theming
+### Can be: breeze oxygen tango voffice etc
+sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+
+## Launcher
+###DEV Does this work in 18.04?
+gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'thunderbird.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
+
+###DEV NEW FOR GNOME 18.04
+## Hot corners
+org.gnome.shell enable-hot-corners true
+
+## Dock
+org.gnome.shell.extensions.dash-to-dock dock-fixed false
+org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 28
+
+## Other interesting things
+org.gnome.desktop.wm.preferences focus-new-windows 'smart'
+org.gnome.desktop.interface menus-have-icons false
+org.gnome.desktop.interface clock-show-weekday true
+org.gnome.desktop.interface clock-show-date false
+org.gnome.desktop.interface toolbar-detachable false #??
+org.gnome.desktop.notifications show-banners true #?
+
+fi
+# Ubuntu (GNOME) #
 
 # Budgie
 if [ "$LINUX_DISTRO" = "budgie-desktop" ]; then
@@ -271,103 +323,6 @@ gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/Shell
 
 fi
 # Budgie #
-
-
-# Unity
-if [ "$LINUX_DISTRO" = "ubuntu" ]; then
-
-## App Defaults
-cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
-
-## Autostart special
-cp -rf ~/.vrk/donjon/unity/config/autostart ~/.config/
-
-## LibreOffice theming
-### Can be: breeze oxygen tango voffice etc
-#sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
-
-## Workspaces
-dconf write /org/compiz/profiles/unity/plugins/core/hsize 2
-dconf write /org/compiz/profiles/unity/plugins/core/vsize 2
-
-## Hot corners
-### There is no gsettings schema for this. Use this Python script, read its big thanks for his 2-day coding class!
-~/.vrk/donjon/vubuntu-unity-hotcorners.py
-### Twice to be sure ;-)
-sleep 2
-~/.vrk/donjon/vubuntu-unity-hotcorners.py
-
-### Window tiling (four corners)
-#### THIS NEEDS TO BE set up via compiz, look in compiz-unity in vrk.dev
-#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Up" -t string -s 'tile_up_key'
-#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Down" -t string -s 'tile_down_key'
-#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Left" -t string -s 'tile_left_key'
-#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Right" -t string -s 'tile_right_key'
-#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Left" -t string -s 'tile_up_left_key'
-#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Right" -t string -s 'tile_up_right_key'
-#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Left" -t string -s 'tile_down_left_key'
-#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Right" -t string -s 'tile_down_right_key'
-
-## Launcher autohide, sensitivity, size, etc.
-gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ launcher-hide-mode 1
-gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ edge-responsiveness 7.
-gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 28
-### To find your launcher shourtcuts for the next command:$ gsettings get com.canonical.Unity.Launcher favorites
-gsettings set com.canonical.Unity.Launcher favorites "['application://org.gnome.Nautilus.desktop', 'application://chromium-browser.desktop', 'application://firefox.desktop', 'application://midori.desktop', 'application://gedit.desktop', 'application://libreoffice-writer.desktop', 'application://thunderbird.desktop', 'application://rhythmbox.desktop', 'application://gnome-calculator.desktop', 'application://unity-tweak-tool.desktop', 'application://unity-control-center.desktop', 'unity://running-apps', 'unity://devices']"
-#### Multiple monitors, only one Unity launcher
-gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ num-launchers 1
-
-## Theme & Icons
-#Depreciated?
-#gsettings set org.gnome.desktop.wm.preferences theme 'Adapta-Nokto'
-gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
-gsettings set org.gnome.desktop.interface icon-theme "Surfn-Luv"
-
-### Conky IN DEV
-#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
-#chmod +x .start-conky
-#cd && wget -O gotham-noobslab-ugs.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-ugs.zip
-#unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
-
-fi
-# Unity #
-
-
-# GNOME
-if [ "$LINUX_DISTRO" = "gnome" ]; then
-
-## App Defaults
-cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
-
-## Autostart special
-cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
-
-## Flatabulous terminal "profile" (color scheme)
-~/.vrk/donjon/xt-gnome
-
-## Set theme & icons
-#Depreciated?
-#gsettings set org.gnome.desktop.wm.preferences theme 'Arc-Dark'
-gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
-gsettings set org.gnome.desktop.interface icon-theme "Surfn-Luv"
-
-## Make icons work in menues
-gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
-
-## LibreOffice theming
-### Can be: breeze oxygen tango voffice etc
-sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
-
-## Launcher
-gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'thunderbird.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
-
-## Extensions
-#No, use Ctrl + Click instead
-#gnome-shell-extension-tool -e launch-new-instance
-
-fi
-# GNOME #
-
 
 # Xfce (Xubuntu & UbuntuStudio)
 ## Help:
@@ -649,6 +604,564 @@ fi
 
 fi
 # MATE #
+
+
+fi
+## 18.04 ##
+
+# # 16.04 # #
+if [ "$ubuntu_release" = "16.04" ]; then
+
+# Global
+
+## Templates
+~/.vrk/boards/do-vrktemplates
+
+## Window Snapping
+#notyet
+
+## Hotkeys for apps
+### X: Gedit teXt editor
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'gedit'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'Editor'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Super>x'
+### E: Files
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command 'nautilus'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name 'Files'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding '<Super>e'
+### Q: Calculator
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ command 'gnome-calculator'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ name 'Calculator'
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ binding '<Super>q'
+### Apply the settings
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/']"
+
+
+## Compose Key: CapsLock key
+dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:caps']"
+#dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:menu']"
+
+## Alt + Secondary click = resize
+if [ -x "$(command -v gconftool)" ]; then
+gconftool-2 -s -t bool /apps/metacity/general/resize_with_right_button true; fi
+gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
+gsettings set org.gnome.desktop.wm.preferences mouse-button-modifier '<Alt>'
+
+## Minimize in GNOME Windows
+gsettings set org.gnome.desktop.wm.preferences action-middle-click-titlebar 'minimize'
+### Other options to minimize:  maximize toggle-maximize-vertically toggle-maximize-horizontally menu
+gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
+### Alternative re-order:
+#gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
+
+### Set Background Wallpaper
+~/.vrk/boards/set-vall ${VALL_ROOM} ${VALL_BACKGRND}
+~/.vrk/boards/set-vall-lock ${VALL_ROOM} ${VALL_LOCKSRN}
+
+## Gedit (may be redundant in per-environments below, but just be safe)
+gsettings set org.gnome.gedit.preferences.editor wrap-mode none
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+
+## Disable screen lock (which requires password every time after the screen blanks, or double-login on changing user)
+gsettings set org.gnome.desktop.screensaver lock-enabled false
+
+## App global configs
+### Check prerequesite directories
+mkdir -p ~/.config/autostart
+#### Just in case, we never know when some update will break the known order
+mkdir -p ~/.gconf/apps/
+### Autostart
+#right now there aren't any global autostarts and the vrk/donjon/global/config/autostart dir doesn't exist.
+#cp -rf ~/.vrk/donjon/global/config/autostart ~/.config/
+### Kate
+cp -rf ~/.vrk/donjon/global/config/katepartrc ~/.config/
+### Guake
+~/.vrk/boards/set-guake-on
+gconftool-2 --set "/apps/guake/style/font/palette" --type string "#000000000000:#e3e31a1a1c1c:#3131a3a35454:#dcdca0a06060:#31318282bdbd:#75756b6bb1b1:#8080b1b1d3d3:#b7b7b8b8b9b9:#737374747575:#e3e31a1a1c1c:#3131a3a35454:#dcdca0a06060:#31318282bdbd:#75756b6bb1b1:#8080b1b1d3d3:#b7b7b8b8b9b9:#b7b7b8b8b9b9:#000000000000"
+gconftool-2 --set "/apps/guake/style/font/palette_name" --type string "Custom"
+gconftool-2 --set "/apps/guake/style/font/color" --type string "#b7b7b8b8b9b9"
+gconftool-2 --set "/apps/guake/style/background/transparency" --type int "23"
+gconftool-2 --set "/apps/guake/general/use_trayicon" --type bool "false"
+gconftool-2 --set "/apps/guake/general/use_popup" --type bool "false"
+gconftool-2 --set "/apps/guake/general/window_height_f" --type float "24"
+gconftool-2 --set "/apps/guake/general/window_height" --type int "24"
+#DEV: depreciated with gconftool-2 settings, remove if this works
+#mkdir -p ~/.gconf/apps
+#if [ ! -d ~/.gconf/apps/guake ]; then
+#cp -rf ~/.vrk/donjon/global/gconf/apps/guake ~/.gconf/apps/
+#fi
+#DEV#
+### Docky
+killall -q docky
+if [ "${DESKTOP_DOCKY}" = "SIDE" ]; then
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Position" --type string "Left"
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/IconSize" --type int "32"
+else
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Position" --type string "Bottom"
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/IconSize" --type int "48"
+fi
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Autohide" --type string "Autohide"
+gconftool-2 --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/ThreeDimensional" --type string "false"
+gconftool-2 --set "/apps/docky-2/Docky/Services/ThemeService/Theme" --type string "Transparent"
+## Run Docky once
+killall -q docky
+docky &
+sleep 1
+killall -q docky
+gconftool-2 --type list --list-type string --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/SortList" "[usr/share/applications/nautilus.desktop,/usr/share/applications/chromium-browser.desktop,/usr/share/applications/firefox.desktop,/usr/share/applications/thunderbird.desktop,/usr/share/applications/libreoffice-writer.desktop,/usr/share/applications/gedit.desktop,/usr/share/applications/rhythmbox.desktop]"
+gconftool-2 --type list --list-type string --set "/apps/docky-2/Docky/Interface/DockPreferences/Dock1/Launchers" "[file:///usr/share/applications/nautilus.desktop,file:///usr/share/applications/chromium-browser.desktop,file:///usr/share/applications/firefox.desktop,file:///usr/share/applications/thunderbird.desktop,file:///usr/share/applications/libreoffice-writer.desktop,file:///usr/share/applications/gedit.desktop,file:///usr/share/applications/rhythmbox.desktop]"
+
+## App Theming
+### Dependency directory
+mkdir -p ~/.local/share/applications
+### Future: (still doesn't work all the time)
+#http://askubuntu.com/questions/78088/can-i-apply-a-different-gtk3-theme-from-the-main-one-to-an-individual-applicatio
+# This directory has .css files with app names
+#/usr/share/themes/*Theme Name*/gtk-3.0/apps/
+# Individual apps
+#http://worldofgnome.org/running-gtk-applications-different-themes-per-app/
+## LibreOffice (doesn't work in Xfce or GNOME, but works in Unity)
+if [ -d "/usr/share/themes/Blumix" ]; then
+cp /usr/share/applications/libreoffice-writer.desktop ~/.local/share/applications/libreoffice.writer.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --writer %U/g" ~/.local/share/applications/libreoffice.writer.desktop
+cp /usr/share/applications/libreoffice-calc.desktop ~/.local/share/applications/libreoffice.calc.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --calc %U/g" ~/.local/share/applications/libreoffice.calc.desktop
+cp /usr/share/applications/libreoffice-math.desktop ~/.local/share/applications/libreoffice.math.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --math %U/g" ~/.local/share/applications/libreoffice.math.desktop
+cp /usr/share/applications/libreoffice-base.desktop ~/.local/share/applications/libreoffice.base.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --base %U/g" ~/.local/share/applications/libreoffice.base.desktop
+cp /usr/share/applications/libreoffice-draw.desktop ~/.local/share/applications/libreoffice.draw.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --draw %U/g" ~/.local/share/applications/libreoffice.draw.desktop
+cp /usr/share/applications/libreoffice-impress.desktop ~/.local/share/applications/libreoffice.impress.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --impress %U/g" ~/.local/share/applications/libreoffice.impress.desktop
+cp /usr/share/applications/libreoffice-startcenter.desktop ~/.local/share/applications/libreoffice.startcenter.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice %U/g" ~/.local/share/applications/libreoffice.startcenter.desktop
+fi
+
+## Pause to avoid trouble
+sleep 1
+
+# Global #
+
+# Unity
+if [ "$LINUX_DISTRO" = "ubuntu" ]; then
+
+## App Defaults
+cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Autostart special
+cp -rf ~/.vrk/donjon/unity/config/autostart ~/.config/
+
+## LibreOffice theming
+### Can be: breeze oxygen tango voffice etc
+#sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+
+## Workspaces
+dconf write /org/compiz/profiles/unity/plugins/core/hsize 2
+dconf write /org/compiz/profiles/unity/plugins/core/vsize 2
+
+## Hot corners
+### There is no gsettings schema for this. Use this Python script, read its big thanks for his 2-day coding class!
+~/.vrk/donjon/vubuntu-unity-hotcorners.py
+### Twice to be sure ;-)
+sleep 2
+~/.vrk/donjon/vubuntu-unity-hotcorners.py
+
+### Window tiling (four corners)
+#### THIS NEEDS TO BE set up via compiz, look in compiz-unity in vrk.dev
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Up" -t string -s 'tile_up_key'
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Down" -t string -s 'tile_down_key'
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Left" -t string -s 'tile_left_key'
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Right" -t string -s 'tile_right_key'
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Left" -t string -s 'tile_up_left_key'
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Right" -t string -s 'tile_up_right_key'
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Left" -t string -s 'tile_down_left_key'
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Right" -t string -s 'tile_down_right_key'
+
+## Launcher autohide, sensitivity, size, etc.
+gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ launcher-hide-mode 1
+gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ edge-responsiveness 7.
+gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 28
+### To find your launcher shourtcuts for the next command:$ gsettings get com.canonical.Unity.Launcher favorites
+gsettings set com.canonical.Unity.Launcher favorites "['application://org.gnome.Nautilus.desktop', 'application://chromium-browser.desktop', 'application://firefox.desktop', 'application://midori.desktop', 'application://gedit.desktop', 'application://libreoffice-writer.desktop', 'application://thunderbird.desktop', 'application://rhythmbox.desktop', 'application://gnome-calculator.desktop', 'application://unity-tweak-tool.desktop', 'application://unity-control-center.desktop', 'unity://running-apps', 'unity://devices']"
+#### Multiple monitors, only one Unity launcher
+gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ num-launchers 1
+
+## Theme & Icons
+#Depreciated?
+#gsettings set org.gnome.desktop.wm.preferences theme 'Adapta-Nokto'
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface icon-theme "Surfn-Luv"
+
+### Conky IN DEV
+#cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
+#chmod +x .start-conky
+#cd && wget -O gotham-noobslab-ugs.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-ugs.zip
+#unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
+
+fi
+# Unity #
+
+
+# GNOME
+if [ "$LINUX_DISTRO" = "gnome" ]; then
+
+## App Defaults
+cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Autostart special
+cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
+
+## Flatabulous terminal "profile" (color scheme)
+~/.vrk/donjon/xt-gnome
+
+## Set theme & icons
+#Depreciated?
+#gsettings set org.gnome.desktop.wm.preferences theme 'Arc-Dark'
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface icon-theme "Surfn-Luv"
+
+## Make icons work in menues
+gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
+
+## LibreOffice theming
+### Can be: breeze oxygen tango voffice etc
+sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+
+## Launcher
+gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'thunderbird.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
+
+## Extensions
+#No, use Ctrl + Click instead
+#gnome-shell-extension-tool -e launch-new-instance
+
+fi
+# GNOME #
+
+# Budgie
+if [ "$LINUX_DISTRO" = "budgie-desktop" ]; then
+
+## App Defaults
+cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Autostart special
+cp -rf ~/.vrk/donjon/budgie/config/autostart ~/.config/
+
+## Plank
+killall plank
+gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ theme 'Transparent'
+gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode 'auto'
+gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items "['nautilus.dockitem', 'chromium-browser.dockitem', 'firefox.dockitem', 'thunderbird.dockitem', 'gedit.dockitem', 'libreoffice-writer.dockitem', 'rhythmbox.dockitem', 'org.gnome.Calculator.dockitem', 'gnome-control-center.dockitem']"
+plank
+
+## Flatabulous terminal "profile" (color scheme)
+#~/.vrk/donjon/xt-budgie # it uses Terminix, not the gnome terminal
+
+## Set theme
+#Budgie's theme is already awesome and other GTK themes don't seem to work well with Budgie
+#gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
+gsettings set org.gnome.desktop.interface icon-theme "Surfn-Majestic"
+gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
+
+## Make icons work in menues
+gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
+
+## LibreOffice theming
+### Can be: breeze oxygen tango voffice etc
+# reports an error message
+#sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+
+## Xfdashboard
+#https://github.com/gmc-holle/xfdashboard/issues/122
+#DEV: This is still in dev here for FYI in 15.04 and may never be necessary
+
+fi
+# Budgie #
+
+# Xfce (Xubuntu & UbuntuStudio)
+## Help:
+#http://docs.xfce.org/xfce/xfconf/xfconf-query
+
+if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ; then
+
+## App Defaults
+cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
+
+## Autostart special
+cp -rf ~/.vrk/donjon/xfce/config/autostart ~/.config/
+
+## Mouse cursor theme
+gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
+
+## Gedit
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+
+## Compose Key: CapLock key
+xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
+#xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:menu"
+
+## Set theme & icons
+### Window Theme
+xfconf-query -c xfwm4 -p /general/theme -s "Numix"
+### Color Theme
+xfconf-query -c xsettings -p /Net/ThemeName -s "Adapta-Nokto"
+### Per distro ;-)
+if [ "${LINUX_DISTRO}" = "ubuntustudio" ]; then
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Arch-Blue"; fi
+if [ "${LINUX_DISTRO}" = "xubuntu" ]; then
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Numix-Misty"; fi
+
+## Pause to avoid trouble
+sleep 1
+
+## Whisker menu
+### Icon
+#### Per distro ;-)
+if [ "${LINUX_DISTRO}" = "ubuntustudio" ]; then
+sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/inkVerb-disk-blue\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc; fi
+if [ "${LINUX_DISTRO}" = "xubuntu" ]; then
+sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/inkVerb-disk-white\.svg/g" ~/.config/xfce4/panel/whiskermenu-1.rc; fi
+#### Show it
+sed -i "s/show-button-icon=.*/show-button-icon=true/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+### Favorites
+sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,chromium-browser\.desktop,firefox\.desktop,midori\.desktop,gedit\.desktop,libreoffice-writer\.desktop,thunderbird\.desktop,rhythmbox\.desktop,org\.gnome\.Software\.desktop,gnome-calculator\.desktop/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+
+## Terminal color scheme
+~/.vrk/donjon/xt-xfce
+
+## Workspaces & windows
+xfconf-query -c xfwm4 -p /general/workspace_count -s 3
+xfconf-query -c xfwm4 -p /general/scroll_workspaces -s true
+xfconf-query -c xfwm4 -p /general/mousewheel_rollup -s true
+xfconf-query -c xfwm4 -p /general/tile_on_move -s true
+
+## Wallpaper
+#first one already set by set-vall, but let's spice up the rest, shall we...
+#xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/inkPage.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/Pen-Black.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
+
+## Pause to avoid trouble
+sleep 1
+
+## Hot keys
+### Whisker menu
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -t string -s 'xfce4-popup-whiskermenu'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_R" -t string -s 'xfce4-popup-whiskermenu'
+#can't use <Super> given the above Super_L and Super_R declarations :-(
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>z" -t string -s 'xfce4-popup-whiskermenu'
+#xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>space" -t string -s 'xfce4-popup-whiskermenu'
+### Xfdashboard
+#### set for both orders since order matters
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_L" -t string -s 'xfdashboard'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Ctrl><Alt>Super_R" -t string -s 'xfdashboard'
+### Window tiling
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Up" -t string -s 'tile_up_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Down" -t string -s 'tile_down_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Left" -t string -s 'tile_left_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Ctrl><Super>Right" -t string -s 'tile_right_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Left" -t string -s 'tile_up_left_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Shift><Super>Right" -t string -s 'tile_up_right_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Left" -t string -s 'tile_down_left_key'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/xfwm4/custom/<Alt><Super>Right" -t string -s 'tile_down_right_key'
+### Desktop apps
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>d" -t string -s 'gedit'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>e" -t string -s 'thunar'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>q" -t string -s 'gnome-calculator'
+
+## Pause to avoid trouble
+sleep 1
+
+## Xfdashboard
+###DEV see available options: xfconf-query -c xfdashboard -lv
+#http://xfdashboard.froevel.de/settings.html
+#https://github.com/gmc-holle/xfdashboard/issues/122
+## Dashboard settings
+xfconf-query -n -t bool -c xfdashboard -p /always-launch-new-instance -s false
+xfconf-query -n -t bool -c xfdashboard -p /components/applications-view/show-all-apps -s true
+xfconf-query -n -t bool -c xfdashboard -p /components/windows-view/scroll-event-changes-workspace -s true
+xfconf-query -n -t string -c xfdashboard -p /theme -s xfdashboard-dark
+## Enable the hot-corner plugin by adding the hot-corner value to enabled-plugins as a new property
+xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner
+## Enable gnome shell search provider also (this resets all plugins every time)
+#xfconf-query -n -c xfdashboard -p /enabled-plugins -a -t string -s hot-corner -t string -s gnome-shell-search-provider
+## Settings for hotcorner
+xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-corner -s XFDASHBOARD_HOT_CORNER_SETTINGS_ACTIVATION_CORNER_TOP_LEFT
+xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-duration -s 27
+xfconf-query -n -t string -c xfdashboard -p /plugins/hot-corner/activation-radius -s 1
+## Favorites (spelled British in settings!)
+### Defaults:
+### xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "exo-file-manager.desktop" -t string -s "exo-terminal-emulator.desktop"
+### xfconf-query -n -t string -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "thunderbird.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
+### xfconf-query -n -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "exo-web-browser.desktop" -t string -s "exo-mail-reader.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
+### xfconf-query -n -c xfdashboard -p /favourites -t string -s "exo-file-manager.desktop" -t string -s "chromium-browser.desktop" -t string -s "firefox.desktop" -t string -s "thunderbird.desktop" -t string -s "gedit.desktop" -t string -s "libreoffice-writer.desktop" -t string -s "gnome-calculator.desktop" -t string -s "xfce4-settings-manager.desktop"
+~/.vrk/donjon/xfdashboard-zilla
+
+## App Theming (specifically for Xfce since some GTK themes ignore some apps)
+### Rhythmbox
+cp -f /usr/share/applications/rhythmbox.desktop ~/.local/share/applications/rhythmbox.desktop
+sed -i "s/Exec=.*/Exec=env GTK_THEME=Vertex-Dark rhythmbox %U/g" ~/.local/share/applications/rhythmbox.desktop
+### LibreOffice
+#### Set bright icons for the dark theme
+#### Can be: breeze oxygen etc
+#not supported in xubuntu/ubuntustudio
+#sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>oxygen</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
+
+## Message
+echo "
+Ctrl + Win + Up/Down/Right/Left tiles your window in 1/2 screen.
+Shft + Win + Up/Down/Right/Left tiles your window in 1/4 screen on the top.
+Alt  + Win + Up/Down/Right/Left tiles your window in 1/4 screen on the bottom.
+Ctrl + Win + Alt shows your window spread & dashboard.
+Scroll on the desktop to switch workspaces.
+"
+
+fi
+# Xfce #
+
+
+# KDE (Mint_KDE & Kubuntu)
+if [ "$LINUX_DISTRO" = "/usr/share/xsessions/plasma" ]; then
+
+## App Defaults (KDE, not global)
+cp -rf ~/.vrk/donjon/kde/local/share/applications ~/.local/share/
+
+## Autostart special
+# Not in KDE
+
+## Settings for Konsole, Dolphin, hotkeys, 4 virtual desktops
+cp -rf ~/.vrk/donjon/kde/local/share ~/.local/
+cp -rf ~/.vrk/donjon/kde/config/* ~/.config/
+sed -i "s/ToolButtonStyle=.*/ToolButtonStyle=IconOnly/g" ~/.config/dolphinrc
+
+## LibreOffice
+### Set bright icons for the dark theme
+~/.vrk/donjon/libre-theme-dark
+
+fi
+# KDE #
+
+
+# Mint_Cinnamon
+if [ "$LINUX_DISTRO" = "cinnamon" ]; then
+
+## App Defaults
+# Not in Mint
+
+## Autostart special
+# Not in Mint
+
+## Turn off display notifications
+gsettings set org.cinnamon.desktop.notifications display-notifications 'false'
+
+## Xed
+gsettings set org.x.editor display-line-numbers true
+gsettings set org.x.editor color-scheme 'oblivion'
+
+## Gedit
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+
+## Theme
+### Desktop theme
+gsettings set org.cinnamon.theme name "Mint-Y-Dark"
+### Controls theme
+gsettings set org.cinnamon.desktop.interface gtk-theme "Mint-Y-Dark"
+### Window borders theme
+gsettings set org.cinnamon.desktop.wm.preferences theme "Mint-Y-Dark"
+### Mouse Pointer theme
+gsettings set org.cinnamon.desktop.interface cursor-theme "DMZ-Black"
+### Icon theme
+gsettings set org.cinnamon.desktop.interface icon-theme "Surfn-Majestic"
+
+fi
+# Mint_Cinnamon #
+
+
+# Mint_Xfce
+## Currently does not support changing mouse cursor themes
+if [ "${LINUX_DISTRO}" = "xfce" ] ; then
+
+## App Defaults
+# Not in Mint
+
+## Autostart special
+# Not in Mint
+
+## Xed
+gsettings set org.x.editor display-line-numbers true
+gsettings set org.x.editor color-scheme 'oblivion'
+
+## Gedit
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+
+## Theme
+xfconf-query -c xsettings -p /Net/ThemeName -s "Mint-Y-Dark"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Surfn-Numix-Misty"
+
+## Wallpaper
+#first one already set by set-vall, but let's spice up the rest, shall we...
+#xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s /usr/share/xfce4/backdrops/inkPage.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor1/workspace0/last-image -s /usr/share/xfce4/backdrops/Pen-Black.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor2/workspace0/last-image -s /usr/share/xfce4/backdrops/Whitetype-Ink-Gray.png
+xfconf-query -n -t string -c xfce4-desktop -p /backdrop/screen0/monitor3/workspace0/last-image -s /usr/share/xfce4/backdrops/inkCorner.png
+
+## Desktop app hotkeys
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>d" -t string -s 'xed --new-document'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>e" -t string -s 'thunar'
+xfconf-query -n -c xfce4-keyboard-shortcuts -p "/commands/custom/<Super>q" -t string -s 'gnome-calculator'
+
+fi
+# Mint_Xfce #
+
+
+# MATE (& Mint_MATE)
+## Currently does not support changing mouse cursor themes
+if [ "$LINUX_DISTRO" = "mate" ]; then
+
+## App Defaults
+# Not in Mint or MATE
+
+## Autostart special
+# Not in Mint or MATE
+
+## Gedit
+gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+
+####### For MATE Pluma text editor (not in Mint)
+if [ -x "$(command -v pluma)" ]; then
+gsettings set org.mate.pluma color-scheme 'oblivion'
+fi
+#######
+
+## Dark desktop theme for MATE (not in Mint)
+if [ -d "/usr/share/themes/BlackMATE" ]; then
+gsettings set org.mate.interface gtk-theme "BlackMATE"
+gsettings set org.mate.interface icon-theme "Surfn-Evopop"
+else
+## Dark desktop theme for Mint_MATE
+gsettings set org.mate.interface gtk-theme "Mint-Y-Dark"
+gsettings set org.mate.interface icon-theme "Surfn-Numix-Misty"
+fi
+
+####### For Mint_MATE Xed text editor (not in MATE)
+if [ -x "$(command -v xed)" ]; then
+gsettings set org.x.editor display-line-numbers true
+gsettings set org.x.editor color-scheme 'oblivion'
+fi
+#######
+
+fi
+# MATE #
+
+fi
+## 16.04 ##
 
 
 # Configs
