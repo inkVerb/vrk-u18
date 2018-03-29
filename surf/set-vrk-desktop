@@ -254,7 +254,8 @@ cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 
 ## Set theme & icons
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
-gsettings set org.gnome.desktop.interface icon-theme "Surfn-Luv"
+gsettings set org.gnome.desktop.interface icon-theme "Surfn-Majestic"
+gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
 ## Make icons work in menues
 gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/ShellShowsAppMenu': <0>, 'Gtk/ButtonImages': <1>, 'Gtk/MenuImages': <1>}"
@@ -793,7 +794,9 @@ gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshel
 #Depreciated?
 #gsettings set org.gnome.desktop.wm.preferences theme 'Adapta-Nokto'
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
-gsettings set org.gnome.desktop.interface icon-theme "Surfn-Luv"
+gsettings set org.gnome.desktop.interface icon-theme "Surfn-Majestic"
+gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
+
 
 ### Conky IN DEV
 #cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
