@@ -372,7 +372,8 @@ sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/
 #### Show it
 sed -i "s/show-button-icon=.*/show-button-icon=true/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 ### Favorites
-sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,chromium-browser\.desktop,firefox\.desktop,midori\.desktop,gedit\.desktop,libreoffice-writer\.desktop,thunderbird\.desktop,rhythmbox\.desktop,org\.gnome\.Software\.desktop,gnome-calculator\.desktop/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+#NO MIDORI sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,chromium-browser\.desktop,firefox\.desktop,midori\.desktop,gedit\.desktop,libreoffice-writer\.desktop,thunderbird\.desktop,rhythmbox\.desktop,org\.gnome\.Software\.desktop,gnome-calculator\.desktop/g" ~/.config/xfce4/panel/whiskermenu-1.rc
+sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,chromium-browser\.desktop,firefox\.desktop,gedit\.desktop,libreoffice-writer\.desktop,thunderbird\.desktop,rhythmbox\.desktop,org\.gnome\.Software\.desktop,gnome-calculator\.desktop/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 
 ## Terminal color scheme
