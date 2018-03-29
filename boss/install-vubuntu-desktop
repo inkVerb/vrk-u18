@@ -68,18 +68,19 @@ exit 0; fi
 # Include the config
 . /var/local/vrk/machineinfo
 
+# Distro version
+ubuntu_release=$(lsb_release -r -s)
+
 # Change the Distro variable if re-installing per-desktop
 if [ -n "$1" ]; then
 LINUX_DISTRO="$1"; fi
+
+
 
 # Global
 
 # Add repos
 /var/local/vrk/boss/install-repos
-
-## For no notifications
-add-apt-repository -y ppa:vlijm/nonotifs
-apt update -y --fix-missing
 
 # Update & Upgrade
 #update included in install-repos
@@ -125,13 +126,20 @@ ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/share/libreoff
 
 # Global #
 
-# Unity
-if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
+# Unity 16.04
+if [ "${LINUX_DISTRO}" = "ubuntu" ] && [ "$ubuntu_release" = "16.04" ]; then
 #/var/local/vrk/donjon/vubuntu-unity-notifications-off # replaced by the tool below
+add-apt-repository -y ppa:vlijm/nonotifs
+apt update -y --fix-missing
 apt install -y unity-tweak-tool nonotifs
 fi
-# Unity #
+# Unity 16.04 #
 
+# Ubuntu (GNOME)
+if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
+apt install -y gnome-tweak-tool
+fi
+# GNOME #
 
 # GNOME
 if [ "${LINUX_DISTRO}" = "gnome" ]; then
