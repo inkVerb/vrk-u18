@@ -4,6 +4,8 @@
 # This sets the Vubuntu Desktop preferences for a Vubuntu installation.
 ## Prerequesite: Vrk™ must be installed
 
+## To observe terminal commands that create these settings while using GUI: dconf watch /
+
 # How to use:
 ## set-vrk-desktop
 
@@ -262,25 +264,23 @@ gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/Shell
 sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
 
 ## Launcher
-###DEV Does this work in 18.04?
 gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'thunderbird.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
 
-###DEV NEW FOR GNOME 18.04
 ## Hot corners
-org.gnome.shell enable-hot-corners true
+gsettings set org.gnome.shell enable-hot-corners true
 
 ## Dock
-org.gnome.shell.extensions.dash-to-dock dock-fixed false
-org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 28
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 28
 
 ## Other interesting things
-org.gnome.desktop.wm.preferences focus-new-windows 'smart'
-org.gnome.desktop.interface menus-have-icons false
-org.gnome.desktop.interface clock-show-weekday true
-org.gnome.desktop.interface clock-show-date false
-org.gnome.desktop.interface toolbar-detachable false #??
-org.gnome.desktop.notifications show-banners true #?
-
+gsettings set org.gnome.desktop.wm.preferences focus-new-windows 'smart'
+gsettings set org.gnome.desktop.interface menus-have-icons true
+gsettings set org.gnome.desktop.interface clock-show-weekday true
+gsettings set org.gnome.desktop.interface clock-show-date true
+gsettings set org.gnome.desktop.interface toolbar-detachable false
+gsettings set org.gnome.desktop.notifications show-banners false
+gsettings set org.gnome.desktop.notifications show-in-lock-screen false
 fi
 # Ubuntu (GNOME) #
 
