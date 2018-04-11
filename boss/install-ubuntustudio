@@ -59,6 +59,7 @@ apt install -y ubuntustudio-graphics
 apt install -y ubuntustudio-photography
 apt install -y ubuntustudio-publishing
 apt install -y ubuntustudio-video
+apt install -y ubuntu-restricted-extras
 
 # Set configs
 echo "VUBUNTU_UBUNTUSTUDIO_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
