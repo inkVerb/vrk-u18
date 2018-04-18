@@ -170,7 +170,7 @@ echo "
 Media done. Audiophile tools, Audacity, LMMS, Yate VoIP client, Kid3 audio tag tool...
 "
 ## pulseaudio & pavucontrol for mixing & monitor control in Audacity
-apt install -y audacity lmms kid3 pulseaudio pavucontrol yate-qt4
+apt install -y audacity lmms muse musescore music-bin kid3 pulseaudio pavucontrol yate-qt4
 ## Audacity DeClicker & DeEsser http://forum.audacityteam.org/viewtopic.php?f=42&t=79278&p=245549
 cd /usr/share/audacity/plug-ins/
 wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
