@@ -44,7 +44,7 @@ if [ "$LINUX_DISTRO" = "ubuntu" ] || [ "$LINUX_DISTRO" = "gnome" ]; then
 
 # Prepare notice
 echo "
-This only installs Arc, and Vertex themes!
+This only installs Arc, Vmix, Yosemite, and Vertex themes!
 
 Any others must be specified like so:
 
@@ -53,7 +53,8 @@ sudo ./themicons-git-upstall blackbird
 sudo ./themicons-git-upstall blumix
 sudo ./themicons-git-upstall flatabulous
 sudo ./themicons-git-upstall vertex
-
+sudo ./themicons-git-upstall vimix
+sudo ./themicons-git-upstall yosemite
 "
 sleep 4
 
@@ -127,6 +128,30 @@ make install
 cd ..
 rm -rf vertex-theme
 fi
+
+## Vimix
+if [ -z "${1}" ] || [ "${INSTHEMICON}" = "vimix" ] ; then
+git clone https://github.com/vinceliuice/vimix-gtk-themes
+ if [ ! -d "vimix-gtk-themes" ]; then exit 44; fi
+cd vimix-gtk-themes
+rm -rf /usr/share/themes/Vimix*
+./Install
+cd ..
+rm -rf vimix-gtk-themes
+fi
+
+
+## Yosemite
+if [ -z "${1}" ] || [ "${INSTHEMICON}" = "yosemite" ] ; then
+git clone https://github.com/vinceliuice/Yosemite-gtk-theme
+ if [ ! -d "Yosemite-gtk-theme" ]; then exit 44; fi
+cd Yosemite-gtk-theme
+rm -rf /usr/share/themes/Yosemite*
+./Install
+cd ..
+rm -rf Yosemite-gtk-theme
+fi
+
 
 ## Clean up
 cd ../

@@ -186,6 +186,15 @@ fi
 #fi
 # Mint_Xfce
 
+# Arch
+#if  [ "${LINUX_DISTRO}" = "arch" ]; then
+
+#pacman -S gtk-engine-murrine gtk-engines
+#pacman -S gtk-engine-murrine gtk-engines
+
+#fi
+# Arch
+
 # Set configs
 echo "VUBUNTU_DESKTOP_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
 touch /var/local/vrk/.vubuntu-desktop-installed
