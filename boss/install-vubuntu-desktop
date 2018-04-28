@@ -99,7 +99,8 @@ apt install -y gedit guake docky chromium-browser djview-plugin thunderbird fire
 #fi
 
 # Ubuntu Studio Wallpapers, GTK configs, Variety
-apt install -y conky conky-all ubuntustudio-wallpapers gnome-terminal variety htop gtk-theme-config
+apt install -y conky conky-all ubuntustudio-wallpapers gnome-terminal variety htop
+#apt install -y gtk-theme-config # As of 18.04 this does not work
 
 # LibreOffice (done now for vubuntu-desktop settings dependencies)
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
