@@ -69,6 +69,6 @@ sed -i "s/VGIT_INST.*/VGIT_INST=\"DONE\"/g" ~/.vrk/configs/stationinfo
 
 # Finish
 echo "GitHub settings for ${USER} are username: ${GITUEMAIL} and email: ${GITUNAME}
-You can use vgitnrepo to add new repos to your ~/git/ folder.
+You can use vgitnrepo to add new repos and vgitpush to push existing repos from in the PWD of the repo.
 "
 
