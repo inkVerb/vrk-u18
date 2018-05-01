@@ -165,12 +165,14 @@ apt install -y kolourpaint4 pencil2d pinta tupi karbon mypaint mypaint-data-extr
 echo "
 Graphic design done. Media stuff, VLC, audio players, Kdenlive...
 "
-apt install -y vlc vlc-data browser-plugin-vlc mplayer2 clementine amarok kdenlive
+apt install -y vlc vlc-data browser-plugin-vlc clementine amarok kdenlive
+#apt install -y mplayer2 #broken in Ubuntu 18.04
 echo "
 Media done. Audiophile tools, Audacity, LMMS, Yate VoIP client, Kid3 audio tag tool...
 "
 ## pulseaudio & pavucontrol for mixing & monitor control in Audacity
-apt install -y audacity lmms muse musescore music-bin kid3 pulseaudio pavucontrol yate-qt4
+apt install -y audacity lmms muse musescore music-bin kid3 pulseaudio pavucontrol
+#apt install -y yate-qt4 #broken in Ubuntu 18.04
 ## Audacity DeClicker & DeEsser http://forum.audacityteam.org/viewtopic.php?f=42&t=79278&p=245549
 cd /usr/share/audacity/plug-ins/
 wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
@@ -179,7 +181,8 @@ echo "Sound's great. (hehe) Getting desktop goodies...
 "
 #apt install -y ubuntu-restricted-extras # removing the mscorefonts installer & testing if this really necessary? Moved to: install-ubuntustudio
 apt install -y alsa-oss libasound2 libasound2-plugins
-apt install -y gnome-music gnome-photos dia-gnome planner gromit gnome-chess
+apt install -y gnome-music gnome-photos planner gromit gnome-chess
+#apt install -y dia-gnome #broken in Ubuntu 18.04
 echo "
 Got the goodies. Sky time... Stellarium...
 "

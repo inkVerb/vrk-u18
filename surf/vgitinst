@@ -14,13 +14,6 @@ echo "Install Vrk first. See README.md"
 exit 22
 fi
 
-# Check if Vubuntu StudioLite installed
-. /var/local/vrk/machineinfo
-if [ "${VUBUNTU_STUDIOLITE_INSTALLED}" != "YES" ]; then
-echo "Vubuntu StudioLite must be installed first."
-exit 22
-fi
-
 # Username
 if [ -z "$1" ]; then
  echo "Enter your GitHub username:
@@ -68,7 +61,7 @@ git config --global user.name "${GITUNAME}"
 git config --global user.email "${GITUEMAIL}"
 
 # Create the git directory in the home folder
-mkdir -p git
+#mkdir -p git # not necessary
 
 # Config
 touch ~/.vrk/configs/.vgitinstdone
