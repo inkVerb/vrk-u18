@@ -287,11 +287,8 @@ echo "Getting the first droids..."
 
 # Reboot
 if [ -z $1 ]; then
-echo "Setup is finished.
+echo "Vrk installed.
 
-Rebooting...
-"
-sleep 3
-reboot
+Now you need to make sure the vrk directory is gone, then reboot."
 fi
 
