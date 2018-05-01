@@ -24,6 +24,12 @@ exit 22; fi
 # Include the config
 . /var/local/vall/vallmachineinfo
 
+# Check if it exists
+if [ ! -e "/usr/share/images/vall/${VALLROOM}/${NEWIMAGE}" ]; then
+echo "That does not exist! Check the vallroom and the picture."
+exit 0
+fi
+
 # Unity
 if [ "${VALL_LINUX_DISTRO}" = "ubuntu" ]; then
 gsettings set org.gnome.desktop.background picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}

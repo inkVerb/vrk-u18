@@ -14,7 +14,11 @@ VALLROOM=$1
 NEWIMAGE=$2
 
 # GNOME
-if [ "${XDG_SESSION_DESKTOP}" = "gnome" ]; then
+if [ "${XDG_SESSION_DESKTOP}" = "gnome" ] || [ "${XDG_SESSION_DESKTOP}" = "ubuntu" ]; then
+ if [ ! -e "/usr/share/images/vall/${VALLROOM}/${NEWIMAGE}" ]; then
+echo "That does not exist! Check the vallroom and the picture."
+exit 0
+ fi
 gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images/vall/${VALLROOM}/${NEWIMAGE}
 fi
 
