@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # Base16 - Gnome Terminal color scheme install script
 ## Thank you: https://github.com/anmoljagetia
 ## Normally run with: wget -O xt http://git.io/vn6HM && chmod +x xt && ./xt && rm xt

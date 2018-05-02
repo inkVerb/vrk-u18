@@ -132,7 +132,6 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 ### Apply the settings
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/']"
 
-
 ## Compose Key: CapsLock key
 dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:caps']"
 #dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:menu']"
@@ -251,7 +250,14 @@ cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 
 ## Flatabulous terminal "profile" (color scheme)
+### Check if done
+if [ ! -f "~/.vrk/configs/.xt-gnome-ubuntu" ]; then
+### Add the theme
 ~/.vrk/donjon/xt-gnome
+~/.vrk/donjon/xt-ubuntu
+### Make the record
+touch ~/.vrk/configs/.xt-gnome-ubuntu
+fi
 
 ## Set theme & icons
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
@@ -377,7 +383,13 @@ sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,vivaldi-stable\.deskt
 sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 
 ## Terminal color scheme
+### Check if done
+if [ ! -f "~/.vrk/configs/.xt-xfce" ]; then
+### Add the theme
 ~/.vrk/donjon/xt-xfce
+### Make the record
+touch ~/.vrk/configs/.xt-xfce
+fi
 
 ## Workspaces & windows
 xfconf-query -c xfwm4 -p /general/workspace_count -s 3
@@ -755,6 +767,16 @@ cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 ## Autostart special
 cp -rf ~/.vrk/donjon/unity/config/autostart ~/.config/
 
+## Flatabulous terminal "profile" (color scheme)
+### Check if done
+if [ ! -f "~/.vrk/configs/.xt-gnome-ubuntu" ]; then
+### Add the theme
+~/.vrk/donjon/xt-gnome
+~/.vrk/donjon/xt-ubuntu
+### Make the record
+touch ~/.vrk/configs/.xt-gnome-ubuntu
+fi
+
 ## LibreOffice theming
 ### Can be: breeze oxygen tango voffice etc
 #sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
@@ -797,7 +819,6 @@ gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
 gsettings set org.gnome.desktop.interface icon-theme "Surfn-Majestic"
 gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
-
 ### Conky IN DEV
 #cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
 #chmod +x .start-conky
@@ -818,7 +839,14 @@ cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 
 ## Flatabulous terminal "profile" (color scheme)
+### Check if done
+if [ ! -f "~/.vrk/configs/.xt-gnome-ubuntu" ]; then
+### Add the theme
 ~/.vrk/donjon/xt-gnome
+~/.vrk/donjon/xt-ubuntu
+### Make the record
+touch ~/.vrk/configs/.xt-gnome-ubuntu
+fi
 
 ## Set theme & icons
 #Depreciated?
@@ -934,7 +962,13 @@ sed -i "s/favorites=.*/favorites=exo-file-manager\.desktop,chromium-browser\.des
 sed -i "s/favorites-in-recent=.*/favorites-in-recent=false/g" ~/.config/xfce4/panel/whiskermenu-1.rc
 
 ## Terminal color scheme
+### Check if done
+if [ ! -f "~/.vrk/configs/.xt-xfce" ]; then
+### Add the theme
 ~/.vrk/donjon/xt-xfce
+### Make the record
+touch ~/.vrk/configs/.xt-xfce
+fi
 
 ## Workspaces & windows
 xfconf-query -c xfwm4 -p /general/workspace_count -s 3

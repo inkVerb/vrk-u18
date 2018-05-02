@@ -3,8 +3,8 @@
 ## Thank you: https://github.com/anmoljagetia
 ## Normally run with: wget -O xt http://git.io/vn6HM && chmod +x xt && ./xt && rm xt
 
-[[ -z "$PROFILE_NAME" ]] && PROFILE_NAME="Flatabulous Terminal"
-[[ -z "$PROFILE_SLUG" ]] && PROFILE_SLUG="flatabulous-terminal"
+[[ -z "$PROFILE_NAME" ]] && PROFILE_NAME="Ubuntabulous Terminal"
+[[ -z "$PROFILE_SLUG" ]] && PROFILE_SLUG="ubuntabulous-terminal"
 [[ -z "$DCONF" ]] && DCONF=dconf
 [[ -z "$UUIDGEN" ]] && UUIDGEN=uuidgen
 
@@ -60,10 +60,10 @@ if which "$DCONF" > /dev/null 2>&1; then
 
         # update profile values with theme options
         dset visible-name "'$PROFILE_NAME'"
-        dset palette "['#0c0d0e', '#e31a1c', '#31a354', '#dca060', '#3182bd', '#756bb1', '#80b1d3', '#b7b8b9', '#737475', '#e31a1c', '#31a354', '#dca060', '#3182bd', '#756bb1', '#80b1d3', '#fcfdfe']"
-        dset background-color "'#0c0d0e'"
-        dset foreground-color "'#b7b8b9'"
-        dset bold-color "'#b7b8b9'"
+        dset palette "['#2e3436', '#cc0000', '#4e9a06', '#c4a000', '#3465a4', '#75507b', '#06989a', '#d3d7cf', '#555753', '#ef2929', '#8ae234', '#fce94f', '#729fcf', '#ad7fa8', '#34e2e2', '#eeeeec']"
+        dset background-color "'#300a24'"
+        dset foreground-color "'#ffffff'"
+        dset bold-color "'#ffffff'"
         dset bold-color-same-as-fg "true"
         dset use-theme-colors "false"
         dset use-theme-background "false"

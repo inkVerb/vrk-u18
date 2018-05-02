@@ -1,0 +1,19 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+set -e
+
+# This installs Dropbox
+
+# How to use:
+## sudo bash install-gimp-edge
+
+
+# Remove the old GIMP first since they conflict
+apt remove gimp
+
+# Remove the repo
+add-apt-repository --remove -y ppa:otto-kesselgulasch/gimp-edge
+
+# Install GIMP again from the normal repo
+apt install -y gimp
+

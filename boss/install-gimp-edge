@@ -1,0 +1,19 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+set -e
+
+# This adds a repo for a faster GIMP channel and installs GIMP from that channel
+
+# How to use:
+## sudo bash install-gimp-edge
+
+
+# Remove the old GIMP first since they conflict
+apt remove gimp
+
+# Add the repo
+add-apt-repository -y ppa:otto-kesselgulasch/gimp-edge
+
+# Install GIMP again from the new repo
+apt install -y gimp
+
