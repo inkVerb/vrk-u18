@@ -42,11 +42,14 @@ echo "Extra repos already installed."
 exit 0; fi
 
 # Add via apt
+## More Canonical repos
 add-apt-repository -y universe
 add-apt-repository -y main
 add-apt-repository -y restricted
 add-apt-repository -y multiverse
+## Blender faster channel
 add-apt-repository -y ppa:thomas-schiex/blender
+## Kdenlive faster channel
 add-apt-repository -y ppa:kdenlive/kdenlive-stable
 apt update -y --fix-missing
 
