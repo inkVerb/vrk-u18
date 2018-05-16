@@ -289,6 +289,12 @@ gsettings set org.gnome.desktop.interface clock-show-date true
 gsettings set org.gnome.desktop.interface toolbar-detachable false
 gsettings set org.gnome.desktop.notifications show-banners false
 gsettings set org.gnome.desktop.notifications show-in-lock-screen false
+
+## Set Lockscreen to "never" (uint32 0)
+gsettings set org.gnome.desktop.session idle-delay "uint32 0"
+#gsettings set org.gnome.desktop.session idle-delay "uint32 900" # 15 minutes
+#gsettings set org.gnome.desktop.session idle-delay "uint32 600" # 5 minutes
+
 fi
 # Ubuntu (GNOME) #
 
