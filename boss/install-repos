@@ -51,25 +51,26 @@ add-apt-repository -y multiverse
 add-apt-repository -y ppa:thomas-schiex/blender
 ## Kdenlive faster channel
 add-apt-repository -y ppa:kdenlive/kdenlive-stable
+## Update
 apt update -y --fix-missing
 
 ## Add manually
 #if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
 ### Check at each stage to prevent duplication
 #### canonical partner
- if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-partner" ]; then
+ if [ ! -f "/var/local/vrk/.vubuntu-repo-partner"-$(lsb_release -sc) ]; then
 #vrk_ppa_repo_partner="deb http://archive.canonical.com/ $(lsb_release -sc) partner"
  if ! grep -q "^deb .*$vrk_ppa_repo_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
 add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-touch /var/local/vrk/.vubuntu-studiolite-repo-partner-$(lsb_release -sc)
+touch /var/local/vrk/.vubuntu-repo-partner-$(lsb_release -sc)
   fi
  fi
 ##### main universe restricted multiverse
-# if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo-multiverse" ]; then
+# if [ ! -f "/var/local/vrk/.vubuntu-repo-multiverse"-$(lsb_release -sc) ]; then
 # vrk_add_repo_multiverse="deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
 #  if ! grep -q "^deb .*$vrk_add_repo_multiverse" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
 #add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
-#touch /var/local/vrk/.vubuntu-studiolite-repo-multiverse-$(lsb_release -sc)
+#touch /var/local/vrk/.vubuntu-repo-multiverse-$(lsb_release -sc)
 #  fi
 # fi
 

@@ -1,0 +1,135 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+set -e
+
+# This installs the minimums for Vrk to work, with very basic apps.
+## This is automatically run by: install-vubuntu-core
+## Prerequesite: Vrk™ must be installed
+
+# How to use:
+## sudo ./install-vubuntu-minimum
+
+
+# Set user
+VRK_USER=${SUDO_USER}
+
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk on this machine first. See README.md"
+exit 22; fi
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22; fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./install-vubuntu-minimum
+"
+exit 22; fi; fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./install-vubuntu-minimum
+"
+exit 22; fi
+
+# Check if Vubuntu Minimum installed
+if [ "${VUBUNTU_MINIMUM_INSTALLED}" = "YES" ]; then
+echo "Vubuntu Minimum apps already installed."
+exit 0; fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./install-vubuntu-apps
+"
+exit 22; fi; fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./install-vubuntu-apps
+"
+exit 22; fi
+
+
+# Include the configs
+. /home/${SUDO_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
+. /var/local/vrk/machineinfo
+
+# Check CPU version
+PROCVNO=$(dpkg --print-architecture)
+
+# Install the packages
+echo "
+Installing Vubuntu Minimum
+
+First, updates and fonts...
+"
+
+# Add repos
+/var/local/vrk/boss/install-repos
+
+# Update & Upgrade
+apt update -y --fix-missing
+apt upgrade -y --fix-missing
+apt update -y --fix-missing
+apt install -yf
+
+## Verify interactives first, and then the fonts
+#apt install -y ttf-mscorefonts-installer # This has a "failed to download" problem, besides, ms... ?? Who does that!?
+apt install -y jackd2
+apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts
+echo "
+Fonts are now installed. Now doing some basic tools...
+"
+apt install -y zip p7zip-full gzip guake docky nautilus gparted shutter
+## Redundant from install-vubuntu-desktop
+apt install -y libreoffice-writer libreoffice-calc
+
+echo "
+Tools in the shed. Doing essential dev stuff...
+"
+apt install -y git ssh
+echo "
+Web dev happy. Getting graphic design (only GIMP and Inkscape, plus GIMP plugins)...
+"
+apt install -y inkscape gimp gimp-plugin-registry
+
+echo "
+Graphic design done. Media stuff: Audacity, Kdenlive, VLC, essential sound tools...
+"
+apt install -y vlc vlc-data browser-plugin-vlc kdenlive audacity kid3 alsa-oss libasound2 libasound2-plugins gnome-music
+## Audacity DeClicker & DeEsser http://forum.audacityteam.org/viewtopic.php?f=42&t=79278&p=245549
+cd /usr/share/audacity/plug-ins/
+wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
+wget -O DeEsser.ny http://forum.audacityteam.org/download/file.php?id=10125
+echo "Sound's great. (hehe) All done.
+"
+
+# Set config
+echo "VUBUNTU_MINIMUM_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+touch /home/${SUDO_USER}/.vrk/configs/.minimum
+## Remove repo temp progress files
+rm -f /var/local/vrk/.vubuntu-minimum-*
+
+# Cleanup
+apt autoremove -y
+
+# Finish
+echo "
+Vubuntu Minimum is all set.
+"
+

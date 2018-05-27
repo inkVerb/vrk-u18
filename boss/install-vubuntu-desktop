@@ -3,7 +3,7 @@
 set -e
 
 # This installs Vubuntu Desktop settings, theming, and Vubuntu Wallpaper
-## This is automatically run by: install-vubuntu
+## This is automatically run by: install-vubuntu and install-vubuntu-core
 ## Prerequesite: Vrk™ must be installed
 
 # How to use:
@@ -105,8 +105,8 @@ apt install -y conky conky-all ubuntustudio-wallpapers gnome-terminal variety ht
 # LibreOffice (done now for vubuntu-desktop settings dependencies)
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
 
-# Git, bc, build tools, and theme dependencies (may be redundant, but never can be too sure, here they all are from each theme's dependency instructions)
-apt install -y git bc wmctrl build-essential dconf-cli autoconf automake libtool intltool inkscape cmake krita gimp
+# Git, build tools, and theme dependencies (may be redundant, but never can be too sure, here they all are from each theme's dependency instructions)
+apt install -y git build-essential dconf-cli autoconf automake libtool intltool inkscape cmake krita gimp
 apt install -y gnome-themes-standard libgdk-pixbuf2.0-dev libglib2.0-dev libgtk-3-dev libxml2-utils gtk3-engines-unico gtk2-engines-murrine gtk2-engines-pixbuf pkg-config python3 ruby-bundler ruby-sass
 ## Specific for making Adapta themes (may only be used to make Adapta, but why not)
 apt install -y libsass0 librsvg2-dev

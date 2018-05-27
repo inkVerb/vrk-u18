@@ -81,7 +81,7 @@ Vrk™ automatically rearranges home folders, files, desktop settings, installs 
 Vrk™ sets the auto-lock screen to NOT ask for a password (separately from after you have already logged in.) You can still lock the screen manually, which will require your password, or change this option back. It's very important and safe to require your password to login and that you do NOT use a no-password login.
 You are NOT expected to use the \"TM\" after Vrk™ and Vubuntu™ as inkVerb does. (We just like it because it looks cool and makes everyone's lawyers complain less.)
 
-Normally, this is intended to be used on Ubuntu and possibly other Ubuntu-based distros such as Xubuntu, GNOME, or others, maybe.
+Normally, this is intended to be used on Ubuntu and possibly other Ubuntu-based distros, mainly Ubuntu, Xubuntu, and Ubuntu Studio, with minimal support for MATE, Budgie, Mint, KDE, and others, maybe.
 Ideally, this is intended to be used right after installing Ubuntu and no changes have been made to settings. (a 'clean' or 'fresh' install)
 Typically, used properly, everything is fine, though we never know for sure.
 

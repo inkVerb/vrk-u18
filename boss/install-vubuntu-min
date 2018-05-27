@@ -1,12 +1,12 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
 
-# This installs Vubuntu Desktop and Vubuntu Studio Lite
-## This runs: install-grfx, install-vubuntu-studiolite, and install-vubuntu-desktop
+# This installs Vubuntu Desktop and Vubuntu Minimum
+## This runs: install-grfx, install-vubuntu-minimum, and install-vubuntu-desktop
 ## Prerequesite: Vrk™ must be installed
 
 # How to use:
-## sudo ./install-vubuntu
+## sudo ./install-vubuntu-min
 
 
 # Set user
@@ -29,14 +29,14 @@ if [ "$(id -u)" = "0" ]; then
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
 like this:
-sudo ./install-vubuntu
+sudo ./install-vubuntu-min
 "
 exit 22; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo ./install-vubuntu
+sudo ./install-vubuntu-min
 "
 exit 22; fi
 
@@ -55,8 +55,8 @@ apt install -y jackd2
 # Add the graphix PPA
 /var/local/vrk/boss/install-grfx
 
-# Vubuntu StudioLite
-/var/local/vrk/boss/install-vubuntu-studiolite
+# Vubuntu Minimum
+/var/local/vrk/boss/install-vubuntu-minimum
 
 # Vubuntu Desktop
 /var/local/vrk/boss/install-vubuntu-desktop

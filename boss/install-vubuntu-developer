@@ -2,12 +2,11 @@
 #inkVerbBoss! verb.ink
 set -e
 
-# This installs a "lite" version of Ubuntu Studio
-## This is automatically run by: install-vubuntu
+# This installs developer tools for Ubuntu
 ## Prerequesite: Vrk™ must be installed
 
 # How to use:
-## sudo ./install-vubuntu-studiolite
+## sudo ./install-vubuntu-developer
 
 
 # Set user
@@ -30,20 +29,20 @@ if [ "$(id -u)" = "0" ]; then
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
 like this:
-sudo ./install-vubuntu-studiolite
+sudo ./install-vubuntu-developer
 "
 exit 22; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo ./install-vubuntu-studiolite
+sudo ./install-vubuntu-developer
 "
 exit 22; fi
 
-# Check if Vubuntu StudioLite installed
-if [ "${VUBUNTU_STUDIOLITE_INSTALLED}" = "YES" ]; then
-echo "Vubuntu StudioLite apps already installed."
+# Check if Vubuntu Developer installed
+if [ "${VUBUNTU_DEVELOPER_INSTALLED}" = "YES" ]; then
+echo "Vubuntu Developer apps already installed."
 exit 0; fi
 
 # Check to make sure this is run as sudo, but not run by root
@@ -74,7 +73,7 @@ PROCVNO=$(dpkg --print-architecture)
 
 # Install the packages
 echo "
-Installing Vubuntu Studio Lite
+Installing Vubuntu Developer
 
 First, updates and fonts...
 "
@@ -95,30 +94,13 @@ apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstr
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
-apt install -y zip p7zip-full gzip guake docky kate retext nautilus grabc gparted shutter kazam obs-studio
+apt install -y zip p7zip-full gzip guake docky kate retext gedit nautilus grabc gparted shutter kazam obs-studio
 ## Redundant from install-vubuntu-desktop
-apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
-
-### WSP Office # Buggy in 18.04, move to separate installer
-#### Get updated links here: http://wps-community.org/download.html
-#if [ "${PROCVNO}" = "amd64" ]; then
-#wget -O wps-office.deb http://kdl.cc.ksosoft.com/wps-community/download/a21/wps-office_10.1.0.5707~a21_amd64.deb
-#else
-#wget -O wps-office.deb http://kdl.cc.ksosoft.com/wps-community/download/a21/wps-office_10.1.0.5707~a21_i386.deb
-#fi
-#dpkg -i wps-office.deb
-#apt -f install && rm wps-office.deb
-#wget -O web-office-fonts.deb http://kdl.cc.ksosoft.com/wps-community/download/fonts/wps-office-fonts_1.0_all.deb
-#dpkg -i web-office-fonts.deb
-#rm -f web-office-fonts.deb
-
+apt install -y libreoffice libreoffice-writer libreoffice-calc chromium-browser thunderbird firefox
 echo "
 Tools done. Now doing browsers...
 "
 #apt install -y midori #DEV Delayed until 18.04 is out of beta
-if [ "${LINUX_DISTRO}" = "gnome" ]; then
-apt install -y epiphany-browser gconf-editor
-fi
 if [ "${PROCVNO}" = "amd64" ]; then
  if [ ! -f "/var/local/vrk/.vubuntu-chrome" ]; then
 echo "You are running a 64 bit processor, so you get Google Chrome! XD..."
@@ -135,10 +117,6 @@ apt install -y google-chrome-stable
  fi
 fi
 echo "
-Tools done. More office stuff...
-"
-apt install -y scribus
-echo "
 Office stuff done. Doing web dev favorites...
 "
 apt install -y git vim guake-indicator filezilla meld ssh
@@ -146,18 +124,18 @@ echo "
 Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint...
 "
 apt install -y inkscape blender gimp gimp-plugin-registry darktable krita
-apt install -y kolourpaint4 pencil2d pinta tupi karbon mypaint mypaint-data-extras
+apt install -y pencil2d mypaint mypaint-data-extras
 
 echo "
-Graphic design done. Media stuff, VLC, audio players, Kdenlive...
+Graphic design done. Media stuff, VLC, Amarok, Kdenlive...
 "
-apt install -y vlc vlc-data browser-plugin-vlc clementine amarok kdenlive
+apt install -y vlc vlc-data browser-plugin-vlc amarok kdenlive
 #apt install -y mplayer2 #broken in Ubuntu 18.04
 echo "
-Media done. Audiophile tools, Audacity, LMMS, Yate VoIP client, Kid3 audio tag tool...
+Media done. Audiophile tools...
 "
 ## pulseaudio & pavucontrol for mixing & monitor control in Audacity
-apt install -y audacity lmms muse musescore music-bin kid3 pulseaudio pavucontrol
+apt install -y audacity kid3
 #apt install -y yate-qt4 #broken in Ubuntu 18.04
 ## Audacity DeClicker & DeEsser http://forum.audacityteam.org/viewtopic.php?f=42&t=79278&p=245549
 cd /usr/share/audacity/plug-ins/
@@ -169,31 +147,18 @@ echo "Sound's great. (hehe) Getting desktop goodies...
 apt install -y alsa-oss libasound2 libasound2-plugins
 apt install -y gnome-music gnome-photos planner gromit gnome-chess
 #apt install -y dia-gnome #broken in Ubuntu 18.04
-echo "
-Got the goodies. Sky time... Stellarium...
-"
-apt install -y stellarium
-
-#
-#echo "
-#Now doing Skype...
-#"
-#apt install -y skype
-#echo "
-#You got Skype.
-#"
 
 # Set config
-echo "VUBUNTU_STUDIOLITE_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
-touch /home/${SUDO_USER}/.vrk/configs/.studiolite
+echo "VUBUNTU_DEVELOPER_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+touch /home/${SUDO_USER}/.vrk/configs/.Developer
 ## Remove repo temp progress files
-rm -f /var/local/vrk/.vubuntu-studiolite-*
+rm -f /var/local/vrk/.vubuntu-developer-*
 
 # Cleanup
 apt autoremove -y
 
 # Finish
 echo "
-Vubuntu Studio Lite is all set.
+Vubuntu Developer is all set.
 "
 
