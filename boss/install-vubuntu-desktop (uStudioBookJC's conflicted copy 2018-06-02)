@@ -1,0 +1,221 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+set -e
+
+# This installs Vubuntu Desktop settings, theming, and Vubuntu Wallpaper
+## This is automatically run by: install-vubuntu
+## Prerequesite: Vrk™ must be installed
+
+# How to use:
+## sudo ./install-vubuntu-desktop
+
+# Eg: (re-install for specific desktop)
+## sudo ./install-vubuntu-desktop $DESKTOP_SESSION
+
+
+# Set user
+VRK_USER=${SUDO_USER}
+
+# Check if Vrk installed on this machine
+if [ ! -f /var/local/vrk/machineinfo ]; then
+echo "Install Vrk on this machine first. See README.md"
+exit 22; fi
+
+# Include the config
+. /var/local/vrk/machineinfo
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22; fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./install-vubuntu-desktop
+"
+exit 22; fi; fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./install-vubuntu-desktop
+"
+exit 22; fi
+
+# Check if Vubuntu Desktop installed
+if [ "${VUBUNTU_DESKTOP_INSTALLED}" = "YES" ]; then
+echo "Vubuntu desktop apps already installed."
+## Allow re-install per desktop
+ if [ -n "$1" ]; then
+ echo "If you would like to re-install it for a specific desktop, type \"yes\"..."
+ read QYN
+  if [ "$QYN" != "yes" ]; then
+  echo "I quit."
+  exit 0
+  fi
+ else
+ exit 0
+ fi
+fi
+
+# Check if Vubuntu Desktop installed (again)
+if [ -f /var/local/vrk/.vubuntu-desktop-installed ]; then
+echo "Vubuntu Desktop already installed on this machine."
+exit 0; fi
+
+# Distro version
+ubuntu_release=$(lsb_release -r -s)
+
+# Change the Distro variable if re-installing per-desktop
+if [ -n "$1" ]; then
+LINUX_DISTRO="$1"; fi
+
+
+
+# Global
+
+# Add repos
+/var/local/vrk/boss/install-repos
+
+# Update & Upgrade
+#update included in install-repos
+#apt update -y --fix-missing
+apt upgrade -y --fix-missing
+apt install -yf
+apt update -y --fix-missing
+
+# Adapta
+/var/local/vrk/boss/install-adapta
+
+# Basic apps: Gedit, Guake, Docky, Chromium, Thunderbird, Firefox, Rhythmbox, Vino (Desktop Sharing settings)
+apt install -y gedit guake docky chromium-browser djview-plugin thunderbird firefox rhythmbox vino
+#if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
+#apt install -y unity-chromium-extension #NO! This made the 64bit ASUS run both Chrom and Chromium too slowly!
+#fi
+
+# Ubuntu Studio Wallpapers, GTK configs, Variety
+apt install -y conky conky-all ubuntustudio-wallpapers gnome-terminal variety htop
+#apt install -y gtk-theme-config # As of 18.04 this does not work
+
+# LibreOffice (done now for vubuntu-desktop settings dependencies)
+apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
+
+# Git, bc, build tools, and theme dependencies (may be redundant, but never can be too sure, here they all are from each theme's dependency instructions)
+apt install -y git bc wmctrl build-essential dconf-cli autoconf automake libtool intltool inkscape cmake krita gimp
+apt install -y gnome-themes-standard libgdk-pixbuf2.0-dev libglib2.0-dev libgtk-3-dev libxml2-utils gtk3-engines-unico gtk2-engines-murrine gtk2-engines-pixbuf pkg-config python3 ruby-bundler ruby-sass
+## Specific for making Adapta themes (may only be used to make Adapta, but why not)
+apt install -y libsass0 librsvg2-dev
+#apt install -y gdk-pixbuf2-devel glib2-devel librsvg2-devel libsass libxml2 pkgconfig cutomake sassc # not installing
+#/var/local/vrk/boss/install-libsassc # not installing
+
+# Icon theme for LibreOffice
+apt install -y libreoffice-style-sifr libreoffice-style-galaxy libreoffice-style-hicontrast libreoffice-style-human libreoffice-style-oxygen libreoffice-style-tango
+## Add the Images Office 2013 theme
+ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/lib/libreoffice/share/config/
+ln -sfn /var/local/vrk/donjon/libreoffice/images_voffice.zip /usr/share/libreoffice/share/config/
+
+# Wallpapers
+/var/local/vrk/boss/install-vubuntu-vallpaper
+
+# Themes
+/var/local/vrk/boss/themicons-git-upstall
+
+# Global #
+
+# Unity 16.04
+if [ "${LINUX_DISTRO}" = "ubuntu" ] && [ "$ubuntu_release" = "16.04" ]; then
+#/var/local/vrk/donjon/vubuntu-unity-notifications-off # replaced by the tool below
+add-apt-repository -y ppa:vlijm/nonotifs
+apt update -y --fix-missing
+apt install -y unity-tweak-tool nonotifs
+fi
+# Unity 16.04 #
+
+# Ubuntu (GNOME)
+if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
+apt install -y gnome-tweak-tool
+fi
+# GNOME #
+
+# GNOME
+if [ "${LINUX_DISTRO}" = "gnome" ]; then
+apt install -y gnome-tweak-tool
+fi
+# GNOME #
+
+# Xubuntu/UbuntuStudio
+if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ; then
+## xfDashboard
+#NO LONGER IN TESTING, normal repos may work, just in case
+add-apt-repository -y ppa:xubuntu-dev/extras
+apt update
+apt install -y xfdashboard
+
+fi
+# Xubuntu #
+
+
+# KDE
+#if [ "$LINUX_DISTRO" = "/usr/share/xsessions/plasma" ]; then
+
+#fi
+# KDE #
+
+
+# MATE
+#if [ "$LINUX_DISTRO" = "mate" ]; then
+
+#fi
+# MATE #
+
+
+# Cinnamon
+#if [ "$LINUX_DISTRO" = "cinnamon" ]; then
+
+#fi
+# Cinnamon #
+
+
+# Mint_XFCE
+#if  [ "${LINUX_DISTRO}" = "xfce" ]; then
+
+#fi
+# Mint_Xfce
+
+# Arch
+#if  [ "${LINUX_DISTRO}" = "arch" ]; then
+
+#pacman -S gtk-engine-murrine gtk-engines
+#pacman -S gtk-engine-murrine gtk-engines
+
+#fi
+# Arch
+
+# Set configs
+echo "VUBUNTU_DESKTOP_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+touch /var/local/vrk/.vubuntu-desktop-installed
+
+# Touch LibreOffice configs
+echo "
+Launching LibreOffice quick, if it doesn't cloes automatically, just close it yourself...
+"
+## Add the ampersand to the end of the line so that the desktop app doesn't lock the terminal
+libreoffice &
+## Wait for the LibreOffice script to finish
+sleep 1
+## Kill the name of the "splash screen" process that eventually ends up running
+killall oosplash
+## Own the config files just made
+chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.config/libreoffice
+# Cleanup
+apt autoremove -y
+
+# Finish
+echo "Vubuntu Desktop is now installed. Now you can run set-vrk-desktop"
+sleep 2
+

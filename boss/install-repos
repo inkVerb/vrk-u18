@@ -51,6 +51,8 @@ add-apt-repository -y multiverse
 add-apt-repository -y ppa:thomas-schiex/blender
 ## Kdenlive faster channel
 add-apt-repository -y ppa:kdenlive/kdenlive-stable
+## LibreOffice
+add-apt-repository -y ppa:libreoffice/ppa
 ## Update
 apt update -y --fix-missing
 
