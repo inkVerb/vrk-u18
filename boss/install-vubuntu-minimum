@@ -91,7 +91,7 @@ apt install -yf
 ## Verify interactives first, and then the fonts
 #apt install -y ttf-mscorefonts-installer # This has a "failed to download" problem, besides, ms... ?? Who does that!?
 apt install -y jackd2
-apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts
+apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
