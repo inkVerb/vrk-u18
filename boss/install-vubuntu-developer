@@ -126,6 +126,9 @@ Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPai
 apt install -y inkscape blender gimp gimp-plugin-registry darktable krita
 apt install -y pencil2d mypaint mypaint-data-extras
 
+### Inkscape Export PDF CMYK extension
+/var/local/vrk/boss/install-pdfcmyk
+
 echo "
 Graphic design done. Media stuff, VLC, Amarok, Kdenlive...
 "

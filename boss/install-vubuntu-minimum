@@ -108,6 +108,9 @@ Web dev happy. Getting graphic design (only GIMP and Inkscape, plus GIMP plugins
 "
 apt install -y inkscape gimp gimp-plugin-registry
 
+### Inkscape Export PDF CMYK extension
+/var/local/vrk/boss/install-pdfcmyk
+
 echo "
 Graphic design done. Media stuff: Audacity, Kdenlive, VLC, essential sound tools...
 "

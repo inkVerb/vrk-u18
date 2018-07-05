@@ -1,0 +1,6 @@
+This includes a CMYK PDF export extension
+http://wiki.inkscape.org/wiki/index.php/ExportPDFCMYK
+
+The two files are used under GPLv3 at:
+http://jonata.org/inkscape/export-pdf-cmyk.py
+http://jonata.org/inkscape/export-pdf-cmyk.inx
