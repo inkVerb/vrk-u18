@@ -143,9 +143,9 @@ Office stuff done. Doing web dev favorites...
 "
 apt install -y git vim guake-indicator filezilla meld ssh
 echo "
-Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint...
+Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint, ICC printing profiles...
 "
-apt install -y inkscape blender gimp gimp-plugin-registry darktable krita
+apt install -y inkscape blender gimp gimp-plugin-registry darktable krita icc-profiles
 apt install -y kolourpaint4 pencil2d pinta tupi karbon mypaint mypaint-data-extras
 
 ### Inkscape Export PDF CMYK extension

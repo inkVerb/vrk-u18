@@ -104,9 +104,9 @@ Tools in the shed. Doing essential dev stuff...
 "
 apt install -y git ssh
 echo "
-Web dev happy. Getting graphic design (only GIMP and Inkscape, plus GIMP plugins)...
+Web dev happy. Getting graphic design (only GIMP and Inkscape, plus GIMP plugins, ICC printing profiles)...
 "
-apt install -y inkscape gimp gimp-plugin-registry
+apt install -y inkscape gimp gimp-plugin-registry icc-profiles
 
 ### Inkscape Export PDF CMYK extension
 /var/local/vrk/boss/install-pdfcmyk
