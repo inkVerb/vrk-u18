@@ -182,9 +182,12 @@ cd /var/local/vrk/donjon/ti/icons-
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "surfn" ]; then
 git clone https://github.com/erikdubois/Surfn
  if [ ! -d "Surfn" ]; then exit 44; fi
+###########################################
+#SOLVED! This pull request was accepted, remove this section AND DIRECTORIES after testing.
 ### Fix Surfn's LMMS icon re: https://github.com/erikdubois/Surfn/pull/26
-rm -f /var/local/vrk/donjon/ti/icons-/Surfn/Surfn/scalable/apps/scalable/lmms.svg
-cp -f /var/local/vrk/donjon/ti/lmms.svg /var/local/vrk/donjon/ti/icons-/Surfn/Surfn/scalable/apps/scalable/
+#rm -f /var/local/vrk/donjon/ti/icons-/Surfn/Surfn/scalable/apps/scalable/lmms.svg
+#cp -f /var/local/vrk/donjon/ti/lmms.svg /var/local/vrk/donjon/ti/icons-/Surfn/Surfn/scalable/apps/scalable/
+###########################################
 ### Continue
 rm -rf /usr/share/icons/Surfn*
 cd Surfn
