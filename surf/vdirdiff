@@ -22,8 +22,11 @@ if [ -z "$2" ]; then
  echo "Include directory 1 and 2 like this:
 vdirdiff dir1 dir2
 "
+exit 0
+fi
 
-for cmpfl in $DIR1/*; do
+for cmpdrfl in $DIR1/*; do
+cmpfl=$(echo $cmpdrfl | sed "s/$DIR1\///")
  if [ -e $DIR2/$cmpfl ]; then
   diff -q $DIR1/$cmpfl $DIR2/$cmpfl
  else
