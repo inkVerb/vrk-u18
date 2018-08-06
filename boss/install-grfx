@@ -48,6 +48,7 @@ exit 0; fi
 # Install
 add-apt-repository -y ppa:graphics-drivers/ppa
 sudo apt update
+apt install -y nvidia-387
 
 # Config
 echo "VRK_GRFX_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
@@ -55,7 +56,7 @@ touch /var/local/vrk/.grfxinstalled
 
 # Finish
 apt autoremove -y
-echo "Graphix driver repo added. Manage in:
+echo "Graphics added. Manage in:
 
 Software & Updates > System Settings > Additional Drivers: Apply Changes
 "

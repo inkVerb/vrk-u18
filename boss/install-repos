@@ -30,7 +30,7 @@ fi
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo ./install-grfx
+sudo ./install-repos
 "
 exit 22
 fi
