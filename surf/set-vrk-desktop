@@ -241,7 +241,7 @@ sleep 1
 # Global #
 
 # Ubuntu (GNOME)
-if [ "$LINUX_DISTRO" = "ubuntu" ]; then
+if [ "$LINUX_DISTRO" = "ubuntu" ] || [ "$LINUX_DISTRO" = "ubuntu-wayland" ]; then
 
 ## App Defaults
 cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/

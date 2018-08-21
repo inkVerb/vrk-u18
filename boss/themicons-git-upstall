@@ -40,7 +40,7 @@ exit 22; fi
 
 
 # Theme check #
-if [ "$LINUX_DISTRO" = "ubuntu" ] || [ "$LINUX_DISTRO" = "gnome" ]; then
+if [ "$LINUX_DISTRO" = "ubuntu" ] || [ "$LINUX_DISTRO" = "gnome" ] || [ "$LINUX_DISTRO" = "ubuntu-wayland" ]; then
 
 # Prepare notice
 echo "

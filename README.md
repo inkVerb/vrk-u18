@@ -191,7 +191,7 @@ Note: Update version numbers reference the framework. Ongoing updates continue f
 - Vrk has back-end "machine names" such as VRK_DESKTOP_DIR to match XDG_DESKTOP_DIR, via ~/.vrk/configs/lang/stationuser-dirs_CURRENT
 - Vrk vrk adds two machine names VRK_WORK_DIR (Work folder) and VRK_CLOUD_DIR (primary cloud folder) via ~/.vrk/configs/stationinfo
 - Vrk changes all folders from whatever language into English, for programming ease.
-- If the user's initially installed folders are non-English, Vrk creates ~/MyLang/ and with links to all home folders in the original language, for user reference. English folder names are easier for coding.
+- If the user's initially installed folders are non-English, Vrk creates ~/myLang/ and with links to all home folders in the original language, for user reference. English folder names are easier for coding.
 
 ### Names
 - Vrk's various scripts that do different jobs are called "Surfers". Surfers that require sudo are called "Bosses", but aren't available to non-sudoers.

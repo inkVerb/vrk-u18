@@ -118,7 +118,7 @@ sudo -u ${VRK_USER} sed -i "s/XDG_/INT_/g" /home/${VRK_USER}/.vrk/configs/lang/s
 . /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_EN
 
 # Check to see if the myLang folder is necessary
-if [ ${INT_DESKTOP_DIR} = ${VRK_DESKTOP_DIR} && ${INT_DOWNLOAD_DIR} = ${VRK_DOWNLOAD_DIR} && ${INT_TEMPLATES_DIR} = ${VRK_TEMPLATES_DIR} && ${INT_PUBLICSHARE_DIR} = ${VRK_PUBLICSHARE_DIR} && ${INT_DOCUMENTS_DIR} = ${VRK_DOCUMENTS_DIR} && ${INT_MUSIC_DIR} = ${VRK_MUSIC_DIR} && ${INT_PICTURES_DIR} = ${VRK_PICTURES_DIR} && ${INT_VIDEOS_DIR} = ${VRK_VIDEOS_DIR} ]; then
+if [ "${INT_DESKTOP_DIR}" = "${VRK_DESKTOP_DIR}" ] && [ "${INT_DOWNLOAD_DIR}" = "${VRK_DOWNLOAD_DIR}" ] && [ "${INT_TEMPLATES_DIR}" = "${VRK_TEMPLATES_DIR}" ] && [ "${INT_PUBLICSHARE_DIR}" = "${VRK_PUBLICSHARE_DIR}" ] && [ "${INT_DOCUMENTS_DIR}" = "${VRK_DOCUMENTS_DIR}" ] && [ "${INT_MUSIC_DIR}" = "${VRK_MUSIC_DIR}" ] && [ "${INT_PICTURES_DIR}" = "${VRK_PICTURES_DIR}" ] && [ "${INT_VIDEOS_DIR}" = "${VRK_VIDEOS_DIR}" ]; then
 echo "Home directorys' language is already English. No need for myLang."
 else
 ## Rename the directories to English from whatever they are, backup original names in myLang if different
