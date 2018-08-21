@@ -137,7 +137,7 @@ fi
 # Unity 16.04 #
 
 # Ubuntu (GNOME)
-if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
+if [ "${LINUX_DISTRO}" = "ubuntu" ] || [ "$LINUX_DISTRO" = "ubuntu-wayland" ]; then
 apt install -y gnome-tweak-tool
 fi
 # GNOME #
