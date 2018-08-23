@@ -55,9 +55,9 @@ apt install -y jackd2
 # Add the graphix PPA
 /var/local/vrk/boss/install-grfx
 
-# Vubuntu Minimum
-/var/local/vrk/boss/install-vubuntu-minimum
-
 # Vubuntu Desktop
 /var/local/vrk/boss/install-vubuntu-desktop
+
+# Vubuntu Minimum
+/var/local/vrk/boss/install-vubuntu-minimum
 

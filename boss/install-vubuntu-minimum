@@ -106,7 +106,7 @@ apt install -y git ssh
 echo "
 Web dev happy. Getting graphic design (only GIMP and Inkscape, plus GIMP plugins, ICC printing profiles)...
 "
-apt install -y inkscape gimp gimp-plugin-registry icc-profiles
+apt install -y inkscape gimp gimp-plugin-registry icc-profiles vlc libreoffice-writer libreoffice-calc
 
 ### Inkscape Export PDF CMYK extension
 /var/local/vrk/boss/install-pdfcmyk
