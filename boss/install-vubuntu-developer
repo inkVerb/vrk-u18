@@ -119,7 +119,7 @@ fi
 echo "
 Office stuff done. Doing web dev favorites...
 "
-apt install -y git vim filezilla meld ssh
+apt install -y git vim filezilla meld ssh curl wget
 echo "
 Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint, ICC printing profiles...
 "
