@@ -53,6 +53,8 @@ add-apt-repository -y ppa:thomas-schiex/blender
 add-apt-repository -y ppa:kdenlive/kdenlive-stable
 ## LibreOffice
 add-apt-repository -y ppa:libreoffice/ppa
+## KDE for the current version of Kate
+add-apt-repository -y ppa:kubuntu-ppa/backports
 ## Update
 apt update -y --fix-missing
 
