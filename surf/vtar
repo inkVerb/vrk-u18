@@ -9,5 +9,5 @@
 
 TARXZDIR=$1
 
-tar c "${TARXZDIR}" | xz > "${TARXZDIR}".tar.xz
+tar cv "${TARXZDIR}" | xz > "${TARXZDIR}".tar.xz
 
