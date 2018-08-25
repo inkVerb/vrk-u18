@@ -89,9 +89,8 @@ apt update -y --fix-missing
 apt install -yf
 
 ## Verify interactives first, and then the fonts
-#apt install -y ttf-mscorefonts-installer # This has a "failed to download" problem, besides, ms... ?? Who does that!?
-apt install -y jackd2
-apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
+#apt install -y ttf-mscorefonts-installer # Fails download
+apt install -y jackd2 fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
@@ -115,7 +114,6 @@ apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impre
 echo "
 Tools done. Now doing browsers...
 "
-#apt install -y midori #DEV Delayed until 18.04 is out of beta
 if [ "${LINUX_DISTRO}" = "gnome" ]; then
 apt install -y epiphany-browser gconf-editor
 fi
@@ -168,7 +166,6 @@ wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
 wget -O DeEsser.ny http://forum.audacityteam.org/download/file.php?id=10125
 echo "Sound's great. (hehe) Getting desktop goodies...
 "
-#apt install -y ubuntu-restricted-extras # removing the mscorefonts installer & testing if this really necessary? Moved to: install-ubuntustudio
 apt install -y alsa-oss libasound2 libasound2-plugins
 apt install -y gnome-music gnome-photos planner gromit gnome-chess
 #apt install -y dia-gnome #broken in Ubuntu 18.04

@@ -88,15 +88,14 @@ apt update -y --fix-missing
 apt install -yf
 
 ## Verify interactives first, and then the fonts
-#apt install -y ttf-mscorefonts-installer # This has a "failed to download" problem, besides, ms... ?? Who does that!?
-apt install -y jackd2
-apt install -y fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
+#apt install -y ttf-mscorefonts-installer # Fails download
+apt install -y jackd2 fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
 apt install -y zip p7zip-full gzip guake guake-indicator docky kate retext gedit nautilus grabc gparted shutter kazam obs-studio
 ## Redundant from install-vubuntu-desktop
-apt install -y libreoffice libreoffice-writer libreoffice-calc chromium-browser thunderbird firefox
+apt install -y chromium-browser thunderbird firefox
 echo "
 Tools done. Now doing browsers...
 "

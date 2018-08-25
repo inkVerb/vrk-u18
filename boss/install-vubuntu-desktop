@@ -92,8 +92,8 @@ apt update -y --fix-missing
 # Adapta
 /var/local/vrk/boss/install-adapta
 
-# Basic apps: Gedit, Guake, Docky, Chromium, Thunderbird, Firefox, Rhythmbox, Vino (Desktop Sharing settings)
-apt install -y gedit guake docky chromium-browser djview-plugin thunderbird firefox rhythmbox vino
+# Basic apps: Gedit, Guake, Docky, Chromium, Thunderbird, Firefox, Rhythmbox, Vino, WordGrinder (Desktop Sharing settings)
+apt install -y gedit guake docky chromium-browser djview-plugin thunderbird firefox rhythmbox vino wordgrinder-ncurses
 #if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
 #apt install -y unity-chromium-extension #NO! This made the 64bit ASUS run both Chrom and Chromium too slowly!
 #fi
@@ -103,7 +103,7 @@ apt install -y conky conky-all ubuntustudio-wallpapers gnome-terminal variety ht
 #apt install -y gtk-theme-config # As of 18.04 this does not work
 
 # LibreOffice (done now for vubuntu-desktop settings dependencies)
-apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
+apt install -y libreoffice-writer libreoffice-calc
 
 # Git, build tools, and theme dependencies (may be redundant, but never can be too sure, here they all are from each theme's dependency instructions)
 apt install -y git build-essential dconf-cli autoconf automake libtool intltool inkscape cmake krita gimp
