@@ -4,7 +4,7 @@
 # This tars and xz compresses a directory into a .tar.xz file of the same name
 
 # How to use:
-## ./vtarxz DIRECTORY
+## ./vtar DIRECTORY
 
 
 TARXZDIR=$1
