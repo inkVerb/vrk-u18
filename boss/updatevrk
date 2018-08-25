@@ -5,7 +5,7 @@ set -e
 # This updates Vrk from GitHub
 ## This can run over the git or locally, git is the default
 
-# NOTE: If updating locally, the vrk-update folder must be copied and exist at /var/local/vrk/vrk-update
+# NOTE: If updating locally, the vrk folder must be copied and exist at ~/vrk
 
 # How to use:
 ## sudo ./updatevrk [update method]
@@ -75,9 +75,9 @@ cd /home/${SUDO_USER}
 rm -rf ${VRKUPDATEREPO}
 echo "Vrk is up-to-date."
 exit 0
-fi
+
 ## Local copy
-if [ "${UTYPE}" = "local" ]; then
+elif [ "${UTYPE}" = "local" ]; then
 ### Test the directory
  if [ ! -d "/home/${SUDO_USER}/vrk" ]; then
 echo "vrk folder is not in the home directory. I quit."
@@ -86,8 +86,7 @@ exit 22
 cd /home/${SUDO_USER}/vrk/inst
 chmod +x upvrk
 ./upvrk
-echo "Vrk is up-to-date. You may remove the vrk folder from home with:
-sudo rm -r vrk"
+echo "Vrk is up-to-date."
 exit 0
 fi
 
