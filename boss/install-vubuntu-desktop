@@ -93,7 +93,7 @@ apt update -y --fix-missing
 /var/local/vrk/boss/install-adapta
 
 # Basic apps: Gedit, Guake, Docky, Chromium, Thunderbird, Firefox, Rhythmbox, Vino, WordGrinder (Desktop Sharing settings)
-apt install -y gedit guake docky chromium-browser djview-plugin thunderbird firefox rhythmbox vino wordgrinder-ncurses
+apt install -y jackd2 gedit guake docky chromium-browser djview-plugin thunderbird firefox rhythmbox vino wordgrinder-ncurses
 #if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
 #apt install -y unity-chromium-extension #NO! This made the 64bit ASUS run both Chrom and Chromium too slowly!
 #fi
