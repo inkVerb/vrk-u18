@@ -21,7 +21,43 @@
   </wallpaper>
   <wallpaper>
     <name>inkPage Dark</name>
-    <filename>/usr/share/backgrounds/vubuntu/inkPage-Dark-Green.png</filename>
+    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Green.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Dark</name>
+    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Purple.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Dark</name>
+    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Orange.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Dark</name>
+    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Blue.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Dark</name>
+    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-White.png</filename>
     <options>zoom</options>
     <pcolor>#ececec</pcolor>
     <scolor>#ececec</scolor>
@@ -119,15 +155,6 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>Vubuntu Mesh Disk - Gray</name>
-    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Gray.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
     <name>Vubuntu Mesh Disk - Blue</name>
     <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Blue.png</filename>
     <options>zoom</options>
@@ -173,42 +200,15 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>Vubuntu Disk - Purple</name>
-    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Disk-Purple.png</filename>
+    <name>Vubuntu Mesh Disk - Gray</name>
+    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk-Gray.png</filename>
     <options>zoom</options>
     <pcolor>#ececec</pcolor>
     <scolor>#ececec</scolor>
     <shade_type>solid</shade_type>
     <artist>verb.ink</artist>
   </wallpaper>
-  <wallpaper>
-    <name>Vubuntu Flat - Blue</name>
-    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Flat-Blue-Dark.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>Vubuntu Flat - Green</name>
-    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Flat-Green-Dark.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>Vubuntu Flat - Orange</name>
-    <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Flat-Orange-Dark.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
+   <wallpaper>
     <name>inkVerb - Mesh</name>
     <filename>/usr/share/backgrounds/vubuntu/inkVerb-Mesh.png</filename>
     <options>zoom</options>
