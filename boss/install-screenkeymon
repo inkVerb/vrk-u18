@@ -2,10 +2,10 @@
 #inkVerbBoss! verb.ink
 set -e
 
-# This installs Screenkey and its dependencies
+# This installs Screenkey, KeyMon, and Screenkey's dependencies
 
 # How to use:
-## sudo ./install-screenkey
+## sudo ./install-screenkeymon
 
 
 # Check if Vrk installed on this machine
@@ -40,10 +40,10 @@ exit 22; fi
 # Install
 add-apt-repository ppa:nilarimogard/webupd8 -y
 apt update
-apt install screenkey fonts-font-awesome python-appindicator
+apt install screenkey fonts-font-awesome python-appindicator key-mon
 
 # Finish
 apt autoremove -y
-echo "Screenkey installed.
+echo "Screenkey & KeyMon installed.
 "
 
