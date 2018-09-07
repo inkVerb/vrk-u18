@@ -837,10 +837,11 @@ if [ -d "/home/${PATCH_USER}" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
   if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
-# Make the user do the job himself 
-# sudo -u ${PATCH_USER} echo "I am myself v${UPDATE_PATCH_KVERNO}."
-
-
+# Update avatars for Xfce
+if [ -d "/usr/share/pixmaps/faces" ]; then
+sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${PATCH_USER}
+sed -i "s/\[User\]/\[User\]\nIcon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar\.png/" /var/lib/AccountsService/users/${PATCH_USER}
+fi
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklist for the patch user
 sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
