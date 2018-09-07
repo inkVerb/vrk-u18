@@ -68,7 +68,6 @@ git clone https://github.com/inkVerb/${VRKUPDATEREPO}
 mv ${VRKUPDATEREPO} vrk
  fi
 cd vrk/inst
-chmod +x upvrk
 ./upvrk
 ### Just make sure it's gone
 cd /home/${SUDO_USER}
@@ -84,7 +83,6 @@ echo "vrk folder is not in the home directory. I quit."
 exit 22
  fi
 cd /home/${SUDO_USER}/vrk/inst
-chmod +x upvrk
 ./upvrk
 echo "Vrk is up-to-date."
 exit 0
