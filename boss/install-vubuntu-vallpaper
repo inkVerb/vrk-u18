@@ -69,10 +69,16 @@ rm -rf /var/local/vall/rooms/${VALL_ROOM}
 cp -r ${VALL_INST_DIR}/${VALL_ROOM} /var/local/vall/rooms/
 rm -rf /usr/share/images/vall/${VALL_ROOM}
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/images/vall/
+## Remove any broken symlinks
+cd /usr/share/images/vall/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 
 # Add Avatar icons (but not Xfce)
 if [ -d "/usr/share/pixmaps/faces/" ]; then
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/avitar-icons/* /usr/share/pixmaps/faces/
+## Remove any broken symlinks
+cd /usr/share/pixmaps/faces/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 
 # Install Vubuntu vallpapers
@@ -82,7 +88,13 @@ mkdir -p /usr/share/backgrounds
 mkdir -p /usr/share/gnome-background-properties
 rm -rf /usr/share/backgrounds/${VALL_ROOM}
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/backgrounds/
+#### Remove any broken symlinks
+cd /usr/share/backgrounds/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/vallpapers-${VALL_ROOM}.xml /usr/share/gnome-background-properties/
+#### Remove any broken symlinks
+cd /usr/share/gnome-background-properties/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 ### Remove any broken symlinks
 cd /usr/share/gnome-background-properties/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done

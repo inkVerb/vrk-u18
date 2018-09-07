@@ -20,34 +20,7 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>inkPage Dark</name>
-    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Green.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>inkPage Dark</name>
-    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Purple.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>inkPage Dark</name>
-    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Orange.png</filename>
-    <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
-    <shade_type>solid</shade_type>
-    <artist>verb.ink</artist>
-  </wallpaper>
-  <wallpaper>
-    <name>inkPage Dark</name>
+    <name>inkPage Blue</name>
     <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Blue.png</filename>
     <options>zoom</options>
     <pcolor>#ececec</pcolor>
@@ -56,7 +29,43 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>inkPage Dark</name>
+    <name>inkPage Green</name>
+    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Green.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Orange</name>
+    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Orange.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Pink</name>
+    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Pink.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage Purple</name>
+    <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-Purple.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>inkPage White</name>
     <filename>/usr/share/backgrounds/vubuntu/inkPage-Mesh-White.png</filename>
     <options>zoom</options>
     <pcolor>#ececec</pcolor>
