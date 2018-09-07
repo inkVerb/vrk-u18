@@ -61,6 +61,7 @@ KUPDATE_REPO="vrk"
 ## NOTE: PWD is /home/${SUDO_USER}/${KUPDATE_REPO}/${UPDATE_PATCH_KVERNO}/
 #
 #
+###### END GLOBAL SCRIPT
 ## Set and refresh the current version into inklists
 #sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
 #. /var/local/vrk/vrkverno
@@ -857,6 +858,11 @@ cp -f /var/local/vrk/donjon/icons/inkVerb-avatar-Ubuntu.png /usr/share/pixmaps/f
 cp -f /var/local/vrk/donjon/icons/inkVerb-avatar-Arch.png /usr/share/pixmaps/faces/
 fi
 
+##### END GLOBAL SCRIPT
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPDATE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
 ###############END#UPDATE#PATCH#
 
 # Cleanup
