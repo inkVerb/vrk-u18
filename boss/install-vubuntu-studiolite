@@ -174,14 +174,20 @@ Got the goodies. Sky time... Stellarium...
 "
 apt install -y stellarium
 
-#
-#echo "
-#Now doing Skype...
-#"
-#apt install -y skype
-#echo "
-#You got Skype.
-#"
+
+echo "
+Now doing Skype...
+"
+mkdir -p /var/local/vrk/skypetmp
+cd /var/local/vrk/skypetmp
+wget https://repo.skype.com/latest/skypeforlinux-64.deb
+dpkg -i skypeforlinux-64.deb
+apt install -f
+cd ..
+rm -rf /var/local/vrk/skypetmp
+echo "
+You got Skype.
+"
 
 # Set config
 echo "VUBUNTU_STUDIOLITE_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
