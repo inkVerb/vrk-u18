@@ -46,7 +46,7 @@ VRK_USER=$1
 fi
 
 # Remove installations for user
-chmod +x /home/${SUDO_USER}/vrk/boss/uninstall-vubuntu-vrkstation
+chmod ug+x /home/${SUDO_USER}/vrk/boss/uninstall-vubuntu-vrkstation
 /home/${SUDO_USER}/vrk/boss/uninstall-vubuntu-vrkstation ${VRK_USER}
 
 # Remove vrk

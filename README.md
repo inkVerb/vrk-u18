@@ -50,7 +50,7 @@ Read the README.md before reporting problems! !! Seriously.
 
 `cd /vrk/inst`
 
-`chmod +x govrk`
+`chmod ug+x govrk`
 
 `sudo ./govrk $DESKTOP_SESSION`
 
@@ -97,7 +97,7 @@ Now, the user that ran this will have Vrk in his own system.
 
 `cd /vrk/inst`
 
-`chmod +x upvrk`
+`chmod ug+x upvrk`
 
 `sudo ./upvrk $DESKTOP_SESSION`
 

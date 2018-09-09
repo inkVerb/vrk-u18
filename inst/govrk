@@ -55,7 +55,7 @@ if [ -d "/var/local/vrk" ]; then
  if [ -d "/home/${VRK_USER}/.vrk" ]; then
 ## Already installed
 echo "Vrk is already installed. Updating..."
-chmod +x /home/${VRK_USER}/vrk/inst/upvrk
+chmod ug+x /home/${VRK_USER}/vrk/inst/upvrk
 /home/${VRK_USER}/vrk/inst/upvrk $1
 exit 0
  else
@@ -68,7 +68,7 @@ else
 ## .vrk exists, not vrk
  if [ -d "/home/${VRK_USER}/.vrk" ]; then
 echo "Vrk is damaged. Removing it, then trying to continue. If this fails, remove the .vrk folder and start again."
-chmod +x /home/${VRK_USER}/vrk/boss/uninstall-vrk
+chmod ug+x /home/${VRK_USER}/vrk/boss/uninstall-vrk
 /home/${VRK_USER}/vrk/boss/uninstall-vrk
  fi
 fi
@@ -116,12 +116,12 @@ cp -rf /home/${VRK_USER}/vrk /var/local/
 mv -f /var/local/vrk/inst/vrkverno /var/local/vrk/
 
 # Executable check
-chmod +x /var/local/vrk/boss/*
-chmod +x /var/local/vrk/droids/*
-chmod +x /var/local/vrk/surf/*
-chmod +x /var/local/vrk/donjon/*
-chmod +x /var/local/vrk/donjon/vrktemplates/7_BASH
-chmod +x /var/local/vrk/droids/*
+chmod ug+x /var/local/vrk/boss/*
+chmod ug+x /var/local/vrk/droids/*
+chmod ug+x /var/local/vrk/surf/*
+chmod ug+x /var/local/vrk/donjon/*
+chmod ug+x /var/local/vrk/donjon/vrktemplates/7_BASH
+chmod ug+x /var/local/vrk/droids/*
 
 # Background image directories
 ## If "backgrounds" doesn't exist (KDE, cough cough)

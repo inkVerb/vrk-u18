@@ -827,7 +827,7 @@ gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
 ### Conky IN DEV
 #cd && wget -O .start-conky http://drive.noobslab.com/data/conky/start-conky
-#chmod +x .start-conky
+#chmod ug+x .start-conky
 #cd && wget -O gotham-noobslab-ugs.zip http://drive.noobslab.com/data/conky/Gotham/gotham-noobslab-ugs.zip
 #unzip gotham-noobslab-ugs.zip && rm gotham-noobslab-ugs.zip
 
