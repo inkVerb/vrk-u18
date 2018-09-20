@@ -10,7 +10,7 @@ set -e
 ### service ssh reload
 
 # How to use:
-## ssh-add-all [SSH key name] [surfer nickname] [remote user] [remote IP] [remote user password] [port - optional]
+## ssh-add-all [SSH key name] [surfer nickname] [remote user] [remote IP] [remote user password] [new-port (optional)]
 
 # Eg.
 ## ssh-add-all digitalocean_Jkey nick root 123.456.789.1011 22
@@ -32,12 +32,12 @@ fi
 # Check variables
 if [ -z $5 ]; then
 echo "You need to specify stuff, like this:
-ssh-add-all [SSH key name] [surfer nickname] [remote user] [remote IP] [remote user password] [port - optional]
+ssh-add-all [SSH key name] [surfer nickname] [remote user] [remote IP] [remote user password] [new-port (optional)]
 "
 exit 22
 fi
 
-# Assign 22 if [port] option is left empty
+# Assign 22 if [new-port] option is left empty
 if [ -z "${PORT}" ]; then
 PORT=22
 fi
@@ -48,5 +48,5 @@ if [ ! -f ~/.ssh/${KEYNAME} ]; then
 fi
 ~/.vrk/boards/ssh-add-goguakezilla ${KEYNAME} ${SURFERNAME} ${USER} ${IP} ${PORT}
 ~/.vrk/boards/ssh-add-key ${SURFERNAME} ${KEYNAME} ${PASSWORD}
-~/.vrk/boards/set-guake-indicator-on
+~/.vrk/boards/ssh-keyportserver ${SURFERNAME} ${PASSWORD} ${PORT}
 

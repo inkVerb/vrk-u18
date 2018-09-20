@@ -18,8 +18,12 @@ exit 22
 fi
 
 # Set permissions
-mkdir -p ~/.ssh
-chmod 700 *
+if [ ! -d ~/.ssh ]; then
+echo "No ssh directory, set up the keys first."
+exit 22
+fi
+
+chmod 700 ~/.ssh/*
 
 # Finish
 echo "Done. Your keys in .ssh should now have the proper permissions. Your git, ssh, Guake Indicator, FileZilla, or whatever ssh service you are using should work now."

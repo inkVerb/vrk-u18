@@ -5,12 +5,12 @@ set -e
 # This uploads a local SSH key to a surfer's remote server for user no-password login
 
 # How to use:
-## ssh-add-key [surfer] [SSH_keyname] [server-password]
+## ssh-keyportserver [surfer] [server-password] [new-port (optional)]
 
 
 GOSURFER=$1
-KEYNAME=$2
-PASSWORD=$3
+PASSWORD=$2
+NEWPORT=$3
 
 # Check if installed
 if [ ! -f ~/.vrk/configs/stationinfo ]; then
@@ -19,18 +19,23 @@ exit 22
 fi
 
 # Check variables
-if [ -z $3 ]; then
+if [ -z $2 ]; then
 echo "You need to specify stuff, like this:
-addfilezillsurfer [surfer] [SSH_keyname] [server-password]
+addfilezillsurfer [surfer] [server-password] [new-port (optional)]
 "
 exit 22
+fi
+
+# Assign 22 if [new-port] option is left empty
+if [ -z $3 ]; then
+NEWPORT=22
 fi
 
 # Include the config
 . ~/.vrk/go/go.${GOSURFER}.malibu
 
 # Do it all in one command
-cat ~/.ssh/${KEYNAME}.pub | ssh -p ${GOPORT} ${GOUSER}@${GOIP} "mkdir -p ~/.ssh && mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys && systemctl reload ssh"
+cat ~/.ssh/${KEYNAME}.pub | ssh -p ${GOPORT} ${GOUSER}@${GOIP} "sed -i '/Port.*/ c\Port ${NEWPORT}' /etc/ssh/sshd_config && sed -i '/PermitRootLogin.*/ c\PermitRootLogin without-password' /etc/ssh/sshd_config && systemctl reload ssh"
 expect "Password:"
 send "${PASSWORD}\r"
 
