@@ -67,6 +67,9 @@ if which "$DCONF" > /dev/null 2>&1; then
         dset bold-color-same-as-fg "true"
         dset use-theme-colors "false"
         dset use-theme-background "false"
+        dset use-theme-transparency "false"
+        dset use-transparent-background "true"
+        dset background-transparency-percent "16"
 
         unset PROFILE_NAME
         unset PROFILE_SLUG
@@ -117,6 +120,9 @@ gset string bold_color "#b7b8b9"
 gset bool bold_color_same_as_fg "true"
 gset bool use_theme_colors "false"
 gset bool use_theme_background "false"
+gset bool use_theme_transparency "false"
+gset bool use_transparent_background "true"
+gset int background_transparency_percent "16"
 
 unset PROFILE_NAME
 unset PROFILE_SLUG
