@@ -255,12 +255,12 @@ cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 
 ## Flatabulous terminal "profile" (color scheme)
 ### Check if done
-if [ ! -f "~/.vrk/configs/.xt-gnome-ubuntu" ]; then
+if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
 ### Add the theme
-~/.vrk/donjon/xt-gnome
-~/.vrk/donjon/xt-ubuntu
+~/.vrk/donjon/xt-ubuntabulous
+~/.vrk/donjon/xt-flatabulous
 ### Make the record
-touch ~/.vrk/configs/.xt-gnome-ubuntu
+touch ~/.vrk/configs/.xt-flatabulous-ubuntu
 fi
 
 ## Set theme & icons
@@ -779,12 +779,12 @@ cp -rf ~/.vrk/donjon/unity/config/autostart ~/.config/
 
 ## Flatabulous terminal "profile" (color scheme)
 ### Check if done
-if [ ! -f "~/.vrk/configs/.xt-gnome-ubuntu" ]; then
+if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
 ### Add the theme
-~/.vrk/donjon/xt-gnome
-~/.vrk/donjon/xt-ubuntu
+~/.vrk/donjon/xt-ubuntabulous
+~/.vrk/donjon/xt-flatabulous
 ### Make the record
-touch ~/.vrk/configs/.xt-gnome-ubuntu
+touch ~/.vrk/configs/.xt-flatabulous-ubuntu
 fi
 
 ## LibreOffice theming
@@ -850,12 +850,12 @@ cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 
 ## Flatabulous terminal "profile" (color scheme)
 ### Check if done
-if [ ! -f "~/.vrk/configs/.xt-gnome-ubuntu" ]; then
+if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
 ### Add the theme
-~/.vrk/donjon/xt-gnome
-~/.vrk/donjon/xt-ubuntu
+~/.vrk/donjon/xt-ubuntabulous
+~/.vrk/donjon/xt-flatabulous
 ### Make the record
-touch ~/.vrk/configs/.xt-gnome-ubuntu
+touch ~/.vrk/configs/.xt-flatabulous-ubuntu
 fi
 
 ## Set theme & icons

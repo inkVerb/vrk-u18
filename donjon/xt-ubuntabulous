@@ -3,8 +3,8 @@
 ## Thank you: https://github.com/anmoljagetia
 ## Normally run with: wget -O xt http://git.io/vn6HM && chmod +x xt && ./xt && rm xt
 
-[[ -z "$PROFILE_NAME" ]] && PROFILE_NAME="Flatabulous Terminal"
-[[ -z "$PROFILE_SLUG" ]] && PROFILE_SLUG="flatabulous-terminal"
+[[ -z "$PROFILE_NAME" ]] && PROFILE_NAME="Ubuntabulous Terminal"
+[[ -z "$PROFILE_SLUG" ]] && PROFILE_SLUG="ubuntabulous-terminal"
 [[ -z "$DCONF" ]] && DCONF=dconf
 [[ -z "$UUIDGEN" ]] && UUIDGEN=uuidgen
 
@@ -57,15 +57,16 @@ if which "$DCONF" > /dev/null 2>&1; then
 
         # add new copy to list of profiles
         dlist_append $BASE_KEY_NEW/list "$PROFILE_SLUG"
-
+wait
         # update profile values with theme options
         dset visible-name "'$PROFILE_NAME'"
-        dset palette "['#0c0d0e', '#e31a1c', '#31a354', '#dca060', '#3182bd', '#756bb1', '#80b1d3', '#b7b8b9', '#737475', '#e31a1c', '#31a354', '#dca060', '#3182bd', '#756bb1', '#80b1d3', '#fcfdfe']"
-        dset background-color "'#0c0d0e'"
-        dset foreground-color "'#b7b8b9'"
-        dset bold-color "'#b7b8b9'"
+        dset palette "['#2e3436', '#cc0000', '#4e9a06', '#c4a000', '#3465a4', '#75507b', '#06989a', '#d3d7cf', '#555753', '#ef2929', '#8ae234', '#fce94f', '#729fcf', '#ad7fa8', '#34e2e2', '#eeeeec']"
+        dset background-color "'#300a24'"
+        dset foreground-color "'#ffffff'"
+        dset bold-color "'#ffffff'"
         dset bold-color-same-as-fg "true"
         dset use-theme-colors "false"
+wait
         dset use-theme-background "false"
         dset use-theme-transparency "false"
         dset use-transparent-background "true"
@@ -111,6 +112,7 @@ glist_append() {
 
 # Append the Base16 profile to the profile list
 glist_append string /apps/gnome-terminal/global/profile_list "$PROFILE_SLUG"
+wait
 
 gset string visible_name "$PROFILE_NAME"
 gset string palette "#0c0d0e:#e31a1c:#31a354:#dca060:#3182bd:#756bb1:#80b1d3:#b7b8b9:#737475:#e31a1c:#31a354:#dca060:#3182bd:#756bb1:#80b1d3:#fcfdfe"
@@ -119,6 +121,7 @@ gset string foreground_color "#b7b8b9"
 gset string bold_color "#b7b8b9"
 gset bool bold_color_same_as_fg "true"
 gset bool use_theme_colors "false"
+wait
 gset bool use_theme_background "false"
 gset bool use_theme_transparency "false"
 gset bool use_transparent_background "true"
