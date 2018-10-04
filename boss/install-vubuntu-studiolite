@@ -151,18 +151,22 @@ apt install -y mypaint mypaint-data-extras
 
 ### Inkscape Export PDF CMYK extension
 /var/local/vrk/boss/install-pdfcmyk
+wait
 
 echo "
 Graphic design done. Media stuff, VLC, audio players, Kdenlive...
 "
 apt install -y vlc vlc-data browser-plugin-vlc clementine amarok kdenlive
 #apt install -y mplayer2 #broken in Ubuntu 18.04
+wait
+
 echo "
 Media done. Audiophile tools, Audacity, LMMS, Yate VoIP client, Kid3 audio tag tool...
 "
 ## pulseaudio & pavucontrol for mixing & monitor control in Audacity
-apt install -y audacity lmms muse musescore music-bin kid3 pulseaudio pavucontrol
-#apt install -y yate-qt4 #broken in Ubuntu 18.04
+apt install -y audacity lmms muse musescore music-bin kid3 pulseaudio pavucontrol twinkle
+wait
+
 ## Audacity DeClicker & DeEsser http://forum.audacityteam.org/viewtopic.php?f=42&t=79278&p=245549
 cd /usr/share/audacity/plug-ins/
 wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
@@ -171,7 +175,6 @@ echo "Sound's great. (hehe) Getting desktop goodies...
 "
 apt install -y alsa-oss libasound2 libasound2-plugins
 apt install -y gnome-music gnome-photos planner gromit gnome-chess
-#apt install -y dia-gnome #broken in Ubuntu 18.04
 echo "
 Got the goodies. Sky time... Stellarium...
 "
