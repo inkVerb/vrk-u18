@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbSurfer! verb.ink
-set -e
 
 # This refreshes the Vrk tools (boss, surf, donjon) in .vrk from /var/local/vrk
 

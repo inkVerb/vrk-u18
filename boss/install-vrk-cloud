@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbMaker! verb.ink
-set -e
 
 # This installs the Vrk™ Cloud folder system for a user
 ## This needs some root permissions

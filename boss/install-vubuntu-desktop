@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
-set -e
 
 # This installs Vubuntu Desktop settings, theming, and Vubuntu Wallpaper
 ## This is automatically run by: install-vubuntu and install-vubuntu-core

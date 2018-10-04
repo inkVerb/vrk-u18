@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
-set -e
 
 # This adds the graphix driver repo and allows PPA installation of special graphix drivers
 ## This could include any drivers in the repo

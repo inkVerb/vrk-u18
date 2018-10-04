@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
-set -e
 
 # This installs Aptana Studio
 ##DEV: This is only in dev and should be expanded on later

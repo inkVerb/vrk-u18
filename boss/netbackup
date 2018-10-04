@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
-set -e
 
 # This backs up basic network configurations and passwords to .vrk/configs
 ## This is intended to be run before usbbackup

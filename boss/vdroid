@@ -1,6 +1,5 @@
 #!/bin/bash
 #inkVerbSurfer! verb.ink
-set -e
 
 # This adds droids from a git repo.
 

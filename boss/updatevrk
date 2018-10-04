@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbSurfer! verb.ink
-set -e
 
 # This updates Vrk from GitHub
 ## This can run over the git or locally, git is the default

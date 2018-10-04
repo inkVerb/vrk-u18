@@ -20,7 +20,7 @@ exit 22
 fi
 
 # Check variables
-if [ -z $4 ]; then
+if [ -z $3 ]; then
 echo "You need to specify stuff, like this:
 ssh-add-gosurfer [surfer name] [remote user] [remote IP] [port - optional]
 "
@@ -35,22 +35,59 @@ fi
 # Create the surfer
 cp ~/.vrk/donjon/go.newsurfer ~/.vrk/go/go.${SURFERNAME}
 
-echo "#!/bin/sh
+echo "#!/bin/bash
 #inkVerbGosurfer! verb.ink
+
+# This automatically logs into an ssh server & changes the settings
+
+# How to use:
+## go.surfername # Login
+## go.surfername 555			# Login using port 555 (even if different from settings)
+## go.surfername clear			# Clear the ssh keys
+## go.surfername newip 555.555.555.555	# Set this as the new IP address in the .malibu file
+## go.surfername newport 555		# Set this as the new port in the .malibu file
+## go.surfername newuser robby		# Set this as the new user in the .malibu file
+
 
 # Include the config
 . ~/.vrk/go/go.${SURFERNAME}.malibu
 
 # Connect
+if [ -z \"\$1\" ]; then
 ssh \${GOUSER}@\${GOIP} -p \${GOPORT}
+
+# Clear ssh keys
+elif [ \"\$1\" = \"clear\" ]; then
+ssh-keygen -f \"/home/\${USER}/.ssh/known_hosts\" -R "${GOIP}"
+
+# Use special port
+elif [ -z \"\$2\" ] && [[ \"\$1\" =~ ^[0-9]+$ ]]; then
+ssh \${GOUSER}@\${GOIP} -p \"\$1\"
+
+# Change the IP
+elif [ -n \"\$2\" ] && [ \"\$1\" = \"newip\" ]; then
+sed -i \"s/GOIP.*/GOIP=\"\$2\"/\" ~/.vrk/go/go.${SURFERNAME}.malibu
+
+# Change the port
+elif [ -n \"\$2\" ] && [ \"\$1\" = \"newport\" ]; then
+sed -i \"s/GOPORT.*/GOPORT=\"\$2\"/\" ~/.vrk/go/go.${SURFERNAME}.malibu
+
+# Change the user
+elif [ -n \"\$2\" ] && [ \"\$1\" = \"newuser\" ]; then
+sed -i \"s/GOUSER.*/GOUSER=\"\$2\"/\" ~/.vrk/go/go.${SURFERNAME}.malibu
+
+# Something else?
+else
+echo \"You did something wrong. Read the instructions.\"
+fi
 " > ~/.vrk/go/go.${SURFERNAME}
 
 # Create a config
 echo "#!/bin/sh
 # This is a Vrk config file with the credentials of a surfer
 GOUSER=\"${USER}\"
-GOIP=${IP}
-GOPORT=${PORT}
+GOIP=\"${IP}\"
+GOPORT=\"${PORT}\"
 " > ~/.vrk/go/go.${SURFERNAME}.malibu
 
 # Finish

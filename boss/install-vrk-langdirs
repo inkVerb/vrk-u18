@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbMaker! verb.ink
-set -e
 
 # This changes non-English home directory names to English for a user
 ## This needs some root permissions

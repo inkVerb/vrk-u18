@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbMaker! verb.ink
-set -e
 
 # This updates the current user's Templates with Vrk™ Templates
 ## Normally, once you have installed Vrk on one machine, then synced it across machines with install-vrk-cloud, Vrk Templates will no longer be installed or updated in the event that you have made modifications.

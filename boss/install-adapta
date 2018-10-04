@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbSurfer! verb.ink
-set -e
 
 # This installs libsass and sassc
 ##DEV: Right now sassc just doesn't seem to want to install in the known universe.

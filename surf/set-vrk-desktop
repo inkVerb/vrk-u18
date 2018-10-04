@@ -110,7 +110,7 @@ if [ "$ubuntu_release" = "18.04" ] || [ "$ubuntu_release" = "18.10" ] ||  [ "$ub
 
 # Global
 
-## Templates
+## Templatesq
 ~/.vrk/boards/do-vrktemplates
 
 ## Window Snapping
@@ -121,16 +121,20 @@ if [ "$ubuntu_release" = "18.04" ] || [ "$ubuntu_release" = "18.10" ] ||  [ "$ub
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command 'gedit'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name 'Editor'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding '<Super>x'
+wait
 ### E: Files
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ command 'nautilus'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ name 'Files'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/ binding '<Super>e'
+wait
 ### Q: Calculator
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ command 'gnome-calculator'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ name 'Calculator'
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/ binding '<Super>q'
+wait
 ### Apply the settings
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/','/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/']"
+wait
 
 ## Compose Key: CapsLock key
 dconf write /org/gnome/desktop/input-sources/xkb-options "['compose:caps']"
@@ -150,8 +154,8 @@ gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
 #gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
 
 ### Set Background Wallpaper
-/var/local/vrk/surf/set-vall ${VALL_ROOM} ${VALL_BACKGRND}
-/var/local/vrk/surf/set-vall-lock ${VALL_ROOM} ${VALL_LOCKSRN}
+~/.vrk/boards/set-vall ${VALL_ROOM} ${VALL_BACKGRND}
+~/.vrk/boards/set-vall-lock ${VALL_ROOM} ${VALL_LOCKSRN}
 
 ## Gedit (may be redundant in per-environments below, but just be safe)
 gsettings set org.gnome.gedit.preferences.editor wrap-mode none
@@ -218,22 +222,22 @@ mkdir -p ~/.local/share/applications
 # Individual apps
 #http://worldofgnome.org/running-gtk-applications-different-themes-per-app/
 ## LibreOffice (doesn't work in Xfce or GNOME, but works in Unity)
-if [ -d "/usr/share/themes/Blumix" ]; then
-cp /usr/share/applications/libreoffice-writer.desktop ~/.local/share/applications/libreoffice.writer.desktop
-sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --writer %U/g" ~/.local/share/applications/libreoffice.writer.desktop
-cp /usr/share/applications/libreoffice-calc.desktop ~/.local/share/applications/libreoffice.calc.desktop
-sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --calc %U/g" ~/.local/share/applications/libreoffice.calc.desktop
-cp /usr/share/applications/libreoffice-math.desktop ~/.local/share/applications/libreoffice.math.desktop
-sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --math %U/g" ~/.local/share/applications/libreoffice.math.desktop
-cp /usr/share/applications/libreoffice-base.desktop ~/.local/share/applications/libreoffice.base.desktop
-sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --base %U/g" ~/.local/share/applications/libreoffice.base.desktop
-cp /usr/share/applications/libreoffice-draw.desktop ~/.local/share/applications/libreoffice.draw.desktop
-sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --draw %U/g" ~/.local/share/applications/libreoffice.draw.desktop
-cp /usr/share/applications/libreoffice-impress.desktop ~/.local/share/applications/libreoffice.impress.desktop
-sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --impress %U/g" ~/.local/share/applications/libreoffice.impress.desktop
-cp /usr/share/applications/libreoffice-startcenter.desktop ~/.local/share/applications/libreoffice.startcenter.desktop
-sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice %U/g" ~/.local/share/applications/libreoffice.startcenter.desktop
-fi
+#if [ -d "/usr/share/themes/Blumix" ]; then
+#cp /usr/share/applications/libreoffice-writer.desktop ~/.local/share/applications/libreoffice.writer.desktop
+#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --writer %U/g" ~/.local/share/applications/libreoffice.writer.desktop
+#cp /usr/share/applications/libreoffice-calc.desktop ~/.local/share/applications/libreoffice.calc.desktop
+#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --calc %U/g" ~/.local/share/applications/libreoffice.calc.desktop
+#cp /usr/share/applications/libreoffice-math.desktop ~/.local/share/applications/libreoffice.math.desktop
+#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --math %U/g" ~/.local/share/applications/libreoffice.math.desktop
+#cp /usr/share/applications/libreoffice-base.desktop ~/.local/share/applications/libreoffice.base.desktop
+#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --base %U/g" ~/.local/share/applications/libreoffice.base.desktop
+#cp /usr/share/applications/libreoffice-draw.desktop ~/.local/share/applications/libreoffice.draw.desktop
+#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --draw %U/g" ~/.local/share/applications/libreoffice.draw.desktop
+#cp /usr/share/applications/libreoffice-impress.desktop ~/.local/share/applications/libreoffice.impress.desktop
+#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice --impress %U/g" ~/.local/share/applications/libreoffice.impress.desktop
+#cp /usr/share/applications/libreoffice-startcenter.desktop ~/.local/share/applications/libreoffice.startcenter.desktop
+#sed -i "s/Exec=.*/Exec=env GTK_THEME=Blumix libreoffice %U/g" ~/.local/share/applications/libreoffice.startcenter.desktop
+#fi
 
 ## Pause to avoid trouble
 sleep 1

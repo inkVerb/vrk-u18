@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbSurfer! verb.ink
-set -e
 
 # This the default locale to en_US
 

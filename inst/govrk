@@ -119,7 +119,7 @@ mv -f /var/local/vrk/inst/vrkverno /var/local/vrk/
 chmod ug+x /var/local/vrk/boss/*
 chmod ug+x /var/local/vrk/droids/*
 chmod ug+x /var/local/vrk/surf/*
-chmod ug+x /var/local/vrk/donjon/*
+chmod +x /var/local/vrk/donjon/*
 chmod ug+x /var/local/vrk/donjon/vrktemplates/7_BASH
 chmod ug+x /var/local/vrk/droids/*
 

@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
-set -e
 
 # This restores network passwords backed up using netbackup
 ## This is intended to be used after copying the config files back from a USB that used usbbackup

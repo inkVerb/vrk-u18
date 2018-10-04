@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
-set -e
 
 # This installs the minimums for Vrk to work, with very basic apps.
 ## This is automatically run by: install-vubuntu-core

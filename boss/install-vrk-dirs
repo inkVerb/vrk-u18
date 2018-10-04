@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbMaker! verb.ink
-set -e
 
 # This installs Vrk™ directory structure for a user (Work, myWall)
 ## This needs some root permissions

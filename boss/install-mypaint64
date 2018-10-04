@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
-set -e
 
 # This installs MyPaint via Flatpak and repo in a way that is more sure to work on 64 bit systems.
 ## When finished, you can run it as a Flatpak app (via vmypaint) and as a normal app.

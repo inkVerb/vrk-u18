@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbMaker! verb.ink
-set -e
 
 # This installs Vrk™ core directories and configs for a user
 ## This needs some root permissions

@@ -1,6 +1,5 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
-set -e
 
 # This installs a "lite" version of Ubuntu Studio
 ## This is automatically run by: install-vubuntu
@@ -87,16 +86,20 @@ apt update -y --fix-missing
 apt upgrade -y --fix-missing
 apt update -y --fix-missing
 apt install -yf
+wait
 
 ## Verify interactives first, and then the fonts
 #apt install -y ttf-mscorefonts-installer # Fails download
 apt install -y jackd2 fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
+wait
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
-apt install -y zip p7zip-full gzip guake guake-indicator docky kate retext nautilus grabc gparted shutter kazam obs-studio
+apt install -y zip p7zip-full gzip guake docky kate retext nautilus grabc gparted shutter kazam obs-studio
+wait
 ## Redundant from install-vubuntu-desktop
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
+wait
 
 ### WSP Office # Buggy in 18.04, move to separate installer
 #### Get updated links here: http://wps-community.org/download.html
@@ -144,7 +147,7 @@ echo "
 Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint, ICC printing profiles...
 "
 apt install -y inkscape blender gimp gimp-plugin-registry darktable krita icc-profiles
-apt install -y kolourpaint4 pencil2d pinta tupi karbon mypaint mypaint-data-extras
+apt install -y mypaint mypaint-data-extras
 
 ### Inkscape Export PDF CMYK extension
 /var/local/vrk/boss/install-pdfcmyk
