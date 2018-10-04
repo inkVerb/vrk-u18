@@ -116,7 +116,7 @@ cp -rf /home/${VRK_USER}/vrk /var/local/
 mv -f /var/local/vrk/inst/vrkverno /var/local/vrk/
 
 # Executable check
-chmod ug+x /var/local/vrk/boss/*
+chmod +x /var/local/vrk/boss/*
 chmod ug+x /var/local/vrk/droids/*
 chmod ug+x /var/local/vrk/surf/*
 chmod +x /var/local/vrk/donjon/*
