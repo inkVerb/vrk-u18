@@ -46,6 +46,11 @@ add-apt-repository -y universe
 add-apt-repository -y main
 add-apt-repository -y restricted
 add-apt-repository -y multiverse
+## OBS faster channel
+#add-apt-repository -y ppa:obsproject/obs-studio #broken?
+##dpkg: error processing archive /var/cache/apt/archives/obs-studio_22.0.2-0obsproject1~bionic_amd64.deb (--unpack):
+## trying to overwrite '/usr/share/obs/libobs/bicubic_scale.effect', which is also in package libobs0:amd64 21.0.2+dfsg1-1
+
 ## Blender faster channel
 add-apt-repository -y ppa:thomas-schiex/blender
 ## Kdenlive faster channel
