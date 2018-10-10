@@ -257,6 +257,8 @@ cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 ### Check if done
 if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
 ### Add the theme
+#### The gnome-terminal must be running in a separate window for this to work
+gnome-terminal
 ~/.vrk/donjon/xt-ubuntabulous
 ~/.vrk/donjon/xt-flatabulous
 ### Make the record
@@ -781,6 +783,8 @@ cp -rf ~/.vrk/donjon/unity/config/autostart ~/.config/
 ### Check if done
 if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
 ### Add the theme
+#### The gnome-terminal must be running in a separate window for this to work
+gnome-terminal
 ~/.vrk/donjon/xt-ubuntabulous
 ~/.vrk/donjon/xt-flatabulous
 ### Make the record
@@ -852,6 +856,8 @@ cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 ### Check if done
 if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
 ### Add the theme
+#### The gnome-terminal must be running in a separate window for this to work
+gnome-terminal
 ~/.vrk/donjon/xt-ubuntabulous
 ~/.vrk/donjon/xt-flatabulous
 ### Make the record

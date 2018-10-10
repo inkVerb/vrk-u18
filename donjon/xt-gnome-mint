@@ -3,6 +3,8 @@
 ## Thank you: https://github.com/anmoljagetia
 ## Normally run with: wget -O xt http://git.io/vn6HM && chmod +x xt && ./xt && rm xt
 
+# The gnome-terminal must be running in a separate window for this to work
+
 [[ -z "$PROFILE_NAME" ]] && PROFILE_NAME="mint-terminal"
 [[ -z "$PROFILE_SLUG" ]] && PROFILE_SLUG="mint-terminal"
 [[ -z "$DCONF" ]] && DCONF=dconf
