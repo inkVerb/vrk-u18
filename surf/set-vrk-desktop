@@ -278,7 +278,7 @@ gsettings set org.gnome.settings-daemon.plugins.xsettings overrides "{'Gtk/Shell
 #sed -i 's#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>.*</item>#<item oor:path="/org\.openoffice\.Office\.Common/Misc"><prop oor:name="SymbolStyle" oor:op="fuse"><value>voffice</value></prop></item>#g' ~/.config/libreoffice/4/user/registrymodifications.xcu
 
 ## Launcher
-gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'vivaldi-stable.desktop', 'google-chrome.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'thunderbird.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
+gsettings set org.gnome.shell favorite-apps "['nautilus.desktop', 'vivaldi-stable.desktop', 'google-chrome.desktop', 'chromium-browser.desktop', 'firefox.desktop', 'thunderbird.desktop', 'org.gnome.Todo.desktop', 'gedit.desktop', 'libreoffice-writer.desktop', 'rhythmbox.desktop', 'gnome-calculator.desktop', 'gnome-tweak-tool.desktop', 'gnome-control-center.desktop']"
 
 ## Hot corners
 gsettings set org.gnome.shell enable-hot-corners true
