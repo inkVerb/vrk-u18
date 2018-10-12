@@ -43,8 +43,11 @@ exit 0; fi
 
 
 # Install
-apt install -y xscreensaver xscreensaver-gl-extra xscreensaver-data-extra rss-glx
+apt install -y xscreensaver xscreensaver-gl-extra xscreensaver-data-extra
+apt install -y rss-glx
+wait
 killall xscreensaver
+wait
 rss-glx_install
 
 # Config
