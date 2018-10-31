@@ -128,9 +128,9 @@ apt install -y pencil2d mypaint mypaint-data-extras
 /var/local/vrk/boss/install-pdfcmyk
 
 echo "
-Graphic design done. Media stuff, VLC, Amarok, Kdenlive...
+Graphic design done. VLC, Shotcut...
 "
-apt install -y vlc vlc-data browser-plugin-vlc amarok kdenlive
+apt install -y vlc vlc-data browser-plugin-vlc shotcut
 #apt install -y mplayer2 #broken in Ubuntu 18.04
 echo "
 Media done. Audiophile tools...

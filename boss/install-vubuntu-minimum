@@ -109,9 +109,9 @@ apt install -y inkscape gimp gimp-plugin-registry icc-profiles vlc libreoffice-w
 /var/local/vrk/boss/install-pdfcmyk
 
 echo "
-Graphic design done. Media stuff: Audacity, Kdenlive, VLC, essential sound tools...
+Graphic design done. Media stuff: Audacity, Kdenlive, Shotcut, VLC, essential sound tools...
 "
-apt install -y vlc vlc-data browser-plugin-vlc kdenlive audacity kid3 alsa-oss libasound2 libasound2-plugins gnome-music
+apt install -y vlc vlc-data browser-plugin-vlc kdenlive shotcut audacity kid3 alsa-oss libasound2 libasound2-plugins gnome-music
 ## Audacity DeClicker & DeEsser http://forum.audacityteam.org/viewtopic.php?f=42&t=79278&p=245549
 cd /usr/share/audacity/plug-ins/
 wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124

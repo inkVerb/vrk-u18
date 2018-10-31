@@ -55,6 +55,8 @@ add-apt-repository -y multiverse
 add-apt-repository -y ppa:thomas-schiex/blender
 ## Kdenlive faster channel
 add-apt-repository -y ppa:kdenlive/kdenlive-stable
+## Shotcut
+add-apt-repository -y ppa:haraldhv/shotcut
 ## LibreOffice
 add-apt-repository -y ppa:libreoffice/ppa
 ## KDE for the current version of Kate

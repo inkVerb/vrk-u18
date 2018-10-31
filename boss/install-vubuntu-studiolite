@@ -154,9 +154,9 @@ apt install -y mypaint mypaint-data-extras
 wait
 
 echo "
-Graphic design done. Media stuff, VLC, audio players, Kdenlive...
+Graphic design done. Media stuff, VLC, audio players, Kdenlive, Shotcut...
 "
-apt install -y vlc vlc-data browser-plugin-vlc clementine amarok kdenlive
+apt install -y vlc vlc-data browser-plugin-vlc clementine amarok kdenlive shotcut
 #apt install -y mplayer2 #broken in Ubuntu 18.04
 wait
 
