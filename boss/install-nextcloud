@@ -47,7 +47,7 @@ if [ ! -f "/var/local/vrk/.vubuntu-nextcloud" ]; then
 add-apt-repository ppa:nextcloud-devs/client -y
 touch /var/local/vrk/.vubuntu-nextcloud
 fi
-apt update
+apt update -y --fix-missing
 apt install nextcloud-client -y
 
 # Config

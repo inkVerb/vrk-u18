@@ -38,7 +38,7 @@ exit 22; fi
 
 # Install
 add-apt-repository ppa:nilarimogard/webupd8 -y
-apt update
+apt update -y --fix-missing
 apt install screenkey fonts-font-awesome python-appindicator key-mon
 
 # Finish

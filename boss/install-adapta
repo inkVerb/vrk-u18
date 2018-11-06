@@ -47,7 +47,7 @@ exit 0; fi
 # Add repo
 if [ ! -f "/var/local/vrk/.adaptarepoinstalled" ]; then
 add-apt-repository -y ppa:tista/adapta
-apt update
+apt update -y --fix-missing
 touch /var/local/vrk/.adaptarepoinstalled
 fi
 

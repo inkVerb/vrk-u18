@@ -152,7 +152,7 @@ if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ;
 ## xfDashboard
 #NO LONGER IN TESTING, normal repos may work, just in case
 add-apt-repository -y ppa:xubuntu-dev/extras
-apt update
+apt update -y --fix-missing
 apt install -y xfdashboard
 
 fi

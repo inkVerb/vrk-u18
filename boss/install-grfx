@@ -46,7 +46,7 @@ exit 0; fi
 
 # Install
 add-apt-repository -y ppa:graphics-drivers/ppa
-apt update
+apt update -y --fix-missing
 
 # Config
 echo "VRK_GRFX_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo

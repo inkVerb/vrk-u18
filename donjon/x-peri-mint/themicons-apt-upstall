@@ -44,7 +44,7 @@ fi
 ## (apt installer may not work in x.10)
 ### Repo
 add-apt-repository -y ppa:noobslab/themes
-apt update
+apt update -y --fix-missing
 ### Flatabulous theme
 #https://github.com/anmoljagetia/Flatabulous
 apt install -y flatabulous-theme
@@ -56,7 +56,7 @@ dpkg -i Flatabulous-Theme.deb;rm Flatabulous-Theme.deb
 ## (apt installer may not work in x.10)
 #https://github.com/horst3180/arc-theme
 sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list"
-apt update
+apt update -y --fix-missing
 sudo -u ${SUDO_USER} rm Release.key
 sudo -u ${SUDO_USER} wget http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key
 apt-key add - < Release.key
@@ -76,20 +76,20 @@ dpkg -i ceti-2-theme_1442961272.9fe3d9f_all.deb;rm ceti-2-theme_1442961272.9fe3d
 sudo -u ${SUDO_USER} cd && wget wget http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/all/vertex-theme_1459280359.d828032_all.deb
 dpkg -i vertex-theme_1459280359.d828032_all.deb;rm vertex-theme_1459280359.d828032_all.deb
 #### All Arc Themes manual dpkg #####
-apt update
+apt update -y --fix-missing
 
 ## Adapta
 # Note, this is the heaviest of all themes and takes a LONGggggggg time to download, build, zip, unzip, or even think about. But it's quite awesome also.
 ## (UNTESTED in x.10)!!!!!!!!!!!!!!!!!!!!
 #https://launchpad.net/%7Etista/+archive/ubuntu/adapta
 add-apt-repository -y ppa:tista/adapta
-apt update
+apt update -y --fix-missing
 apt install -y adapta-backgrounds adapta-gtk-theme
 
 ## Numix Daily
 #http://www.ubuntufree.com/download-numix-theme/
 add-apt-repository -y ppa:numix/ppa
-apt update
+apt update -y --fix-missing
 apt install -y numix-gtk-theme numix-icon-theme-circle
 
 ## Ubuntu Touch theme (Maybe in the future)
@@ -100,14 +100,14 @@ apt install -y numix-gtk-theme numix-icon-theme-circle
 ## Numix Circle
 #https://github.com/numixproject/numix-icon-theme-circle
 add-apt-repository -y ppa:numix/ppa
-apt update
+apt update -y --fix-missing
 apt install -y numix-icon-theme-circle
 
 ## Ultra Flat Icons
 ## (apt installer may not work in x.10)
 ## Icons: Blue, Orange, and Green will be available, Orange gets set
 add-apt-repository -y ppa:noobslab/icons
-apt update
+apt update -y --fix-missing
 apt install -y ultra-flat-icons ultra-flat-icons-orange ultra-flat-icons-green
 #### manual dpkg
 ### Blue
@@ -124,7 +124,7 @@ sudo -u ${SUDO_USER} cd && wget -O Ultra-Flat-Green.deb https://launchpad.net/~n
 dpkg -i Ultra-Flat-Green.deb;rm Ultra-Flat-Green.deb
 #sudo -u ${SUDO_USER} gsettings set org.gnome.desktop.interface icon-theme "Ultra-Flat-Green"
 #### manual dpkg ####
-apt update
+apt update -y --fix-missing
 
 # Finish
 apt autoremove -y

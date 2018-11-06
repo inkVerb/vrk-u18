@@ -110,14 +110,14 @@ sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable mai
 rm -f linux_signing_key.pub
 touch /var/local/vrk/.vubuntu-chrome
   fi
-apt update 
+apt update -y --fix-missing
 apt install -y google-chrome-stable
  fi
 fi
 echo "
 Office stuff done. Doing web dev favorites...
 "
-apt install -y git vim filezilla meld ssh curl wget
+apt install -y git vim filezilla meld ssh curl wget atom
 echo "
 Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint, ICC printing profiles...
 "
