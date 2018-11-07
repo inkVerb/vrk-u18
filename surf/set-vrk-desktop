@@ -160,6 +160,9 @@ gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
 ## Gedit (may be redundant in per-environments below, but just be safe)
 gsettings set org.gnome.gedit.preferences.editor wrap-mode none
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
+gsettings set org.gnome.gedit.preferences.editor display-overview-map true
+gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
+gsettings set org.gnome.gedit.preferences.editor bracket-matching true
 gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
 
 ## Disable screen lock (which requires password every time after the screen blanks, or double-login on changing user)
