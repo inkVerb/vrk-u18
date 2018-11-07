@@ -47,7 +47,8 @@ git clone https://github.com/dracula/gedit.git
 # Copy the themes
 mv Two-Dark/theme_two_dark.xml /usr/share/gtksourceview-3.0/styles/
 mv gedit/dracula.xml /usr/share/gtksourceview-3.0/styles/
-
+cd ..
+rm -r .gedit-themes.tmp
 
 # Finish
 echo "Git themes added and installed."
