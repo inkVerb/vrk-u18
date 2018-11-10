@@ -155,6 +155,24 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
+    <name>VIP Grays</name>
+    <filename>/usr/share/backgrounds/vubuntu/VIP-Grays.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
+    <name>VIP Violets</name>
+    <filename>/usr/share/backgrounds/vubuntu/VIP-Violets.png</filename>
+    <options>zoom</options>
+    <pcolor>#ececec</pcolor>
+    <scolor>#ececec</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
     <name>Vubuntu Mesh Disk</name>
     <filename>/usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk.png</filename>
     <options>zoom</options>
