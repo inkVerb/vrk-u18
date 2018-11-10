@@ -14,8 +14,8 @@
     <name>inkPage Light</name>
     <filename>/usr/share/backgrounds/vubuntu/inkPage.png</filename>
     <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
+    <pcolor>#464544</pcolor>
+    <scolor>#464544</scolor>
     <shade_type>solid</shade_type>
     <artist>verb.ink</artist>
   </wallpaper>
@@ -113,8 +113,8 @@
     <name>Pen - White</name>
     <filename>/usr/share/backgrounds/vubuntu/Pen-White.png</filename>
     <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
+    <pcolor>#ffffff</pcolor>
+    <scolor>#ffffff</scolor>
     <shade_type>solid</shade_type>
     <artist>verb.ink</artist>
   </wallpaper>
@@ -155,11 +155,20 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
+    <name>VIP Colors</name>
+    <filename>/usr/share/backgrounds/vubuntu/VIP-Colors.png</filename>
+    <options>zoom</options>
+    <pcolor>#232323</pcolor>
+    <scolor>#232323</scolor>
+    <shade_type>solid</shade_type>
+    <artist>verb.ink</artist>
+  </wallpaper>
+  <wallpaper>
     <name>VIP Grays</name>
     <filename>/usr/share/backgrounds/vubuntu/VIP-Grays.png</filename>
     <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
+    <pcolor>#363636</pcolor>
+    <scolor>#363636</scolor>
     <shade_type>solid</shade_type>
     <artist>verb.ink</artist>
   </wallpaper>
@@ -167,8 +176,8 @@
     <name>VIP Violets</name>
     <filename>/usr/share/backgrounds/vubuntu/VIP-Violets.png</filename>
     <options>zoom</options>
-    <pcolor>#ececec</pcolor>
-    <scolor>#ececec</scolor>
+    <pcolor>#442a5e</pcolor>
+    <scolor>#442a5e</scolor>
     <shade_type>solid</shade_type>
     <artist>verb.ink</artist>
   </wallpaper>

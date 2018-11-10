@@ -120,10 +120,6 @@ fi
 if [ ! -d /home/${VRK_USER}/.vrk/configs ]; then
 cp -R /var/local/vrk/donjon/configs-inst /home/${VRK_USER}/.vrk/configs
 fi
-## For a sudoer
-if [ -z $1 ]; then
-ln -sfn /var/local/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
-fi
 chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.vrk
 
 # Set the global user bin for surfers
@@ -133,8 +129,12 @@ touch /home/${VRK_USER}/.bashrc
 if ! grep -Fq "#VrkPath" /home/${VRK_USER}/.bashrc; then
 echo "
 #VrkPath
-export PATH=\$PATH:/home/${VRK_USER}/.vrk/boards:/home/${VRK_USER}/.vrk/go
-" >> /home/${VRK_USER}/.bashrc
+export PATH=\$PATH:/home/${VRK_USER}/.vrk/boards:/home/${VRK_USER}/.vrk/go" >> /home/${VRK_USER}/.bashrc
+## For a sudoer
+ if [ -z $1 ]; then
+ cp -r /var/local/vrk/boss /home/${VRK_USER}/.vrk/
+ echo "export PATH=\$PATH:/home/${VRK_USER}/.vrk/boss" >> /home/${VRK_USER}/.bashrc
+ fi
 fi
 
 # Folder & file structure
