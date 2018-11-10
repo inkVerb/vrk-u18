@@ -164,6 +164,10 @@ if [ -d "/home/${PATCH_USER}" ]; then
 fi
 done
 
+# Refresh bosses
+ln -sfn /var/local/vrk/boss/* /usr/bin/
+cd /usr/bin/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 
 # Run version-by-version updates
 
@@ -879,12 +883,8 @@ if [ -d "/home/${PATCH_USER}" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
   if [ $(echo ${UPDATE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
 ##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
-# Boss in the path
-if [ "${USER_BOSSYN}" = "CAN_BOSS" ]; then
-rm -rf  /home/${VRK_USER}/.vrk/boss
-cp -r /var/local/vrk/boss /home/${VRK_USER}/.vrk/
-echo "export PATH=\$PATH:/home/${VRK_USER}/.vrk/boss" >> /home/${VRK_USER}/.bashrc
-fi
+
+
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklist for the patch user
 sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPDATE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo

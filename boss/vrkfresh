@@ -58,8 +58,7 @@ mkdir -p /home/${VRK_USER}/.vrk/go
 ## For a sudoer
 if [ "${USER_BOSSYN}" = "CAN_BOSS" ]; then
 rm -rf  /home/${VRK_USER}/.vrk/boss
-cp -r /var/local/vrk/boss /home/${VRK_USER}/.vrk/
-echo "export PATH=\$PATH:/home/${VRK_USER}/.vrk/boss" >> /home/${VRK_USER}/.bashrc
+ln -sfn /var/local/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
 fi
 ## Own
 chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.vrk

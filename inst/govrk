@@ -123,6 +123,11 @@ chmod +x /var/local/vrk/donjon/*
 chmod ug+x /var/local/vrk/donjon/vrktemplates/7_BASH
 chmod ug+x /var/local/vrk/droids/*
 
+# Global sudo commants
+ln -sfn /var/local/vrk/boss/* /usr/bin/
+cd /usr/bin/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
+
 # Background image directories
 ## If "backgrounds" doesn't exist (KDE, cough cough)
 if [ ! -d /usr/share/backgrounds ]; then
