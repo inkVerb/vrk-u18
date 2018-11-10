@@ -37,7 +37,7 @@ exit 22; fi
 
 
 # Install
-apt install -y adobe-flashplugin
+apt install -y adobe-flashplugin browser-plugin-freshplayer-pepperflash
 
 # Finish
 apt autoremove -y

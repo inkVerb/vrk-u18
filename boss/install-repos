@@ -77,7 +77,7 @@ apt update -y --fix-missing
 ### Check at each stage to prevent duplication
 #### canonical partner
  if [ ! -f "/var/local/vrk/.vubuntu-repo-partner"-$(lsb_release -sc) ]; then
-#vrk_ppa_repo_partner="deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+vrk_ppa_repo_partner="deb http://archive.canonical.com/ $(lsb_release -sc) partner"
  if ! grep -q "^deb .*$vrk_ppa_repo_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
 add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 touch /var/local/vrk/.vubuntu-repo-partner-$(lsb_release -sc)
