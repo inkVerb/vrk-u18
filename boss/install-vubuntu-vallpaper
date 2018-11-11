@@ -13,7 +13,7 @@
 ## Room name
 VALL_ROOM="vubuntu"
 ## Root Lockscreen
-ROOT_LOCK_VALL="inkVerb-Carbon.png"
+ROOT_LOCK_VALL="Vubuntu-Mesh-Disk.png"
 
 # Set location of Vallpaper install folder
 ## This can be absolute; or relative ie if via git clone
