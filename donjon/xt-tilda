@@ -3,7 +3,7 @@
 
 MONWIDTH=$(xrandr | grep ' connected primary ' | sed "s/x.*//" | sed 's/^.*primary //')
 MONHEIGHT=$(xrandr | grep ' connected primary ' | sed "s/+.*//" | sed 's/[^x]*x//')
-TILDAHEIGHT=$(expr ${MONHEIGHT} \* 3 / 10)
+TILDAHEIGHT=$(expr ${MONHEIGHT} \* 3 / 10 - 14)
 
 sed -i "s/settildawidth286/${MONWIDTH}/" ~/.vrk/donjon/global/config/tilda/config_0
 sed -i "s/settildaheight286/${TILDAHEIGHT}/" ~/.vrk/donjon/global/config/tilda/config_0
