@@ -1,12 +1,10 @@
 #!/bin/sh
 #inkVerbBoss! verb.ink
 
-# This installs Aptana Studio
-##DEV: This is only in dev and should be expanded on later
-##ref: http://linuxpitstop.com/install-aptana-studio-3-on-centos-and-ubuntu/
+# This lists available bosses
 
 # How to use:
-## sudo install-aptanastudio
+## sudo bosses
 
 
 # Check if Vrk installed on this machine
@@ -26,25 +24,18 @@ if [ "$(id -u)" = "0" ]; then
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
 like this:
-sudo install-flash
+sudo bosses
 "
 exit 22; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo install-flash
+sudo bosses
 "
 exit 22; fi
 
 
-# Install
-echo "Here are the instructions:
-http://linuxpitstop.com/install-aptana-studio-3-on-centos-and-ubuntu/
-"
-
-# Finish
-apt autoremove -y
-echo "Flash installed.
-"
+# List
+ls /var/local/vrk/boss
 

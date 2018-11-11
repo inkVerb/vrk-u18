@@ -7,10 +7,10 @@
 ## Prerequesite: vrk installed for the user
 
 # How to use on your local computer:
-## sudo ./install-vrk-langdirs
+## sudo install-vrk-langdirs
 
 # How to use on your local computer for another, non-sudo user:
-## sudo ./install-vrk-langdirs [user - if not current sudoer]
+## sudo install-vrk-langdirs [user - if not current sudoer]
 
 
 # Set user
@@ -27,14 +27,14 @@ if [ "$(id -u)" = "0" ]; then
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
 like this:
-sudo ./install-vrk-langdirs
+sudo install-vrk-langdirs
 "
 exit 0; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo ./install-vrk-langdirs
+sudo install-vrk-langdirs
 "
 exit 0; fi
 
@@ -94,7 +94,7 @@ read LOGOUTYES
  if [ ${LOGOUTYES} != "yes" ]; then
 echo "Exiting, not finished. You can run this again anytime via:
 cd /var/local/vrk/boss
-sudo ./install-vrk
+sudo install-vrk
 "
 exit 0
  fi

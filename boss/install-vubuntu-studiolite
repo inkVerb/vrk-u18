@@ -6,7 +6,7 @@
 ## Prerequesite: Vrk™ must be installed
 
 # How to use:
-## sudo ./install-vubuntu-studiolite
+## sudo install-vubuntu-studiolite
 
 
 # Set user
@@ -29,14 +29,14 @@ if [ "$(id -u)" = "0" ]; then
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
 like this:
-sudo ./install-vubuntu-studiolite
+sudo install-vubuntu-studiolite
 "
 exit 22; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo ./install-vubuntu-studiolite
+sudo install-vubuntu-studiolite
 "
 exit 22; fi
 
@@ -52,14 +52,14 @@ if [ "$(id -u)" = "0" ]; then
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
 like this:
-sudo ./install-vubuntu-apps
+sudo install-vubuntu-apps
 "
 exit 22; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo ./install-vubuntu-apps
+sudo install-vubuntu-apps
 "
 exit 22; fi
 
@@ -95,7 +95,7 @@ wait
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
-apt install -y zip p7zip-full gzip guake docky kate retext nautilus grabc gparted shutter kazam obs-studio
+apt install -y zip p7zip-full gzip tilda docky kate retext nautilus grabc gparted shutter kazam obs-studio
 wait
 ## Redundant from install-vubuntu-desktop
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde

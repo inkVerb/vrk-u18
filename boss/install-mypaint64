@@ -5,7 +5,7 @@
 ## When finished, you can run it as a Flatpak app (via vmypaint) and as a normal app.
 
 # How to use:
-## sudo ./install-mypaint64
+## sudo install-mypaint64
 
 
 ## Check if Vrk installed on this machine
@@ -32,7 +32,7 @@ exit 22; fi; fi
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo ./install-mypaint64
+sudo install-mypaint64
 "
 exit 22; fi
 

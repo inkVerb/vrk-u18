@@ -6,10 +6,10 @@
 ## Prerequesite: Vrk™ must be installed
 
 # How to use:
-## sudo ./install-vubuntu-desktop
+## sudo install-vubuntu-desktop
 
 # Eg: (re-install for specific desktop)
-## sudo ./install-vubuntu-desktop $DESKTOP_SESSION
+## sudo install-vubuntu-desktop $DESKTOP_SESSION
 
 
 # Set user
@@ -35,14 +35,14 @@ if [ "$(id -u)" = "0" ]; then
  if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
 like this:
-sudo ./install-vubuntu-desktop
+sudo install-vubuntu-desktop
 "
 exit 22; fi; fi
 ## If sudo is NOT present
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo ./install-vubuntu-desktop
+sudo install-vubuntu-desktop
 "
 exit 22; fi
 
@@ -92,7 +92,7 @@ apt update -y --fix-missing
 /var/local/vrk/boss/install-adapta
 
 # Basic apps: Gedit, Guake, Docky, Chromium, Thunderbird, Firefox, Rhythmbox, Vino, WordGrinder (Desktop Sharing settings)
-apt install -y jackd2 gedit guake docky chromium-browser djview-plugin thunderbird firefox rhythmbox vino wordgrinder-ncurses
+apt install -y jackd2 gedit tilda docky chromium-browser djview-plugin thunderbird firefox rhythmbox vino wordgrinder-ncurses
 #if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
 #apt install -y unity-chromium-extension #NO! This made the 64bit ASUS run both Chrom and Chromium too slowly!
 #fi

@@ -184,7 +184,7 @@ gconftool-2 --set "/apps/guake/style/font/palette_name" --type string "Custom"
 gconftool-2 --set "/apps/guake/style/font/palette" --type string '#000000000000:#e3e31a1a1c1c:#3131a3a35454:#dcdca0a06060:#31318282bdbd:#75756b6bb1b1:#8080b1b1d3d3:#b7b7b8b8b9b9:#737374747575:#e3e31a1a1c1c:#3131a3a35454:#dcdca0a06060:#31318282bdbd:#75756b6bb1b1:#8080b1b1d3d3:#b7b7b8b8b9b9:#b7b7b8b8b9b9:#000000000000'
 # ORIGINAL gconftool-2 --set "/apps/guake/style/font/palette" --type string '#000000000000:#cccc00000000:#4e4e9a9a0606:#c4c4a0a00000:#34346565a4a4:#757550507b7b:#060698209a9a:#d3d3d7d7cfcf:#555557575353:#efef29292929:#8a8ae2e23434:#fcfce9e94f4f:#72729f9fcfcf:#adad7f7fa8a8:#3434e2e2e2e2:#eeeeeeeeecec:#ffffffffffff:#000000000000'
 gconftool-2 --set "/apps/guake/style/font/color" --type string "#b7b7b8b8b9b9"
-gconftool-2 --set "/apps/guake/style/background/transparency" --type int "74"
+gconftool-2 --set "/apps/guake/style/background/transparency" --type int "70"
 gconftool-2 --set "/apps/guake/general/use_trayicon" --type bool "false"
 gconftool-2 --set "/apps/guake/general/use_popup" --type bool "false"
 gconftool-2 --set "/apps/guake/general/window_height_f" --type float "24"
@@ -267,6 +267,11 @@ gnome-terminal
 ### Make the record
 touch ~/.vrk/configs/.xt-flatabulous-ubuntu
 fi
+### gnome-terminal: hide menubar
+gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar "false"
+
+## Tilda
+~/.vrk/donjon/xt-tilda
 
 ## Set theme & icons
 gsettings set org.gnome.desktop.interface gtk-theme "vimix-dark-doder"

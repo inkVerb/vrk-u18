@@ -31,7 +31,7 @@ exit 22;  fi; fi
 if [ -z "${SUDO_COMMAND}" ]; then
 echo "Run this as a sudoer sudo, not merely as a sudoer.
 like this:
-sudo ./install-nextcloud
+sudo install-nextcloud
 "
 exit 22; fi
 
