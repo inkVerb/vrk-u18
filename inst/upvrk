@@ -899,7 +899,6 @@ fi
 gsettings set org.gnome.gedit.preferences.editor display-overview-map true
 gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
 gsettings set org.gnome.gedit.preferences.editor bracket-matching true
-gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images/vall/vubuntu/Vubuntu-Mesh-Disk.png
 sudo -u ${PATCH_USER} /home/${PATCH_USER}/.vrk/boards/set-vall vubuntu VIP-Colors.png
 
 ###############STOP#USER#PATCH#
@@ -933,6 +932,7 @@ apt update -y --fix-missing
 ## Install Atom & Tilda
 apt install -y atom tilda
 apt remove -y guake
+gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images/vall/vubuntu/Vubuntu-Mesh-Disk.png
 
 ##### END GLOBAL SCRIPT
 # Set and refresh the current version into inklists
