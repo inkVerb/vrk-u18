@@ -899,6 +899,7 @@ fi
 gsettings set org.gnome.gedit.preferences.editor display-overview-map true
 gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
 gsettings set org.gnome.gedit.preferences.editor bracket-matching true
+gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images/vall/vubuntu/inkVerb-Carbon.png
 sudo -u ${PATCH_USER} /home/${PATCH_USER}/.vrk/boards/set-vall vubuntu VIP-Colors.png
 
 ###############STOP#USER#PATCH#

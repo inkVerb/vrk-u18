@@ -132,7 +132,7 @@ for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi;
 fi
 
 # Global lock screen GNOME (run in this sudo, it sets for root, thus all)
-gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images/vall/vubuntu/vubuntu/${ROOT_LOCK_VALL}
+gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/images/vall/vubuntu/${ROOT_LOCK_VALL}
 ## More here:
 # http://fabhax.com/technology/change-wallpapers-in-gnome-3.4/
 ## Unity? lagacy
