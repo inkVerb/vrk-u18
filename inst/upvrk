@@ -892,14 +892,15 @@ sudo -u ${PATCH_USER} /home/${PATCH_USER}/.vrk/donjon/xt-flatabulous
 touch /home/${PATCH_USER}/.vrk/configs/.xt-flatabulous-ubuntu
  fi
 rm -f /home/${PATCH_USER}/.config/autostart/guake.desktop
-gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar "false"
+sudo -u ${PATCH_USER} gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar "false"
 fi
 
 ## Other Desktop stuff
-gsettings set org.gnome.gedit.preferences.editor display-overview-map true
-gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
-gsettings set org.gnome.gedit.preferences.editor bracket-matching true
+sudo -u ${PATCH_USER} gsettings set org.gnome.gedit.preferences.editor display-overview-map true
+sudo -u ${PATCH_USER} gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
+sudo -u ${PATCH_USER} gsettings set org.gnome.gedit.preferences.editor bracket-matching true
 sudo -u ${PATCH_USER} /home/${PATCH_USER}/.vrk/boards/set-vall vubuntu VIP-Colors.png
+sudo -u ${PATCH_USER} gsettings set org.gnome.desktop.interface gtk-theme "vimix-dark-doder"
 
 ###############STOP#USER#PATCH#
 # Set and refresh the current version into inklist for the patch user
