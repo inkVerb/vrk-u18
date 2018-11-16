@@ -242,6 +242,9 @@ cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 ## Flatabulous terminal "profile" (color scheme)
 ### Check if done
 if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
+### Message to creat the first theme
+read -p "To have Gnome Terminal theme profiles apply, in the Gome Terminal, go to Edit > Preferences and create a new Profile by first clicking +.
+When ready, press Enter to continue"
 ### Add the theme
 #### The gnome-terminal must be running in a separate window for this to work
 gnome-terminal
@@ -310,9 +313,6 @@ gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1
 gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode 'auto'
 gsettings set net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ dock-items "['nautilus.dockitem', 'vivaldi-stable.dockitem', 'google-chrome.dockitem', 'chromium-browser.dockitem', 'firefox.dockitem', 'thunderbird.dockitem', 'gedit.dockitem', 'libreoffice-writer.dockitem', 'rhythmbox.dockitem', 'org.gnome.Calculator.dockitem', 'gnome-control-center.dockitem']"
 plank
-
-## Flatabulous terminal "profile" (color scheme)
-#~/.vrk/donjon/xt-budgie # it uses Terminix, not the gnome terminal
 
 ## Set theme
 #Budgie's theme is already awesome and other GTK themes don't seem to work well with Budgie
@@ -773,6 +773,9 @@ cp -rf ~/.vrk/donjon/unity/config/autostart ~/.config/
 ## Flatabulous terminal "profile" (color scheme)
 ### Check if done
 if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
+### Message to creat the first theme
+read -p "To have Gnome Terminal theme profiles apply, in the Gome Terminal, go to Edit > Preferences and create a new Profile by first clicking +.
+When ready, press Enter to continue"
 ### Add the theme
 #### The gnome-terminal must be running in a separate window for this to work
 gnome-terminal
@@ -846,6 +849,9 @@ cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 ## Flatabulous terminal "profile" (color scheme)
 ### Check if done
 if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
+### Message to creat the first theme
+read -p "To have Gnome Terminal theme profiles apply, in the Gome Terminal, go to Edit > Preferences and create a new Profile by first clicking +.
+When ready, press Enter to continue"
 ### Add the theme
 #### The gnome-terminal must be running in a separate window for this to work
 gnome-terminal
