@@ -260,7 +260,7 @@ gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar "false"
 ~/.vrk/donjon/xt-tilda
 
 ## Set theme & icons
-gsettings set org.gnome.desktop.interface gtk-theme "vimix-dark-doder"
+gsettings set org.gnome.desktop.interface gtk-theme "Yosemite-dark"
 gsettings set org.gnome.desktop.interface icon-theme "Surfn-Majestic"
 gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
