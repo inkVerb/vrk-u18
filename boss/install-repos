@@ -52,7 +52,7 @@ add-apt-repository -y multiverse
 ## trying to overwrite '/usr/share/obs/libobs/bicubic_scale.effect', which is also in package libobs0:amd64 21.0.2+dfsg1-1
 
 ## Atom
-cd /var/local/vrk
+cd /home/${SUDO_USER}/.vrk
 mkdir -p .atom-key.tmp
 cd .atom-key.tmp
 curl -sL https://packagecloud.io/AtomEditor/atom/gpgkey | apt-key add -; wait
