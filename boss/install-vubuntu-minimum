@@ -88,29 +88,43 @@ apt update -y --fix-missing
 apt install -yf
 
 ## Verify interactives first, and then the fonts
+chkfile=/var/local/vrk/.inst-min-1
+if [ !-f "$chkfile" ]; then
 apt install -y jackd2 fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-min-2
+if [ !-f "$chkfile" ]; then
 apt install -y zip p7zip-full gzip tilda docky nautilus gparted shutter
 ## Redundant from install-vubuntu-desktop
 apt install -y libreoffice-writer libreoffice-calc
-
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-min-3
+if [ !-f "$chkfile" ]; then
 echo "
 Tools in the shed. Doing essential dev stuff...
 "
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-min-4
+if [ !-f "$chkfile" ]; then
 apt install -y git ssh
 echo "
 Web dev happy. Getting graphic design (only GIMP and Inkscape, plus GIMP plugins, ICC printing profiles)...
 "
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-min-5
+if [ !-f "$chkfile" ]; then
 apt install -y inkscape gimp gimp-plugin-registry icc-profiles vlc libreoffice-writer libreoffice-calc
-
 ### Inkscape Export PDF CMYK extension
 /var/local/vrk/boss/install-pdfcmyk
-
 echo "
 Graphic design done. Media stuff: Audacity, Kdenlive, Shotcut, VLC, essential sound tools...
 "
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-min-6
+if [ !-f "$chkfile" ]; then
 apt install -y vlc vlc-data browser-plugin-vlc kdenlive shotcut audacity kid3 alsa-oss libasound2 libasound2-plugins gnome-music
 ## Audacity DeClicker & DeEsser http://forum.audacityteam.org/viewtopic.php?f=42&t=79278&p=245549
 cd /usr/share/audacity/plug-ins/
@@ -118,6 +132,10 @@ wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
 wget -O DeEsser.ny http://forum.audacityteam.org/download/file.php?id=10125
 echo "Sound's great. (hehe) All done.
 "
+touch $chkfile; fi
+
+# Remove every $chkfile
+rm /var/local/vrk/.inst-min-*
 
 # Set config
 echo "VUBUNTU_MINIMUM_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo

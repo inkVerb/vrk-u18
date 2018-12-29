@@ -52,13 +52,37 @@ apt update -y --fix-missing
 # Install Ubuntu Studio
 echo "Installing the full load of Ubuntu Studio..."
 
+chkfile=/var/local/vrk/.inst-us-1
+if [ !-f "$chkfile" ]; then
 apt install -y ubuntustudio-audio
+touch chkfile; fi
+chkfile=/var/local/vrk/.inst-us-2
+if [ !-f "$chkfile" ]; then
 apt install -y ubuntustudio-audio-plugins
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-us-3
+if [ !-f "$chkfile" ]; then
 apt install -y ubuntustudio-graphics
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-us-4
+if [ !-f "$chkfile" ]; then
 apt install -y ubuntustudio-photography
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-us-5
+if [ !-f "$chkfile" ]; then
 apt install -y ubuntustudio-publishing
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-us-6
+if [ !-f "$chkfile" ]; then
 apt install -y ubuntustudio-video
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-us-7
+if [ !-f "$chkfile" ]; then
 apt install -y ubuntu-restricted-extras
+touch $chkfile; fi
+
+# Remove every $chkfile
+rm /var/local/vrk/.inst-us-*
 
 # Set configs
 echo "VUBUNTU_UBUNTUSTUDIO_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
