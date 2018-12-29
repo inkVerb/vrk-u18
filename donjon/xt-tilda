@@ -5,8 +5,9 @@ MONWIDTH=$(xrandr | grep ' connected primary ' | sed "s/x.*//" | sed 's/^.*prima
 MONHEIGHT=$(xrandr | grep ' connected primary ' | sed "s/+.*//" | sed 's/[^x]*x//')
 TILDAHEIGHT=$(expr ${MONHEIGHT} \* 3 / 10 - 14)
 
-sed -i "s/settildawidth286/${MONWIDTH}/" ~/.vrk/donjon/global/config/tilda/config_0
-sed -i "s/settildaheight286/${TILDAHEIGHT}/" ~/.vrk/donjon/global/config/tilda/config_0
+sed -i "s/max_width=.*/max_width=${MONWIDTH}/" ~/.vrk/donjon/global/config/tilda/config_0
+sed -i "s/max_height=.*/max_height=${TILDAHEIGHT}/" ~/.vrk/donjon/global/config/tilda/config_0
 mkdir -p ~/.config/tilda
-cp -R ~/.vrk/donjon/global/config/tilda/config_0 ~/.config/tilda/
+cat ~/.vrk/donjon/global/config/tilda/config_0 > ~/.config/tilda/config_0
+chmod 644 ~/.config/tilda/config_0
 cp ~/.vrk/donjon/tilda/tilda.desktop ~/.config/autostart
