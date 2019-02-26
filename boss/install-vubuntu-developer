@@ -101,7 +101,9 @@ apt install -y zip p7zip-full gzip tilda docky kate retext gedit nautilus grabc 
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-dev-3
 if [ !-f "$chkfile" ]; then
-apt install -y atom
+echo "Vrk would normally install Atom here, but that doesn't seem to work out. Moving on..."
+#apt install -y atom
+#wait
 ## Redundant from install-vubuntu-desktop
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-dev-4

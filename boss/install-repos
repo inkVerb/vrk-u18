@@ -51,15 +51,15 @@ add-apt-repository -y multiverse
 ##dpkg: error processing archive /var/cache/apt/archives/obs-studio_22.0.2-0obsproject1~bionic_amd64.deb (--unpack):
 ## trying to overwrite '/usr/share/obs/libobs/bicubic_scale.effect', which is also in package libobs0:amd64 21.0.2+dfsg1-1
 
-### DEV: Atom install script is in testing
-## Atom
-cd /home/${SUDO_USER}/.vrk
-mkdir -p .atom-key.tmp
-cd .atom-key.tmp
-wget https://packagecloud.io/AtomEditor/atom/gpgkey | apt-key add -; wait
-sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'; wait
-cd ..
-rm -r .atom-key.tmp
+### DEV: Atom install script always fails
+### Atom
+#cd /home/${SUDO_USER}/.vrk
+#mkdir -p .atom-key.tmp
+#cd .atom-key.tmp
+#wget https://packagecloud.io/AtomEditor/atom/gpgkey | apt-key add -; wait
+#sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/#sources.list.d/atom.list'; wait
+#cd ..
+#rm -r .atom-key.tmp
 
 ## Blender faster channel
 add-apt-repository -y ppa:thomas-schiex/blender
