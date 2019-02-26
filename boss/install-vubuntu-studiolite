@@ -91,7 +91,7 @@ wait
 ## Verify interactives first, and then the fonts
 #apt install -y ttf-mscorefonts-installer # Fails download
 chkfile=/var/local/vrk/.inst-stult-1
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y jackd2 fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
 wait
 echo "
@@ -99,18 +99,18 @@ Fonts are now installed. Now doing some basic tools...
 "
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-2
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y zip p7zip-full gzip gedit tilda docky retext nautilus grabc gparted shutter kazam obs-studio
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-3
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 echo "Vrk would normally install Atom here, but that doesn't seem to work out. Moving on..."
 #apt install -y atom
 #wait
 ## Redundant from install-vubuntu-desktop
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-4
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
 touch $chkfile; fi
 wait
@@ -133,7 +133,7 @@ Tools done. Now doing browsers...
 "
 if [ "${LINUX_DISTRO}" = "gnome" ]; then
 chkfile=/var/local/vrk/.inst-stult-5
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y epiphany-browser gconf-editor
 touch $chkfile; fi
 fi
@@ -150,7 +150,7 @@ touch /var/local/vrk/.vubuntu-chrome
   fi
 apt update -y --fix-missing
 chkfile=/var/local/vrk/.inst-stult-6
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y google-chrome-stable
 touch $chkfile; fi
  fi
@@ -159,31 +159,31 @@ echo "
 Tools done. More office stuff...
 "
 chkfile=/var/local/vrk/.inst-stult-7
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y scribus
 echo "
 Office stuff done. Doing web dev favorites...
 "
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-8
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y git vim filezilla meld ssh curl wget
 echo "
 Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint, ICC printing profiles...
 "
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-9
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y inkscape blender gimp gimp-plugin-registry darktable krita icc-profiles
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-10
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y mypaint mypaint-data-extras
 
 ### Inkscape Export PDF CMYK extension
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-11
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 /var/local/vrk/boss/install-pdfcmyk
 wait
 
@@ -192,7 +192,7 @@ Graphic design done. Media stuff, VLC, audio players, Kdenlive, Shotcut...
 "
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-12
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y vlc vlc-data browser-plugin-vlc clementine amarok kdenlive shotcut pitivi
 #apt install -y mplayer2 #broken in Ubuntu 18.04
 wait
@@ -203,7 +203,7 @@ Media done. Audiophile tools, Audacity, LMMS, Yate VoIP client, Kid3 audio tag t
 ## pulseaudio & pavucontrol for mixing & monitor control in Audacity
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-13
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y audacity lmms muse musescore music-bin kid3 pulseaudio pavucontrol twinkle
 wait
 
@@ -215,18 +215,18 @@ echo "Sound's great. (hehe) Getting desktop goodies...
 "
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-14
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y alsa-oss libasound2 libasound2-plugins
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-15
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y gnome-music gnome-photos planner gromit gnome-chess
 echo "
 Got the goodies. Sky time... Stellarium...
 "
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-16
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 apt install -y stellarium
 
 
@@ -235,7 +235,7 @@ Now doing Skype...
 "
 touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-stult-17
-if [ !-f "$chkfile" ]; then
+if [ ! -f "$chkfile" ]; then
 mkdir -p /var/local/vrk/skypetmp
 cd /var/local/vrk/skypetmp
 wget https://repo.skype.com/latest/skypeforlinux-64.deb
