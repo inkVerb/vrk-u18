@@ -89,7 +89,6 @@ apt install -yf
 apt update -y --fix-missing
 
 # Basic apps: Gedit, Guake, Docky, Chromium, Thunderbird, Firefox, Rhythmbox, Vino, WordGrinder (Desktop Sharing settings)
-touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-dsktp-0
 if [ ! -f "$chkfile" ]; then
 apt install -y jackd2 gedit tilda docky chromium-browser djview-plugin thunderbird firefox rhythmbox vino wordgrinder-ncurses
@@ -98,6 +97,7 @@ apt install -y jackd2 gedit tilda docky chromium-browser djview-plugin thunderbi
 #fi
 
 # Adapta
+touch $chkfile; fi
 chkfile=/var/local/vrk/.inst-dsktp-1
 if [ ! -f "$chkfile" ]; then
 /var/local/vrk/boss/install-adapta
