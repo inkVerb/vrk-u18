@@ -131,12 +131,14 @@ wait
 echo "
 Tools done. Now doing browsers...
 "
-if [ "${LINUX_DISTRO}" = "gnome" ]; then
 chkfile=/var/local/vrk/.inst-stult-5
 if [ ! -f "$chkfile" ]; then
+if [ "${LINUX_DISTRO}" = "gnome" ]; then
 apt install -y epiphany-browser gconf-editor
-touch $chkfile; fi
 fi
+touch $chkfile; fi
+chkfile=/var/local/vrk/.inst-stult-6
+if [ ! -f "$chkfile" ]; then
 if [ "${PROCVNO}" = "amd64" ]; then
  if [ ! -f "/var/local/vrk/.vubuntu-chrome" ]; then
 echo "You are running a 64 bit processor, so you get Google Chrome! XD..."
@@ -149,12 +151,10 @@ rm -f linux_signing_key.pub
 touch /var/local/vrk/.vubuntu-chrome
   fi
 apt update -y --fix-missing
-chkfile=/var/local/vrk/.inst-stult-6
-if [ ! -f "$chkfile" ]; then
 apt install -y google-chrome-stable
-touch $chkfile; fi
  fi
 fi
+touch $chkfile; fi
 echo "
 Tools done. More office stuff...
 "
