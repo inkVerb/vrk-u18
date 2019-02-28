@@ -12,7 +12,7 @@
 
 
 # Check if installed
-if [ -f /var/local/vrk/.vubuntu-unity-notifications-off ]; then
+if [ -f /opt/vrk/.vubuntu-unity-notifications-off ]; then
 echo "Notifications already turned off on this machine."
 exit 0
 fi
@@ -21,5 +21,5 @@ fi
 mv /usr/share/dbus-1/services/org.freedesktop.Notifications.service /usr/share/dbus-1/services/org.freedesktop.Notifications.service.disabled
 
 ## Set config
-touch /var/local/vrk/.vubuntu-unity-notifications-off
+touch /opt/vrk/.vubuntu-unity-notifications-off
 

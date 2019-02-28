@@ -39,7 +39,7 @@ exit 22
 fi
 
 # Check status
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 if [ "${PYDIO_INSTALLED}" = "YES" ]; then
 echo "Pydio already installed."
 exit 0; fi
@@ -52,8 +52,8 @@ pip install git+https://github.com/pydio/pydio-sync.git
 #DEV: This is not finished and Pydio doesn't always work as of yet.
 
 # Config
-echo "PYDIO_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
-touch /var/local/vrk/.pydioinstalled
+echo "PYDIO_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /opt/vrk/.pydioinstalled
 
 # Finish
 apt autoremove -y

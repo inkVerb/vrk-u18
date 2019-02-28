@@ -8,7 +8,7 @@
 
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
@@ -38,23 +38,23 @@ exit 22; fi
 
 # Install
 if [ "${PROCVNO}" = "amd64" ]; then
- if [ ! -f "/var/local/vrk/.vubuntu-studiolite-earth64" ]; then
+ if [ ! -f "/opt/vrk/.vubuntu-studiolite-earth64" ]; then
 rm -f google-earth-stable_current_amd64.deb*
 wget https://dl.google.com/dl/earth/client/current/google-earth-stable_current_amd64.deb
 dpkg -i google-earth-stable*.deb
 apt install -yf
 rm -f google-earth-stable_current_amd64.deb*
-touch /var/local/vrk/.vubuntu-studiolite-earth64
+touch /opt/vrk/.vubuntu-studiolite-earth64
  fi
 fi
 if [ "${PROCVNO}" = "i386" ]; then
- if [ ! -f "/var/local/vrk/.vubuntu-studiolite-earth386" ]; then
+ if [ ! -f "/opt/vrk/.vubuntu-studiolite-earth386" ]; then
 rm -f google-earth-stable_current_i386.deb*
 wget https://dl.google.com/dl/earth/client/current/google-earth-stable_current_i386.deb
 dpkg -i google-earth-stable*.deb
 apt install -yf
 rm -f google-earth-stable_current_i386.deb*
-touch /var/local/vrk/.vubuntu-studiolite-earth386
+touch /opt/vrk/.vubuntu-studiolite-earth386
  fi
 fi
 

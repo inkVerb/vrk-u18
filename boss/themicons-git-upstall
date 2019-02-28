@@ -13,7 +13,7 @@
 INSTHEMICON=$1
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
@@ -36,7 +36,7 @@ sudo themicons-git-upstall
 exit 22; fi
 
 # Include the config
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 
 # Theme check #
@@ -64,9 +64,9 @@ Grab some tea. This is gonna' take a while...
 "
 
 # Themes
-rm -rf /var/local/vrk/donjon/ti/themes-
-mkdir -p /var/local/vrk/donjon/ti/themes-
-cd /var/local/vrk/donjon/ti/themes-
+rm -rf /opt/vrk/donjon/ti/themes-
+mkdir -p /opt/vrk/donjon/ti/themes-
+cd /opt/vrk/donjon/ti/themes-
 
 ### Adapta # Not supported since sassc package not in the repos and won't work
 #if [ "${INSTHEMICON}" = "adapta" ] ; then 
@@ -175,8 +175,8 @@ sleep 4
 
 
 # Icons
-mkdir -p /var/local/vrk/donjon/ti/icons-
-cd /var/local/vrk/donjon/ti/icons-
+mkdir -p /opt/vrk/donjon/ti/icons-
+cd /opt/vrk/donjon/ti/icons-
 
 ## Surfn
 if [ -z "${1}" ] || [ "${INSTHEMICON}" = "surfn" ]; then
@@ -185,8 +185,8 @@ git clone https://github.com/erikdubois/Surfn
 ###########################################
 #SOLVED! This pull request was accepted, remove this section AND DIRECTORIES after testing.
 ### Fix Surfn's LMMS icon re: https://github.com/erikdubois/Surfn/pull/26
-#rm -f /var/local/vrk/donjon/ti/icons-/Surfn/Surfn/scalable/apps/scalable/lmms.svg
-#cp -f /var/local/vrk/donjon/ti/lmms.svg /var/local/vrk/donjon/ti/icons-/Surfn/Surfn/scalable/apps/scalable/
+#rm -f /opt/vrk/donjon/ti/icons-/Surfn/Surfn/scalable/apps/scalable/lmms.svg
+#cp -f /opt/vrk/donjon/ti/lmms.svg /opt/vrk/donjon/ti/icons-/Surfn/Surfn/scalable/apps/scalable/
 ###########################################
 ### Continue
 rm -rf /usr/share/icons/Surfn*
@@ -223,7 +223,7 @@ fi
 
 ## Moka Icons
 if [ "${INSTHEMICON}" = "moka" ]; then
-cd /var/local/vrk/donjon/ti/icons-
+cd /opt/vrk/donjon/ti/icons-
 git clone https://github.com/snwh/moka-icon-theme
  if [ ! -d "moka-icon-theme" ]; then exit 44; fi
 cd moka-icon-theme
@@ -237,8 +237,8 @@ gtk-update-icon-cache /usr/share/icons/Moka/
 fi
 
 ## Clean up
-cd /var/local/vrk
-rm -rf /var/local/vrk/donjon/ti/icons-
+cd /opt/vrk
+rm -rf /opt/vrk/donjon/ti/icons-
 
 
 # Finish

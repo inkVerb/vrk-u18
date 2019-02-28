@@ -8,7 +8,7 @@
 
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
@@ -36,27 +36,27 @@ sudo install-nextcloud
 exit 22; fi
 
 # Check status
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 if [ "${NC_INSTALLED}" = "YES" ]; then
 echo "Nextcloud already installed."
 exit 0; fi
 
 
 # Install
-if [ ! -f "/var/local/vrk/.vubuntu-nextcloud" ]; then
+if [ ! -f "/opt/vrk/.vubuntu-nextcloud" ]; then
 add-apt-repository ppa:nextcloud-devs/client -y
-touch /var/local/vrk/.vubuntu-nextcloud
+touch /opt/vrk/.vubuntu-nextcloud
 fi
 apt update -y --fix-missing
 apt install nextcloud-client -y
 
 # Config
-echo "NC_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
-touch /var/local/vrk/.nextcloudinstalled
+echo "NC_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /opt/vrk/.nextcloudinstalled
 
 # Finish
 apt autoremove -y
-rm /var/local/vrk/.vubuntu-nextcloud
+rm /opt/vrk/.vubuntu-nextcloud
 echo "Nextcloud should now be installed to the newest version.
 "
 

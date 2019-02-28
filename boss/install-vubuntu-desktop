@@ -16,12 +16,12 @@
 VRK_USER=${SUDO_USER}
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk on this machine first. See README.md"
 exit 22; fi
 
 # Include the config
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Check if installed
 if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
@@ -63,7 +63,7 @@ echo "Vubuntu desktop apps already installed."
 fi
 
 # Check if Vubuntu Desktop installed (again)
-if [ -f /var/local/vrk/.vubuntu-desktop-installed ]; then
+if [ -f /opt/vrk/.vubuntu-desktop-installed ]; then
 echo "Vubuntu Desktop already installed on this machine."
 exit 0; fi
 
@@ -79,7 +79,7 @@ LINUX_DISTRO="$1"; fi
 # Global
 
 # Add repos
-/var/local/vrk/boss/install-repos
+/opt/vrk/boss/install-repos
 
 # Update & Upgrade
 #update included in install-repos
@@ -89,7 +89,7 @@ apt install -yf
 apt update -y --fix-missing
 
 # Basic apps: Gedit, Guake, Docky, Chromium, Thunderbird, Firefox, Rhythmbox, Vino, WordGrinder (Desktop Sharing settings)
-chkfile=/var/local/vrk/.inst-dsktp-0
+chkfile=/opt/vrk/.inst-dsktp-0
 if [ ! -f "$chkfile" ]; then
 apt install -y jackd2 gedit tilda docky chromium-browser djview-plugin thunderbird firefox rhythmbox vino wordgrinder-ncurses
 #if [ "${LINUX_DISTRO}" = "ubuntu" ]; then
@@ -98,73 +98,73 @@ apt install -y jackd2 gedit tilda docky chromium-browser djview-plugin thunderbi
 
 # Adapta
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dsktp-1
+chkfile=/opt/vrk/.inst-dsktp-1
 if [ ! -f "$chkfile" ]; then
-/var/local/vrk/boss/install-adapta
+/opt/vrk/boss/install-adapta
 
 # Gedit Themes
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dsktp-2
+chkfile=/opt/vrk/.inst-dsktp-2
 if [ ! -f "$chkfile" ]; then
-/var/local/vrk/boss/install-geditthemes
+/opt/vrk/boss/install-geditthemes
 
 # Ubuntu Studio Wallpapers, GTK configs, Variety
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dsktp-3
+chkfile=/opt/vrk/.inst-dsktp-3
 if [ ! -f "$chkfile" ]; then
 apt install -y conky conky-all ubuntustudio-wallpapers gnome-terminal variety htop
 #apt install -y gtk-theme-config # As of 18.04 this does not work
 
 # LibreOffice (done now for vubuntu-desktop settings dependencies)
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dsktp-4
+chkfile=/opt/vrk/.inst-dsktp-4
 if [ ! -f "$chkfile" ]; then
 apt install -y libreoffice-writer libreoffice-calc
 
 # Git, build tools, and theme dependencies (may be redundant, but never can be too sure, here they all are from each theme's dependency instructions)
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dsktp-5
+chkfile=/opt/vrk/.inst-dsktp-5
 if [ ! -f "$chkfile" ]; then
 apt install -y git build-essential dconf-cli autoconf automake libtool intltool inkscape cmake krita gimp
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dsktp-6
+chkfile=/opt/vrk/.inst-dsktp-6
 if [ ! -f "$chkfile" ]; then
 apt install -y gnome-themes-standard libgdk-pixbuf2.0-dev libglib2.0-dev libgtk-3-dev libxml2-utils gtk3-engines-unico gtk2-engines-murrine gtk2-engines-pixbuf pkg-config python3 ruby-bundler ruby-sass
 ## Specific for making Adapta themes (may only be used to make Adapta, but why not)
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dsktp-7
+chkfile=/opt/vrk/.inst-dsktp-7
 if [ ! -f "$chkfile" ]; then
 apt install -y libsass0 librsvg2-dev
 #apt install -y gdk-pixbuf2-devel glib2-devel librsvg2-devel libsass libxml2 pkgconfig cutomake sassc # not installing
-#/var/local/vrk/boss/install-libsassc # not installing
+#/opt/vrk/boss/install-libsassc # not installing
 
 # Icon theme for LibreOffice
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dsktp-8
+chkfile=/opt/vrk/.inst-dsktp-8
 if [ ! -f "$chkfile" ]; then
 apt install -y libreoffice-style-sifr libreoffice-style-galaxy libreoffice-style-hicontrast libreoffice-style-human libreoffice-style-oxygen libreoffice-style-tango
 
 # Wallpapers
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dsktp-9
+chkfile=/opt/vrk/.inst-dsktp-9
 if [ ! -f "$chkfile" ]; then
-/var/local/vrk/boss/install-vubuntu-vallpaper
+/opt/vrk/boss/install-vubuntu-vallpaper
 
 # Themes
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dsktp-10
+chkfile=/opt/vrk/.inst-dsktp-10
 if [ ! -f "$chkfile" ]; then
-/var/local/vrk/boss/themicons-git-upstall
+/opt/vrk/boss/themicons-git-upstall
 touch $chkfile; fi
 
 # Global #
 
 # Unity 16.04
 if [ "${LINUX_DISTRO}" = "ubuntu" ] && [ "$ubuntu_release" = "16.04" ]; then
-#/var/local/vrk/donjon/vubuntu-unity-notifications-off # replaced by the tool below
+#/opt/vrk/donjon/vubuntu-unity-notifications-off # replaced by the tool below
 add-apt-repository -y ppa:vlijm/nonotifs
 apt update -y --fix-missing
-chkfile=/var/local/vrk/.inst-dsktp-11
+chkfile=/opt/vrk/.inst-dsktp-11
 if [ ! -f "$chkfile" ]; then
 apt install -y unity-tweak-tool nonotifs
 touch $chkfile; fi
@@ -174,7 +174,7 @@ fi
 # Ubuntu (GNOME)
 if [ "${LINUX_DISTRO}" = "ubuntu" ] || [ "$LINUX_DISTRO" = "ubuntu-wayland" ]; then
 
-chkfile=/var/local/vrk/.inst-dsktp-12
+chkfile=/opt/vrk/.inst-dsktp-12
 if [ ! -f "$chkfile" ]; then
 apt install -y gnome-tweak-tool
 touch $chkfile; fi
@@ -183,7 +183,7 @@ fi
 
 # GNOME
 if [ "${LINUX_DISTRO}" = "gnome" ]; then
-chkfile=/var/local/vrk/.inst-dsktp-13
+chkfile=/opt/vrk/.inst-dsktp-13
 if [ ! -f "$chkfile" ]; then
 apt install -y gnome-tweak-tool
 touch $chkfile; fi
@@ -196,7 +196,7 @@ if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "ubuntustudio" ] ;
 #NO LONGER IN TESTING, normal repos may work, just in case
 add-apt-repository -y ppa:xubuntu-dev/extras
 apt update -y --fix-missing
-chkfile=/var/local/vrk/.inst-dsktp-14
+chkfile=/opt/vrk/.inst-dsktp-14
 if [ ! -f "$chkfile" ]; then
 apt install -y xfdashboard
 touch $chkfile; fi
@@ -241,11 +241,11 @@ fi
 # Arch
 
 # Remove every $chkfile
-rm /var/local/vrk/.inst-dsktp-*
+rm /opt/vrk/.inst-dsktp-*
 
 # Set configs
-echo "VUBUNTU_DESKTOP_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
-touch /var/local/vrk/.vubuntu-desktop-installed
+echo "VUBUNTU_DESKTOP_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /opt/vrk/.vubuntu-desktop-installed
 
 # Touch LibreOffice configs
 echo "

@@ -35,7 +35,7 @@ exit 22
 fi
 
 # Check status
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 if [ "${REPOS_INSTALLED}" = "YES" ]; then
 echo "Extra repos already installed."
 exit 0; fi
@@ -75,28 +75,28 @@ add-apt-repository -y ppa:kubuntu-ppa/backports
 apt update -y --fix-missing
 
 ## Add manually
-#if [ ! -f "/var/local/vrk/.vubuntu-studiolite-repo" ]; then
+#if [ ! -f "/opt/vrk/.vubuntu-studiolite-repo" ]; then
 ### Check at each stage to prevent duplication
 #### canonical partner
- if [ ! -f "/var/local/vrk/.vubuntu-repo-partner"-$(lsb_release -sc) ]; then
+ if [ ! -f "/opt/vrk/.vubuntu-repo-partner"-$(lsb_release -sc) ]; then
 vrk_ppa_repo_partner="deb http://archive.canonical.com/ $(lsb_release -sc) partner"
  if ! grep -q "^deb .*$vrk_ppa_repo_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
 add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-touch /var/local/vrk/.vubuntu-repo-partner-$(lsb_release -sc)
+touch /opt/vrk/.vubuntu-repo-partner-$(lsb_release -sc)
   fi
  fi
 ##### main universe restricted multiverse
-# if [ ! -f "/var/local/vrk/.vubuntu-repo-multiverse"-$(lsb_release -sc) ]; then
+# if [ ! -f "/opt/vrk/.vubuntu-repo-multiverse"-$(lsb_release -sc) ]; then
 # vrk_add_repo_multiverse="deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
 #  if ! grep -q "^deb .*$vrk_add_repo_multiverse" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
 #add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe restricted multiverse"
-#touch /var/local/vrk/.vubuntu-repo-multiverse-$(lsb_release -sc)
+#touch /opt/vrk/.vubuntu-repo-multiverse-$(lsb_release -sc)
 #  fi
 # fi
 
 # Config
-echo "REPOS_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
-touch /var/local/vrk/.reposinstalled
+echo "REPOS_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /opt/vrk/.reposinstalled
 
 # Finish
 apt update -y --fix-missing

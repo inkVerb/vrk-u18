@@ -39,7 +39,7 @@ sudo install-vrk-langdirs
 exit 0; fi
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
@@ -93,7 +93,7 @@ Are you ready to continue, then logout and reboot? To continue, type \"yes\" and
 read LOGOUTYES
  if [ ${LOGOUTYES} != "yes" ]; then
 echo "Exiting, not finished. You can run this again anytime via:
-cd /var/local/vrk/boss
+cd /opt/vrk/boss
 sudo install-vrk
 "
 exit 0
@@ -101,7 +101,7 @@ exit 0
 fi
 
 # Include the config
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Folder names language
 ## Set the site configs based on initial language
@@ -175,7 +175,7 @@ sudo -u ${VRK_USER} sed -i "s/\$HOME\///g" /home/${VRK_USER}/.vrk/configs/lang/s
 
 # Set config
 sudo -u ${VRK_USER} sed -i "s/VRK_LANG_DIRS=.*/VRK_LANG_DIRS=\"YES\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
-. /var/local/vrk/vrkverno
+. /opt/vrk/vrkverno
 . /home/${VRK_USER}/.vrk/configs/stationinfo
 
 # Finish

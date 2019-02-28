@@ -14,7 +14,7 @@
 VRK_USER=${SUDO_USER}
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk on this machine first. See README.md"
 exit 22; fi
 
@@ -42,7 +42,7 @@ sudo install-vubuntu-us
 exit 22; fi
 
 # Include the config
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Update & Upgrade
 apt update -y --fix-missing
@@ -55,14 +55,14 @@ apt update -y --fix-missing
 apt install -y jackd2
 
 # Add the graphix PPA
-/var/local/vrk/boss/install-grfx
+/opt/vrk/boss/install-grfx
 
 # Vubuntu Desktop
-/var/local/vrk/boss/install-vubuntu-desktop
+/opt/vrk/boss/install-vubuntu-desktop
 
 # Vubuntu StudioLite
-/var/local/vrk/boss/install-vubuntu-studiolite
+/opt/vrk/boss/install-vubuntu-studiolite
 
 # Ubuntu Studio
-/var/local/vrk/boss/install-ubuntustudio
+/opt/vrk/boss/install-ubuntustudio
 

@@ -52,7 +52,7 @@ exit 0
 fi
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22
 fi
@@ -73,7 +73,7 @@ exit 22
 fi
 
 # Update the templates
-cp -R /var/local/vrk/donjon/vrktemplates/* /home/${VRK_USER}/${VRK_TEMPLATES_DIR}/
+cp -R /opt/vrk/donjon/vrktemplates/* /home/${VRK_USER}/${VRK_TEMPLATES_DIR}/
 
 # Finish
 echo "Current Vrk™ Templates have been added to the Templates folder for ${VRK_USER}.

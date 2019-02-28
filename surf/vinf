@@ -8,7 +8,7 @@
 
 # Include configs
 . ~/.vrk/configs/stationinfo
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Tell all
 echo "

@@ -51,7 +51,7 @@ fi
 
 
 # Check if already installed
-if [ -d "/var/local/vrk" ]; then
+if [ -d "/opt/vrk" ]; then
  if [ -d "/home/${VRK_USER}/.vrk" ]; then
 ## Already installed
 echo "Vrk is already installed. Updating..."
@@ -61,7 +61,7 @@ exit 0
  else
 ## vrk dir exists, not .vrk
 echo "Vrk is only partially installed. Removing it and starting over..."
-rm -rf /var/local/vrk
+rm -rf /opt/vrk
 rm -rf /var/local/vall
  fi
 else
@@ -113,18 +113,18 @@ SESSDISTRO="$1"
 # Set the directory to var/local, but a hidden link in the user's
 ## Check if it is already in var/local from a previous install
 cp -rf /home/${VRK_USER}/vrk /var/local/
-mv -f /var/local/vrk/inst/vrkverno /var/local/vrk/
+mv -f /opt/vrk/inst/vrkverno /opt/vrk/
 
 # Executable check
-chmod +x /var/local/vrk/boss/*
-chmod ug+x /var/local/vrk/droids/*
-chmod ug+x /var/local/vrk/surf/*
-chmod +x /var/local/vrk/donjon/*
-chmod ug+x /var/local/vrk/donjon/vrktemplates/7_BASH
-chmod ug+x /var/local/vrk/droids/*
+chmod +x /opt/vrk/boss/*
+chmod ug+x /opt/vrk/droids/*
+chmod ug+x /opt/vrk/surf/*
+chmod +x /opt/vrk/donjon/*
+chmod ug+x /opt/vrk/donjon/vrktemplates/7_BASH
+chmod ug+x /opt/vrk/droids/*
 
 # Global sudo commants
-ln -sfn /var/local/vrk/boss/* /usr/bin/
+ln -sfn /opt/vrk/boss/* /usr/bin/
 cd /usr/bin/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 
@@ -148,12 +148,12 @@ VRK_INST_BY=\"${VRK_USER}\"
 CPUPKGVER=\"${PROCVNO}\"
 LINUX_DISTRO=\"${SESSDISTRO}\"
 VRKUPDATEREPO=\"vrk\"
-" > /var/local/vrk/machineinfo
+" > /opt/vrk/machineinfo
 
 # Finish
 echo "Vrk is setup on this machine. Now installing it for this user...
 "
-/var/local/vrk/boss/install-vrk
+/opt/vrk/boss/install-vrk
 
 # Cleanup
 rm -rf /home/${SUDO_USER}/vrk

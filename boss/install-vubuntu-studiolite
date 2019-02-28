@@ -13,7 +13,7 @@
 VRK_USER=${SUDO_USER}
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk on this machine first. See README.md"
 exit 22; fi
 
@@ -66,7 +66,7 @@ exit 22; fi
 
 # Include the configs
 . /home/${SUDO_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Check CPU version
 PROCVNO=$(dpkg --print-architecture)
@@ -79,7 +79,7 @@ First, updates and fonts...
 "
 
 # Add repos
-/var/local/vrk/boss/install-repos
+/opt/vrk/boss/install-repos
 
 # Update & Upgrade
 apt update -y --fix-missing
@@ -90,7 +90,7 @@ wait
 
 ## Verify interactives first, and then the fonts
 #apt install -y ttf-mscorefonts-installer # Fails download
-chkfile=/var/local/vrk/.inst-stult-1
+chkfile=/opt/vrk/.inst-stult-1
 if [ ! -f "$chkfile" ]; then
 apt install -y jackd2 fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
 wait
@@ -98,18 +98,18 @@ echo "
 Fonts are now installed. Now doing some basic tools...
 "
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-2
+chkfile=/opt/vrk/.inst-stult-2
 if [ ! -f "$chkfile" ]; then
 apt install -y zip p7zip-full gzip gedit tilda docky retext nautilus grabc gparted shutter kazam obs-studio
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-3
+chkfile=/opt/vrk/.inst-stult-3
 if [ ! -f "$chkfile" ]; then
 echo "Vrk would normally install Atom here, but that doesn't seem to work out. Moving on..."
 #apt install -y atom
 #wait
 ## Redundant from install-vubuntu-desktop
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-4
+chkfile=/opt/vrk/.inst-stult-4
 if [ ! -f "$chkfile" ]; then
 apt install -y libreoffice libreoffice-writer libreoffice-calc libreoffice-impress libreoffice-draw libreoffice-base libreoffice-math libreoffice-gnome libreoffice-kde
 touch $chkfile; fi
@@ -131,16 +131,16 @@ wait
 echo "
 Tools done. Now doing browsers...
 "
-chkfile=/var/local/vrk/.inst-stult-5
+chkfile=/opt/vrk/.inst-stult-5
 if [ ! -f "$chkfile" ]; then
 if [ "${LINUX_DISTRO}" = "gnome" ]; then
 apt install -y epiphany-browser gconf-editor
 fi
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-6
+chkfile=/opt/vrk/.inst-stult-6
 if [ ! -f "$chkfile" ]; then
 if [ "${PROCVNO}" = "amd64" ]; then
- if [ ! -f "/var/local/vrk/.vubuntu-chrome" ]; then
+ if [ ! -f "/opt/vrk/.vubuntu-chrome" ]; then
 echo "You are running a 64 bit processor, so you get Google Chrome! XD..."
   vrk_add_repo_chrome="deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
   if ! grep -q "^deb .*$vrk_add_repo_chrome" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
@@ -148,7 +148,7 @@ rm -f linux_signing_key.pub
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
 sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 rm -f linux_signing_key.pub
-touch /var/local/vrk/.vubuntu-chrome
+touch /opt/vrk/.vubuntu-chrome
   fi
 apt update -y --fix-missing
 apt install -y google-chrome-stable
@@ -158,40 +158,40 @@ touch $chkfile; fi
 echo "
 Tools done. More office stuff...
 "
-chkfile=/var/local/vrk/.inst-stult-7
+chkfile=/opt/vrk/.inst-stult-7
 if [ ! -f "$chkfile" ]; then
 apt install -y scribus
 echo "
 Office stuff done. Doing web dev favorites...
 "
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-8
+chkfile=/opt/vrk/.inst-stult-8
 if [ ! -f "$chkfile" ]; then
 apt install -y git vim filezilla meld ssh curl wget
 echo "
 Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint, ICC printing profiles...
 "
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-9
+chkfile=/opt/vrk/.inst-stult-9
 if [ ! -f "$chkfile" ]; then
 apt install -y inkscape blender gimp gimp-plugin-registry darktable krita icc-profiles
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-10
+chkfile=/opt/vrk/.inst-stult-10
 if [ ! -f "$chkfile" ]; then
 apt install -y mypaint mypaint-data-extras
 
 ### Inkscape Export PDF CMYK extension
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-11
+chkfile=/opt/vrk/.inst-stult-11
 if [ ! -f "$chkfile" ]; then
-/var/local/vrk/boss/install-pdfcmyk
+/opt/vrk/boss/install-pdfcmyk
 wait
 
 echo "
 Graphic design done. Media stuff, VLC, audio players, Kdenlive, Shotcut...
 "
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-12
+chkfile=/opt/vrk/.inst-stult-12
 if [ ! -f "$chkfile" ]; then
 apt install -y vlc vlc-data browser-plugin-vlc clementine amarok kdenlive shotcut pitivi
 #apt install -y mplayer2 #broken in Ubuntu 18.04
@@ -202,7 +202,7 @@ Media done. Audiophile tools, Audacity, LMMS, Yate VoIP client, Kid3 audio tag t
 "
 ## pulseaudio & pavucontrol for mixing & monitor control in Audacity
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-13
+chkfile=/opt/vrk/.inst-stult-13
 if [ ! -f "$chkfile" ]; then
 apt install -y audacity lmms muse musescore music-bin kid3 pulseaudio pavucontrol twinkle
 wait
@@ -214,18 +214,18 @@ wget -O DeEsser.ny http://forum.audacityteam.org/download/file.php?id=10125
 echo "Sound's great. (hehe) Getting desktop goodies...
 "
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-14
+chkfile=/opt/vrk/.inst-stult-14
 if [ ! -f "$chkfile" ]; then
 apt install -y alsa-oss libasound2 libasound2-plugins
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-15
+chkfile=/opt/vrk/.inst-stult-15
 if [ ! -f "$chkfile" ]; then
 apt install -y gnome-music gnome-photos planner gromit gnome-chess
 echo "
 Got the goodies. Sky time... Stellarium...
 "
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-16
+chkfile=/opt/vrk/.inst-stult-16
 if [ ! -f "$chkfile" ]; then
 apt install -y stellarium
 
@@ -234,28 +234,28 @@ echo "
 Now doing Skype...
 "
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-stult-17
+chkfile=/opt/vrk/.inst-stult-17
 if [ ! -f "$chkfile" ]; then
-mkdir -p /var/local/vrk/skypetmp
-cd /var/local/vrk/skypetmp
+mkdir -p /opt/vrk/skypetmp
+cd /opt/vrk/skypetmp
 wget https://repo.skype.com/latest/skypeforlinux-64.deb
 dpkg -i skypeforlinux-64.deb
 apt install -f
 cd ..
-rm -rf /var/local/vrk/skypetmp
+rm -rf /opt/vrk/skypetmp
 echo "
 You got Skype.
 "
 touch $chkfile; fi
 
 # Remove every $chkfile
-rm /var/local/vrk/.inst-stult-*
+rm /opt/vrk/.inst-stult-*
 
 # Set config
-echo "VUBUNTU_STUDIOLITE_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+echo "VUBUNTU_STUDIOLITE_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
 touch /home/${SUDO_USER}/.vrk/configs/.studiolite
 ## Remove repo temp progress files
-rm -f /var/local/vrk/.vubuntu-studiolite-*
+rm -f /opt/vrk/.vubuntu-studiolite-*
 
 # Cleanup
 apt autoremove -y

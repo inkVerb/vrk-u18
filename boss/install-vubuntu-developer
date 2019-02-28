@@ -12,7 +12,7 @@
 VRK_USER=${SUDO_USER}
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk on this machine first. See README.md"
 exit 22; fi
 
@@ -65,7 +65,7 @@ exit 22; fi
 
 # Include the configs
 . /home/${SUDO_USER}/.vrk/configs/lang/stationuser-dirs_CURRENT
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Check CPU version
 PROCVNO=$(dpkg --print-architecture)
@@ -78,7 +78,7 @@ First, updates and fonts...
 "
 
 # Add repos
-/var/local/vrk/boss/install-repos
+/opt/vrk/boss/install-repos
 
 # Update & Upgrade
 apt update -y --fix-missing
@@ -88,25 +88,25 @@ apt install -yf
 
 ## Verify interactives first, and then the fonts
 #apt install -y ttf-mscorefonts-installer # Fails download
-chkfile=/var/local/vrk/.inst-dev-1
+chkfile=/opt/vrk/.inst-dev-1
 if [ ! -f "$chkfile" ]; then
 apt install -y jackd2 fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
 echo "
 Fonts are now installed. Now doing some basic tools...
 "
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dev-2
+chkfile=/opt/vrk/.inst-dev-2
 if [ ! -f "$chkfile" ]; then
 apt install -y zip p7zip-full gzip tilda docky kate retext gedit nautilus grabc gparted shutter kazam obs-studio
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dev-3
+chkfile=/opt/vrk/.inst-dev-3
 if [ ! -f "$chkfile" ]; then
 echo "Vrk would normally install Atom here, but that doesn't seem to work out. Moving on..."
 #apt install -y atom
 #wait
 ## Redundant from install-vubuntu-desktop
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dev-4
+chkfile=/opt/vrk/.inst-dev-4
 if [ ! -f "$chkfile" ]; then
 apt install -y chromium-browser thunderbird firefox
 touch $chkfile; fi
@@ -115,8 +115,8 @@ Tools done. Now doing browsers...
 "
 #apt install -y midori #DEV Delayed until 18.04 is out of beta
 if [ "${PROCVNO}" = "amd64" ]; then
- if [ ! -f "/var/local/vrk/.vubuntu-chrome" ]; then
-chkfile=/var/local/vrk/.inst-dev-5
+ if [ ! -f "/opt/vrk/.vubuntu-chrome" ]; then
+chkfile=/opt/vrk/.inst-dev-5
 if [ ! -f "$chkfile" ]; then
 echo "You are running a 64 bit processor, so you get Google Chrome! XD..."
   vrk_add_repo_chrome="deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main"
@@ -125,7 +125,7 @@ rm -f linux_signing_key.pub
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - 
 sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 rm -f linux_signing_key.pub
-touch /var/local/vrk/.vubuntu-chrome
+touch /opt/vrk/.vubuntu-chrome
   fi
 apt update -y --fix-missing
 apt install -y google-chrome-stable
@@ -135,29 +135,29 @@ fi
 echo "
 Office stuff done. Doing web dev favorites...
 "
-chkfile=/var/local/vrk/.inst-dev-6
+chkfile=/opt/vrk/.inst-dev-6
 if [ ! -f "$chkfile" ]; then
 apt install -y git vim filezilla meld ssh curl wget
 echo "
 Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint, ICC printing profiles...
 "
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dev-7
+chkfile=/opt/vrk/.inst-dev-7
 if [ ! -f "$chkfile" ]; then
 apt install -y inkscape blender gimp gimp-plugin-registry darktable krita icc-profiles
 apt install -y pencil2d mypaint mypaint-data-extras
 
 ### Inkscape Export PDF CMYK extension
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dev-8
+chkfile=/opt/vrk/.inst-dev-8
 if [ ! -f "$chkfile" ]; then
-/var/local/vrk/boss/install-pdfcmyk
+/opt/vrk/boss/install-pdfcmyk
 
 echo "
 Graphic design done. VLC, Shotcut...
 "
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dev-9
+chkfile=/opt/vrk/.inst-dev-9
 if [ ! -f "$chkfile" ]; then
 apt install -y vlc vlc-data browser-plugin-vlc shotcut
 #apt install -y mplayer2 #broken in Ubuntu 18.04
@@ -166,7 +166,7 @@ Media done. Audiophile tools...
 "
 ## pulseaudio & pavucontrol for mixing & monitor control in Audacity
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dev-10
+chkfile=/opt/vrk/.inst-dev-10
 if [ ! -f "$chkfile" ]; then
 apt install -y audacity kid3
 #apt install -y yate-qt4 #broken in Ubuntu 18.04
@@ -178,24 +178,24 @@ echo "Sound's great. (hehe) Getting desktop goodies...
 "
 #apt install -y ubuntu-restricted-extras # removing the mscorefonts installer & testing if this really necessary? Moved to: install-ubuntustudio
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dev-11
+chkfile=/opt/vrk/.inst-dev-11
 if [ ! -f "$chkfile" ]; then
 apt install -y alsa-oss libasound2 libasound2-plugins
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-dev-12
+chkfile=/opt/vrk/.inst-dev-12
 if [ ! -f "$chkfile" ]; then
 apt install -y gnome-music gnome-photos planner gromit gnome-chess
 touch $chkfile; fi
 #apt install -y dia-gnome #broken in Ubuntu 18.04
 
 # Remove every $chkfile
-rm /var/local/vrk/.inst-dev-*
+rm /opt/vrk/.inst-dev-*
 
 # Set config
-echo "VUBUNTU_DEVELOPER_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+echo "VUBUNTU_DEVELOPER_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
 touch /home/${SUDO_USER}/.vrk/configs/.Developer
 ## Remove repo temp progress files
-rm -f /var/local/vrk/.vubuntu-developer-*
+rm -f /opt/vrk/.vubuntu-developer-*
 
 # Cleanup
 apt autoremove -y

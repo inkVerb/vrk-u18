@@ -39,23 +39,23 @@ exit 22
 fi
 
 # Check status
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 if [ "${ADAPTA_INSTALLED}" = "YES" ]; then
 echo "Extra repos already installed."
 exit 0; fi
 
 # Add repo
-if [ ! -f "/var/local/vrk/.adaptarepoinstalled" ]; then
+if [ ! -f "/opt/vrk/.adaptarepoinstalled" ]; then
 add-apt-repository -y ppa:tista/adapta
 apt update -y --fix-missing
-touch /var/local/vrk/.adaptarepoinstalled
+touch /opt/vrk/.adaptarepoinstalled
 fi
 
 # Install Adapta
 apt install -y adapta-gtk-theme
 
 # Config
-echo "ADAPTA_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
+echo "ADAPTA_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
 
 # Finish
 echo "Adapta added and installed."

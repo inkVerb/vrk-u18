@@ -14,7 +14,7 @@ echo "Do not run as root or sudo."; exit 22
 fi
 
 # Check if Vrk installed on machine
-if [ ! -d /var/local/vrk ]; then
+if [ ! -d /opt/vrk ]; then
 echo "First, run install-vubuntu-vrkstation for this user. See README.md"; exit 22
 fi
 

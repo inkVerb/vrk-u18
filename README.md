@@ -72,7 +72,7 @@ However, if you want that user to have sudo privileges for Vrk "boss" tools, tha
 
 After install, this is how to install Vrk for a second sudo user:
 
-`cd /var/local/vrk/boss`
+`cd /opt/vrk/boss`
 
 `sudo ./install-vrk`
 
@@ -149,7 +149,7 @@ Note: Update version numbers reference the framework. Ongoing updates continue f
      ssh-guake-on                  # sets guake-indicator menu to stop loading at starup and guake instead
 
 ## Droids
-- Droids are located in `/var/local/vrk/droids`.
+- Droids are located in `/opt/vrk/droids`.
 - Droids are not changed or removed with an update and you can add them yourself.
 - Droids can perform sudo tasks, but unlike bosses, they are included in your path. So, you can run them without ./ and sudo is optional.
 

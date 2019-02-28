@@ -9,7 +9,7 @@
 
 
 ## Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk on this machine first. See README.md"
 exit 22; fi
 
@@ -37,7 +37,7 @@ sudo install-mypaint64
 exit 22; fi
 
 # Check status
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 if [ "${MYPAINT_INSTALLED}" = "YES" ]; then
 echo "MyPaint already installed."
 exit 0; fi
@@ -52,8 +52,8 @@ flatpak install -y --from https://raw.githubusercontent.com/mypaint/mypaint/mast
 apt install -y mypaint mypaint-data-extras
 
 # Config
-echo "MYPAINT_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo 
-touch /var/local/vrk/.mypaintinstalled
+echo "MYPAINT_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo 
+touch /opt/vrk/.mypaintinstalled
 
 # Finish
 apt autoremove -y

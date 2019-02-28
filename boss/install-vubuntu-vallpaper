@@ -20,13 +20,13 @@ ROOT_LOCK_VALL="Vubuntu-Mesh-Disk.png"
 ## Usually, it is the name of the repo and the room is inside like this:
 ### vubuntu/vubuntu
 ### vubuntu/avitar-icons
-VALL_INST_DIR="/var/local/vrk/donjon/vallpaper"
+VALL_INST_DIR="/opt/vrk/donjon/vallpaper"
 
 # Set user
 VRK_USER=${SUDO_USER}
 
 ## Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk on this machine first. See README.md"
 exit 22; fi
 
@@ -55,7 +55,7 @@ sudo install-vubuntu-vallpaper
 exit 22; fi
 
 # Include the config
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Install/Update Vallpaper base
 ## The actuall Valls exist here under lock and key.

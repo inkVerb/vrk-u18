@@ -59,7 +59,7 @@ Are you ready to continue, then logout and reboot? Type \"yes\" to continue."
 read LOGOUTYES
  if [ ${LOGOUTYES} != "yes" ]; then
 echo "Exiting, not finished. You can run this again anytime via:
-cd /var/local/vrk/boss
+cd /opt/vrk/boss
 sudo uninstall-vrk
 "
 exit 0

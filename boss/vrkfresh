@@ -1,7 +1,7 @@
 #!/bin/sh
 #inkVerbSurfer! verb.ink
 
-# This refreshes the Vrk tools (boss, surf, donjon) in .vrk from /var/local/vrk
+# This refreshes the Vrk tools (boss, surf, donjon) in .vrk from /opt/vrk
 
 # How to use:
 ## sudo vrkfresh [user - if not current sudoer]
@@ -48,15 +48,15 @@ fi
 ## For any user
 mkdir -p /home/${VRK_USER}/.vrk/boards
 rm -rf  /home/${VRK_USER}/.vrk/boards/*
-cp /var/local/vrk/droids/* /home/${VRK_USER}/.vrk/boards/
-cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
+cp /opt/vrk/droids/* /home/${VRK_USER}/.vrk/boards/
+cp /opt/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
 rm -rf /home/${VRK_USER}/.vrk/donjon
-cp -r /var/local/vrk/donjon /home/${VRK_USER}/.vrk/
+cp -r /opt/vrk/donjon /home/${VRK_USER}/.vrk/
 mkdir -p /home/${VRK_USER}/.vrk/go
 ## For a sudoer
 if [ "${USER_BOSSYN}" = "CAN_BOSS" ]; then
 rm -rf  /home/${VRK_USER}/.vrk/boss
-ln -sfn /var/local/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
+ln -sfn /opt/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
 fi
 ## Own
 chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.vrk

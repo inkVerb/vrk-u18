@@ -20,7 +20,7 @@ exit 22
 fi
 
 # Check if Vubuntu Desktop installed on the machine
-if [ ! -f /var/local/vrk/.vubuntu-desktop-installed ]; then
+if [ ! -f /opt/vrk/.vubuntu-desktop-installed ]; then
 echo "Vubuntu Desktop hasn't been installed by any user on this machine.
 A Superuser/Sudoer needs to run install-vubuntu-desktop for this machine. See README.md"; exit 22
 fi

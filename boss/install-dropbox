@@ -8,7 +8,7 @@
 
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
@@ -36,7 +36,7 @@ sudo install-dropbox
 exit 22; fi
 
 # Check status
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 if [ "${DROPBOX_INSTALLED}" = "YES" ]; then
 echo "Dropbox already installed."
 exit 0; fi
@@ -46,8 +46,8 @@ exit 0; fi
 apt install -y nautilus-dropbox
 
 # Config
-echo "DROPBOX_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
-touch /var/local/vrk/.dropboxinstalled
+echo "DROPBOX_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /opt/vrk/.dropboxinstalled
 
 # Finish
 apt autoremove -y

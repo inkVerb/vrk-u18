@@ -13,7 +13,7 @@ echo "Dude. Don't change this folder as root. None of that sudo stuff here."; ex
 fi
 
 # Check if Vrk installed on machine
-if [ ! -d /var/local/vrk ]; then
+if [ ! -d /opt/vrk ]; then
 echo "First, run install-vubuntu-vrkstation for this user. See README.md"; exit 22
 fi
 

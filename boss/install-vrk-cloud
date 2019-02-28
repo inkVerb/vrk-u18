@@ -46,7 +46,7 @@ sudo install-vrk-cloud
 exit 0; fi
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
@@ -111,7 +111,7 @@ fi
 # Include the configs
 . /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_INITIAL
 . /home/${VRK_USER}/.vrk/configs/lang/stationuser-dirs_EN
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Setup the cloud
 if [ -z $2 ]; then

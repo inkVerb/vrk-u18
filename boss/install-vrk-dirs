@@ -39,7 +39,7 @@ sudo install-vrk-dirs
 exit 0; fi
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
@@ -86,7 +86,7 @@ echo "Alright, refreshing..."
 fi
 
 # Include the config
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Work folder
 echo "

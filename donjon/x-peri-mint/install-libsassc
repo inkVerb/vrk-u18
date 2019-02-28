@@ -40,7 +40,7 @@ exit 22
 fi
 
 # Include the config
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Install libsass and sassc
 ## Thanks: https://askubuntu.com/questions/849057/how-to-install-libsass-on-ubuntu-16-04

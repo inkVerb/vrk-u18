@@ -30,17 +30,17 @@ exit 22
 fi
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22
 fi
 
 # Check status
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 if [ ${VUBUNTU_STUDIOLITE_INSTALLED} != "YES" ]; then
 echo "Some Vubuntu tools are not yet installed. Installing them now to make things easier. Don't leave...
 "
-/var/local/vrk/boss/install-vubuntu
+/opt/vrk/boss/install-vubuntu
 fi
 
 # Update & Upgrade
@@ -52,41 +52,41 @@ apt update -y --fix-missing
 # Install Ubuntu Studio
 echo "Installing the full load of Ubuntu Studio..."
 
-chkfile=/var/local/vrk/.inst-us-1
+chkfile=/opt/vrk/.inst-us-1
 if [ ! -f "$chkfile" ]; then
 apt install -y ubuntustudio-audio
 touch chkfile; fi
-chkfile=/var/local/vrk/.inst-us-2
+chkfile=/opt/vrk/.inst-us-2
 if [ ! -f "$chkfile" ]; then
 apt install -y ubuntustudio-audio-plugins
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-us-3
+chkfile=/opt/vrk/.inst-us-3
 if [ ! -f "$chkfile" ]; then
 apt install -y ubuntustudio-graphics
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-us-4
+chkfile=/opt/vrk/.inst-us-4
 if [ ! -f "$chkfile" ]; then
 apt install -y ubuntustudio-photography
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-us-5
+chkfile=/opt/vrk/.inst-us-5
 if [ ! -f "$chkfile" ]; then
 apt install -y ubuntustudio-publishing
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-us-6
+chkfile=/opt/vrk/.inst-us-6
 if [ ! -f "$chkfile" ]; then
 apt install -y ubuntustudio-video
 touch $chkfile; fi
-chkfile=/var/local/vrk/.inst-us-7
+chkfile=/opt/vrk/.inst-us-7
 if [ ! -f "$chkfile" ]; then
 apt install -y ubuntu-restricted-extras
 touch $chkfile; fi
 
 # Remove every $chkfile
-rm /var/local/vrk/.inst-us-*
+rm /opt/vrk/.inst-us-*
 
 # Set configs
-echo "VUBUNTU_UBUNTUSTUDIO_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
-touch /var/local/vrk/.vubuntu-ubuntustudio-installed
+echo "VUBUNTU_UBUNTUSTUDIO_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /opt/vrk/.vubuntu-ubuntustudio-installed
 
 # Finish
 apt autoremove -y

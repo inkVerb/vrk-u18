@@ -50,7 +50,7 @@ chmod ug+x /home/${SUDO_USER}/vrk/boss/uninstall-vubuntu-vrkstation
 /home/${SUDO_USER}/vrk/boss/uninstall-vubuntu-vrkstation ${VRK_USER}
 
 # Remove vrk
-rm -rf /var/local/vrk
+rm -rf /opt/vrk
 
 # Cleanup
 rm -rf /home/${SUDO_USER}/vrk

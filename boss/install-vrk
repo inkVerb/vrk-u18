@@ -43,7 +43,7 @@ sudo install-vrk
 exit 0; fi
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
@@ -89,7 +89,7 @@ echo "Alright, refreshing..."
 fi
 
 # Include the config
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 
 # Verify SSH Directory
 cd /home/${VRK_USER}
@@ -106,24 +106,24 @@ fi
 if [ ! -e /home/${VRK_USER}/.vrk/boards ]; then
 mkdir -p /home/${VRK_USER}/.vrk/boards
 fi
-cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
+cp /opt/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
 if [ -L /home/${VRK_USER}/.vrk/donjon ]; then
 rm -f /home/${VRK_USER}/.vrk/donjon
 fi
-ln -sfn /var/local/vrk/donjon /home/${VRK_USER}/.vrk/
-cp /var/local/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
-cp /var/local/vrk/droids/* /home/${VRK_USER}/.vrk/boards/
+ln -sfn /opt/vrk/donjon /home/${VRK_USER}/.vrk/
+cp /opt/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
+cp /opt/vrk/droids/* /home/${VRK_USER}/.vrk/boards/
 if [ ! -e /home/${VRK_USER}/.vrk/go ]; then
 mkdir -p /home/${VRK_USER}/.vrk/go
 fi
 ### Copy configs
 if [ ! -d /home/${VRK_USER}/.vrk/configs ]; then
-cp -r /var/local/vrk/donjon/configs-inst /home/${VRK_USER}/.vrk/configs
+cp -r /opt/vrk/donjon/configs-inst /home/${VRK_USER}/.vrk/configs
 fi
 chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.vrk
 ## For a sudoer
 if [ -z $1 ]; then
-ln -sfn /var/local/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
+ln -sfn /opt/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
 fi
 
 # Set the global user bin for surfers
@@ -175,7 +175,7 @@ chown -R ${VRK_USER}:${VRK_USER} /home/${VRK_USER}/.config
 
 # Set config
 sudo -u ${VRK_USER} sed -i "s/VRK_INSTALLED=.*/VRK_INSTALLED=\"YES\"/g" /home/${VRK_USER}/.vrk/configs/stationinfo
-. /var/local/vrk/vrkverno
+. /opt/vrk/vrkverno
 sudo -u ${VRK_USER} sed -i "s/USER_KVERNO=.*/USER_KVERNO=${KVERNO}/g" /home/${VRK_USER}/.vrk/configs/stationinfo
 
 if [ -z "$1" ]; then
@@ -208,9 +208,9 @@ echo "[User]" >>/var/lib/AccountsService/users/${VRK_USER}
 fi
 ## For most desktops
 if [ -d "/usr/share/pixmaps/faces/" ]; then
-cp -f /var/local/vrk/donjon/icons/inkVerb-avatar.png /usr/share/pixmaps/faces/
-cp -f /var/local/vrk/donjon/icons/inkVerb-avatar-Ubuntu.png /usr/share/pixmaps/faces/
-cp -f /var/local/vrk/donjon/icons/inkVerb-avatar-Arch.png /usr/share/pixmaps/faces/
+cp -f /opt/vrk/donjon/icons/inkVerb-avatar.png /usr/share/pixmaps/faces/
+cp -f /opt/vrk/donjon/icons/inkVerb-avatar-Ubuntu.png /usr/share/pixmaps/faces/
+cp -f /opt/vrk/donjon/icons/inkVerb-avatar-Arch.png /usr/share/pixmaps/faces/
 sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
 sed -i "s/\[User\]/\[User\]\nIcon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar\.png/" /var/lib/AccountsService/users/${VRK_USER}
 else
@@ -225,7 +225,7 @@ sudo mv /var/lib/AccountsService/icons/${VRK_USER}-vbak /var/lib/AccountsService
 "
  fi
 ### Set it
-cp -f /var/local/vrk/donjon/icons/inkVerb-avatar-Arch.png /var/lib/AccountsService/icons/${VRK_USER}
+cp -f /opt/vrk/donjon/icons/inkVerb-avatar-Arch.png /var/lib/AccountsService/icons/${VRK_USER}
 sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
 sed -i "s/[User]/[User]\nIcon=\/var\/lib\/AccountsService\/icons\/${VRK_USER}/" /var/lib/AccountsService/users/${VRK_USER}
 fi
@@ -283,7 +283,7 @@ fi
 
 # Get the droids
 echo "Getting the first droids..."
-/var/local/vrk/boss/vdroid https://github.com/inkVerb/droids
+/opt/vrk/boss/vdroid https://github.com/inkVerb/droids
 
 # Reboot
 if [ -z $1 ]; then

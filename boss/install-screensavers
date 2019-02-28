@@ -8,7 +8,7 @@
 
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
@@ -36,7 +36,7 @@ sudo install-screensavers
 exit 22; fi
 
 # Check status
-. /var/local/vrk/machineinfo
+. /opt/vrk/machineinfo
 if [ "${XSCREENSAVERS_RSS_INSTALLED}" = "YES" ]; then
 echo "xscreensaver & Really Slick Screensavers already installed."
 exit 0; fi
@@ -51,8 +51,8 @@ wait
 rss-glx_install
 
 # Config
-echo "XSCREENSAVERS_RSS_INSTALLED=\"YES\"" >> /var/local/vrk/machineinfo
-touch /var/local/vrk/.xscreensaverrss
+echo "XSCREENSAVERS_RSS_INSTALLED=\"YES\"" >> /opt/vrk/machineinfo
+touch /opt/vrk/.xscreensaverrss
 
 # Finish
 apt autoremove -y

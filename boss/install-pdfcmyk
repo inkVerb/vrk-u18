@@ -8,7 +8,7 @@
 
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22; fi
 
@@ -36,8 +36,8 @@ sudo install-pdfcmyk
 exit 22; fi
 
 # Install
-cp /var/local/vrk/donjon/inkscape/ExportPDTCMYK/export-pdf-cmyk.inx /usr/share/inkscape/extensions/
-cp /var/local/vrk/donjon/inkscape/ExportPDTCMYK/export-pdf-cmyk.py /usr/share/inkscape/extensions/
+cp /opt/vrk/donjon/inkscape/ExportPDTCMYK/export-pdf-cmyk.inx /usr/share/inkscape/extensions/
+cp /opt/vrk/donjon/inkscape/ExportPDTCMYK/export-pdf-cmyk.py /usr/share/inkscape/extensions/
 
 # Finish
 echo "Export PDF CMYK Inkscape extension installed.

@@ -33,7 +33,7 @@ exit 22
 fi
 
 # Check if Vrk installed on this machine
-if [ ! -f /var/local/vrk/machineinfo ]; then
+if [ ! -f /opt/vrk/machineinfo ]; then
 echo "Install Vrk first. See README.md"
 exit 22
 fi
@@ -51,7 +51,7 @@ CLNDROIDREPO1=$(echo $DROIDREPO | cut -d'/' -f5-)
 CLNDROIDREPO=$(echo $CLNDROIDREPO1 | sed 's/\.git//')
 
 # Clone it
-cd /var/local/vrk/droids
+cd /opt/vrk/droids
 git clone ${DROIDREPO}
 
 # Clean up and install

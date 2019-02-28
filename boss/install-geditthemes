@@ -38,7 +38,7 @@ exit 22
 fi
 
 # Git pull
-cd /var/local/vrk
+cd /opt/vrk
 mkdir .gedit-themes.tmp
 cd .gedit-themes.tmp
 git clone https://github.com/Peter-van-der-Velde/Two-Dark.git
