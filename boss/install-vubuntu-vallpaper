@@ -59,23 +59,23 @@ exit 22; fi
 
 # Install/Update Vallpaper base
 ## The actuall Valls exist here under lock and key.
-mkdir -p /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}
+mkdir -p /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}
 ## The images are duplicated here for hard system link use.
 mkdir -p /usr/share/images/vall
 
 # Install/Reset the Vubuntu Vallpaper Room
 ## The /usr/share/images folder is used by Xfce and by set-vall and Vallpaper rooms and chrons
-rm -rf /var/local/vall/rooms/${VALL_ROOM}
-cp -r ${VALL_INST_DIR}/${VALL_ROOM} /var/local/vall/rooms/
+rm -rf /opt/vall/rooms/${VALL_ROOM}
+cp -r ${VALL_INST_DIR}/${VALL_ROOM} /opt/vall/rooms/
 rm -rf /usr/share/images/vall/${VALL_ROOM}
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/images/vall/
+ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/images/vall/
 ## Remove any broken symlinks
 cd /usr/share/images/vall/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 
 # Add Avatar icons (but not Xfce)
 if [ -d "/usr/share/pixmaps/faces/" ]; then
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/avitar-icons/* /usr/share/pixmaps/faces/
+ln -sfn /opt/vall/rooms/${VALL_ROOM}/avitar-icons/* /usr/share/pixmaps/faces/
 ## Remove any broken symlinks
 cd /usr/share/pixmaps/faces/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
@@ -87,11 +87,11 @@ fi
 mkdir -p /usr/share/backgrounds
 mkdir -p /usr/share/gnome-background-properties
 rm -rf /usr/share/backgrounds/${VALL_ROOM}
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/backgrounds/
+ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM} /usr/share/backgrounds/
 #### Remove any broken symlinks
 cd /usr/share/backgrounds/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/vallpapers-${VALL_ROOM}.xml /usr/share/gnome-background-properties/
+ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/vallpapers-${VALL_ROOM}.xml /usr/share/gnome-background-properties/
 #### Remove any broken symlinks
 cd /usr/share/gnome-background-properties/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
@@ -101,8 +101,8 @@ for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi;
 ## Xfce
 if [ "${LINUX_DISTRO}" = "xubuntu" ] || [ "${LINUX_DISTRO}" = "xfce" ] ; then
 #### DEV NOTE: In Linuxmint Xfce, /usr/share/xfce4/backdrops is a symlink containing native backgrounds for both
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/xfce4/backdrops/
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/xfce4/backdrops/
+ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/xfce4/backdrops/
+ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/xfce4/backdrops/
 ### Remove any broken symlinks
 cd /usr/share/xfce4/backdrops/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
@@ -110,22 +110,22 @@ fi
 ## UbuntuStudio
 if [ "${LINUX_DISTRO}" = "ubuntustudio" ]; then
 #### DEV NOTE: in UbuntuStudio, /usr/share/xfce4/backdrops is a symlink to /usr/share/backgrounds/ubuntustudio, containing native backgrounds for both
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/backgrounds/ubuntustudio/
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/backgrounds/ubuntustudio/
+ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.png /usr/share/backgrounds/ubuntustudio/
+ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/*.jpg /usr/share/backgrounds/ubuntustudio/
 ### Remove any broken symlinks
 cd /usr/share/backgrounds/ubuntustudio/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 ## MATE
 if [ -d /usr/share/mate-background-properties ]; then
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/mate-${VALL_ROOM}.xml /usr/share/mate-background-properties/
+ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/mate-${VALL_ROOM}.xml /usr/share/mate-background-properties/
 ### Remove any broken symlinks
 cd /usr/share/mate-background-properties/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 fi
 ## Cinnamon
 if [ -d /usr/share/cinnamon-background-properties ]; then
-ln -sfn /var/local/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/cinnamon-${VALL_ROOM}.xml /usr/share/cinnamon-background-properties/
+ln -sfn /opt/vall/rooms/${VALL_ROOM}/${VALL_ROOM}/cinnamon-${VALL_ROOM}.xml /usr/share/cinnamon-background-properties/
 ### Remove any broken symlinks
 cd /usr/share/cinnamon-background-properties/
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
@@ -147,7 +147,7 @@ echo "#!/bin/sh
 VALL_INST_BY=\"${VRK_USER}\"
 VALL_CPUPKGVER=\"${CPUPKGVER}\"
 VALL_LINUX_DISTRO=\"${LINUX_DISTRO}\"
-" > /var/local/vall/vallmachineinfo
+" > /opt/vall/vallmachineinfo
 
 # Finish
 echo "

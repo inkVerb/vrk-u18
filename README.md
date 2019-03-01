@@ -207,7 +207,7 @@ Note: Update version numbers reference the framework. Ongoing updates continue f
 - A Vrk Station can control many clouds quickly and easily, but also has integration with OpenSource "Verber" servers, see the inkVerb GitHub project and http://verb.ink
 
 ### Back-end
-- When you install, the vrk "core" folder will move to /var/local/, then creates a .vrk folder in your home withconfigs and links to the core.
+- When you install, the vrk "core" folder will move to opt/, then creates a .vrk folder in your home withconfigs and links to the core.
 - You will need to copy vrk to the home folder each time you want to install it for a user. It's somewhat a one-user-machine app, but can work for others.
 - To update Vrk, run the updatevrk Surfer.
 

@@ -17,12 +17,12 @@ NEWIMAGE=$2
 XMNTR=$3
 
 ## Check if Vall installed on this machine
-if [ ! -f /var/local/vall/vallmachineinfo ]; then
+if [ ! -f /opt/vall/vallmachineinfo ]; then
 echo "Install Vall on this machine first. See README.md"
 exit 22; fi
 
 # Include the config
-. /var/local/vall/vallmachineinfo
+. /opt/vall/vallmachineinfo
 
 # Check if it exists
 if [ ! -e "/usr/share/images/vall/${VALLROOM}/${NEWIMAGE}" ]; then

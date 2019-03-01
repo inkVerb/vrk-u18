@@ -62,7 +62,7 @@ exit 0
 ## vrk dir exists, not .vrk
 echo "Vrk is only partially installed. Removing it and starting over..."
 rm -rf /opt/vrk
-rm -rf /var/local/vall
+rm -rf /opt/vall
  fi
 else
 ## .vrk exists, not vrk
@@ -112,7 +112,7 @@ SESSDISTRO="$1"
 
 # Set the directory to var/local, but a hidden link in the user's
 ## Check if it is already in var/local from a previous install
-cp -rf /home/${VRK_USER}/vrk /var/local/
+cp -rf /home/${VRK_USER}/vrk opt/
 mv -f /opt/vrk/inst/vrkverno /opt/vrk/
 
 # Executable check

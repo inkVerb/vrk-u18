@@ -27,7 +27,7 @@ KUPGRADE_REPO="vrk"
 #cd /home
 #for PATCH_USER_crude in ./*/
 #do
-#PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+#PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//g'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
 #if [ -d "/home/${PATCH_USER}" ]; then
 # if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 #. /home/${PATCH_USER}/.vrk/configs/stationinfo
@@ -164,7 +164,7 @@ echo "Surfers, droids, and bosses have been updated."
 cd /home
 for PATCH_USER_crude in ./*/
 do
-PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//g'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
 if [ -d "/home/${PATCH_USER}" ]; then
  if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
@@ -996,16 +996,17 @@ cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
 # NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
 
 # Update to the new update system
-sed -i "s/KVERNO=.*/KVERNO=0\.31\.08/g" /var/local/vrk/vrkverno
-mv /var/local/vrk /opt/
-ln -sfn /opt/vrk /var/local/
+
 
 ##### END GLOBAL SCRIPT
 # Set and refresh the current version into inklists
-sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /opt/vrk/vrkverno
+sed -i "s/KVERNO=.*/KVERNO=0\.31\.08/g" /var/local/vrk/vrkverno
+mv /var/local/vrk /opt/
+ln -sfn /opt/vrk /var/local/
 . /opt/vrk/vrkverno
 fi
 ###############END#UPDATE#PATCH#
+
 
 UPGRADE_PATCH_KVERNO=0.31.09
 
@@ -1013,7 +1014,7 @@ UPGRADE_PATCH_KVERNO=0.31.09
 cd /home
 for PATCH_USER_crude in ./*/
 do
-PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//g'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
 if [ -d "/home/${PATCH_USER}" ]; then
  if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
