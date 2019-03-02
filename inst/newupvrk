@@ -139,7 +139,7 @@ fi
 . /opt/vrk/machineinfo
 
 # Check minimal updateable version
-if [ $(echo ${MIN_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+if [ $(echo ${MIN_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") -gt $(echo ${KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") ] ; then
 echo "Can't run. The minimum version to run is ${MIN_KVERNO}. This Vrk version is ${KVERNO}. I quit."
 exit 0
 fi
@@ -164,7 +164,7 @@ echo "Surfers, droids, and bosses have been updated."
 cd /home
 for PATCH_USER_crude in ./*/
 do
-PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//g'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
 if [ -d "/home/${PATCH_USER}" ]; then
  if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
 . /home/${PATCH_USER}/.vrk/configs/stationinfo
