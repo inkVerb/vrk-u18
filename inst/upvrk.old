@@ -1,0 +1,1074 @@
+#!/bin/sh
+# inkVerb updater for Vrk™ Station, verb.ink
+
+# This updates the Vrk™ Station
+## This contains many version updaters to update a Vrk™ Station sequentially, one version at a time.
+## This is run at the path: /opt/vrk/vrk-update/update
+
+# DEV NOTE: Larger versions must be at the bottom, smaller versions at the top, so "descending"
+
+# Normally this is run automatically by the Boss updatevrk
+## Run this if you have downloaded and copied vrk and put it into the home folder
+## You must run this per user to update Bosses and Surfers
+
+# How to use:
+## cd ~/vrk/inst
+## chmod ug+x upvrk
+## sudo ./upvrk
+
+
+MIN_KVERNO=0.300
+KUPGRADE_REPO="vrk"
+
+# Sample version updater:
+#UPGRADE_PATCH_KVERNO=0.31.09
+#
+## Run the update scripts for this patch
+#cd /home
+#for PATCH_USER_crude in ./*/
+#do
+#PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//g'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+#if [ -d "/home/${PATCH_USER}" ]; then
+# if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+#. /home/${PATCH_USER}/.vrk/configs/stationinfo
+#  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") ] ; then
+#
+## Move to working directory of the patch
+#if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
+#cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+#
+###### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+## Make the user do the job himself
+## NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+## sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+#
+#
+################STOP#USER#PATCH#
+## Set and refresh the current version into inklist for the patch user
+#sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+#  fi
+# fi
+#fi
+#done
+## Global patch
+#if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") -gt $(echo ${KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") ] ; then
+#
+### Notes
+#CLEAN_PATCH_KVERNO=$(echo $UPGRADE_PATCH_KVERNO | sed -e "s/\.//g")
+#PCLdoc="$(cat <<UPCL
+#Patch ${UPGRADE_PATCH_KVERNO} Changelog:
+### Patch Notes Here...
+#UPCL
+#)"
+#echo "$PCLdoc"
+#### So we can call a specific version later if needed
+#eval "v$CLEAN_PATCH_KVERNO='$(echo "$PCLdoc")'"
+#
+## Verify the working directory of the patch
+#if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
+#cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+#
+###### GLOBAL SCRIPTS GO HERE #####
+## NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+#
+#
+###### END GLOBAL SCRIPT
+## Set and refresh the current version into inklists
+#sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /opt/vrk/vrkverno
+#. /opt/vrk/vrkverno
+#fi
+################END#UPDATE#PATCH#
+
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./upvrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./upvrk
+"
+exit 0
+fi
+
+# Check if present
+if [ ! -d "/home/${SUDO_USER}/${KUPGRADE_REPO}" ]; then
+echo "The vrk folder is not in the right place. I quit."
+exit 22
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo ./govrk
+"
+exit 0
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo ./govrk
+"
+exit 0
+fi
+
+# Check if present
+if [ ! -d "/home/${SUDO_USER}/${KUPGRADE_REPO}" ]; then
+echo "The vrk folder is not in the right place. I quit."
+exit 22
+fi
+
+# Include the configs
+. /var/local/vrk/vrkverno
+. /var/local/vrk/machineinfo
+
+# Check minimal updateable version
+if [ $(echo ${MIN_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+echo "Can't run. The minimum version to run is ${MIN_KVERNO}. This Vrk version is ${KVERNO}. I quit."
+exit 0
+fi
+
+# Update/refresh Bosses, Surfers, Droids, and Donjon
+rm -rf /var/local/vrk/boss
+rm -rf /var/local/vrk/surf
+rm -rf /var/local/vrk/donjon
+cp -rf /home/${SUDO_USER}/${KUPGRADE_REPO} /var/local/
+rm -f /var/local/vrk/inst/vrkverno
+chmod ug+x /var/local/vrk/boss/*
+chmod ug+x /var/local/vrk/surf/*
+chmod ug+x /var/local/vrk/donjon/*
+chmod ug+x /var/local/vrk/donjon/vrktemplates/7_BASH
+chmod ug+x /var/local/vrk/droids/*
+cd /var/local/vrk
+wget https://raw.githubusercontent.com/inkVerb/vrk/master/README.md
+echo "Surfers, droids, and bosses have been updated."
+
+# Vrk user update
+## Check if Vrk Staion is installed for this user
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//g'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ "${VRK_INSTALLED}" = "YES" ]; then
+## Refresh the links for the user
+/var/local/vrk/boss/vrkfresh ${PATCH_USER}
+## Refresh Vubuntu Vallpaper
+/var/local/vrk/boss/install-vubuntu-vallpaper
+  fi
+ fi
+fi
+done
+
+# Refresh bosses
+ln -sfn /var/local/vrk/boss/* /usr/bin/
+cd /usr/bin/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
+
+# Run version-by-version updates
+
+
+UPGRADE_PATCH_KVERNO=0.301
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER SCRIPTS GO HERE ###
+# Add bossability declaration and properly update boards
+if grep -q "USER_BOSSYN" "/home/${PATCH_USER}/.vrk/configs/stationinfo"; then
+echo "Already a known boss..."
+else
+echo "USER_BOSSYN=\"CAN_BOSS\"" >> /home/${PATCH_USER}/.vrk/configs/stationinfo
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+/var/local/vrk/boss/vrkfresh ${PATCH_USER}
+fi
+
+# vGit
+if grep -q "VGIT_INS" "/home/${PATCH_USER}/.vrk/configs/stationinfo"; then
+echo "Already has vGit..."
+else
+echo "VGIT_INST=\"NOT_YET\"" >> /home/${PATCH_USER}/.vrk/configs/stationinfo
+fi
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklists
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+# Fix the locale problem in older versions
+/var/local/vrk/boss/vrklocale
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.302
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER SCRIPTS GO HERE ###
+cp -f /var/local/vrk/donjon/inkVerb-avatar.png /usr/share/pixmaps/faces/
+sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${PATCH_USER}
+echo "Icon=/usr/share/pixmaps/faces/inkVerb-avatar.png" >> /var/lib/AccountsService/users/${PATCH_USER}
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklists
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+# Update Vallpaper
+if [ -L "/usr/share/images/vall" ]; then
+rm -f /usr/share/images/vall
+fi
+/var/local/vrk/boss/install-vubuntu-vallpaper
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+UPGRADE_PATCH_KVERNO=0.303
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+chown -R ${PATCH_USER}:${PATCH_USER} /home/${PATCH_USER}/.vrk/myWall
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.304
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+# Vallpaper
+mv -f /var/local/vall/rooms/vubuntu/wallpapers /var/local/vall/rooms/vubuntu/vubuntu
+rm -rf /usr/share/backgrounds/vubuntu
+rm -rf /usr/share/images/vall
+mkdir /usr/share/images/vall
+ln -sfn /var/local/vall/rooms/vubuntu/vubuntu /usr/share/backgrounds/
+ln -sfn /var/local/vall/rooms/vubuntu/vubuntu /usr/share/images/vall/
+ln -sfn /var/local/vall/rooms/vubuntu/vubuntu/vallpapers-${VALL_ROOM}.xml /usr/share/gnome-background-properties/
+## MATE
+if [ -d /usr/share/mate-background-properties ]; then
+ln -sfn /var/local/vall/rooms/vubuntu/vubuntu/mate-${VALL_ROOM}.xml /usr/share/mate-background-properties/
+fi
+## Cinnamon
+if [ -d /usr/share/cinnamon-background-properties ]; then
+ln -sfn /var/local/vall/rooms/vubuntu/vubuntu/cinnamon-${VALL_ROOM}.xml /usr/share/cinnamon-background-properties/
+fi
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.305
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+sed -i "s/UBUNT_DISTRO/LINUX_DISTRO/g" /var/local/vrk/machineinfo
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.306
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+## myWall
+### GNOME
+if [ -d /usr/share/gnome-background-properties ]; then
+ln -sfn /home/${PATCH_USER}/.vrk/myWall/my-wall.xml /home/${PATCH_USER}/.local/share/gnome-background-properties/
+cd /home/${PATCH_USER}/.local/share/gnome-background-properties/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
+fi
+### MATE
+if [ ! -f /home/${PATCH_USER}/.vrk/myWall/my-mate-wall.xml ]; then
+echo "<?xml version=\"1.0\"?>
+<!DOCTYPE wallpapers SYSTEM \"mate-wp-list.dtd\">
+<wallpapers>
+</wallpapers>" > /home/${PATCH_USER}/.vrk/myWall/my-mate-wall.xml; fi
+if [ -d /usr/share/mate-background-properties ]; then
+ln -sfn /home/${PATCH_USER}/.vrk/myWall/my-mate-wall.xml /home/${PATCH_USER}/.local/share/mate-background-properties/
+cd /home/${PATCH_USER}/.local/share/mate-background-properties/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
+fi
+### Cinnamon
+if [ -f "/home/${PATCH_USER}/.vrk/linuxmint-my-cinn-wall.xml" ]; then
+mv -f /home/${PATCH_USER}/.vrk/linuxmint-my-cinn-wall.xml /home/${PATCH_USER}/.vrk/my-cinn-wall.xml; fi
+if [ -d /usr/share/cinnamon-background-properties ]; then
+ln -sfn /home/${PATCH_USER}/.vrk/myWall/my-cinn-wall.xml /home/${PATCH_USER}/.local/share/cinnamon-background-properties/
+/home/${PATCH_USER}/.local/share/cinnamon-background-properties/
+for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
+fi
+### Reinstall all for links
+/var/local/vrk/boss/install-vubuntu-vallpaper
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.307
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+# myWall new names
+mv -f /home/${PATCH_USER}/.vrk/myWall/linuxmint-my-cinn-wall.xml /home/${PATCH_USER}/.vrk/myWall/my-cinn-wall.xml
+if [ -d /usr/share/cinnamon-background-properties ]; then
+ln -sfn /home/${PATCH_USER}/.vrk/myWall/my-cinn-wall.xml /home/${PATCH_USER}/.local/share/cinnamon-background-properties/
+fi
+if [ ! -f /home/${PATCH_USER}/.vrk/myWall/my-mate-wall.xml ]; then
+echo "<?xml version=\"1.0\"?>
+<!DOCTYPE wallpapers SYSTEM \"mate-wp-list.dtd\">
+<wallpapers>
+</wallpapers>" > /home/${PATCH_USER}/.vrk/myWall/my-mate-wall.xml
+fi
+if [ -d /usr/share/mate-background-properties ]; then
+ln -sfn /home/${PATCH_USER}/.vrk/myWall/my-mate-wall.xml /home/${PATCH_USER}/.local/share/mate-background-properties/
+fi
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.308
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+# $DESKTOP_SESSION update
+if [ -z "$1" ]; then
+echo "For this special update, you must run it this way:
+
+sudo ./govrk \$DESKTOP_SESSION
+
+or
+
+sudo ./upvrk \$DESKTOP_SESSION
+"
+exit 0; fi
+SESSDISTRO="$1"
+sed -i "s/LINUX_DISTRO=.*/LINUX_DISTRO=\"${SESSDISTRO}\"/" /var/local/vrk/machineinfo
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.309
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.310
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+## Whisker menu
+### Icon
+#### Per distro ;-)
+if [ "${LINUX_DISTRO}" = "ubuntustudio" ]; then
+sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/inkVerb-disk-blue\.svg/g" /home/${PATCH_USER}/.config/xfce4/panel/whiskermenu-1.rc; fi
+if [ "${LINUX_DISTRO}" = "xubuntu" ]; then
+sed -i "s/button-icon=.*/button-icon=\/var\/local\/vall\/rooms\/vubuntu\/icons\/inkVerb-disk-white\.svg/g" /home/${PATCH_USER}/.config/xfce4/panel/whiskermenu-1.rc; fi
+#### Show it
+if [ "${LINUX_DISTRO}" = "ubuntustudio" ] || [ "${LINUX_DISTRO}" = "xubuntu" ] ; then
+sed -i "s/show-button-icon=.*/show-button-icon=true/g" /home/${PATCH_USER}/.config/xfce4/panel/whiskermenu-1.rc
+fi
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+echo "VRKUPDATEREPO=\"vrk\"" >> /var/local/vrk/machineinfo
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.311
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+
+# Move to working directory of the patch
+if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
+cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+
+# Verify the working directory of the patch
+if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
+cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+
+##### GLOBAL SCRIPTS GO HERE #####
+# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+
+# Adapta
+/var/local/vrk/boss/install-adapta
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.312
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+# Newer channels for Blender & Kdenlive
+add-apt-repository -y ppa:thomas-schiex/blender
+add-apt-repository -y ppa:kdenlive/kdenlive-stable
+apt update -y --fix-missing
+apt install -y blender kdenlive
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.313
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+# Icon/theme update
+/var/local/vrk/boss/themicons-git-upstall
+
+# Audacity Plugins
+cd /usr/share/audacity/plug-ins/
+wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
+wget -O DeEsser.ny http://forum.audacityteam.org/download/file.php?id=10125
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+UPGRADE_PATCH_KVERNO=0.314
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+# Audacity Plugins
+cd /usr/share/audacity/plug-ins/
+wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
+wget -O DeEsser.ny http://forum.audacityteam.org/download/file.php?id=10125
+
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+UPGRADE_PATCH_KVERNO=0.315
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+# Desktop Sharing
+## Check if Vubuntu Desktop installed (again)
+if [ -f /var/local/vrk/.vubuntu-desktop-installed ]; then
+apt install -y vino
+fi
+
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+UPGRADE_PATCH_KVERNO=0.316
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Update avatars for Xfce
+if [ -d "/usr/share/pixmaps/faces" ]; then
+sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${PATCH_USER}
+sed -i "s/\[User\]/\[User\]\nIcon=\/usr\/share\/pixmaps\/faces\/inkVerb-avatar\.png/" /var/lib/AccountsService/users/${PATCH_USER}
+fi
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+
+# New icons
+if [ -d "/usr/share/pixmaps/faces/" ]; then
+cp -f /var/local/vrk/donjon/icons/inkVerb-avatar-Ubuntu.png /usr/share/pixmaps/faces/
+cp -f /var/local/vrk/donjon/icons/inkVerb-avatar-Arch.png /usr/share/pixmaps/faces/
+fi
+
+##### END GLOBAL SCRIPT
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.317
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+## Terminal app settings
+if [ "${VUBUNTU_DESKTOP_SET}" = "YES" ]; then
+sudo -u ${PATCH_USER} /home/${PATCH_USER}/.vrk/donjon/xt-tilda
+ if [ -z /home/${PATCH_USER}/.vrk/configs/.xt-flatabulous-ubuntu ]; then
+sudo -u ${PATCH_USER} /home/${PATCH_USER}/.vrk/donjon/xt-ubuntabulous
+sudo -u ${PATCH_USER} /home/${PATCH_USER}/.vrk/donjon/xt-flatabulous
+touch /home/${PATCH_USER}/.vrk/configs/.xt-flatabulous-ubuntu
+ fi
+rm -f /home/${PATCH_USER}/.config/autostart/guake.desktop
+sudo -u ${PATCH_USER} gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar "false"
+fi
+
+## Other Desktop stuff
+sudo -u ${PATCH_USER} gsettings set org.gnome.gedit.preferences.editor display-overview-map true
+sudo -u ${PATCH_USER} gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
+sudo -u ${PATCH_USER} gsettings set org.gnome.gedit.preferences.editor bracket-matching true
+sudo -u ${PATCH_USER} /home/${PATCH_USER}/.vrk/boards/set-vall vubuntu VIP-Colors.png
+sudo -u ${PATCH_USER} gsettings set org.gnome.desktop.interface gtk-theme "vimix-dark-doder"
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+##### GLOBAL SCRIPTS GO HERE #####
+#### canonical partner
+ if [ ! -f "/var/local/vrk/.vubuntu-repo-partner"-$(lsb_release -sc) ]; then
+vrk_ppa_repo_partner="deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+ if ! grep -q "^deb .*$vrk_ppa_repo_partner" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+add-apt-repository -y "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+touch /var/local/vrk/.vubuntu-repo-partner-$(lsb_release -sc)
+  fi
+ fi
+## Atom
+cd /var/local/vrk
+mkdir -p .atom-key.tmp
+cd .atom-key.tmp
+curl -sL https://packagecloud.io/AtomEditor/atom/gpgkey | apt-key add -; wait
+sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'; wait
+cd ..
+rm -r .atom-key.tmp
+## Update
+apt update -y --fix-missing
+## Install Atom & Tilda
+apt install -y atom tilda
+apt remove -y guake
+gsettings set org.gnome.desktop.screensaver picture-uri file:///usr/share/backgrounds/vubuntu/Vubuntu-Mesh-Disk.png
+
+##### END GLOBAL SCRIPT
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /var/local/vrk/vrkverno
+. /var/local/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+UPGRADE_PATCH_KVERNO=0.317
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+
+# Move to working directory of the patch
+if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
+cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=0\.31\.08/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") -gt $(echo ${KVERNO} | sed -e "s/\.//" | sed -e "s/^0*//") ] ; then
+
+# Verify the working directory of the patch
+if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
+cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+
+##### GLOBAL SCRIPTS GO HERE #####
+# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+
+# Update to the new update system
+
+
+##### END GLOBAL SCRIPT
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=0\.31\.08/g" /var/local/vrk/vrkverno
+mv /var/local/vrk /opt/
+ln -sfn /opt/vrk /var/local/
+. /opt/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.31.09
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//g'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") ] ; then
+
+# Move to working directory of the patch
+if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
+cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") -gt $(echo ${KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") ] ; then
+
+## Notes
+CLEAN_PATCH_KVERNO=$(echo $UPGRADE_PATCH_KVERNO | sed -e "s/\.//g")
+PCLdoc="$(cat <<UPCL
+Patch ${UPGRADE_PATCH_KVERNO} Changelog:
+## Patch Notes Here...
+UPCL
+)"
+echo "$PCLdoc"
+### So we can call a specific version later if needed
+eval "v$CLEAN_PATCH_KVERNO='$(echo "$PCLdoc")'"
+
+# Verify the working directory of the patch
+if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
+cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+
+##### GLOBAL SCRIPTS GO HERE #####
+# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+
+
+##### END GLOBAL SCRIPT
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /opt/vrk/vrkverno
+. /opt/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+# Cleanup
+rm -rf /home/${SUDO_USER}/${KUPGRADE_REPO}
+
+# Finish
+echo "Vrk Station and users are Vrking at v${KVERNO} framework from ${KUPGRADE_REPO}."
