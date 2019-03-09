@@ -236,7 +236,7 @@ cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
 
 ##### GLOBAL SCRIPTS GO HERE #####
 # NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
-sudo -u ${PATCH_USER} /home/${PATCH_USER}/.vrk/boards/set-vall vubuntu VIP-Mesh.png
+
 
 ##### END GLOBAL SCRIPT
 # Set and refresh the current version into inklists
