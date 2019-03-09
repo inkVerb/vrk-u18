@@ -173,11 +173,11 @@
     <artist>verb.ink</artist>
   </wallpaper>
   <wallpaper>
-    <name>VIP Violets</name>
-    <filename>/usr/share/backgrounds/vubuntu/VIP-Violets.png</filename>
+    <name>VIP Mesh</name>
+    <filename>/usr/share/backgrounds/vubuntu/VIP-Mesh.png</filename>
     <options>zoom</options>
-    <pcolor>#442a5e</pcolor>
-    <scolor>#442a5e</scolor>
+    <pcolor>#1793d0</pcolor>
+    <scolor>#1793d0</scolor>
     <shade_type>solid</shade_type>
     <artist>verb.ink</artist>
   </wallpaper>
