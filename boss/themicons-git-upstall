@@ -190,7 +190,7 @@ git clone https://github.com/erikdubois/Surfn
 ###########################################
 ### Continue
 rm -rf /usr/share/icons/Surfn*
-cd Surfn
+cd Surfn/surfn-icons
 mv Surfn* /usr/share/icons/
 ### Update
 cd /usr/share/icons

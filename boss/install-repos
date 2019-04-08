@@ -62,15 +62,13 @@ add-apt-repository -y multiverse
 #rm -r .atom-key.tmp
 
 ## Blender faster channel
-add-apt-repository -y ppa:thomas-schiex/blender
+#add-apt-repository -y ppa:thomas-schiex/blender #broken?
 ## Kdenlive faster channel
 add-apt-repository -y ppa:kdenlive/kdenlive-stable
 ## Shotcut
-add-apt-repository -y ppa:haraldhv/shotcut
+#add-apt-repository -y ppa:haraldhv/shotcut #broken?
 ## LibreOffice
 add-apt-repository -y ppa:libreoffice/ppa
-## KDE for the current version of Kate
-add-apt-repository -y ppa:kubuntu-ppa/backports
 ## Update
 apt update -y --fix-missing
 
@@ -102,4 +100,3 @@ touch /opt/vrk/.reposinstalled
 apt update -y --fix-missing
 
 echo "Repos added."
-
