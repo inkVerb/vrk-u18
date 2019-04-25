@@ -281,14 +281,9 @@ echo "Install Nextcloud with sudo install-nextcloud"
  fi
 fi
 
-# Get the droids
-echo "Getting the first droids..."
-/opt/vrk/boss/vdroid https://github.com/inkVerb/droids
-
 # Reboot
 if [ -z $1 ]; then
 echo "Vrk installed.
 
-Now you need to make sure the vrk directory is gone, then reboot."
+Make sure the vrk directory is gone, then reboot."
 fi
-

@@ -7,7 +7,7 @@
 ## vdroid [ http://github.com/clonePathTo/droidRepo - optional to avoid dialogue ]
 
 # Eg:
-## sudo vdroid 
+## sudo vdroid
 ## sudo vdroid https://github.com/inkVerb/droids
 
 
@@ -56,11 +56,10 @@ git clone ${DROIDREPO}
 
 # Clean up and install
 cd ${CLNDROIDREPO}
-chmod +x vd*
+chmod ug+x vd*
 mv vd* ../
 cd ..
 rm -rf ${CLNDROIDREPO}
 
 # Finish
 echo "The droids from \"${CLNDROIDREPO}\" are installed."
-
