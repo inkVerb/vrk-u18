@@ -125,7 +125,8 @@ Graphic design done. Media stuff: Audacity, Kdenlive, Shotcut, VLC, essential so
 touch $chkfile; fi
 chkfile=/opt/vrk/.inst-min-6
 if [ ! -f "$chkfile" ]; then
-apt install -y vlc vlc-data browser-plugin-vlc kdenlive shotcut audacity kid3 alsa-oss libasound2 libasound2-plugins gnome-music
+apt install -y vlc vlc-data browser-plugin-vlc kdenlive audacity kid3 alsa-oss libasound2 libasound2-plugins gnome-music
+# shotcut repo broken
 ## Audacity DeClicker & DeEsser http://forum.audacityteam.org/viewtopic.php?f=42&t=79278&p=245549
 cd /usr/share/audacity/plug-ins/
 wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
@@ -150,4 +151,3 @@ apt autoremove -y
 echo "
 Vubuntu Minimum is all set.
 "
-
