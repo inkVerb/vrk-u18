@@ -1,0 +1,40 @@
+#!/bin/sh
+#inkVerbBoss! verb.ink
+
+# This shows a list of sudoers
+## For security, it can only be run by a sudoer
+### This also returns the list in white, not red
+
+# How to use:
+## sudo showsudoers
+
+
+# Check if installed
+if [ ! -f /home/${VRK_USER}/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Check to make sure this is run as sudo, but not run by root
+## If root or sudo
+if [ "$(id -u)" = "0" ]; then
+## If sudo is NOT present
+ if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo showsudoers
+"
+exit 22
+ fi
+fi
+## If sudo is NOT present
+if [ -z "${SUDO_COMMAND}" ]; then
+echo "Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo showsudoers
+"
+exit 22
+fi
+
+grep -Po '^sudo.+:\K.*$' /etc/group
+

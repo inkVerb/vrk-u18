@@ -225,7 +225,7 @@ sudo mv /var/lib/AccountsService/icons/${VRK_USER}-vbak /var/lib/AccountsService
 "
  fi
 ### Set it
-cp -f /opt/vrk/donjon/icons/inkVerb-avatar-Arch.png /var/lib/AccountsService/icons/${VRK_USER}
+cp -f /opt/vrk/donjon/icons/inkVerb-avatar-Xfce.png /var/lib/AccountsService/icons/${VRK_USER}
 sed -i "s/Icon=.*//g" /var/lib/AccountsService/users/${VRK_USER}
 sed -i "s/[User]/[User]\nIcon=\/var\/lib\/AccountsService\/icons\/${VRK_USER}/" /var/lib/AccountsService/users/${VRK_USER}
 fi
