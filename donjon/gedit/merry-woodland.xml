@@ -2,7 +2,7 @@
 
 <style-scheme name="Merry Woodland" id="merry-woodland" version="1.0">
     <author>inkVerb</author>
-    <description>A fork of Gedit Arc Dark Theme by GameTheory</description>
+    <description>A fork of Gedit Arc Dark Theme by GameTheory, https://github.com/inkVerb/Merry-Woodland</description>
 
     <!-- Global Settings -->
     <style name="text" foreground="#D8D5CC" background="#2C3037" />

@@ -2,7 +2,7 @@
 
 <style-scheme name="Atom One" id="atom-one" version="1.0">
     <author>inkVerb</author>
-    <description>An Atom-inspired fork of Gedit Merry Woodland Theme by inkVerb</description>
+    <description>An Atom-inspired fork of Gedit Merry Woodland Theme by inkVerb, https://github.com/inkVerb/Atom-One</description>
 
     <!-- Global Settings -->
     <style name="text" foreground="#D8D5CC" background="#2C3037" />
