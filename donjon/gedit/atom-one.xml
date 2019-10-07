@@ -31,7 +31,7 @@
     <style name="def:doc-comment-element" foreground="#5C636F" bold="false" />
 
     <!-- Constants -->
-    <style name="def:constant" foreground="#FFEB95" />
+    <style name="def:constant" foreground="#D7976B" />
     <style name="def:decimal" foreground="brown"/>
     <style name="def:base-n-integer" foreground="brown"/>
     <style name="def:floating-point"  foreground="#A5C261" />
@@ -63,7 +63,7 @@
     <style name="def:underlined" italic="true" underline="single"/>
 
     <style name="def:special-constant" foreground="#EC6776" bold="true" />
-    <style name="def:boolean" foreground="#FFEB95" />
+    <style name="def:boolean" foreground="#D7976B" />
     <style name="def:number"  foreground="#A5C261" />
     <style name="def:keyword" foreground="#CF74D9" bold="false" />
     <style name="def:variable"    foreground="#EC6776" />
@@ -71,7 +71,7 @@
     <style name="def:specials"    background="#BB80B3" />
     <style name="diff:ignore" foreground="#80CBC41A" />
     <style name="ruby:module-handler" foreground="#BB80B3" />
-    <style name="ruby:symbol" foreground="#FFEB95" />
+    <style name="ruby:symbol" foreground="#D7976B" />
     <style name="ruby:regex"  foreground="#A5C261" />
     <style name="sh:others"   />
     <style name="xml:attribute-name"  foreground="#C594C5" />
