@@ -6,11 +6,11 @@
 
     <!-- Global Settings -->
     <style name="text" foreground="#D8D5CC" background="#2C3037" />
-    <style name="selection" foreground="#1E292C" background="#7A898E"/>
+    <style name="selection" foreground="#1E292C" background="#707E82"/>
     <style name="cursor" foreground="#D8D5CC" />
-    <style name="current-line" background="#383C4A" />
+    <style name="current-line" background="#3A3C47" />
     <style name="line-numbers" foreground="#D8D5CC" background="#282C34" />
-    <style name="right-margin" foreground="#EEE8D5" background="#93A1A1"/>
+    <style name="right-margin" foreground="#EEE8D5" background="#383C4A"/>
     <style name="draw-spaces" foreground="#D3D7CF"/>
     <style name="background-pattern" background="#032F3B"/>
 
@@ -25,16 +25,16 @@
     <style name="bookmark" background="#E5E5FF"/>
 
     <!-- Comments -->
-    <style name="def:comment" foreground="#ADB8CA" italic="true" />
+    <style name="def:comment" foreground="#646971" italic="true" />
     <style name="def:shebang" foreground="#5C636F" bold="true" />
     <style name="def:doc-comment" foreground="#1F51EB"/>
     <style name="def:doc-comment-element" foreground="#ADB8CA" italic="true" />
 
     <!-- Constants -->
     <style name="def:constant" foreground="#D7976B" />
-    <style name="def:decimal" foreground="brown"/>
-    <style name="def:base-n-integer" foreground="brown"/>
-    <style name="def:floating-point"  foreground="#A5C261" />
+    <style name="def:decimal" foreground="37B6BF"/>
+    <style name="def:base-n-integer" foreground="37B6BF"/>
+    <style name="def:floating-point"  foreground="#37B6BF" />
     <style name="def:complex" use-style="def:base-n-integer"/>
     <style name="def:character" foreground="#FF80E0"/>
     <style name="def:string" foreground="#8EC37D" />
@@ -43,7 +43,7 @@
 
     <!-- Identifiers -->
     <style name="def:identifier"  foreground="#EC6776" />
-    <style name="def:function" foreground="#82AAFF"/>
+    <style name="def:function" foreground="#4CAAE5"/>
 
     <!-- Statements -->
     <style name="def:statement"   foreground="#BCC9E1" bold="true" />
@@ -64,7 +64,7 @@
 
     <style name="def:special-constant" foreground="#B6C1D5" bold="true" />
     <style name="def:boolean" foreground="#D7976B" />
-    <style name="def:number"  foreground="#A5C261" />
+    <style name="def:number"  foreground="#37B6BF" />
     <style name="def:keyword" foreground="#CF74D9" bold="false" />
     <style name="def:variable"    foreground="#EC6776" />
     <style name="def:net-address-in-comment"  foreground="#EC6776" underline="true" />
@@ -72,7 +72,7 @@
     <style name="diff:ignore" foreground="#80CBC41A" />
     <style name="ruby:module-handler" foreground="#BB80B3" />
     <style name="ruby:symbol" foreground="#D7976B" />
-    <style name="ruby:regex"  foreground="#A5C261" />
+    <style name="ruby:regex"  foreground="#37B6BF" />
     <style name="sh:others"   />
     <style name="xml:attribute-name"  foreground="#C594C5" />
     <style name="xml:element-name"    foreground="#EB606B" />
@@ -135,6 +135,7 @@
     <style name="scheme:any-function"         use-style="def:statement"/>
 
     <style name="sh:dollar"                   foreground="#D7976B" bold="true"/>
+
 
     <style name="makefile:trailing-tab"       background="#FFC0CB"/>
 
