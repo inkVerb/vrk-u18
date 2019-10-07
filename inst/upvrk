@@ -34,12 +34,12 @@ KUPGRADE_REPO="vrk"
 #  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") ] ; then
 #
 ## Move to working directory of the patch
-#if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
-#cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+#if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/" ]; then
+#cd /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/; fi
 #
 ###### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 ## Make the user do the job himself
-## NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+## NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/
 ## sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
 #
 #
@@ -65,11 +65,11 @@ KUPGRADE_REPO="vrk"
 #eval "v$CLEAN_PATCH_KVERNO='$(echo "$PCLdoc")'"
 #
 ## Verify the working directory of the patch
-#if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
-#cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+#if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/" ]; then
+#cd /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/; fi
 #
 ###### GLOBAL SCRIPTS GO HERE #####
-## NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+## NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/
 #
 #
 ###### END GLOBAL SCRIPT
@@ -199,12 +199,12 @@ if [ -d "/home/${PATCH_USER}" ]; then
   if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") ] ; then
 
 # Move to working directory of the patch
-if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
-cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/" ]; then
+cd /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/; fi
 
 ##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
 # Make the user do the job himself
-# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/
 # sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
 
 
@@ -231,12 +231,72 @@ echo "$PCLdoc"
 eval "v$CLEAN_PATCH_KVERNO='$(echo "$PCLdoc")'"
 
 # Verify the working directory of the patch
-if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/" ]; then
-cd /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/; fi
+if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/" ]; then
+cd /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/; fi
 
 ##### GLOBAL SCRIPTS GO HERE #####
-# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/${UPGRADE_PATCH_KVERNO}/
+# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/
 
+
+##### END GLOBAL SCRIPT
+# Set and refresh the current version into inklists
+sed -i "s/KVERNO=.*/KVERNO=${UPGRADE_PATCH_KVERNO}/g" /opt/vrk/vrkverno
+. /opt/vrk/vrkverno
+fi
+###############END#UPDATE#PATCH#
+
+
+UPGRADE_PATCH_KVERNO=0.31.11
+
+# Run the update scripts for this patch
+cd /home
+for PATCH_USER_crude in ./*/
+do
+PATCH_USER_slash=$(echo $PATCH_USER_crude | sed 's/\.//g'); PATCH_USER=$(echo $PATCH_USER_slash | sed 's/\///g')
+if [ -d "/home/${PATCH_USER}" ]; then
+ if [ -f "/home/${PATCH_USER}/.vrk/configs/stationinfo" ]; then
+. /home/${PATCH_USER}/.vrk/configs/stationinfo
+  if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") -gt $(echo ${USER_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") ] ; then
+
+# Move to working directory of the patch
+if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/" ]; then
+cd /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/; fi
+
+##### PER-USER PATCH SCRIPTS GO HERE ### use: ${PATCH_USER}
+# Make the user do the job himself
+# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/
+# sudo -u ${PATCH_USER} echo "I am myself v${UPGRADE_PATCH_KVERNO}."
+
+
+###############STOP#USER#PATCH#
+# Set and refresh the current version into inklist for the patch user
+sed -i "s/USER_KVERNO=.*/USER_KVERNO=${UPGRADE_PATCH_KVERNO}/g" /home/${PATCH_USER}/.vrk/configs/stationinfo
+  fi
+ fi
+fi
+done
+# Global patch
+if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") -gt $(echo ${KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") ] ; then
+
+## Notes
+CLEAN_PATCH_KVERNO=$(echo $UPGRADE_PATCH_KVERNO | sed -e "s/\.//g")
+PCLdoc="$(cat <<UPCL
+Patch ${UPGRADE_PATCH_KVERNO} Changelog:
+## Patch Notes Here...
+UPCL
+)"
+echo "$PCLdoc"
+### So we can call a specific version later if needed
+eval "v$CLEAN_PATCH_KVERNO='$(echo "$PCLdoc")'"
+
+# Verify the working directory of the patch
+if [ -d "/home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/" ]; then
+cd /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/; fi
+
+##### GLOBAL SCRIPTS GO HERE #####
+# NOTE: PWD is /home/${SUDO_USER}/${KUPGRADE_REPO}/upgrade/${UPGRADE_PATCH_KVERNO}/
+cp -rf /home/${SUDO_USER}/${KUPGRADE_REPO}/donjon/gedit /opt/vrk/donjon/
+cp -f /opt/vrk/donjon/gedit/*.xml /usr/share/gtksourceview-3.0/styles/
 
 ##### END GLOBAL SCRIPT
 # Set and refresh the current version into inklists

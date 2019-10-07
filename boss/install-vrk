@@ -200,6 +200,9 @@ ln -fs /usr/share/icons/DMZ-Black/cursor.theme /etc/alternatives/x-cursor-theme
  fi
 fi
 
+# Text editor themes for Gedit
+cp -f /opt/vrk/donjon/gedit/*.xml /usr/share/gtksourceview-3.0/styles/
+
 # Vrk avatar icon
 echo "Vrk avatar icons..."
 touch /var/lib/AccountsService/users/${VRK_USER}

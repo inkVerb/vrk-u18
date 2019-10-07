@@ -163,7 +163,7 @@ gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
 gsettings set org.gnome.gedit.preferences.editor display-overview-map true
 gsettings set org.gnome.gedit.preferences.editor highlight-current-line true
 gsettings set org.gnome.gedit.preferences.editor bracket-matching true
-gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 
 ## Disable screen lock (which requires password every time after the screen blanks, or double-login on changing user)
 gsettings set org.gnome.desktop.screensaver lock-enabled false
@@ -350,7 +350,7 @@ gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 
 ## Compose Key: CapLock key
 xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
@@ -525,7 +525,7 @@ gsettings set org.x.editor color-scheme 'oblivion'
 
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 
 ## Theme
 ### Desktop theme
@@ -559,7 +559,7 @@ gsettings set org.x.editor color-scheme 'oblivion'
 
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 
 ## Theme
 xfconf-query -c xsettings -p /Net/ThemeName -s "Mint-Y-Dark"
@@ -593,7 +593,7 @@ if [ "$LINUX_DISTRO" = "mate" ]; then
 
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 
 ####### For MATE Pluma text editor (not in Mint)
 if [ -x "$(command -v pluma)" ]; then
@@ -677,7 +677,7 @@ gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,close'
 ## Gedit (may be redundant in per-environments below, but just be safe)
 gsettings set org.gnome.gedit.preferences.editor wrap-mode none
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 
 ## Disable screen lock (which requires password every time after the screen blanks, or double-login on changing user)
 gsettings set org.gnome.desktop.screensaver lock-enabled false
@@ -938,7 +938,7 @@ gsettings set org.gnome.desktop.interface cursor-theme "DMZ-Black"
 
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 
 ## Compose Key: CapLock key
 xfconf-query -n -c keyboard-layout -p /Default/XkbOptions/Compose -t string -s "compose:caps"
@@ -1113,7 +1113,7 @@ gsettings set org.x.editor color-scheme 'oblivion'
 
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 
 ## Theme
 ### Desktop theme
@@ -1147,7 +1147,7 @@ gsettings set org.x.editor color-scheme 'oblivion'
 
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 
 ## Theme
 xfconf-query -c xsettings -p /Net/ThemeName -s "Mint-Y-Dark"
@@ -1181,7 +1181,7 @@ if [ "$LINUX_DISTRO" = "mate" ]; then
 
 ## Gedit
 gsettings set org.gnome.gedit.preferences.editor display-line-numbers true
-gsettings set org.gnome.gedit.preferences.editor scheme 'oblivion'
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 
 ####### For MATE Pluma text editor (not in Mint)
 if [ -x "$(command -v pluma)" ]; then

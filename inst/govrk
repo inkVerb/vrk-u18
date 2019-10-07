@@ -114,6 +114,7 @@ SESSDISTRO="$1"
 ## Check if it is already in var/local from a previous install
 cp -rf /home/${VRK_USER}/vrk /opt/
 mv -f /opt/vrk/inst/vrkverno /opt/vrk/
+rm -rf /opt/vrk/upgrade
 
 # Executable check
 chmod +x /opt/vrk/boss/*
