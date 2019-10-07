@@ -25,10 +25,10 @@
     <style name="bookmark" background="#E5E5FF"/>
 
     <!-- Comments -->
-    <style name="def:comment" foreground="#5C636F" italic="true" />
-    <style name="def:shebang" foreground="#5C636F" italic="true" />
+    <style name="def:comment" foreground="#ADB8CA" italic="true" />
+    <style name="def:shebang" foreground="#5C636F" bold="true" />
     <style name="def:doc-comment" foreground="#1F51EB"/>
-    <style name="def:doc-comment-element" foreground="#5C636F" bold="false" />
+    <style name="def:doc-comment-element" foreground="#ADB8CA" italic="true" />
 
     <!-- Constants -->
     <style name="def:constant" foreground="#D7976B" />
@@ -46,10 +46,10 @@
     <style name="def:function" foreground="#82AAFF"/>
 
     <!-- Statements -->
-    <style name="def:statement"   foreground="#EB606B" />
+    <style name="def:statement"   foreground="#BCC9E1" bold="true" />
 
     <!-- Types -->
-    <style name="def:type" foreground="#FF5370" />
+    <style name="def:type" foreground="#EC6776" bold="true" />
 
     <!-- Operators -->
     <style name="def:operator" foreground="#4EAfEB"/>
@@ -62,7 +62,7 @@
     <style name="def:note" foreground="#80CBC41A" bold="true" />
     <style name="def:underlined" italic="true" underline="single"/>
 
-    <style name="def:special-constant" foreground="#EC6776" bold="true" />
+    <style name="def:special-constant" foreground="#B6C1D5" bold="true" />
     <style name="def:boolean" foreground="#D7976B" />
     <style name="def:number"  foreground="#A5C261" />
     <style name="def:keyword" foreground="#CF74D9" bold="false" />
