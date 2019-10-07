@@ -282,7 +282,8 @@ if [ $(echo ${UPGRADE_PATCH_KVERNO} | sed -e "s/\.//g" | sed -e "s/^0*//g") -gt 
 CLEAN_PATCH_KVERNO=$(echo $UPGRADE_PATCH_KVERNO | sed -e "s/\.//g")
 PCLdoc="$(cat <<UPCL
 Patch ${UPGRADE_PATCH_KVERNO} Changelog:
-## Patch Notes Here...
+Added Themes for Gedit! Use with:
+gsettings set org.gnome.gedit.preferences.editor scheme 'atom-one'
 UPCL
 )"
 echo "$PCLdoc"
