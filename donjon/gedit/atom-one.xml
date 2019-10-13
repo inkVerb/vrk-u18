@@ -9,7 +9,7 @@
     <style name="selection" foreground="#1E292C" background="#707E82"/>
     <style name="cursor" foreground="#D8D5CC" />
     <style name="current-line" background="#3A3C47" />
-    <style name="line-numbers" foreground="#D8D5CC" background="#282C34" />
+    <style name="line-numbers" foreground="#717379" background="#262930" />
     <style name="right-margin" foreground="#EEE8D5" background="#383C4A"/>
     <style name="draw-spaces" foreground="#D3D7CF"/>
     <style name="background-pattern" background="#032F3B"/>
