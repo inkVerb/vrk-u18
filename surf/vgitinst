@@ -32,7 +32,7 @@ Enter your GitHub username:
  exit 22
  fi
 else
-GITUNAME=$2
+GITUNAME=$1
 fi
 
 # email address
