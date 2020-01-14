@@ -7,7 +7,7 @@ set -e
 ## The ssh key must already be created
 
 # How to use:
-## ssh-filezilla-addkey [surfer] [SSH keyname]
+## ssh-add-filezilla [surfer] [SSH keyname]
 
 
 GOSURFER=$1
