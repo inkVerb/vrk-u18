@@ -188,6 +188,16 @@ apt install -y gnome-music gnome-photos planner gromit gnome-chess
 touch $chkfile; fi
 #apt install -y dia-gnome #broken in Ubuntu 18.04
 
+# Set the system browser default for x-www-browser (not same as Application Defaults)
+echo 'auto
+/usr/bin/x-www-browser
+
+/usr/bin/firefox
+40
+/usr/bin/firefox
+200
+' > /var/lib/dpkg/alternatives/x-www-browser
+
 # Remove every $chkfile
 rm /opt/vrk/.inst-dev-*
 
