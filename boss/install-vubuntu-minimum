@@ -141,8 +141,6 @@ echo 'auto
 
 /usr/bin/firefox
 40
-/usr/bin/firefox
-200
 ' > /var/lib/dpkg/alternatives/x-www-browser
 
 # Remove every $chkfile
