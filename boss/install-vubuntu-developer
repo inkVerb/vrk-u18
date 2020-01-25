@@ -87,7 +87,7 @@ apt update -y --fix-missing
 apt install -yf
 
 ## Verify interactives first, and then the fonts
-#apt install -y ttf-mscorefonts-installer # Fails download
+apt install -y ttf-mscorefonts-installer
 chkfile=/opt/vrk/.inst-dev-1
 if [ ! -f "$chkfile" ]; then
 apt install -y jackd2 fonts-cantarell lmodern ttf-aenigma ttf-georgewilliams ttf-bitstream-vera ttf-sjfonts tv-fonts tex-gyre
@@ -176,7 +176,6 @@ wget -O DeClicker.ny http://forum.audacityteam.org/download/file.php?id=10124
 wget -O DeEsser.ny http://forum.audacityteam.org/download/file.php?id=10125
 echo "Sound's great. (hehe) Getting desktop goodies...
 "
-#apt install -y ubuntu-restricted-extras # removing the mscorefonts installer & testing if this really necessary? Moved to: install-ubuntustudio
 touch $chkfile; fi
 chkfile=/opt/vrk/.inst-dev-11
 if [ ! -f "$chkfile" ]; then

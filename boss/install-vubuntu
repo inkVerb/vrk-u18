@@ -51,6 +51,7 @@ apt update -y --fix-missing
 
 # Verify the interactives first
 apt install -y jackd2
+apt install -y ttf-mscorefonts-installer
 
 # Add the graphix PPA
 /opt/vrk/boss/install-grfx
@@ -60,4 +61,3 @@ apt install -y jackd2
 
 # Vubuntu StudioLite
 /opt/vrk/boss/install-vubuntu-studiolite
-

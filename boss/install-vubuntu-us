@@ -51,7 +51,7 @@ apt install -yf
 apt update -y --fix-missing
 
 # Verify the interactives first
-#apt install -y ttf-mscorefonts-installer # Fails download
+apt install -y ttf-mscorefonts-installer
 apt install -y jackd2
 
 # Add the graphix PPA
@@ -65,4 +65,3 @@ apt install -y jackd2
 
 # Ubuntu Studio
 /opt/vrk/boss/install-ubuntustudio
-
