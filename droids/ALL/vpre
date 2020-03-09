@@ -1,0 +1,40 @@
+#!/bin/bash
+#inkVerbDroid! verb.ink
+
+# This droid adds the full path prefix to common Shell commands inside all files in an argued directory
+
+# How to use
+## vdname [/path/to/script/directory]
+
+# Eg:
+## vdname ~/myscriptdir
+## vdname /root/myscriptdir
+
+
+Dir=$1
+
+# Define the commands here
+bin=(sed mv cp rm grep echo cat chown chmod mkdir hostname ln tar bzip2 gzip systemctl kill sleep)
+usrbin=(awk print pwgen opendkim-genkey hostnamectl mysql mysqldump apt-get add-get-repository killall dpkg rename wget zip unzip touch curl xz dconf gsettings gconftool-2)
+usrsbin=(ufw adduser useradd deluser userdel groupdel delgroup a2enmod a2ensite apache2ctl)
+
+# /bin/
+for Var in ${bin[@]}; do
+  sed -i "s/^$Var /\/bin\/$Var /" $Dir/*
+  sed -i "s/($Var /(\/bin\/$Var /" $Dir/*
+  sed -i "s/| $Var /| \/bin\/$Var /" $Dir/*
+done
+
+# /usr/bin/
+for Var in ${usrbin[@]}; do
+  sed -i "s/^$Var /\/usr\/bin\/$Var /" $Dir/*
+  sed -i "s/($Var /(\/usr\/bin\/$Var /" $Dir/*
+  sed -i "s/| $Var /| \/usr\/bin\/$Var /" $Dir/*
+done
+
+# /usr/sbin/
+for Var in ${usrsbin[@]}; do
+  sed -i "s/^$Var /\/usr\/sbin\/$Var /" $Dir/*
+  sed -i "s/($Var /(\/usr\/sbin\/$Var /" $Dir/*
+  sed -i "s/| $Var /| \/usr\/sbin\/$Var /" $Dir/*
+done

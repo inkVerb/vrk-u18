@@ -237,6 +237,9 @@ cp -f ~/.vrk/donjon/global/config/mimeapps.list ~/.config/
 ## Autostart special
 cp -rf ~/.vrk/donjon/gnome/config/autostart ~/.config/
 
+## Focus stealing prevention
+gconftool-2 -s -t string /apps/metacity/general/focus_new_windows "strict"
+
 ## Flatabulous terminal "profile" (color scheme)
 ### Check if done
 if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
@@ -244,8 +247,6 @@ if [ ! -f "~/.vrk/configs/.xt-flatabulous-ubuntu" ]; then
 read -p "To have Gnome Terminal theme profiles apply, in the Gome Terminal, go to Edit > Preferences and create a new Profile by first clicking +.
 When ready, press Enter to continue"
 ### Add the theme
-#### The gnome-terminal must be running in a separate window for this to work
-gnome-terminal
 ~/.vrk/donjon/xt-ubuntabulous
 ~/.vrk/donjon/xt-flatabulous
 ### Make the record

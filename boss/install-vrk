@@ -112,7 +112,6 @@ rm -f /home/${VRK_USER}/.vrk/donjon
 fi
 ln -sfn /opt/vrk/donjon /home/${VRK_USER}/.vrk/
 cp /opt/vrk/surf/* /home/${VRK_USER}/.vrk/boards/
-cp /opt/vrk/droids/* /home/${VRK_USER}/.vrk/boards/
 if [ ! -e /home/${VRK_USER}/.vrk/go ]; then
 mkdir -p /home/${VRK_USER}/.vrk/go
 fi
@@ -126,6 +125,12 @@ if [ -z $1 ]; then
 ln -sfn /opt/vrk/boss/* /home/${VRK_USER}/.vrk/boards/
 fi
 
+# Ensure the go directory
+mkdir -p /opt/vrk/go/${VRK_USER}
+
+# Ensure the droids directory
+mkdir -p /opt/vrk/droids/${VRK_USER}
+
 # Set the global user bin for surfers
 ## Sometimes it doesn't exist
 touch /home/${VRK_USER}/.bashrc
@@ -133,7 +138,7 @@ touch /home/${VRK_USER}/.bashrc
 if ! grep -Fq "#VrkPath" /home/${VRK_USER}/.bashrc; then
 echo "
 #VrkPath
-export PATH=\$PATH:/home/${VRK_USER}/.vrk/boards:/home/${VRK_USER}/.vrk/go" >> /home/${VRK_USER}/.bashrc
+export PATH=\$PATH:/opt/vrk/surf:/opt/vrk/droids/ALL:/opt/vrk/droids/${VRK_USER}:/opt/vrk/go/${VRK_USER}" >> /home/${VRK_USER}/.bashrc
 fi
 
 # Folder & file structure

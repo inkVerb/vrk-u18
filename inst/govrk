@@ -118,15 +118,15 @@ rm -rf /opt/vrk/upgrade
 
 # Executable check
 chmod +x /opt/vrk/boss/*
-chmod ug+x /opt/vrk/droids/*
 chmod ug+x /opt/vrk/surf/*
 chmod +x /opt/vrk/donjon/*
 chmod ug+x /opt/vrk/donjon/vrktemplates/7_BASH
-chmod ug+x /opt/vrk/droids/*
+chmod ug+x /opt/vrk/droids/ALL/*
 
 # Global sudo commants
 ln -sfn /opt/vrk/boss/* /usr/bin/
 cd /usr/bin/
+## Remove broken links
 for x in * .[!.]* ..?*; do if [ -L "$x" ] && ! [ -e "$x" ]; then rm -- "$x"; fi; done
 
 # Background image directories
@@ -158,4 +158,3 @@ echo "Vrk is setup on this machine. Now installing it for this user...
 
 # Cleanup
 rm -rf /home/${SUDO_USER}/vrk
-

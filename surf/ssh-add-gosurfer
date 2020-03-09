@@ -52,13 +52,18 @@ echo "#!/bin/bash
 # Include the config
 . ~/.vrk/go/go.${SURFERNAME}.malibu
 
+# Sanitize
+GOUSER="${GOUSER}"
+GOIP="${GOIP}"
+GOPORT="${GOPORT}"
+
 # Connect
 if [ -z \"\$1\" ]; then
 ssh \${GOUSER}@\${GOIP} -p \${GOPORT}
 
 # Clear ssh keys
 elif [ \"\$1\" = \"clear\" ]; then
-ssh-keygen -f \"/home/\${USER}/.ssh/known_hosts\" -R "${GOIP}"
+ssh-keygen -f \"/home/\${USER}/.ssh/known_hosts\" -R \"\${GOIP}\"
 
 # Use special port
 elif [ -z \"\$2\" ] && [[ \"\$1\" =~ ^[0-9]+$ ]]; then
@@ -92,7 +97,5 @@ GOPORT=\"${PORT}\"
 
 # Finish
 echo "Kowabunga!
-
 Now \"go.${SURFERNAME}\" will log you into that remote server in the vast ocean!
-"
-
+But, you must run sudo updatevrk first!"

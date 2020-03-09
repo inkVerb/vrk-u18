@@ -35,7 +35,7 @@ Read the README.md before reporting problems! !! Seriously.
 - inkVerb's Vrk app is a collection of simple scripts that sets up a useful configuration for main Ubuntu distros
 - The installer adds many apps, settings, and special Vrk shell scripts, including scripts that make SSH, Git, and FileZilla easier to integrate.
 - A hidden folder will be created in home: `.vrk`. It contains `.vrk/boards`, which has a list of files you can run...
-- In `.vrk/boards`, all normal script files (green, from vrk/surf and vrk/droids) in `.vrk/boards` you can run from any working directory. Symlinked (light blue, linked from vrk/boss) require being in the`.vrk/boards` directory and using `sudo ./` these only show up for sudoers who ran `install-vrk` themselves.
+- In `.vrk/boards`, all normal script files (green, from vrk/surf) in `.vrk/boards` you can run from any working directory. Symlinked (light blue, linked from vrk/boss) require being in the`.vrk/boards` directory and using `sudo ./` these only show up for sudoers who ran `install-vrk` themselves.
 - All these `boards` have their own purpose and instructions at the top of the files. READ THEM!
 - HAVE FUN! !! Seriously.
 
@@ -113,7 +113,7 @@ Note: Update version numbers reference the framework. Ongoing updates continue f
    *Colorful linked files are "Bosses" that install and change things and require sudo. Run them with:*
 
    `cd .vrk/boards`
- 
+
    `sudo ./WHATEVER-BOSS`
 
 2. `configs` has stuff you only want to touch if you don't mind messing up everything and really want to learn how Vrk works.
@@ -149,7 +149,8 @@ Note: Update version numbers reference the framework. Ongoing updates continue f
      ssh-guake-on                  # sets guake-indicator menu to stop loading at starup and guake instead
 
 ## Droids
-- Droids are located in `/opt/vrk/droids`.
+- Droids are located in `/opt/vrk/droids/USER/`.
+- Droids located in `/opt/vrk/droids/ALL/` can be used by all users.
 - Droids are not changed or removed with an update and you can add them yourself.
 - Droids can perform sudo tasks, but unlike bosses, they are included in your path. So, you can run them without ./ and sudo is optional.
 
@@ -218,5 +219,3 @@ Note: Update version numbers reference the framework. Ongoing updates continue f
 - Included with installvubuntu is Docky with a rollup of several common apps and a transparent dock configuration, some normal settings for Guake, and the like.
 - Vubuntu is a long-term plan as a possible distro, but aims to work as a seamless add-on for the main Ubuntu distro desktops. If ever a distro, it owuld aim for easy desktop environment changes.
 - Note, installvubuntu includes Chris' Dynamic Compressor plugin for Audacity. We remember.
-
-

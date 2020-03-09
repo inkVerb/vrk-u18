@@ -2,13 +2,15 @@
 #inkVerbSurfer! verb.ink
 
 # This adds droids from a git repo.
+## Droids are user-specific and must be added for each user, "ALL" will install the droid for all users
 
 # How to use:
-## vdroid [ http://github.com/clonePathTo/droidRepo - optional to avoid dialogue ]
+## vdroid [ username - ALL for all users ] [ http://github.com/clonePathTo/droidRepo - optional to avoid dialogue ]
 
 # Eg:
-## sudo vdroid
-## sudo vdroid https://github.com/inkVerb/droids
+## sudo vdroid john
+## sudo vdroid gina https://github.com/inkVerb/droids
+## sudo vdroid ALL https://github.com/inkVerb/droids
 
 
 # Check to make sure this is run as sudo, but not run by root
@@ -40,18 +42,35 @@ fi
 
 # Check variables
 if [ -z "$1" ]; then
+  echo "You must specify a username as the first argument, I quit."
+  exit 0
+elif [ "$1" = "ALL" ]; then
+  USRDIR="ALL"
+elif [ ! -d "/home/$USRDIR" ]; then
+  echo "That user does not exist, I quit."
+  exit 0
+else
+  USRDIR="$1"
+fi
+## Optional directory
+if [ -z "$2" ]; then
 echo "What is the clone repo URL?"
 read DROIDREPO
 else
-DROIDREPO=$1
+DROIDREPO=$2
 fi
 
 # Sanitize repo
 CLNDROIDREPO1=$(echo $DROIDREPO | cut -d'/' -f5-)
 CLNDROIDREPO=$(echo $CLNDROIDREPO1 | sed 's/\.git//')
 
+# Verify the user has a droid directory
+if [ ! -d "/opt/vrk/droids/$USRDIR" ]; then
+  mkdir -p "/opt/vrk/droids/$USRDIR"
+fi
+
 # Clone it
-cd /opt/vrk/droids
+cd /opt/vrk/droids/$USRDIR
 git clone ${DROIDREPO}
 
 # Clean up and install
