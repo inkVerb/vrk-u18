@@ -98,4 +98,4 @@ GOPORT=\"${PORT}\"
 # Finish
 echo "Kowabunga!
 Now \"go.${SURFERNAME}\" will log you into that remote server in the vast ocean!
-But, you must run sudo updatevrk first!"
+But, you must run sudo vrkfresh first!"

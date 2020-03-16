@@ -54,35 +54,6 @@ fi
 # Include the config
 . /opt/vrk/machineinfo
 
-# Update per user droids & go
-getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
-  # only users that own their home directory
-  if [ -d "$home" ] && [ "$(stat -c %u "$home")" = "$uid" ]; then
-    # only users that have a shell, and a shell is not equal to /bin/false or /usr/sbin/nologin
-    if [ ! -z "$shell" ] && [ "$shell" != "/bin/false" ] && [ "$shell" != "/usr/sbin/nologin" ]; then
-      if [ -d "/home/$name/.vrk/go" ]; then
-        # Assign our vrk variable
-        VRK_USER="$name"
-
-        # Refresh go
-        for VRK_GO_PATH in /home/${VRK_USER}/.vrk/go/go.*; do
-          VRK_GO=$(echo ${VRK_GO_PATH} | sed "s:/home/${VRK_USER}/.vrk/go/::")
-          if grep -Fq "#inkVerbGosurfer" ${VRK_GO_PATH}; then
-            mkdir -p /opt/vrk/go/${VRK_USER}
-            cp ${VRK_GO_PATH} /opt/vrk/go/${VRK_USER}/
-            chmod ug+x /opt/vrk/go/${VRK_USER}/${VRK_GO}
-          fi
-        done
-
-        # Update droids
-        chmod ug+x /opt/vrk/droids/${VRK_USER}/*
-
-      fi
-
-    fi
-  fi
-done
-
 # Prep the PWD
 if [ -d "vrk" ]; then
 rm -rf vrk; fi

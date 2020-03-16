@@ -55,7 +55,7 @@ if [ -d "/opt/vrk" ]; then
  if [ -d "/home/${VRK_USER}/.vrk" ]; then
 ## Already installed
 echo "Vrk is already installed. Updating..."
-chmod ug+x /home/${VRK_USER}/vrk/inst/upvrk
+chmod 754 /home/${VRK_USER}/vrk/inst/upvrk
 /home/${VRK_USER}/vrk/inst/upvrk $1
 exit 0
  else
@@ -68,7 +68,7 @@ else
 ## .vrk exists, not vrk
  if [ -d "/home/${VRK_USER}/.vrk" ]; then
 echo "Vrk is damaged. Removing it, then trying to continue. If this fails, remove the .vrk folder and start again."
-chmod ug+x /home/${VRK_USER}/vrk/boss/uninstall-vrk
+chmod 754 /home/${VRK_USER}/vrk/boss/uninstall-vrk
 /home/${VRK_USER}/vrk/boss/uninstall-vrk
  fi
 fi
@@ -117,11 +117,11 @@ mv -f /opt/vrk/inst/vrkverno /opt/vrk/
 rm -rf /opt/vrk/upgrade
 
 # Executable check
-chmod +x /opt/vrk/boss/*
-chmod ug+x /opt/vrk/surf/*
-chmod +x /opt/vrk/donjon/*
-chmod ug+x /opt/vrk/donjon/vrktemplates/7_BASH
-chmod ug+x /opt/vrk/droids/ALL/*
+chmod 755 /opt/vrk/boss/*
+chmod 755 /opt/vrk/surf/*
+chmod 755 /opt/vrk/donjon/*
+chmod 754 /opt/vrk/donjon/vrktemplates/7_BASH
+chmod 755 /opt/vrk/droids/ALL/*
 
 # Global sudo commants
 ln -sfn /opt/vrk/boss/* /usr/bin/
