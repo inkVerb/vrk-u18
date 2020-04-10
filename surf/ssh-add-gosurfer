@@ -32,6 +32,9 @@ if [ -z "${PORT}" ]; then
 PORT=22
 fi
 
+# Set the user
+VRK_USER="$USER"
+
 # Create the surfer
 cp ~/.vrk/donjon/go.newsurfer ~/.vrk/go/go.${SURFERNAME}
 
@@ -50,7 +53,7 @@ echo "#!/bin/bash
 
 
 # Include the config
-. ~/.vrk/go/go.${SURFERNAME}.malibu
+. /opt/vrk/go/${VRK_USER}/go.${SURFERNAME}.malibu
 
 # Sanitize
 GOUSER="${GOUSER}"

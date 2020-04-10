@@ -1,0 +1,92 @@
+#!/bin/sh
+#inkVerbSurfer! verb.ink
+set -e
+
+# This creates a simple "surfer" vpn based on an existing gosurfer and an .ovpn file
+
+# How to use:
+## vpn-add [openVPN-file-name (without .ovpn)] [surfer name (without go.)]
+
+
+OVPNFILENM=$1
+SURFERNAME=$2
+
+# Check if installed
+if [ ! -f ~/.vrk/configs/stationinfo ]; then
+echo "Install Vrk first. See README.md"
+exit 22
+fi
+
+# Check variables
+if [ -z $2 ]; then
+echo "You need to specify stuff, like this:
+vpn-add [openVPN-file-name.ovpn] [surfer name]
+"
+exit 22
+fi
+
+# Check the files
+if [ ! -f ~/.vrk/go/go."${SURFERNAME}" ]; then
+echo "That gosurfer does not exist."
+exit 22
+fi
+if [ ! -f "${OVPNFILENM}.ovpn" ]; then
+echo "That OpenVPN file does not exist."
+exit 22
+fi
+
+# Set the user
+VRK_USER="$USER"
+
+# Copy the OpenVPN file into place
+mkdir -p /home/${VRK_USER}/.vrk/go/vpn/
+cp "${OVPNFILENM}.ovpn" "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.ovpn"
+cp "${OVPNFILENM}.ovpn" "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.ca.pem"
+cp "${OVPNFILENM}.ovpn" "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.cert.pem"
+cp "${OVPNFILENM}.ovpn" "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.key.pem"
+cp "${OVPNFILENM}.ovpn" "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.tls-auth.pem"
+sed -i '0,/^<ca>$/d' "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.ca.pem"
+sed -i '0,/^<cert>$/d' "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.cert.pem"
+sed -i '0,/^<key>$/d' "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.key.pem"
+sed -i '0,/^<tls-auth>$/d' "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.tls-auth.pem"
+sed -i '/<\/ca>/,$d' "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.ca.pem"
+sed -i '/<\/cert>/,$d' "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.cert.pem"
+sed -i '/<\/key>/,$d' "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.key.pem"
+sed -i '/<\/tls-auth>/,$d' "/home/${VRK_USER}/.vrk/go/vpn/${SURFERNAME}.tls-auth.pem"
+
+echo "#!/bin/bash
+#inkVerbGosurfer! verb.ink
+
+## If root or sudo
+if [ \"\$(id -u)\" = \"0\" ]; then
+## If sudo is NOT present
+ if [ -z \"\${SUDO_COMMAND}\" ]; then
+echo \"Run this as a sudoer sudo, not as root. You'll have to exit root and perhaps re-login as the sudoer. Then...
+like this:
+sudo vpn.$SURFERNAME
+\"
+exit 22; fi; fi
+## If sudo is NOT present
+if [ -z \"\${SUDO_COMMAND}\" ]; then
+echo \"Run this as a sudoer sudo, not merely as a sudoer.
+like this:
+sudo vpn.$SURFERNAME
+\"
+exit 22; fi
+
+# Include the config
+. /opt/vrk/go/${VRK_USER}/go.${SURFERNAME}.malibu
+
+# Sanitize
+GOIP=\"\${GOIP}\"
+
+openvpn --client --pull --comp-lzo --nobind --dev tap0 --ca /home/"${VRK_USER}"/.vrk/go/vpn/${SURFERNAME}.ca.pem  --cert /home/"${VRK_USER}"/.vrk/go/vpn/${SURFERNAME}.cert.pem --key /home/"${VRK_USER}"/.vrk/go/vpn/${SURFERNAME}.key.pem --auth-user-pass /home/"${VRK_USER}"/.vrk/go/vpn/${SURFERNAME}.tls-auth.pem --remote \${GOIP}
+" > ~/.vrk/go/vpn.${SURFERNAME}
+
+# Writable
+chmod 755 ~/.vrk/go/vpn.${SURFERNAME}
+
+# Finish
+echo "Spy baby!
+Now \"sudo vpn.${SURFERNAME}\" will log you into that VPN from the terminal! But, you must run sudo vrkfresh first!
+OR in the GUI: Settings > Network > VPN + > Import from file... > ~/.vrk/go/vpn/${SURFERNAME}.ovpn"

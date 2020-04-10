@@ -109,7 +109,8 @@ Tools in the shed. Doing essential dev stuff...
 touch $chkfile; fi
 chkfile=/opt/vrk/.inst-min-4
 if [ ! -f "$chkfile" ]; then
-apt install -y git ssh
+apt install -y git ssh openvpn network-manager-openvpn-gnome network-manager-openvpn network-manager-vpnc
+systemctl restart networking
 echo "
 Web dev happy. Getting graphic design (only GIMP and Inkscape, plus GIMP plugins, ICC printing profiles)...
 "

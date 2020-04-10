@@ -167,7 +167,8 @@ Office stuff done. Doing web dev favorites...
 touch $chkfile; fi
 chkfile=/opt/vrk/.inst-stult-8
 if [ ! -f "$chkfile" ]; then
-apt install -y git vim filezilla meld ssh curl wget
+apt install -y git vim filezilla meld ssh curl wget openvpn network-manager-openvpn-gnome network-manager-openvpn network-manager-vpnc
+systemctl restart networking
 echo "
 Web dev happy. Getting graphic design, Inkscape, Blender, GIMP, Darktable, MyPaint, ICC printing profiles...
 "

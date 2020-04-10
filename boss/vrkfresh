@@ -28,6 +28,16 @@ getent passwd | while IFS=: read -r name password uid gid gecos home shell; do
           fi
         done
 
+        # Refresh go VPNs
+        for VRK_GO_PATH in /home/${VRK_USER}/.vrk/go/vpn.*; do
+          VRK_GO=$(echo ${VRK_GO_PATH} | sed "s:/home/${VRK_USER}/.vrk/go/::")
+          if grep -Fq "#inkVerbGosurfer" ${VRK_GO_PATH}; then
+            mkdir -p /opt/vrk/go/${VRK_USER}
+            cp ${VRK_GO_PATH} /opt/vrk/go/${VRK_USER}/
+            chmod 755 /opt/vrk/go/${VRK_USER}/${VRK_GO}
+          fi
+        done
+
         # Update droids
         chmod 755 /opt/vrk/droids/${VRK_USER}/*
 
