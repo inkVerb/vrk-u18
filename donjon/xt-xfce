@@ -6,17 +6,18 @@ mkdir -p ~/.config/xfce4/terminal
 
 # Echo the settings
 echo "[Configuration]
-ColorPalette=#0c0d0e;#e31a1c;#31a354;#dca060;#3182bd;#756bb1;#80b1d3;#b7b8b9;#737475;#e31a1c;#31a354;#dca060;#3182bd;#756bb1;#80b1d3;#fcfdfe
-FontName=DejaVu Sans Mono 11
+FontAllowBold=FALSE
 MiscAlwaysShowTabs=FALSE
-MiscBell=FALSE
-MiscBordersDefault=TRUE
+MiscBell=TRUE
+MiscBellUrgent=FALSE
+MiscBordersDefault=FALSE
 MiscCursorBlinks=FALSE
 MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
-MiscDefaultGeometry=80x24
+MiscDefaultGeometry=80x23
 MiscInheritGeometry=FALSE
-MiscMenubarDefault=TRUE
+MiscMenubarDefault=FALSE
 MiscMouseAutohide=FALSE
+MiscMouseWheelZoom=TRUE
 MiscToolbarDefault=FALSE
 MiscConfirmClose=TRUE
 MiscCycleTabs=TRUE
@@ -24,11 +25,26 @@ MiscTabCloseButtons=TRUE
 MiscTabCloseMiddleClick=TRUE
 MiscTabPosition=GTK_POS_TOP
 MiscHighlightUrls=TRUE
-MiscScrollAlternateScreen=TRUE
-ColorBold=#3131a3a35454
-ColorForeground=#b7b7b8b8b9b9
-ColorCursor=#3131a3a35454
-ColorBoldUseDefault=FALSE
-ColorBackground=#0c0c0d0d0e0e
+MiscMiddleClickOpensUri=TRUE
+MiscCopyOnSelect=FALSE
+MiscShowRelaunchDialog=TRUE
+MiscRewrapOnResize=TRUE
+MiscUseShiftArrowsToScroll=FALSE
+MiscSlimTabs=TRUE
+MiscNewTabAdjacent=FALSE
+MiscSearchDialogOpacity=100
+MiscShowUnsafePasteDialog=FALSE
+BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
+BackgroundDarkness=0.780000
+ColorPalette=#0c0d0e;#e31a1c;#31a354;#dca060;#3182bd;#756bb1;#80b1d3;#b7b8b9;#737475;#e31a1c;#31a354;#dca060;#3182bd;#756bb1;#80b1d3;#fcfdfe
+DropdownWidth=100
+DropdownHeight=25
+DropdownStatusIcon=FALSE
+FontName=Monospace 11
+ShortcutsNoMnemonics=TRUE
+ShortcutsNoMenukey=TRUE
+ShortcutsNoHelpkey=TRUE
+DropdownKeepOpenDefault=TRUE
+DropdownToggleFocus=FALSE
 " > ~/.config/xfce4/terminal/terminalrc
 
